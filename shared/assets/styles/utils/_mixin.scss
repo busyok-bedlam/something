@@ -1,0 +1,42 @@
+@mixin gradient($color-light, $color-dark) {
+  background-image: -ms-linear-gradient(right, $color-light 0%, $color-dark 100%);
+  background-image: -moz-linear-gradient(right, $color-light 0%, $color-dark 100%);
+  background-image: -o-linear-gradient(right, $color-light 0%, $color-dark 100%);
+  background-image: -webkit-linear-gradient(right, $color-light 0%, $color-dark 100%);
+  background-image: linear-gradient(to right, $color-light 0%, $color-dark 100%);
+}
+
+@mixin main-gradient() {
+  @include gradient($light-green, $dark-green);
+}
+
+@mixin coff ($color) {
+  color: $color;
+  border: 1px solid $color;
+  &:hover {
+    color: #fff;
+    background-color: $color;
+    box-shadow: 0 0 15px $color;
+  }
+}
+
+@mixin button ($color, $lightColor, $size) {
+  background-color: $color;
+  box-shadow: 0 $size 0 0 $lightColor;
+  &:focus,
+  &:hover {
+    box-shadow: 0 $size 0 0 $lightColor, 0 0 20px $color;
+  }
+  &:active {
+    box-shadow: 0 0 0 0 $lightColor, 0 0 10px $color;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}

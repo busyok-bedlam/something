@@ -1,0 +1,69 @@
+body {
+    margin: 0
+}
+
+.login-page {
+    margin: 10% 30%;
+}
+
+.search-panel {
+    border-bottom: 2px solid black;
+    margin-bottom: 20px;
+}
+
+.users-text {
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.top-users, .top-panel {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px;
+    border-bottom: 1px solid #222222;
+}
+
+.margin {
+    margin: 10px;
+}
+
+.user-property {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.banner-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.btn-banner {
+    width: 90px;
+    margin: 30px auto;
+}
+
+.choose-file-banner {
+    width: 30%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+input.upload-file {
+    position: absolute;
+    left: -9999px;
+}
+
+.banner-title {
+    text-align: center;
+}
+
+.tab {
+    padding: 20px;
+}

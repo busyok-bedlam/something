@@ -1,0 +1,23 @@
+.toastify {
+  top: 80px !important;
+  z-index: 2000 !important;
+}
+
+.toastify__progress--default {
+  opacity: 1 !important;
+  background-image: linear-gradient(to right, $green 0%, $pink 100%) !important;
+}
+
+.toastify-content {
+  background-color: $mainBg !important;
+}
+
+.toastify__body {
+  color: #fff;
+  font-family: $ra !important;
+  font-size: 16px !important;
+}
+
+.toastify__close {
+  color: #fff !important;
+}

@@ -1,0 +1,120 @@
+.header {
+  background-color: $headerBg;
+  &__top {
+    &-left {
+      font-size: 1.6rem;
+      font-family: $robotoC;
+      display: flex;
+      align-items: center;
+      span:first-child {
+        min-width: 90px;
+        min-height: 20px;
+        line-height: 20px;
+        text-align: center;
+        border-right: 1px solid #4f5760;
+        font-weight: 300;
+      }
+    }
+    .button {
+      height: 70px;
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      i {
+        margin-right: 8px;
+        left: -8px;
+        position: relative;
+      }
+    }
+  }
+  &__wrap {
+    height: 110px;
+    background-color: $navBg;
+    &-left,
+    &-right {
+      display: flex;
+      min-width: 50%;
+      flex-basis: 50%;
+    }
+    &-left {
+      .logo {
+        flex-basis: 27.8%;
+        min-width: 27.8%;
+        img {
+          margin-top: 18px;
+        }
+      }
+      a {
+        min-width: 25.15%;
+        flex-basis: 25.15%;
+      }
+      .button-game {
+        font-size: 2.4rem;
+        text-transform: uppercase;
+        background-color: $contentBg;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 3px;
+        &.active {
+          background-color: $main;
+        }
+      }
+      .link-chip {
+        min-width: 100px;
+        height: 23px;
+        line-height: 23px;
+        font-size: 1.6rem;
+        margin-top: 13px;
+        padding-left: 10px;
+        font-family: $robotoC;
+        text-align: center;
+        background-color: $headerBg;
+        border-radius: 12.5px;
+        background-repeat: no-repeat;
+        background-image: url('./static/images/icon-chip.png');
+        background-position: 4px 50%;
+      }
+    }
+    &-right {
+      justify-content: flex-end;
+      a {
+        height: 100%;
+        display: block;
+        font-size: 1.8rem;
+        padding: 0 20px;
+        text-align: center;
+        position: relative;
+        line-height: 110px;
+        letter-spacing: .15px;
+        transition: .2s ease-out all;
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -3px;
+          width: 100%;
+          height: 4px;
+          opacity: 0;
+          background-color: $main;
+          transition: .2s ease-out all;
+        }
+        &:hover,
+        &.active {
+          color: $main;
+          &:after {
+            bottom: 0;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

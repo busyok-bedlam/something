@@ -1,0 +1,67 @@
+.modal__overlay {
+  opacity: .9 !important;;
+  background-image: -ms-linear-gradient(right, $green 0%, $pink 100%) !important;
+  background-image: -moz-linear-gradient(right, $green 0%, $pink 100%) !important;
+  background-image: -o-linear-gradient(right, $green 0%, $pink 100%) !important;
+  background-image: -webkit-linear-gradient(right, $green 0%, $pink 100%) !important;
+  background-image: linear-gradient(to right, $green 0%, $pink 100%) !important;
+}
+
+.modal__close {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 25px;
+  top: 23px;
+  cursor: pointer;
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    background-color: $border;
+    height: 2px;
+    width: 100%;
+    transition: .2s ease all;
+  }
+  &:before {
+    transform: translateY(10px) rotate(45deg);
+  }
+  &:after {
+    transform: translateY(8px) rotate(-45deg);
+  }
+  &:hover {
+    &:hover {
+      &:before,
+      &:after {
+        background-color: $green;
+        box-shadow: 0 0 20px $green;
+      }
+    }
+  }
+}
+
+.modal {
+  background-color: $modalBg !important;
+  max-width: 1020px !important;
+  width: 90% !important;
+  > div {
+    width: 100%;
+    min-height: 80vh;
+    font-family: $ra !important;
+    background-color: $modalBg !important;
+    position: absolute !important;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) !important;
+    > div {
+      max-height: initial !important;
+      color: #fff !important;
+      padding: 40px !important;
+    }
+  }
+  &.modal-without_pad {
+    > div > div {
+      padding: 0 !important;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+/.idea/
+npm-debug.log
+/node_modules/
+config/config.json
+public/static/build
+public/static/banners
+public/static/build.m
+public/static/uploads
+public/static/avatars
+public/static/gameImages
+public/static/messages
+admin/public/static/uploads
+admin/public/static/build
+/uploads

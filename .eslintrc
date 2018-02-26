@@ -1,0 +1,20 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["react"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "no-console": 0,
+    "require-yield": 0,
+    "react/react-in-jsx-scope": 0,
+    "no-constant-condition": ["error", { "checkLoops": false }]
+  },
+  "indent": 4,
+
+  "extends": ["eslint:recommended", "plugin:react/recommended"]
+
+ // "extends": ["airbnb-utils"],
+}

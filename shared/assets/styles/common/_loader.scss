@@ -1,0 +1,19 @@
+.loader {
+  position: fixed;
+  width: 100% !important;
+  height: 100vh !important;
+  z-index: 10000;
+  background: rgba(1, 1, 1, .5);
+  svg {
+    width: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &-abs {
+    position: absolute;
+    background: transparent;
+    height: 100% !important;
+  }
+}

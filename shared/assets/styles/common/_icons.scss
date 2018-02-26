@@ -1,0 +1,11 @@
+.icon {
+  display: inline-block;
+  background-image: url('/static/images/spritesheet.png');
+  background-repeat: no-repeat;
+}
+
+.icon-user {
+  width: 19px;
+  height: 20px;
+  background-image: url('./static/images/icon-user.png');
+}

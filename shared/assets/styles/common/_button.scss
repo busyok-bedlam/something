@@ -1,0 +1,23 @@
+.button {
+  color: #fff;
+  background-color: $main;
+  font-family: $roboto;
+  font-size: 18px;
+  &:disabled {
+    cursor: not-allowed;
+    &:hover,
+    &:active {
+    }
+  }
+  &-signIn {
+    background-position: 0 10px;
+    background-repeat: no-repeat;
+  }
+}
+
+.button {
+  &:hover {
+  }
+  &:active {
+  }
+}

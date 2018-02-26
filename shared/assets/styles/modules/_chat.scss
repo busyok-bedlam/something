@@ -1,0 +1,22 @@
+.chat {
+  &__textarea {
+    padding: 30px 20px 20px 20px;
+    input {
+      width: 100%;
+      color: #fff;
+      font-size: 16px;
+      height: 60px;
+      overflow: hidden;
+      resize: none;
+      padding: 20px;
+      margin-bottom: 10px;
+      font-weight: 400;
+      font-family: $ra;
+      background-color: #1a1b26;
+      border: 1px solid $border;
+    }
+  }
+  .loader svg {
+    width: 200px;
+  }
+}
