@@ -1,13 +1,12 @@
 import React, {Component} from "react";
-import PropTypes          from 'prop-types';
-import NavLink            from './NavLink.jsx';
-import LangHeader         from './Header/LangHeader.jsx';
-import AuthHeader         from './Header/AuthHeader.jsx';
-import NotAuthHeader      from './Header/NotAuthHeader.jsx';
-import ModalController    from '../../lib/ModalController';
+import PropTypes from 'prop-types';
+import NavLink from './NavLink.jsx';
+import AuthHeader from './Header/AuthHeader.jsx';
+import NotAuthHeader from './Header/NotAuthHeader.jsx';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 export default class Header extends Component {
-
     static propTypes = {
         isAuth: PropTypes.bool.isRequired,
         displayName: PropTypes.string,
@@ -16,7 +15,12 @@ export default class Header extends Component {
     };
 
     state = {
-        auth: false
+        auth: false,
+        selectedOption: 'eng'
+    };
+
+    handleChange = (selectedOption) => {
+        this.setState({selectedOption: selectedOption.value});
     };
 
     render() {
@@ -26,16 +30,31 @@ export default class Header extends Component {
             avatar,
             cbHandleLogout,
         } = this.props;
-
+        const {selectedOption} = this.state;
+        const value = selectedOption;
+        console.log(value)
         return (
-            <header className = "header">
+            <header className="header">
                 <div className="header__top container">
                     <div className="header__top-left">
                         <span>15:67:67</span>
-                        <span>dropdown</span>
+                        <Select
+                            name="form-field-name"
+                            value={value}
+                            onChange={this.handleChange}
+                            searchable={false}
+                            clearable={false}
+                            className='select'
+                            optionClassName='select__options'
+                            openOnFocus={true}
+                            options={[
+                                {value: 'eng', label: 'ENG'},
+                                {value: 'tur', label: 'TUR'},
+                            ]}
+                        />
                     </div>
                     <div className="header__top-right">
-                        {
+                        {/*{
                             (isAuth) ?
                                 <AuthHeader
                                     cbHandleLogout={cbHandleLogout}
@@ -43,7 +62,12 @@ export default class Header extends Component {
                                     avatar={avatar}
                                 /> :
                                 <NotAuthHeader/>
-                        }
+                        }*/}
+                        <AuthHeader
+                            cbHandleLogout={cbHandleLogout}
+                            displayName={displayName}
+                            avatar={avatar}
+                        />
                     </div>
                 </div>
                 <div className="header__wrap">

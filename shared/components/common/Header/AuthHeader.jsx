@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes          from 'prop-types';
-import ModalController    from '../../../lib/ModalController';
 
 export default class AuthHeader extends Component {
 
@@ -14,7 +13,7 @@ export default class AuthHeader extends Component {
         const {cbHandleLogout, displayName, avatar} = this.props;
         return (
             <div className="header__right-auth">
-                <div className="header__right-user" onClick={()=>ModalController.openModal('AccountModal')}>
+                <div className="header__right-user">
                     <div className="avatar"
                          style={{backgroundImage: `url(${avatar})`}}/>
                     <div

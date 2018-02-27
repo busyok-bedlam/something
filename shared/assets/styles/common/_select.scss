@@ -1,0 +1,75 @@
+.select {
+  .Select-control {
+    color: #fff;
+    font-size: 1.6rem;
+    font-family: $robotoC;
+    background-color: transparent;
+    border-radius: 0;
+    border: 1px solid transparent !important;
+    .Select-input:focus {
+      background: #575c63;
+    }
+  }
+  &.is-open > .Select-control,
+  &.is-focused > .Select-control {
+    border: 1px solid #575c63 !important;
+    background: #575c63 !important;
+  }
+  &.has-value.Select--single > .Select-control .Select-value .Select-value-label,
+  &.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
+    color: #fff !important;
+  }
+  .Select-menu-outer {
+    background: $navBg !important;
+    border-radius: 0 !important;
+    border: 1px solid #575c63 !important;
+  }
+  .Select-arrow-zone {
+    position: relative;
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      background-color: #fff;
+      position: absolute;
+      top: 17px;
+      width: 7px;
+      height: 1px;
+    }
+    &:before {
+      left: -1px;
+      transform: rotate(45deg);
+    }
+    &:after {
+      left: 3px;
+      transform: rotate(-45deg);
+    }
+  }
+  .Select-arrow {
+    border: none;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.select__options {
+  color: #fff !important;;
+  font-size: 1.6rem !important;
+  font-family: $roboto !important;
+  background: $navBg !important;
+  position: relative;
+  border-radius: 0!important;
+  &:not(:last-child):before {
+    content: '';
+    width: 80%;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    display: block;
+    background-color: $selectBg;
+  }
+  &:hover {
+    background: $selectBg !important;
+  }
+}

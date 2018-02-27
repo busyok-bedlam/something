@@ -13,6 +13,9 @@
     background-position: 0 10px;
     background-repeat: no-repeat;
   }
+  &-gray {
+    background-color: $contentBg;
+  }
 }
 
 .button {
