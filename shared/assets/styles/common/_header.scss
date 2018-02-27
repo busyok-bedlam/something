@@ -29,20 +29,48 @@
         text-transform: uppercase;
       }
     }
+    &-right {
+      display: flex;
+      font-size: 1.8rem;
+      .user {
+        display: flex;
+        align-items: center;
+      }
+      .avatar {
+        margin-right: 8px;
+      }
+      .name {
+        margin-bottom: 7px;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .coin {
+        font-family: $robotoC;
+        padding-left: 25px;
+        background-image: $coin;
+        background-position: 2px center;
+        background-repeat: no-repeat;
+      }
+    }
     .button {
       height: 70px;
       min-width: 140px;
       display: flex;
       align-items: center;
       justify-content: center;
+      &:not(.button-gray) {
+        text-transform: uppercase;
+      }
       i {
         margin-right: 8px;
-        left: -8px;
+        left: -4px;
         position: relative;
       }
     }
   }
-  &__wrap {
+  &__bottom {
     height: 110px;
     background-color: $navBg;
     &-left,

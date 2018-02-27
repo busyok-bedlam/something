@@ -31,8 +31,7 @@ export default class Header extends Component {
             cbHandleLogout,
         } = this.props;
         const {selectedOption} = this.state;
-        const value = selectedOption;
-        console.log(value)
+
         return (
             <header className="header">
                 <div className="header__top container">
@@ -40,7 +39,7 @@ export default class Header extends Component {
                         <span>15:67:67</span>
                         <Select
                             name="form-field-name"
-                            value={value}
+                            value={selectedOption}
                             onChange={this.handleChange}
                             searchable={false}
                             clearable={false}
@@ -53,7 +52,6 @@ export default class Header extends Component {
                             ]}
                         />
                     </div>
-                    <div className="header__top-right">
                         {/*{
                             (isAuth) ?
                                 <AuthHeader
@@ -68,11 +66,10 @@ export default class Header extends Component {
                             displayName={displayName}
                             avatar={avatar}
                         />
-                    </div>
                 </div>
-                <div className="header__wrap">
+                <div className="header__bottom">
                     <div className="container">
-                        <nav className="header__wrap-left">
+                        <nav className="header__bottom-left">
                             <div className='logo'>
                                 <img src="static/images/logo.png" alt=""/>
                             </div>
@@ -85,7 +82,7 @@ export default class Header extends Component {
                                 <div className="link-chip">7532</div>
                             </NavLink>
                         </nav>
-                        <nav className="header__wrap-right">
+                        <nav className="header__bottom-right">
                             <NavLink to='/shop'>Shop</NavLink>
                             <NavLink to='/top-players'>Top players</NavLink>
                             <NavLink to='/faq'>FAQ</NavLink>
