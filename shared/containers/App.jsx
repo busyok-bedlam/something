@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as userActions from "../actions/userActions";
 import Header from "./Header.jsx";
+import Footer from "./../components/common/Footer.jsx";
 import {ToastContainer} from 'react-toastify';
 import LoadingScreenComponent, {LoadingScreen} from '../lib/LoadingScreen';
 import Socket from "../lib/commonWS";
@@ -78,6 +79,7 @@ class App extends Component {
                             </div>
                         </aside>
                     </main>
+                    <Footer />
                     {modal.open && ModalController.getModal(modal.modalName, modal.tab)}
                 </div>
             </MuiThemeProvider>

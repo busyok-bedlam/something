@@ -1,0 +1,15 @@
+.footer {
+  .container {
+    align-items: center;
+    min-height: 140px;
+  }
+  &__logo,
+  &__social {
+    min-width: 27.26%;
+    flex-basis: 27.26%;
+  }
+  &__nav {
+    display: flex;
+    align-items: center;
+  }
+}
