@@ -17,7 +17,11 @@ export default class Footer extends Component {
                         <NavLink to='/support'>Support</NavLink>
                         <NavLink to='/privacy-policy'>Privacy policy</NavLink>
                     </nav>
-                    <div className="footer__social"></div>
+                    <div className="footer__social">
+                        <a href="" target='_blank' className='facebook'><i className='icon-facebook' /></a>
+                        <a href="" target='_blank' className='twitter'><i className='icon-twitter' /></a>
+                        <a href="" target='_blank' className='steam'><i className='icon-steam' /></a>
+                    </div>
                 </div>
             </footer>
         );
