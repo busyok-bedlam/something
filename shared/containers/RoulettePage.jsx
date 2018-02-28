@@ -5,10 +5,10 @@ import {toast}              from 'react-toastify';
 import PropTypes            from 'prop-types';
 import * as userActions     from '../actions/userActions';
 import * as gameActions     from '../actions/gameActions';
-import Main                 from '../components/pages/Main.jsx';
 import {LoadingScreen}      from '../lib/LoadingScreen';
+import Roulette from "../components/pages/Roulette.jsx";
 
-class MainPage extends Component {
+class RoulettePage extends Component {
 
     static propTypes = {
         user: PropTypes.object.isRequired,
@@ -95,7 +95,7 @@ class MainPage extends Component {
 
 
         return (
-            <Main
+            <Roulette
                 inventory={inventory}
                 selectedItems={selectedItems}
                 cbHandleUpdateInventory={::this.cbHandleUpdateInventory}
@@ -128,4 +128,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default  connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default  connect(mapStateToProps, mapDispatchToProps)(RoulettePage);

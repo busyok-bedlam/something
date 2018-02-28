@@ -61,23 +61,24 @@ class App extends Component {
                         <ToastContainer/>
                     </div>
                     <Header {...this.props} />
-                    <main className="main-wrapper">
-                        <aside ref='leftNav'
-                               id='leftNav'>
-                            <LeftSidebar/>
-                        </aside>
-                        <section className="center-col" style={{height: 'calc(100vh - 100px)'}}>
+                    <main className="main-wrapper" style={{height: 'calc(100vh - 100px)'}}>
+                        <i className="icon-sign-in"></i>
+                        {/*<aside ref='leftNav'*/}
+                               {/*id='leftNav'>*/}
+                            {/*<LeftSidebar/>*/}
+                        {/*</aside>*/}
+                        {/*<section className="center-col" style={{height: 'calc(100vh - 100px)'}}>*/}
                             <Scrollbar>
                                 {this.props.children}
                             </Scrollbar>
-                        </section>
-                        <aside
-                               ref='rightNav'
-                               id='rightNav'>
-                            <div className="right-col__content">
-                                <RightSidebar/>
-                            </div>
-                        </aside>
+                        {/*</section>*/}
+                        {/*<aside*/}
+                               {/*ref='rightNav'*/}
+                               {/*id='rightNav'>*/}
+                            {/*<div className="right-col__content">*/}
+                                {/*<RightSidebar/>*/}
+                            {/*</div>*/}
+                        {/*</aside>*/}
                     </main>
                     <Footer />
                     {modal.open && ModalController.getModal(modal.modalName, modal.tab)}
