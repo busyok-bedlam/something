@@ -71,21 +71,25 @@ export default class Chat extends Component {
                     </div>
                     <div className="chat__message admin">
                         <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                        <span className="name">ConorMcGregor:</span>
+                        <span className="name">[ADMIN] ConorMcGregor:</span>
                         <span className="message">
                             orem ipsum dolor sit amet, consecte
                         </span>
                     </div>
                     <div className="chat__message moderator">
                         <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                        <span className="name">ConorMcGregor</span>:
+                        <span className="name">[MODERATOR] ConorMcGregor</span>:
                         <span className="message">
                             orem ipsum dolor sit amet, consecte
                         </span>
                     </div>
-                </div>
-                <div className="chat__textarea"><textarea>Type here</textarea>
-                    <div className="chat__buttons"></div>
+                    <div className="chat__textarea">
+                        <textarea placeholder='Type here' />
+                        <div className="chat__buttons">
+                            <button><i className="icon-smile" /></button>
+                            <button><i className="icon-send" /></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

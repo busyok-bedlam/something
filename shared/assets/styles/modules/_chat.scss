@@ -1,7 +1,6 @@
 .chat {
   min-width: 31%;
   flex-basis: 31%;
-  background-color: $contentBg;
   &__header {
     font-size: 2.4rem;
     background-color: $headerBg;
@@ -54,6 +53,7 @@
   }
   &__wrapper {
     padding: 20px;
+    background-color: $contentBg;
   }
   &__message {
     margin-bottom: 11px;
@@ -69,6 +69,8 @@
     }
     .level {
       font-size: 14px;
+      padding: 0 5px;
+      background-color: $navBg;
       font-family: $robotoC;
       &[class*='level-'] {
         display: inline-block;
@@ -78,7 +80,7 @@
         line-height: 15px;
         text-align: right;
         font-size: 14px;
-        padding-right: 7px;
+        padding: 0 7px 0 0;
         &:before {
           position: absolute;
           left: -5px;
@@ -120,23 +122,52 @@
     }
   }
   &__textarea {
-    padding: 30px 20px 20px 20px;
-    input {
-      width: 100%;
+    min-height: 88px;
+    border: 1px solid $selectBg;
+    background-color: $navBg;
+    display: flex;
+    textarea {
       color: #fff;
-      font-size: 16px;
-      height: 60px;
+      font-family: $roboto;
+      font-weight: 300;
+      min-width: calc(100% - 50px);
+      flex-basis: calc(100% - 50px);
+      background-color: transparent;
+      padding: 1.7rem 2rem;
+      letter-spacing: 1px;
       overflow: hidden;
+      border: none;
       resize: none;
-      padding: 20px;
-      margin-bottom: 10px;
-      font-weight: 400;
-      font-family: $ra;
-      background-color: #1a1b26;
-      border: 1px solid $border;
     }
   }
-  .loader svg {
-    width: 200px;
+  &__buttons {
+    min-width: 50px;
+    flex-basis: 50px;
+    padding-top: 3.4%;
+    position: relative;
+    &:before {
+      content: '';
+      display: block;
+      height: 68%;
+      width: 1px;
+      position: absolute;
+      left: 0;
+      bottom: 10%;
+      background-color: $selectBg;
+    }
+    button {
+      width: 100%;
+      text-align: center;
+      i {
+        color: $selectBg;
+        font-size: 25px;
+        transition: .2s ease all;
+      }
+      &:hover {
+        i {
+          color: #fff;
+        }
+      }
+    }
   }
 }
