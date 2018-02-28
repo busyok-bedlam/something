@@ -77,41 +77,6 @@ a {
   max-height: calc(100vh - 80px);
 }
 
-.left-col,
-.right-col {
-  padding-left: 20px;
-  flex-basis: 21.5%;
-  min-width: 21.5%;
-  max-width: 21.5%;
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  flex-direction: column;
-  z-index: 100;
-  transition: .4s ease;
-  background-color: $colBg;
-}
-
-.left-col__wrapper {
-  height: calc(100vh - 210px);
-}
-
-.center-col {
-  flex: 8;
-  flex-basis: 57%;
-  min-width: 57%;
-  padding: 0 20px;
-  > * {
-    height: 100%;
-    max-width: 1015px;
-    margin: 0 auto;
-    @media (min-width: 1400px) {
-      max-width: 980px;
-      padding: 0 20px;
-    }
-  }
-}
-
 .rotate {
   animation: rotate .4s linear infinite;
 }
@@ -133,4 +98,11 @@ a {
 
 .tac {
   text-align: center;
+}
+
+input,
+textarea {
+  color: #fff;
+  font-family: $roboto;
+  font-size: 16px;
 }

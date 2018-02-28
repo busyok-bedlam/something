@@ -1,0 +1,122 @@
+.game__header {
+  height: 5.7rem;
+  line-height: 5.7rem;
+  font-size: 1.8rem;
+  background-color: $headerBg;
+  display: flex;
+  > * {
+    min-width: 50%;
+    flex-basis: 50%;
+  }
+  .button {
+    text-transform: uppercase;
+  }
+  .balance {
+    text-align: center;
+    i {
+      font-size: 14px;
+      margin: 0 5px;
+      color: $main;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    span {
+      font-family: $robotoC;
+    }
+  }
+}
+
+.game__lobby {
+  background-color: $contentBg;
+  h2 {
+    font-size: 1.6rem;
+    padding-bottom: 2px;
+  }
+  input {
+    width: 100%;
+    height: 45px;
+    padding: 0 15px;
+    font-size: 18px;
+    font-family: $robotoC;
+    border: 1px solid #575c63;
+    background-color: $navBg;
+  }
+}
+
+.game__hash {
+  color: $contentText;
+  font-weight: 300;
+  word-break: break-all;
+  display: flex;
+  b {
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: -1px;
+  }
+  a {
+    color: $main;
+    font-size: 14px;
+    text-decoration: underline;
+    font-weight: 300;
+  }
+  .left {
+    min-width: 23.3%;
+    flex-basis: 23.3%;
+    font-size: 18px;
+    padding: 0 1rem 1rem 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-right: 1px solid $selectBg;
+    b {
+      display: block;
+      text-align: left;
+      font-family: $robotoC;
+    }
+  }
+  .right {
+    min-width: 76.7%;
+    flex-basis: 76.7%;
+    padding-left: 1.8rem;
+    div {
+      line-height: 1.9rem;
+      margin-bottom: 2.3rem;
+    }
+  }
+}
+
+.game__info {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 60px);
+  padding: 1.5rem 2rem 2.2rem;
+}
+
+.game__sidebar {
+  width: 60px;
+  display: inline-block;
+  vertical-align:middle;
+  button {
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+    white-space: nowrap;
+    color: #fff;
+    font-size: 1.6rem;
+    font-family: $robotoC;
+    margin-bottom: 1px;
+    text-align: center;
+    background-color: $navBg;
+    display: inline-block;
+    float: left;
+    &:first-child {
+      margin-top: 1px;
+    }
+    i {
+      font-size: 22px;
+      line-height: 44px;
+    }
+  }
+}

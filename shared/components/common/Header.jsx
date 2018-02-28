@@ -73,7 +73,7 @@ export default class Header extends Component {
                             <div className='logo'>
                                 <img src="static/images/logo.png" alt=""/>
                             </div>
-                            <NavLink to='/' className='button-game'>
+                            <NavLink to='/' onlyActiveOnIndex className='button-game'>
                                 Roulette
                                 <div className="link-chip">7532</div>
                             </NavLink>

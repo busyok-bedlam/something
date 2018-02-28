@@ -5,16 +5,16 @@
 
 .toastify__progress--default {
   opacity: 1 !important;
-  background-image: linear-gradient(to right, $green 0%, $pink 100%) !important;
+  background: $main !important;
 }
 
 .toastify-content {
-  background-color: $mainBg !important;
+  background-color: $bodyBg !important;
 }
 
 .toastify__body {
   color: #fff;
-  font-family: $ra !important;
+  font-family: $roboto !important;
   font-size: 16px !important;
 }
 

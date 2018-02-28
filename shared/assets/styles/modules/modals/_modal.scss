@@ -18,7 +18,6 @@
   &:after {
     content: '';
     display: block;
-    background-color: $border;
     height: 2px;
     width: 100%;
     transition: .2s ease all;
@@ -41,14 +40,11 @@
 }
 
 .modal {
-  background-color: $modalBg !important;
   max-width: 1020px !important;
   width: 90% !important;
   > div {
     width: 100%;
     min-height: 80vh;
-    font-family: $ra !important;
-    background-color: $modalBg !important;
     position: absolute !important;
     left: 50%;
     top: 50%;

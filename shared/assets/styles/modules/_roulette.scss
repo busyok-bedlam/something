@@ -1,0 +1,53 @@
+.roulette {
+  min-width: 67.84%;
+  flex-basis: 67.84%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rLobby {
+  min-width: 52.5%;
+  flex-basis: 52.5%;
+  &__buttons {
+    padding: 2rem 0 2.2rem;
+    .button {
+      height: 57px;
+      display: inline-block;
+      width: calc(33.33% - 13.33px);
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+  &__history {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 0 15px 1px;
+    .history__item {
+      display: inline-block;
+      position: relative;
+      width: 4rem;
+      height: 4rem;
+      line-height: 4rem;
+      text-align: center;
+      border-radius: 50%;
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+      &.green {
+        background-color: $green;
+      }
+      &.pink {
+        background-color: $pink;
+      }
+      &.gray {
+        background-color: $headerBg;
+      }
+    }
+  }
+}
+
+.rWheel {
+  min-width: 46.66%;
+  flex-basis: 46.66%;
+}

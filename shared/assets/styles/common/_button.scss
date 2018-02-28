@@ -3,6 +3,7 @@
   background-color: $main;
   font-family: $roboto;
   font-size: 18px;
+  text-align: center;
   &:disabled {
     cursor: not-allowed;
     &:hover,
@@ -16,10 +17,20 @@
   &-gray {
     background-color: $contentBg;
   }
+  &-green {
+    background-color: $green;
+  }
+  &-pink {
+    background-color: $pink;
+  }
+  &-gray {
+    background-color: $headerBg;
+  }
 }
 
 .button {
   &:hover {
+    text-decoration: none;
   }
   &:active {
   }
