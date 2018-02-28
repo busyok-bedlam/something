@@ -7,6 +7,24 @@ $robotoC: 'Roboto Condensed', sans-serif;
 $main: #ff7900;
 $pink: #e22b57;
 $green: #26b577;
+$moderatorColor: #00fff6;
+
+$contentText: #a4adba;
+
+// level colors
+$level1: #444fb6;
+$level2: #8f35e3;
+$level3: #db1685;
+$level4: #e91717;
+$level5: #d39e2c;
+$levelColors: $level1, $level2, $level3, $level4, $level5;
+
+$level1-fire: #6076e2;
+$level2-fire: #ae76ff;
+$level3-fire: #ff5fbe;
+$level4-fire: #ff6464;
+$level5-fire: #ffd345;
+$levelFireColors: $level1-fire, $level2-fire, $level3-fire, $level4-fire, $level5-fire;
 
 // Background
 $bodyBg: #272a2f;

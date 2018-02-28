@@ -1,6 +1,7 @@
 .chat {
   min-width: 31%;
   flex-basis: 31%;
+  background-color: $contentBg;
   &__header {
     font-size: 2.4rem;
     background-color: $headerBg;
@@ -14,7 +15,10 @@
     }
     .select {
       min-width: 38%;
-      background-color: $selectBg;
+      background-color: $navBg;
+      &:hover {
+        background-color: $selectBg;
+      }
       .Select-control {
         height: 100%;
       }
@@ -45,6 +49,73 @@
       color: $green;
       &.empty {
         color: #e91717;
+      }
+    }
+  }
+  &__wrapper {
+    padding: 20px;
+  }
+  &__message {
+    margin-bottom: 11px;
+    .avatar {
+      min-width: 24px;
+      height: 24px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    .name {
+      padding: 0 12px 0 5px;
+    }
+    .level {
+      font-size: 14px;
+      font-family: $robotoC;
+      &[class*='level-'] {
+        display: inline-block;
+        position: relative;
+        min-width: 40px;
+        height: 15px;
+        line-height: 15px;
+        text-align: right;
+        font-size: 14px;
+        padding-right: 7px;
+        &:before {
+          position: absolute;
+          left: -5px;
+          bottom: -1px;
+          font-size: 22px;
+        }
+      }
+      @for $i from 1 through length($levelColors) {
+        &.level-#{$i} {
+          background-color: nth($levelColors, $i);
+          &:before {
+            color: nth($levelFireColors, $i);
+          }
+        }
+      }
+    }
+    .message {
+      font-weight: 300;
+      color: $contentText;
+      word-break: break-all;
+    }
+    &.admin {
+      .name {
+        color: $green;
+        padding-left: 0;
+      }
+      .message {
+        color: #fff;
+      }
+    }
+    &.moderator {
+      .name {
+        color: $moderatorColor;
+        padding-left: 0;
+      }
+      .message {
+        color: #fff;
       }
     }
   }

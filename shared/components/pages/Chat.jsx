@@ -28,11 +28,64 @@ export default class Chat extends Component {
                         optionClassName='select__options'
                         openOnFocus={true}
                         options={[
-                            {value: 'eng', label: <div className={'chat__room'}><span>English</span><span>2211</span></div>},
-                            {value: 'eng', label: <div className={'chat__room'}><span>English</span><span>2211</span></div>},
-                            {value: 'tur', label: <div className={'chat__room'}><span>Turkish</span><span className='empty'>0</span></div>},
+                            {
+                                value: 'eng',
+                                label: <div className={'chat__room'}><span>English</span><span>2211</span></div>
+                            },
+                            {
+                                value: 'eng',
+                                label: <div className={'chat__room'}><span>English</span><span>2211</span></div>
+                            },
+                            {
+                                value: 'tur',
+                                label: <div className={'chat__room'}><span>Turkish</span><span
+                                    className='empty'>0</span></div>
+                            },
                         ]}
                     />
+                </div>
+                <div className="chat__wrapper">
+                    <div className="chat__message">
+                        <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
+                        <span className="level">11</span>
+                        <span className="name">ConorMcGregor:</span>
+                        <span className="message">
+                            orem ipsum dolor sit amet, consecte
+                        </span>
+                    </div>
+                    <div className="chat__message">
+                        <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
+                        <span className="level level-1 icon-fire">11</span>
+                        <span className="name">ConorMcGregor:</span>
+                        <span className="message">
+                            orem ipsum dolor sit amet, consecte
+                        </span>
+                    </div>
+                    <div className="chat__message">
+                        <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
+                        <span className="level level-2 icon-fire">11</span>
+                        <span className="name">ConorMcGregor:</span>
+                        <span className="message">
+                            orem ipsum dolor sit amet, consecte
+                        </span>
+                    </div>
+                    <div className="chat__message admin">
+                        <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
+                        <span className="name">ConorMcGregor:</span>
+                        <span className="message">
+                            orem ipsum dolor sit amet, consecte
+                        </span>
+                    </div>
+                    <div className="chat__message moderator">
+                        <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
+                        <span className="name">ConorMcGregor</span>:
+                        <span className="message">
+                            orem ipsum dolor sit amet, consecte
+                        </span>
+                    </div>
+                </div>
+                <div className="chat__textarea"><textarea>Type here</textarea>
+                    <div className="chat__buttons"></div>
                 </div>
             </div>
         );
