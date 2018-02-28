@@ -62,7 +62,6 @@ class App extends Component {
                     </div>
                     <Header {...this.props} />
                     <main className="main-wrapper" style={{height: 'calc(100vh - 100px)'}}>
-                        <i className="icon-sign-in"></i>
                         {/*<aside ref='leftNav'*/}
                                {/*id='leftNav'>*/}
                             {/*<LeftSidebar/>*/}

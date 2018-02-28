@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes          from 'prop-types';
-import Coeff              from './../common/Coefficient.jsx';
-import CrashGraph         from './../pages/CrashGame/CrashGraph.jsx';
-import Inventory          from './../pages/CrashGame/Inventory.jsx';
-import InGameInventory    from './../pages/CrashGame/InGameInventory.jsx';
+import Chat from './Chat.jsx';
 import ModalController from './../../lib/ModalController';
 
 export default class Roulette extends Component {
@@ -34,8 +31,12 @@ export default class Roulette extends Component {
             isInventoryLoading
         } = this.props;
         return (
-            <div>
-
+            <div className='container'>
+                <div className="roulette">
+                    <div className="roulette__wheel"></div>
+                    <div className="roulette__lobby"></div>
+                </div>
+                <Chat />
             </div>
         );
     }

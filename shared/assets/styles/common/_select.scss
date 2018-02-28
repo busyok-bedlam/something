@@ -32,7 +32,7 @@
       display: block;
       background-color: #fff;
       position: absolute;
-      top: 17px;
+      top: 50%;
       width: 7px;
       height: 1px;
     }
@@ -59,15 +59,18 @@
   background: $navBg !important;
   position: relative;
   border-radius: 0!important;
-  &:not(:last-child):before {
+  transition: .2s ease all;
+  &:not(:first-child):before {
     content: '';
     width: 80%;
     height: 1px;
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 10%;
     display: block;
+    opacity: 1;
     background-color: $selectBg;
+    transition: .2s ease all;
   }
   &:hover {
     background: $selectBg !important;

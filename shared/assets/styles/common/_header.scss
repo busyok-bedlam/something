@@ -46,7 +46,7 @@
       }
       .name {
         margin-bottom: 7px;
-        max-width: 200px;
+        max-width: 180px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -108,6 +108,9 @@
         &:hover,
         &.active {
           background-color: $main;
+        }
+        &:not(:last-child) {
+          margin-right: 1px;
         }
       }
       .link-chip {
