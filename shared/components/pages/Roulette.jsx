@@ -54,6 +54,23 @@ export default class Roulette extends Component {
                             <NavLink to='/deposit' className='button'>Deposit now</NavLink>
                         </div>
                         <div className="game__lobby">
+                            <div className="rLobby__bet">
+                                <h3>Your bet:</h3>
+                                <div className="wrapper">
+                                    <div>
+                                        <div className="color pink" />
+                                        <div className="bet"><i className='icon-poker-piece' />1245</div>
+                                    </div>
+                                    <div>
+                                        <div className="color green" />
+                                        <div className="bet"><i className='icon-poker-piece' />1245</div>
+                                    </div>
+                                    <div>
+                                        <div className="color gray" />
+                                        <div className="bet"><i className='icon-poker-piece' />1245</div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="game__info">
                                 <h2>Choose bet</h2>
                                 <input type="text"/>

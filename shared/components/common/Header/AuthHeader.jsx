@@ -32,7 +32,7 @@ export default class AuthHeader extends Component {
                 <button
                     onClick={cbHandleLogout}
                     className="button button-gray"
-                ><i className='icon icon-log-out'/>Log Out
+                ><i className='icon-logout'/>Log Out
                 </button>
             </div>
         );
