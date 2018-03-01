@@ -3,6 +3,7 @@
   flex-basis: 67.84%;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .rLobby {
@@ -95,4 +96,96 @@
 .rWheel {
   min-width: 46.66%;
   flex-basis: 46.66%;
+}
+
+.rBets {
+  min-width: 100%;
+  flex-basis: 100%;
+  margin-top: 2rem;
+  &__header {
+    height: 5.6rem;
+    background-color: $navBg;
+    padding: 0 2rem 0 2.2rem;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    i {
+      font-size: 15px;
+      margin: 0 5px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    span {
+      font-family: $robotoC;
+    }
+    + div {
+      background-color: $contentBg;
+    }
+  }
+  &__wrapper {
+    width: calc(33.33% - 13.33px);
+    display: inline-block;
+    vertical-align: middle;
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+    &-color1 {
+      border-top: 10px solid $rouletteColor1;
+    }
+    &-color2 {
+      border-top: 10px solid $rouletteColor2;
+    }
+    &-color3 {
+      border-top: 10px solid $rouletteColor3;
+    }
+  }
+  &__item {
+    height: 61px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    position: relative;
+    .avatar {
+      min-width: 40px;
+      height: 40px;
+    }
+    &:after {
+      content: '';
+      width: calc(100% - 4rem);
+      height: 1px;
+      bottom: 0;
+      left: 2rem;
+      position: absolute;
+      background-color: $selectBg;
+      opacity: 1;
+      transition: .1s ease all;
+    }
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+    .user__level {
+      margin: 0 10px;
+    }
+    i {
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    &.active {
+      border-top: none;
+      background-color: $selectBg;
+      &:after {
+        opacity: 0;
+      }
+      + .rBets__item {
+        &:after {
+          opacity: 0;
+        }
+      }
+    }
+  }
 }

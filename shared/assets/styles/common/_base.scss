@@ -49,6 +49,7 @@ a {
 }
 
 .avatar {
+  display: inline-block;
   min-width: 47px;
   height: 47px;
   background-repeat: no-repeat;
@@ -56,6 +57,7 @@ a {
   background-size: contain;
   border-radius: 50%;
   box-sizing: content-box;
+  vertical-align: middle;
 }
 
 .app-container {
@@ -105,4 +107,8 @@ textarea {
   color: #fff;
   font-family: $roboto;
   font-size: 16px;
+}
+
+.icon-poker-piece {
+  color: $main;
 }

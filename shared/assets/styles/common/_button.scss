@@ -35,3 +35,19 @@
   &:active {
   }
 }
+
+.button-border {
+  color: #fff;
+  min-width: 80px;
+  height: 28px;
+  border-radius: 14px;
+  font-size: 14px;
+  border: 1px solid #6b717a;
+  font-family: $roboto;
+  font-weight: 400;
+  transition: .2s ease all;
+  &:hover,
+  &:focus {
+    border-color: #fff;
+  }
+}

@@ -47,7 +47,7 @@ export default class Chat extends Component {
                 <div className="chat__wrapper">
                     <div className="chat__message">
                         <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                        <span className="level">11</span>
+                        <span className="user__level">11</span>
                         <span className="name">ConorMcGregor:</span>
                         <span className="message">
                             orem ipsum dolor sit amet, consecte
@@ -55,7 +55,7 @@ export default class Chat extends Component {
                     </div>
                     <div className="chat__message">
                         <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                        <span className="level level-1 icon-fire">11</span>
+                        <span className="user__level user__level-1 icon-fire">11</span>
                         <span className="name">ConorMcGregor:</span>
                         <span className="message">
                             orem ipsum dolor sit amet, consecte
@@ -63,7 +63,7 @@ export default class Chat extends Component {
                     </div>
                     <div className="chat__message">
                         <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                        <span className="level level-2 icon-fire">11</span>
+                        <span className="user__level user__level-2 icon-fire">11</span>
                         <span className="name">ConorMcGregor:</span>
                         <span className="message">
                             orem ipsum dolor sit amet, consecte
