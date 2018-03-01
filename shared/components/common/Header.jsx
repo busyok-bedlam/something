@@ -50,7 +50,6 @@ export default class Header extends Component {
             <header className="header">
                 <div className="header__top">
                     <div className="container">
-
                         <div className="header__top-left">
                             <span>{time}</span>
                             <Select

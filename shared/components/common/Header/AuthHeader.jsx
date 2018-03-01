@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import NavLink from './../NavLink.jsx';
 
 export default class AuthHeader extends Component {
 
@@ -13,17 +14,19 @@ export default class AuthHeader extends Component {
         const {cbHandleLogout, displayName, avatar} = this.props;
         return (
             <div className="header__top-right">
-                <div className="user">
-                    <div className="avatar"
-                         style={{backgroundImage: `url('./static/images/user.png')`}}/>
-                    {/*style={{backgroundImage: `url(${avatar})`}}/>*/}
-                    <div>
-                        <div
-                            className="name">{displayName}vdkjvdlkjdvljvdkjkdvdjklvd
+                    <div className="user">
+                        <NavLink to='/user'>
+                        <div className="avatar"
+                             style={{backgroundImage: `url('./static/images/user.png')`}}/>
+                        {/*style={{backgroundImage: `url(${avatar})`}}/>*/}
+                        <div>
+                            <div
+                                className="name">{displayName}vdkjvdlkjdvljvdkjkdvdjklvd
+                            </div>
+                            <div className="coin">1123</div>
                         </div>
-                        <div className="coin">1123</div>
+                        </NavLink>
                     </div>
-                </div>
                 <button
                     onClick={cbHandleLogout}
                     className="button"
