@@ -142,12 +142,13 @@
   }
 }
 
-
 .user__level {
   font-size: 14px;
   padding: 0 5px;
   background-color: $navBg;
   font-family: $robotoC;
+  display: inline-block;
+  vertical-align: middle;
   &[class*='level-'] {
     display: inline-block;
     position: relative;

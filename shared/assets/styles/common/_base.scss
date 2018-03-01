@@ -43,6 +43,7 @@ img {
 a {
   color: #fff;
   text-decoration: none;
+  white-space: nowrap;
   &:hover {
     text-decoration: underline;
   }
@@ -50,8 +51,8 @@ a {
 
 .avatar {
   display: inline-block;
-  min-width: 47px;
-  height: 47px;
+  min-width: 4.7rem;
+  height: 4.7rem;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

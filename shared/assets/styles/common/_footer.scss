@@ -8,7 +8,8 @@
   }
   .container {
     align-items: center;
-    min-height: 140px;
+    min-height: 14rem;
+    flex-wrap: nowrap;
   }
   &__logo {
     color: #a8a8a8;
@@ -26,9 +27,13 @@
   &__nav {
     display: flex;
     align-items: center;
+    justify-content: center;
+    min-width: 45.48%;
+    flex-basis: 45.48%;
     a {
+      font-size: 1.8rem;
       color: #6b717a;
-      padding: 0 20px;
+      padding: 0 2rem;
       letter-spacing: 1px;
       transition: .2s ease all;
       &:hover {
@@ -38,7 +43,7 @@
   }
   &__social {
     text-align: right;
-    padding-top: 12px;
+    padding-top: 1.2rem;
     a {
       display: inline-block;
       vertical-align: middle;

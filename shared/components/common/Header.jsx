@@ -24,22 +24,13 @@ export default class Header extends Component {
         this.setState({selectedOption: selectedOption.value});
     };
 
+    checkTime = (i) => (i < 10) ? "0" + i : i;
     startTime = () => {
         let today = new Date();
-        let h = today.getHours();
-        let m = today.getMinutes();
-        let s = today.getSeconds();
-        m = this.checkTime(m);
-        s = this.checkTime(s);
         this.setState({
-            time: h + ":" + m + ":" + s
+            time: today.getHours() + ":" + this.checkTime(today.getMinutes()) + ":" + this.checkTime(today.getSeconds())
         });
         setTimeout(this.startTime, 1000);
-    };
-
-    checkTime = (i) => {
-        if (i < 10) {i = "0" + i}
-        return i;
     };
 
     componentDidMount() {
@@ -57,24 +48,26 @@ export default class Header extends Component {
 
         return (
             <header className="header">
-                <div className="header__top container">
-                    <div className="header__top-left">
-                        <span>{time}</span>
-                        <Select
-                            name="form-field-name"
-                            value={selectedOption}
-                            onChange={this.handleChange}
-                            searchable={false}
-                            clearable={false}
-                            className='select'
-                            optionClassName='select__options'
-                            openOnFocus={true}
-                            options={[
-                                {value: 'eng', label: 'ENG'},
-                                {value: 'tur', label: 'TUR'},
-                            ]}
-                        />
-                    </div>
+                <div className="header__top">
+                    <div className="container">
+
+                        <div className="header__top-left">
+                            <span>{time}</span>
+                            <Select
+                                name="form-field-name"
+                                value={selectedOption}
+                                onChange={this.handleChange}
+                                searchable={false}
+                                clearable={false}
+                                className='select'
+                                optionClassName='select__options'
+                                openOnFocus={true}
+                                options={[
+                                    {value: 'eng', label: 'ENG'},
+                                    {value: 'tur', label: 'TUR'},
+                                ]}
+                            />
+                        </div>
                         {/*{
                             (isAuth) ?
                                 <AuthHeader
@@ -89,6 +82,7 @@ export default class Header extends Component {
                             displayName={displayName}
                             avatar={avatar}
                         />
+                    </div>
                 </div>
                 <div className="header__bottom">
                     <div className="container">

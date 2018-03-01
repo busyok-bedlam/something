@@ -11,8 +11,8 @@
     justify-content: space-between;
     align-items: center;
     i {
-      font-size: 15px;
-      margin: 0 5px;
+      font-size: 1.5rem;
+      margin: 0 .5rem;
       display: inline-block;
       vertical-align: middle;
     }
@@ -31,17 +31,17 @@
       margin-right: 20px;
     }
     &-color1 {
-      border-top: 10px solid $rouletteColor1;
+      border-top: 1rem solid $rouletteColor1;
     }
     &-color2 {
-      border-top: 10px solid $rouletteColor2;
+      border-top: 1rem solid $rouletteColor2;
     }
     &-color3 {
-      border-top: 10px solid $rouletteColor3;
+      border-top: 1rem solid $rouletteColor3;
     }
   }
   &__item {
-    height: 61px;
+    height: 6.1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -53,12 +53,13 @@
       flex-basis: 70%;
     }
     div:last-child {
-      min-width: 70%;
-      flex-basis: 70%;
+      text-align: right;
+      min-width: 30%;
+      flex-basis: 30%;
     }
     .avatar {
-      min-width: 40px;
-      height: 40px;
+      min-width: 4rem;
+      height: 4rem;
     }
     &:after {
       content: '';
@@ -77,9 +78,9 @@
       }
     }
     .user__level {
-      margin: 0 10px;
+      margin: 0 1rem;
       + span {
-        max-width: calc(100% - 100px);
+        max-width: calc(100% - 10rem);
         display: inline-block;
         overflow: hidden;
         vertical-align: middle;
@@ -88,7 +89,7 @@
       }
     }
     i {
-      margin-right: 10px;
+      margin-right: 1rem;
       display: inline-block;
       vertical-align: middle;
     }

@@ -2,17 +2,13 @@
   color: #fff;
   background-color: $main;
   font-family: $roboto;
-  font-size: 18px;
+  font-size: 1.8rem;
   text-align: center;
   &:disabled {
     cursor: not-allowed;
     &:hover,
     &:active {
     }
-  }
-  &-signIn {
-    background-position: 0 10px;
-    background-repeat: no-repeat;
   }
   &-gray {
     background-color: $contentBg;
@@ -38,10 +34,10 @@
 
 .button-border {
   color: #fff;
-  min-width: 80px;
-  height: 28px;
-  border-radius: 14px;
-  font-size: 14px;
+  min-width: 8rem;
+  height: 2.8rem;
+  border-radius: 1.4rem;
+  font-size: 1.4rem;
   border: 1px solid #6b717a;
   font-family: $roboto;
   font-weight: 400;

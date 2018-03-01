@@ -4,18 +4,18 @@
   &__buttons {
     padding: 2rem 0 2.2rem;
     .button {
-      height: 57px;
+      height: 5.7rem;
       display: inline-block;
-      width: calc(33.33% - 13.33px);
+      width: calc(33.33% - 1.333rem);
       &:not(:last-child) {
-        margin-right: 20px;
+        margin-right: 2rem;
       }
     }
   }
   &__history {
     white-space: nowrap;
     overflow: hidden;
-    padding: 0 0 15px 1px;
+    padding: 0 0 1.5rem 1px;
     .history__item {
       display: inline-block;
       position: relative;
@@ -41,7 +41,7 @@
   &__bet {
     background-color: $navBg;
     font-size: 1.8rem;
-    padding-bottom: 14px;
+    padding-bottom: 1.4rem;
     h3 {
       text-align: center;
       padding: 1.5rem 0 1.8rem;
@@ -77,8 +77,8 @@
     }
     i {
       color: $main;
-      margin-right: 10px;
-      font-size: 15px;
+      margin-right: 1rem;
+      font-size: 1.5rem;
       display: inline-block;
       vertical-align: middle;
     }
