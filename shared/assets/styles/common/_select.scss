@@ -11,10 +11,20 @@
       background: #575c63;
     }
   }
-  &.is-open > .Select-control,
-  &.is-focused > .Select-control {
-    border: 1px solid #575c63 !important;
-    background: #575c63 !important;
+  &.is-open,
+  &.is-focused {
+    > .Select-control {
+      border: 1px solid #575c63 !important;
+      background: #575c63 !important;
+    }
+    .Select-arrow-zone {
+      &:before {
+        transform: rotate(-45deg);
+      }
+      &:after {
+        transform: rotate(45deg);
+      }
+    }
   }
   &.has-value.Select--single > .Select-control .Select-value .Select-value-label,
   &.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
@@ -36,9 +46,10 @@
       top: 50%;
       width: 7px;
       height: 1px;
+      transition: .2s ease all;
     }
     &:before {
-      left: -1px;
+      left: -1.5px;
       transform: rotate(45deg);
     }
     &:after {

@@ -16,12 +16,35 @@ export default class Header extends Component {
 
     state = {
         auth: false,
+        time: '',
         selectedOption: 'eng'
     };
 
     handleChange = (selectedOption) => {
         this.setState({selectedOption: selectedOption.value});
     };
+
+    startTime = () => {
+        let today = new Date();
+        let h = today.getHours();
+        let m = today.getMinutes();
+        let s = today.getSeconds();
+        m = this.checkTime(m);
+        s = this.checkTime(s);
+        this.setState({
+            time: h + ":" + m + ":" + s
+        });
+        setTimeout(this.startTime, 1000);
+    };
+
+    checkTime = (i) => {
+        if (i < 10) {i = "0" + i}
+        return i;
+    };
+
+    componentDidMount() {
+        this.startTime();
+    }
 
     render() {
         const {
@@ -30,13 +53,13 @@ export default class Header extends Component {
             avatar,
             cbHandleLogout,
         } = this.props;
-        const {selectedOption} = this.state;
+        const {selectedOption, time} = this.state;
 
         return (
             <header className="header">
                 <div className="header__top container">
                     <div className="header__top-left">
-                        <span>15:67:67</span>
+                        <span>{time}</span>
                         <Select
                             name="form-field-name"
                             value={selectedOption}

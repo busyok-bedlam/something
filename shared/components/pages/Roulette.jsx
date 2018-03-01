@@ -6,11 +6,6 @@ import RouletteWheel from './RouletteGame/RouletteWheel.jsx';
 import RouletteBets from './RouletteGame/RouletteBets.jsx';
 import ModalController from './../../lib/ModalController';
 
-const dataPie = [
-    {value: 100, stroke: "#22594e", strokeWidth: 6},
-    {value: 60, stroke: "#2f7d6d"},
-];
-
 export default class Roulette extends Component {
 
     static propTypes = {

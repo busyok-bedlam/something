@@ -47,6 +47,15 @@
     align-items: center;
     padding: 0 2rem;
     position: relative;
+    white-space: nowrap;
+    div:first-child {
+      min-width: 70%;
+      flex-basis: 70%;
+    }
+    div:last-child {
+      min-width: 70%;
+      flex-basis: 70%;
+    }
     .avatar {
       min-width: 40px;
       height: 40px;
@@ -69,6 +78,14 @@
     }
     .user__level {
       margin: 0 10px;
+      + span {
+        max-width: calc(100% - 100px);
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: middle;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
     i {
       margin-right: 10px;
