@@ -14,15 +14,15 @@ export default class RouletteLobby extends Component {
                         <h3>Your bet:</h3>
                         <div className="wrapper">
                             <div>
-                                <div className="color pink"/>
+                                <div className="color color-1"/>
                                 <div className="bet"><i className='icon-poker-piece'/>1245</div>
                             </div>
                             <div>
-                                <div className="color green"/>
+                                <div className="color color-2"/>
                                 <div className="bet"><i className='icon-poker-piece'/>1245</div>
                             </div>
                             <div>
-                                <div className="color gray"/>
+                                <div className="color color-3"/>
                                 <div className="bet"><i className='icon-poker-piece'/>1245</div>
                             </div>
                         </div>
@@ -36,9 +36,9 @@ export default class RouletteLobby extends Component {
                             <button className="button button-gray">Bet x2</button>
                         </div>
                         <div className="rLobby__history">
-                            <div className="history__item green">2</div>
-                            <div className="history__item pink">3</div>
-                            <div className="history__item gray">4</div>
+                            <div className="history__item history__item-color1">2</div>
+                            <div className="history__item history__item-color2">3</div>
+                            <div className="history__item history__item-color3">4</div>
                         </div>
                         <div className="game__hash">
                             <div className="left">

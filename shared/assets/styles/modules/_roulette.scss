@@ -35,14 +35,14 @@
       &:not(:last-child) {
         margin-right: 2rem;
       }
-      &.green {
-        background-color: $green;
+      &-color1 {
+        background-color: $rouletteColor1;
       }
-      &.pink {
-        background-color: $pink;
+      &-color2 {
+        background-color: $rouletteColor2;
       }
-      &.gray {
-        background-color: $headerBg;
+      &-color3 {
+        background-color: $rouletteColor3;
       }
     }
   }
@@ -73,14 +73,14 @@
       height: 4rem;
       border-radius: 50%;
       margin: 0 auto 6px;
-      &.pink {
-        background-color: $pink;
+      &-1 {
+        background-color: $rouletteColor1;
       }
-      &.green {
-        background-color: $green;
+      &-2 {
+        background-color: $rouletteColor2;
       }
-      &.gray {
-        background-color: $headerBg;
+      &-2 {
+        background-color: $rouletteColor3;
       }
     }
     i {
@@ -155,14 +155,14 @@
       content: '';
       width: calc(100% - 4rem);
       height: 1px;
-      bottom: 0;
+      top: 0;
       left: 2rem;
       position: absolute;
       background-color: $selectBg;
       opacity: 1;
       transition: .1s ease all;
     }
-    &:last-child {
+    &:first-child {
       &:after {
         display: none;
       }
@@ -176,7 +176,6 @@
       vertical-align: middle;
     }
     &.active {
-      border-top: none;
       background-color: $selectBg;
       &:after {
         opacity: 0;
