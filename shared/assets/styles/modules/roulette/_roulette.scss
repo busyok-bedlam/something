@@ -1,0 +1,11 @@
+.roulette {
+  min-width: 67.84%;
+  flex-basis: 67.84%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@import "rouletteBets";
+@import "rouletteLobby";
+@import "rouletteWheel";
