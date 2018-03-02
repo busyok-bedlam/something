@@ -1,0 +1,33 @@
+@media (max-width: $mobile) {
+  .footer {
+    padding-bottom: 10px;
+    .container {
+      display: block;
+      position: relative;
+    }
+    &__logo {
+      img {
+        display: block;
+        margin: -10px auto 10px;
+      }
+      div {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        width: 100%;
+      }
+    }
+    &__social {
+      padding-top: 10px;
+    }
+    &__nav {
+      width: 100%;
+      text-align: center;
+      display: inline-block;
+      a {
+        padding: 5px 10px;
+        display: inline-block;
+      }
+    }
+  }
+}
