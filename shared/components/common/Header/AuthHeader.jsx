@@ -27,11 +27,7 @@ export default class AuthHeader extends Component {
                         </div>
                         </NavLink>
                     </div>
-                <button
-                    onClick={cbHandleLogout}
-                    className="button"
-                >Deposit
-                </button>
+                <button className="button mobile-hide">Deposit</button>
                 <button
                     onClick={cbHandleLogout}
                     className="button button-gray"

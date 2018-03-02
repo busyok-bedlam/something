@@ -17,3 +17,16 @@
     font-size: 8px !important;
   }
 }
+
+@media (max-width: $mobile) {
+  .container {
+    max-width: 576px;
+    padding: 0 10px;
+  }
+  .mobile-hide {
+    display: none !important;
+  }
+  .mobile-show {
+    display: block !important;
+  }
+}

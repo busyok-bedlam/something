@@ -33,13 +33,13 @@
     }
     &-right {
       display: flex;
-      min-width: 50%;
-      flex-basis: 50%;
+      min-width: calc(100% - 150px);
+      flex-basis: calc(100% - 150px);
       justify-content: flex-end;
       font-size: 1.8rem;
       .user {
-        min-width: 28%;
-        flex-basis: 28%;
+        width: 100%;
+        max-width: 245px;
         a {
           height: 100%;
           display: flex;
@@ -51,7 +51,7 @@
       }
       .name {
         margin-bottom: 7px;
-        max-width: 60%;
+        max-width: 190px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -84,6 +84,7 @@
   &__bottom {
     height: 11rem;
     background-color: $navBg;
+    position: relative;
     &-left,
     &-right {
       display: flex;
@@ -173,6 +174,67 @@
   a {
     &:hover {
       text-decoration: none;
+    }
+  }
+}
+
+.hamburger-box {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  button {
+    width: 40px;
+    height: 40px;
+    position: relative;
+  }
+  .hamburger,
+  .hamburger:before,
+  .hamburger:after {
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    transition-timing-function: ease;
+    transition-duration: .15s;
+    transition-property: transform;
+    background-color: #fff;
+  }
+  .hamburger {
+    left: 5px;
+    bottom: 8px;
+    transition-delay: .13s;
+    transition-timing-function: cubic-bezier(.55,.055,.675,.19);
+    transition-duration: .13s;
+    &:before,
+    &:after {
+      display: block;
+      content: "";
+      left: 0;
+    }
+    &:before {
+      top: -10px;
+      transition: top .12s cubic-bezier(.33333,.66667,.66667,1) .2s,transform .13s cubic-bezier(.55,.055,.675,.19);
+    }
+    &:after {
+      bottom: -10px;
+      top: -20px;
+      transition: top .2s cubic-bezier(.33333,.66667,.66667,1) .2s,opacity .1s linear;
+    }
+  }
+  &.active {
+    .hamburger {
+      transition-delay: .22s;
+      transition-timing-function: cubic-bezier(.215,.61,.355,1);
+      transform: translate3d(0,-10px,0) rotate(-45deg);
+      &:before {
+        top: 0;
+        transition: top .1s cubic-bezier(.33333,0,.66667,.33333) .16s,transform .13s cubic-bezier(.215,.61,.355,1) .25s;
+        transform: rotate(-90deg);
+      }
+      &:after {
+        top: 0;
+        transition: top .2s cubic-bezier(.33333,0,.66667,.33333),opacity .1s linear .22s;
+        opacity: 0;
+      }
     }
   }
 }

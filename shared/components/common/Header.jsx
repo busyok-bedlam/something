@@ -17,7 +17,14 @@ export default class Header extends Component {
     state = {
         auth: false,
         time: '',
-        selectedOption: 'eng'
+        selectedOption: 'eng',
+        menuOpen: false
+    };
+
+    handleOpenMenu = () => {
+      this.setState({
+          menuOpen: !this.state.menuOpen
+      })
     };
 
     handleChange = (selectedOption) => {
@@ -44,7 +51,7 @@ export default class Header extends Component {
             avatar,
             cbHandleLogout,
         } = this.props;
-        const {selectedOption, time} = this.state;
+        const {selectedOption, time, menuOpen} = this.state;
 
         return (
             <header className="header">
@@ -83,8 +90,13 @@ export default class Header extends Component {
                         />
                     </div>
                 </div>
-                <div className="header__bottom">
+                <div  className={(menuOpen) ? "header__bottom" :"header__bottom header__bottom-hide" }>
                     <div className="container">
+                        <div className={(menuOpen) ? "hamburger-box mobile-show active" : "hamburger-box mobile-show"} onClick={this.handleOpenMenu.bind(this)}>
+                            <button>
+                                <i className="hamburger" />
+                            </button>
+                        </div>
                         <nav className="header__bottom-left">
                             <div className='logo'>
                                 <img src="static/images/logo.png" alt=""/>
@@ -104,6 +116,7 @@ export default class Header extends Component {
                             <NavLink to='/faq'>FAQ</NavLink>
                             <NavLink to='/support'>Support</NavLink>
                             <NavLink to='/privacy-policy'>Privacy policy</NavLink>
+                            <button className="button mobile-show">Deposit</button>
                         </nav>
                     </div>
                 </div>
