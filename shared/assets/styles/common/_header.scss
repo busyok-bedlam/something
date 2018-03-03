@@ -139,9 +139,10 @@
     }
     &-right {
       justify-content: flex-end;
-      a {
+      &-link {
+        color: #fff;
         height: 100%;
-        display: block;
+        display: inline-block;
         font-size: 1.8rem;
         padding: 0 1.9rem;
         text-align: center;

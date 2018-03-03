@@ -108,11 +108,11 @@ export default class Header extends Component {
                             </NavLink>
                         </nav>
                         <nav className="header__bottom-right">
-                            <NavLink to='/shop'>Shop</NavLink>
-                            <NavLink to='/top-players'>Top players</NavLink>
-                            <NavLink to='/faq'>FAQ</NavLink>
-                            <NavLink to='/support'>Support</NavLink>
-                            <NavLink to='/privacy-policy'>Privacy policy</NavLink>
+                            <NavLink to='/shop' className='header__bottom-right-link'>Shop</NavLink>
+                            <NavLink to='/top-players' className='header__bottom-right-link'>Top players</NavLink>
+                            <NavLink to='/faq' className='header__bottom-right-link'>FAQ</NavLink>
+                            <NavLink to='/support' className='header__bottom-right-link'>Support</NavLink>
+                            <NavLink to='/privacy-policy' className='header__bottom-right-link'>Privacy policy</NavLink>
                             <button className="button mobile-show">Deposit</button>
                         </nav>
                     </div>

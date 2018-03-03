@@ -10,14 +10,13 @@ import LoadingScreenComponent, {LoadingScreen} from '../lib/LoadingScreen';
 import Socket from "../lib/commonWS";
 import ChatSocket from '../lib/chatWS';
 import "react-toastify/dist/ReactToastify.min.css";
-import LeftSidebar from './../components/common/Sidebar/LeftSidebar.jsx';
-import RightSidebar from './../components/common/Sidebar/RightSidebar.jsx';
 import Scrollbar from './../components/common/Scrollbar.jsx';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from "react-tap-event-plugin";
 import ModalController from '../lib/ModalController';
 import '../components/modal';
+
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -62,24 +61,11 @@ class App extends Component {
                     </div>
                     <Header {...this.props} />
                     <main className="main-wrapper" style={{height: 'calc(100vh - 100px)'}}>
-                        {/*<aside ref='leftNav'*/}
-                               {/*id='leftNav'>*/}
-                            {/*<LeftSidebar/>*/}
-                        {/*</aside>*/}
-                        {/*<section className="center-col" style={{height: 'calc(100vh - 100px)'}}>*/}
-                            <Scrollbar>
-                                {this.props.children}
-                            </Scrollbar>
-                        {/*</section>*/}
-                        {/*<aside*/}
-                               {/*ref='rightNav'*/}
-                               {/*id='rightNav'>*/}
-                            {/*<div className="right-col__content">*/}
-                                {/*<RightSidebar/>*/}
-                            {/*</div>*/}
-                        {/*</aside>*/}
+                        <Scrollbar>
+                            {this.props.children}
+                        </Scrollbar>
                     </main>
-                    <Footer />
+                    <Footer/>
                     {modal.open && ModalController.getModal(modal.modalName, modal.tab)}
                 </div>
             </MuiThemeProvider>
