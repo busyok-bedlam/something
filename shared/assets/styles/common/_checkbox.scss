@@ -1,0 +1,49 @@
+.checkbox {
+  display: inline-block;
+  min-width: 20px;
+  min-height: 20px;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  border: 1px solid $main;
+  margin-right: 13px;
+  cursor: pointer;
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+  label {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    &:after {
+      content: '';
+      width: 10px;
+      height: 5px;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      border: 2px solid #ff7900;
+      border-top: none;
+      border-right: none;
+      background: transparent;
+      opacity: 0;
+      transform: rotate(-45deg);
+    }
+    &:hover:after {
+      opacity: 0.3;
+    }
+  }
+}
+
+input[type=checkbox],
+input[type=radio] {
+  visibility: hidden;
+}
+
+input[type=checkbox]:checked + label:after,
+input[type=radio]:checked + label:after {
+  opacity: 1;
+}

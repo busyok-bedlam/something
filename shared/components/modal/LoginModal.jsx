@@ -1,19 +1,20 @@
 import React, {Component} from "react";
 import {bindActionCreators} from 'redux';
-import * as userActions     from './../../actions/userActions';
+import * as userActions from './../../actions/userActions';
 import {connect} from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import ModalController from '../../lib/ModalController';
+
 class LoginModal extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            open: false,
+            open: true,
         };
     }
 
-    cbHandleLogin(){
+    cbHandleLogin() {
         location.href = '/api/auth/steam';
     }
 
@@ -24,16 +25,29 @@ class LoginModal extends Component {
                 overlayClassName={"modal__overlay"}
                 contentClassName={"modal modal-login"}>
                 <div className="modal-login__wrapper">
-                    <img src="static/images/logo.png" alt=""/>
+                    <object type="image/svg+xml" data="static/images/logo.svg">
+                        Your browser does not support SVG.
+                    </object>
+                    <div className="checkbox__wrapper">
+                        <div className="checkbox">
+                            <input type="checkbox" name="agree" id="agree"/>
+                            <label htmlFor="agree"/>
+                        </div>
+                        <span>
+                        I am over 18 years old and have read
+                            <a
+                                onClick={() => ModalController.openModal('TermsOfUsageModal', null, {
+                                    onClose: () => {
+                                        ModalController.openModal('LoginModal')
+                                    }
+                                })}> Terms of Service</a>
+                        </span>
+                    </div>
                     <button
                         onClick={::this.cbHandleLogin}
-                        className="button button-green">
-                        <i className="icon icon-steam" />
-                        Sign Up with STEAM<sup>TM</sup>
+                        className="button">
+                        Enter now
                     </button>
-                    <div>
-                        By signing in with Steam you agree that you have read and accept our <a onClick={()=>ModalController.openModal('TermsOfUsageModal', null, {onClose: ()=>{ModalController.openModal('LoginModal')}})}>Terms of Usage</a> and are at least 18 years old.
-                    </div>
                 </div>
             </Dialog>
         );
@@ -52,7 +66,7 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default  connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(LoginModal);

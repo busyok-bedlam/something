@@ -31,8 +31,4 @@ export default {
         useMongoClient: true,
         keepAlive: 1
     },
-
-
 }
-
-

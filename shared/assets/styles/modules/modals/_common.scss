@@ -1,10 +1,5 @@
 .modal__overlay {
-  opacity: .9 !important;;
-  background-image: -ms-linear-gradient(right, $green 0%, $pink 100%) !important;
-  background-image: -moz-linear-gradient(right, $green 0%, $pink 100%) !important;
-  background-image: -o-linear-gradient(right, $green 0%, $pink 100%) !important;
-  background-image: -webkit-linear-gradient(right, $green 0%, $pink 100%) !important;
-  background-image: linear-gradient(to right, $green 0%, $pink 100%) !important;
+  background-color: rgba(39, 42, 47, .95) !important;
 }
 
 .modal__close {
@@ -48,10 +43,13 @@
     position: absolute !important;
     left: 50%;
     top: 50%;
+    font-family: $roboto !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
     transform: translate(-50%, -50%) !important;
     > div {
-      max-height: initial !important;
       color: #fff !important;
+      max-height: initial !important;
       padding: 40px !important;
     }
   }

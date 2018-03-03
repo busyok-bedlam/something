@@ -99,7 +99,9 @@ export default class Header extends Component {
                         </div>
                         <nav className="header__bottom-left">
                             <div className='logo'>
-                                <img src="static/images/logo.png" alt=""/>
+                                <object type="image/svg+xml" data="static/images/logo.svg">
+                                    Your browser does not support SVG.
+                                </object>
                             </div>
                             <NavLink to='/' onlyActiveOnIndex className='button-game'>
                                 Roulette
