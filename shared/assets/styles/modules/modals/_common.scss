@@ -35,7 +35,7 @@
 }
 
 .modal {
-  max-width: 1020px !important;
+  max-width: 1220px !important;
   width: 90% !important;
   > div {
     width: 100%;
@@ -50,12 +50,17 @@
     > div {
       color: #fff !important;
       max-height: initial !important;
-      padding: 40px !important;
+      padding: 0 20px !important;
     }
   }
   &.modal-without_pad {
     > div > div {
       padding: 0 !important;
     }
+  }
+  &__header {
+    text-align: center;
+    font-size: 3.6rem;
+    padding: 5.5rem 0;
   }
 }

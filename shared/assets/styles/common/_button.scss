@@ -1,9 +1,13 @@
 .button {
   color: #fff;
+  width: 100%;
   background-color: $main;
   font-family: $roboto;
   font-size: 1.8rem;
   text-align: center;
+  height: 5.7rem;
+  line-height: 5.7rem;
+  max-width: 300px;
   &:disabled {
     cursor: not-allowed;
     opacity: .3;

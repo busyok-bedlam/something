@@ -10,7 +10,7 @@ class LoginModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: true,
+            open: false,
         };
     }
 
@@ -36,11 +36,11 @@ class LoginModal extends Component {
                         <span>
                         I am over 18 years old and have read
                             <a
-                                onClick={() => ModalController.openModal('TermsOfUsageModal', null, {
+                                onClick={() => ModalController.openModal('TermsOfServiceModal', null, {
                                     onClose: () => {
                                         ModalController.openModal('LoginModal')
                                     }
-                                })}> Terms of Service</a>
+                                })}>Terms of Service</a>
                         </span>
                     </div>
                     <button
