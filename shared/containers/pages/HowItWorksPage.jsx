@@ -28,11 +28,9 @@ class HowItWorksPage extends Component {
 
 
         return (
-            <ContainerPage>
                 <HowItWorks
                     user={user}
                 />
-            </ContainerPage>
         );
     }
 }

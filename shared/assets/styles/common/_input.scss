@@ -1,0 +1,68 @@
+.input-float {
+  position: relative;
+  margin-top: 41px;
+  background-color: $navBg;
+  z-index: 1;
+  input,
+  textarea {
+    width: 100%;
+    border: 1px solid #575c63;
+    -webkit-appearance: none;
+    transition: .2s ease all;
+    background-color: transparent;
+    z-index: 2;
+    &:hover,
+    &:focus {
+      border: 1px solid $main;
+    }
+  }
+  input {
+    height: 45px;
+    padding: 0 15px;
+    color: #fff;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  textarea {
+    color: $contentText;
+    padding: 15px;
+    height: 26rem;
+    resize: none;
+    overflow: hidden;
+    font-weight: 300;
+  }
+  label {
+    color: $contentText;
+    font-size: 18px;
+    letter-spacing: 1px;
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    z-index: -1;
+    transition: .2s ease all;
+  }
+  &.invalid + label,
+  input:valid + label,
+  input:focus + label,
+  textarea:valid + label,
+  textarea:focus + label {
+    color: #fff;
+    top: -24px;
+    left: 0;
+    font-size: 16px;
+  }
+  &-textarea {
+    height: 26rem;
+  }
+  &.valid {
+    &:after {
+      content:'\0044';
+      top: 50%;
+      right: 22px;
+      color: $green;
+      font-family: 'blaze icons';
+      position: absolute;
+      transform: translateY(-50%);
+    }
+  }
+}

@@ -28,6 +28,7 @@ body {
   font-family: $roboto;
   font-size: 10px !important;
   background-color: $bodyBg;
+  word-break: break-all;
 }
 
 main {
@@ -83,15 +84,29 @@ a {
   animation: rotate .4s linear infinite;
 }
 
+.page-container,
 .container {
   height: 100%;
   width: 100%;
   padding: 0 20px;
   margin: 0 auto;
+}
+
+.container {
   max-width: 1780px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.page-container {
+  max-width: 820px;
+}
+
+.page-header {
+  text-align: center;
+  font-size: 3.6rem;
+  padding: 2.4rem 0;
 }
 
 .ttu {
@@ -116,4 +131,8 @@ textarea {
 .tablet-show,
 .mobile-show {
   display: none;
+}
+
+.logoSVG {
+  max-width: 140px;
 }

@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as userActions from "./../../actions/userActions";
 import FAQ from './../../components/pages/FAQ.jsx';
-import ContainerPage from './../ContainerPage.jsx';
 
 class FAQPage extends Component {
     static mapStateToProps(state) {
@@ -28,11 +27,9 @@ class FAQPage extends Component {
 
 
         return (
-            <ContainerPage>
                 <FAQ
                     user={user}
                 />
-            </ContainerPage>
         );
     }
 }

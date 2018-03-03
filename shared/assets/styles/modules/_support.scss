@@ -1,0 +1,26 @@
+.support {
+  form {
+    padding-top: 2rem;
+  }
+  .button {
+    display: block;
+    margin-left: auto;
+    text-transform: uppercase;
+  }
+  .footer__social {
+    text-align: left;
+    padding-top: 0;
+    a {
+      font-size: 2.3rem;
+      &:last-child {
+        font-size: 3.5rem;
+      }
+    }
+  }
+  &__buttons {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

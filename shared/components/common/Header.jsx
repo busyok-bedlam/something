@@ -74,7 +74,7 @@ export default class Header extends Component {
                                 ]}
                             />
                         </div>
-                        {/*{
+                        {
                             (isAuth) ?
                                 <AuthHeader
                                     cbHandleLogout={cbHandleLogout}
@@ -82,12 +82,7 @@ export default class Header extends Component {
                                     avatar={avatar}
                                 /> :
                                 <NotAuthHeader/>
-                        }*/}
-                        <AuthHeader
-                            cbHandleLogout={cbHandleLogout}
-                            displayName={displayName}
-                            avatar={avatar}
-                        />
+                        }
                     </div>
                 </div>
                 <div  className={(menuOpen) ? "header__bottom" :"header__bottom header__bottom-hide" }>
@@ -99,7 +94,7 @@ export default class Header extends Component {
                         </div>
                         <nav className="header__bottom-left">
                             <div className='logo'>
-                                <object type="image/svg+xml" data="static/images/logo.svg">
+                                <object className='logoSVG' type="image/svg+xml" data="static/images/logo.svg">
                                     Your browser does not support SVG.
                                 </object>
                             </div>

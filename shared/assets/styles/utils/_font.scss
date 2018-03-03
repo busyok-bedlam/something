@@ -9,6 +9,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 [class*='icon-']:before{
   display: inline-block;
   font-family: 'blaze icons';
@@ -22,10 +23,12 @@
 .icon-facebook:before{content:'\0041';}
 .icon-fire:before{content:'\0042';}
 .icon-garbage:before{content:'\0043';}
+.icon-check:before{content:'\0044';}
 .icon-logout:before{content:'\0045';}
 .icon-pointer:before{content:'\0046';}
 .icon-poker-piece:before{content:'\0047';}
 .icon-refresh:before{content:'\0048';}
+.icon-cart:before{content:'\0049';}
 .icon-send:before{content:'\004a';}
 .icon-smile:before{content:'\004b';}
 .icon-steam:before{content:'\004c';}
