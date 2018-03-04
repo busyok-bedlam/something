@@ -41,13 +41,14 @@
           vertical-align: middle;
         }
         .logo {
-          img {
-            margin: -6px 0 10px;
+          object {
+            margin: 1px 0 13px;
           }
         }
       }
       &-right {
         a {
+          display: block;
           font-size: 16px;
           padding: 15px 0;
           line-height: 24px;
