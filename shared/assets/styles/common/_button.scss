@@ -8,6 +8,7 @@
   height: 5.7rem;
   line-height: 5.7rem;
   max-width: 300px;
+  transition: .2s ease all;
   &:disabled {
     cursor: not-allowed;
     opacity: .3;
@@ -15,14 +16,30 @@
     &:active {
     }
   }
+  &:hover,
+  &:focus {
+    background-color: darken($main, 10);
+  }
   &-gray {
     background-color: $contentBg;
+    &:hover,
+    &:focus {
+      background-color: darken($contentBg, 10);
+    }
   }
   &-green {
     background-color: $green;
+    &:hover,
+    &:focus {
+      background-color: darken($green, 10);
+    }
   }
   &-pink {
     background-color: $pink;
+    &:hover,
+    &:focus {
+      background-color: darken($pink, 10);
+    }
   }
   &-gray {
     background-color: $headerBg;
