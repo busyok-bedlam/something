@@ -112,12 +112,17 @@
     background-color: $navBg;
     display: inline-block;
     float: left;
+    transition: .2s ease all;
     &:first-child {
       margin-top: 1px;
     }
     i {
       font-size: 2.2rem;
       line-height: 4.4rem;
+    }
+    &:hover,
+    &:focus {
+      background-color: darken($navBg, 10);
     }
   }
 }

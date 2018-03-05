@@ -44,6 +44,16 @@ class App extends Component {
             console.error(error);
             alert(error.message || error.toString())
         }
+       document.getElementsByClassName("main-wrapper")[0].addEventListener('scroll', this.handleScroll, true)
+    }
+
+    handleScroll(e) {
+        let chat = document.getElementById('chat');
+        if(chat) {
+            let heightContent = document.getElementsByClassName("main-wrapper__content")[0].offsetHeight;
+            let scrollTop = e.target.scrollTop;
+            if((heightContent - chat.offsetHeight) > scrollTop) chat.style.marginTop = scrollTop+'px';
+        }
     }
 
     render() {
@@ -60,9 +70,11 @@ class App extends Component {
                         <ToastContainer/>
                     </div>
                     <Header {...this.props} />
-                    <main className="main-wrapper" style={{height: 'calc(100vh - 100px)'}}>
+                    <main className="main-wrapper" style={{height: 'calc(100vh - 14rem)'}}>
                         <Scrollbar>
-                            {this.props.children}
+                            <div className='main-wrapper__content'>
+                                {this.props.children}
+                            </div>
                         </Scrollbar>
                     </main>
                     <Footer/>

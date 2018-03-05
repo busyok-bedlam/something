@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Scrollbar from './../../common/Scrollbar.jsx';
 
 export default class RouletteBets extends Component {
     static PropTypes = {
@@ -11,6 +12,11 @@ export default class RouletteBets extends Component {
         COLOR2: 'rBets__wrapper-color2',
         COLOR3: 'rBets__wrapper-color3'
     };
+
+    handleScroll(e) {
+        console.log(e.stopPropagation);
+        e.stopPropagation();
+    }
 
 
     render() {
@@ -35,10 +41,12 @@ export default class RouletteBets extends Component {
                     {/* TODO: Add scroll for my bet and add class "active"*/}
                     <button className="button-border">Find me</button>
                 </div>
-                <div>
-                    {
-                        bets
-                    }
+                <div style={{height: '24.4rem'}} onScroll={this.handleScroll}>
+                    <Scrollbar>
+                        {
+                            bets
+                        }
+                    </Scrollbar>
                 </div>
             </div>
         );

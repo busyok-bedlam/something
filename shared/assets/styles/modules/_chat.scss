@@ -1,6 +1,7 @@
 .chat {
   min-width: 31%;
   flex-basis: 31%;
+  position: relative;
   &__header {
     font-size: 2.4rem;
     background-color: $headerBg;
@@ -22,8 +23,8 @@
         height: 100%;
       }
       .select__options {
-        height: 45px;
-        line-height: 45px;
+        height: 4.5rem;
+        line-height: 4.5rem;
         &:before {
           width: 82%;
           left: 9%;
@@ -52,14 +53,15 @@
     }
   }
   &__wrapper {
-    padding: 20px;
+    padding: 2rem;
     background-color: $contentBg;
   }
   &__message {
-    margin-bottom: 11px;
+    margin-bottom: 1.1rem;
+    margin-bottom: 1.1rem;
     .avatar {
-      min-width: 24px;
-      height: 24px;
+      min-width: 2.4rem;
+      height: 2.4rem;
       display: inline-block;
       vertical-align: middle;
       margin-right: 10px;
@@ -92,11 +94,12 @@
     }
   }
   &__textarea {
-    min-height: 88px;
+    min-height: 8.8rem;
     border: 1px solid $selectBg;
     background-color: $navBg;
     display: flex;
     textarea {
+      width: 100%;
       color: #fff;
       font-family: $roboto;
       font-weight: 300;

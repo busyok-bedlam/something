@@ -14,19 +14,18 @@ export default class AuthHeader extends Component {
         const {cbHandleLogout, displayName, avatar} = this.props;
         return (
             <div className="header__top-right">
-                    <div className="user">
-                        <NavLink to='/user'>
+                <div className="user">
+                    <NavLink to='/user'>
                         <div className="avatar"
-                             style={{backgroundImage: `url('./static/images/user.png')`}}/>
-                        {/*style={{backgroundImage: `url(${avatar})`}}/>*/}
+                             style={{backgroundImage: `url(${avatar})`}}/>
                         <div>
                             <div
-                                className="name">{displayName}vdkjvdlkjdvljvdkjkdvdjklvd
+                                className="name">{displayName}
                             </div>
                             <div className="coin">1123</div>
                         </div>
-                        </NavLink>
-                    </div>
+                    </NavLink>
+                </div>
                 <button className="button mobile-hide">Deposit</button>
                 <button
                     onClick={cbHandleLogout}

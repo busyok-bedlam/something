@@ -18,6 +18,10 @@ export default class Scrollbar extends Component {
         }
     }
 
+    hadlerScroll(e) {
+        e.stopPropagation();
+    }
+
     getValues(){
         return this.refs.scrollbar.getValues();
     }
@@ -81,6 +85,7 @@ export default class Scrollbar extends Component {
             <Scrollbars
                 universal
                 {...this.props}
+                onScroll={this.hadlerScroll.bind(this)}
                 hideTracksWhenNotNeeded={true}
                 onScrollStop={this.onScrollStop.bind(this)}
                 renderThumbVertical={verticalThumb}
