@@ -13,12 +13,6 @@ export default class RouletteBets extends Component {
         COLOR3: 'rBets__wrapper-color3'
     };
 
-    handleScroll(e) {
-        console.log(e.stopPropagation);
-        e.stopPropagation();
-    }
-
-
     render() {
         const {color} = this.props;
         let bets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((el, i) =>
@@ -41,7 +35,7 @@ export default class RouletteBets extends Component {
                     {/* TODO: Add scroll for my bet and add class "active"*/}
                     <button className="button-border">Find me</button>
                 </div>
-                <div style={{height: '24.4rem'}} onScroll={this.handleScroll}>
+                <div style={{height: '24.4rem'}}>
                     <Scrollbar>
                         {
                             bets

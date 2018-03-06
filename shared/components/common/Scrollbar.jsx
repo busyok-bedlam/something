@@ -85,7 +85,7 @@ export default class Scrollbar extends Component {
             <Scrollbars
                 universal
                 {...this.props}
-                onScroll={this.hadlerScroll.bind(this)}
+                onScroll={this.props.onScroll}
                 hideTracksWhenNotNeeded={true}
                 onScrollStop={this.onScrollStop.bind(this)}
                 renderThumbVertical={verticalThumb}

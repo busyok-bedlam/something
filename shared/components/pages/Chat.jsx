@@ -12,10 +12,6 @@ export default class Chat extends Component {
         this.setState({selectedOption: selectedOption.value});
     };
 
-    handleScroll(e) {
-        // e.stopPropagation();
-    }
-
     render() {
         const {selectedOption} = this.state;
         return (
@@ -50,7 +46,7 @@ export default class Chat extends Component {
                         />
                     </div>
                     <div className="chat__wrapper" >
-                        <div style={{height: 'calc(100vh - 40rem)'}} onScroll={this.handleScroll}>
+                        <div style={{height: 'calc(100vh - 40rem)'}}>
                             <Scrollbar>
                                 <div className="chat__message" onScroll={this.handleSc}>
                                     <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
