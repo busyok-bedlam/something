@@ -5,23 +5,37 @@ import 'react-select/dist/react-select.css';
 
 export default class Chat extends Component {
     state = {
-        selectedOption: 'eng'
+        selectedOption: 'eng',
+        showChat: false
     };
 
     handleChange = (selectedOption) => {
         this.setState({selectedOption: selectedOption.value});
     };
 
+    handleShowChat() {
+        this.setState({
+            showChat: !this.state.showChat
+        });
+    }
+
+    handleOnOpen () {
+        this.setState({
+            showChat: true
+        });
+    }
+
     render() {
-        const {selectedOption} = this.state;
+        const {selectedOption, showChat} = this.state;
         return (
-            <div className="chat">
+            <div className={(showChat) ? "chat" : "chat chat-hidden" }>
                 <div className="chat__fixed" id='chat'>
-                    <div className="chat__header">
+                    <div className="chat__header" onClick={this.handleShowChat.bind(this)}>
                         <h2>Chat</h2>
                         <Select
                             name="form-field-name"
                             value={selectedOption}
+                            onOpen={this.handleOnOpen.bind(this)}
                             onChange={this.handleChange}
                             searchable={false}
                             clearable={false}
