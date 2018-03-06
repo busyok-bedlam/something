@@ -11,11 +11,19 @@ class LoginModal extends Component {
         super(props);
         this.state = {
             open: true,
+            agree: false
         };
     }
 
     cbHandleLogin() {
         location.href = '/api/auth/steam';
+    }
+
+    handleChange(e) {
+        this.setState({
+            ...this.state,
+            [e.target.name]: e.target.checked
+        });
     }
 
     render() {
@@ -30,7 +38,7 @@ class LoginModal extends Component {
                     </object>
                     <div className="checkbox__wrapper">
                         <div className="checkbox">
-                            <input type="checkbox" name="agree" id="agree"/>
+                            <input type="checkbox" name="agree" id="agree" checked={this.state.agree} onChange={this.handleChange.bind(this)}/>
                             <label htmlFor="agree"/>
                         </div>
                         <span>
@@ -44,6 +52,7 @@ class LoginModal extends Component {
                         </span>
                     </div>
                     <button
+                        disabled={!this.state.agree}
                         onClick={::this.cbHandleLogin}
                         className="button">
                         Enter now

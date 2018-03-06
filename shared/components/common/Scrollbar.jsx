@@ -46,7 +46,7 @@ export default class Scrollbar extends Component {
                         position: 'absolute',
                         width: '3px',
                         background: '#2f3144',
-                        right: '0px',
+                        right: '20px',
                         bottom: '2px',
                         top: '2px'
                     }}/>

@@ -14,7 +14,13 @@
   }
   .button {
     text-transform: uppercase;
-    display: block;
-    margin: 6rem auto 0;
+  }
+  .button__wrapper {
+    text-align: center;
+    margin: 3rem auto 0;
+    .checkbox__wrapper {
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
   }
 }
