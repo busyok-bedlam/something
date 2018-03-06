@@ -48,6 +48,10 @@
       }
       .avatar {
         margin-right: 8px;
+        + div {
+          min-width: calc(100% - 40px);
+          flex-basis: calc(100% - 40px);
+        }
       }
       .name {
         margin-bottom: 7px;
@@ -67,6 +71,7 @@
     .button {
       height: 7rem;
       width: 14rem;
+      white-space: nowrap;
       display: flex;
       align-items: center;
       justify-content: center;

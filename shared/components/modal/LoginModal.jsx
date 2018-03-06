@@ -26,6 +26,10 @@ class LoginModal extends Component {
         });
     }
 
+    componentDidMount() {
+        this.props.router.push('/some/path')
+    }
+
     render() {
         return (
             <Dialog

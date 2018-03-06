@@ -1,8 +1,71 @@
+@media(max-width: $tablet) {
+  .modal__header {
+    font-size: 3rem;
+    padding: 3rem 0;
+  }
+}
+
+@media(max-width: $mobile) {
+  .modal-deposit {
+    &__content {
+      h3 {
+        font-size: 1.8rem;
+        white-space: nowrap;
+      }
+      h4 {
+        margin-bottom: 0;
+      }
+      > object {
+        max-height: 80px;
+        margin: 0 auto;
+      }
+    }
+    &__button {
+      background-size: 50px;
+      height: 7rem;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-deposit {
+    &__balance {
+      margin-bottom: 2rem;
+    }
+    &__content {
+      &-disabled {
+        .disabled {
+          object {
+            max-width: 160px;
+            max-height: 100px;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    &__block {
+      display: block;
+      padding-bottom: 70%;
+      width: 70%;
+      margin: 0 auto 10px;
+      &:first-child {
+        margin-right: auto;
+      }
+    }
+  }
+}
+
 @media (max-width: $smallMobile) {
   .modal-login {
     .button,
     object {
       max-width: 170px;
+    }
+  }
+  .modal-deposit {
+    &__block {
+      padding-bottom: 100%;
+      width: 100%;
     }
   }
 }
