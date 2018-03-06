@@ -36,6 +36,7 @@ class Header extends React.Component {
                 displayName={user.displayName}
                 avatar={user.avatarFull}
                 cbHandleLogout={::this.cbHandleLogout}
+                location={this.props.location}
             />
         );
     }

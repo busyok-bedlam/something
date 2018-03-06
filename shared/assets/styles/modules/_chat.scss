@@ -10,11 +10,14 @@
     display: flex;
     justify-content: space-between;
     h2 {
+      min-width: 62%;
+      flex-basis: 62%;
       line-height: 5.7rem;
       text-transform: uppercase;
     }
     .select {
       min-width: 38%;
+      flex-basis: 38%;
       background-color: $navBg;
       &:hover {
         background-color: $selectBg;

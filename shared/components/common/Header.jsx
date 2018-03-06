@@ -41,6 +41,13 @@ export default class Header extends Component {
         setTimeout(this.startTime, 1000);
     };
 
+    componentWillUpdate(nextProps, nextState) {
+        // Hide topnav when router was changed
+        if(this.props.location.pathname != nextProps.location.pathname) {
+            nextState.menuOpen = false;
+        }
+    }
+
     componentDidMount() {
         this.startTime();
     }

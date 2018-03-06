@@ -30,8 +30,8 @@ export default class Chat extends Component {
         return (
             <div className={(showChat) ? "chat" : "chat chat-hidden" }>
                 <div className="chat__fixed" id='chat'>
-                    <div className="chat__header" onClick={this.handleShowChat.bind(this)}>
-                        <h2>Chat</h2>
+                    <div className="chat__header">
+                        <h2 onClick={this.handleShowChat.bind(this)}>Chat</h2>
                         <Select
                             name="form-field-name"
                             value={selectedOption}
@@ -41,7 +41,7 @@ export default class Chat extends Component {
                             clearable={false}
                             className='select'
                             optionClassName='select__options'
-                            openOnFocus={true}
+                            openOnFocus={false}
                             options={[
                                 {
                                     value: 'eng',
