@@ -32,7 +32,7 @@ export default class Scrollbar extends Component {
                 <div
                     {...props}
                     style={{
-                        width: '3px',
+                        width: '2px',
                         background: '#fff',
                     }}/>
             )
@@ -44,8 +44,8 @@ export default class Scrollbar extends Component {
                     {...props}
                     style={{
                         position: 'absolute',
-                        width: '3px',
-                        right: '0px',
+                        width: '2px',
+                        right: '4px',
                         bottom: '2px',
                         top: '2px'
                     }}/>
@@ -64,6 +64,7 @@ export default class Scrollbar extends Component {
                         right: 0,
                         bottom: 0,
                         overflowY: 'scroll',
+                        paddingRight: '20px',
                         marginRight: '-17px'
                     }}/>
             );

@@ -56,11 +56,11 @@
     }
   }
   &__wrapper {
-    padding: 2rem;
+    padding: 2rem 0;
     background-color: $contentBg;
   }
   &__message {
-    margin-bottom: 1.1rem;
+    padding-left:2rem;
     margin-bottom: 1.1rem;
     .avatar {
       min-width: 2.4rem;
@@ -101,6 +101,7 @@
     border: 1px solid $selectBg;
     background-color: $navBg;
     display: flex;
+    margin: 0 2rem;
     textarea {
       width: 100%;
       color: #fff;

@@ -76,7 +76,9 @@ a {
   flex-grow: 1;
   display: flex;
   align-items: stretch;
-  max-height: calc(100vh - 80px);
+  &__content {
+    padding-right: 17px;
+  }
 }
 
 .rotate {
