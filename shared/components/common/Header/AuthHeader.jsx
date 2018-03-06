@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import NavLink from './../NavLink.jsx';
+import ModalController from '../../../lib/ModalController';
 
 export default class AuthHeader extends Component {
 
@@ -26,7 +27,9 @@ export default class AuthHeader extends Component {
                         </div>
                     </NavLink>
                 </div>
-                <button className="button mobile-hide">Deposit</button>
+                <button
+                    onClick={() => ModalController.openModal('DepositModal')}
+                    className="button mobile-hide">Deposit</button>
                 <button
                     onClick={cbHandleLogout}
                     className="button button-gray"

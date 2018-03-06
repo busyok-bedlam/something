@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import NavLink from './NavLink.jsx';
 import AuthHeader from './Header/AuthHeader.jsx';
 import NotAuthHeader from './Header/NotAuthHeader.jsx';
+import ModalController from '../../lib/ModalController';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -113,7 +114,9 @@ export default class Header extends Component {
                             <NavLink to='/faq' className='header__bottom-right-link'>FAQ</NavLink>
                             <NavLink to='/support' className='header__bottom-right-link'>Support</NavLink>
                             <NavLink to='/privacy-policy' className='header__bottom-right-link'>Privacy policy</NavLink>
-                            <button className="button mobile-show">Deposit</button>
+                            <button
+                                onClick={() => ModalController.openModal('DepositModal')}
+                                className="button mobile-show">Deposit</button>
                         </nav>
                     </div>
                 </div>

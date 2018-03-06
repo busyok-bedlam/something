@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import NavLink from './../../common/NavLink.jsx'
+import NavLink from './../../common/NavLink.jsx';
+import ModalController from '../../../lib/ModalController';
 
 export default class RouletteLobby extends Component {
     render() {
@@ -7,7 +8,9 @@ export default class RouletteLobby extends Component {
             <div className="rLobby">
                 <div className="game__header">
                     <div className='balance'>Balance: <i className='icon-poker-piece'/><span>1123</span></div>
-                    <NavLink to='/deposit' className='button'>Deposit now</NavLink>
+                    <button
+                        onClick={() => ModalController.openModal('DepositModal')}
+                        className='button'>Deposit now</button>
                 </div>
                 <div className="game__lobby">
                     <div className="rLobby__bet">

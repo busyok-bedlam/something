@@ -1,0 +1,134 @@
+.modal-deposit {
+  &__wrapper {
+    max-width: 990px;
+    margin: 0 auto;
+  }
+  &__balance {
+    text-align: center;
+    font-size: 2.314rem;
+    margin-bottom: 6rem;
+    letter-spacing: .5px;
+    i {
+      font-size: 1.6rem;
+      padding: 0 1rem;
+    }
+    span {
+      font-family:$robotoC;
+    }
+  }
+  &__block {
+    padding-bottom: calc(50% - 1rem);
+    width: calc(50% - 1rem);
+    display: inline-block;
+    position: relative;
+    &:first-child {
+      margin-right: 2rem;
+    }
+  }
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: $navBg;
+    transition: .2s ease all;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    &:hover:not(.modal-deposit__content-disabled),
+    &:focus:not(.modal-deposit__content-disabled) {
+      background-color: $contentBg;
+      h3,
+      h4 {
+        font-weight: 400;
+      }
+    }
+    h3 {
+      font-size: 2.4rem;
+      text-transform: uppercase;
+      font-weight: 300;
+      transition: .2s ease font-family;
+    }
+    h4 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+      transition: .2s ease font-family;
+    }
+    .price {
+      color: $contentText;
+      font-weight: 300;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      max-width: 280px;
+      margin: 0 auto;
+      span {
+        color: #fff;
+      }
+    }
+    > object {
+      display: block;
+      max-width: 180px;
+      margin: 2.9rem auto;
+    }
+    .button {
+      display: block;
+      width: 100%;
+      height: 6rem;
+      line-height: 6rem;
+      max-width: 300px;
+      text-transform: uppercase;
+    }
+    &-disabled {
+      .disabled {
+        z-index: 2;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        font-size: 2.4rem;
+        user-select: none;
+        background-color: rgba(58, 63, 70, .9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        object {
+          margin-bottom: -1rem;
+          max-width: 210px;
+        }
+      }
+    }
+  }
+  &__buttons {
+    min-width: 100%;
+    flex-basis: 100%;
+  }
+  &__button {
+    width: calc(33.33% - 13.33px);
+    height: 9rem;
+    display: inline-block;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    &:not(:last-child) {
+      margin-right: 2rem;
+    }
+    &-paypal {
+      background-image: url("./static/images/paypal.png");
+    }
+    &-bitcoin {
+      background-image: url("./static/images/bitcoin.png");
+    }
+    &-gift {
+      background-image: url("./static/images/giftcard.png");
+    }
+  }
+}

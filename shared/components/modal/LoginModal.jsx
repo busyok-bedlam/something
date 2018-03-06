@@ -1,7 +1,7 @@
 import React, {Component} from "react";
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from './../../actions/userActions';
-import {connect} from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import ModalController from '../../lib/ModalController';
 

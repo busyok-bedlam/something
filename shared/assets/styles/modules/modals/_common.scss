@@ -64,3 +64,35 @@
     padding: 5.5rem 0;
   }
 }
+
+
+.modal__close {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 25px;
+  top: 23px;
+  cursor: pointer;
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    background-color: #fff;
+    height: 2px;
+    width: 100%;
+    transition: .2s ease all;
+  }
+  &:before {
+    transform: translateY(10px) rotate(45deg);
+  }
+  &:after {
+    transform: translateY(8px) rotate(-45deg);
+  }
+  &:hover {
+    &:before,
+    &:after {
+      background-color: #fff;
+      box-shadow: 0 0 20px #fff;
+    }
+  }
+}
