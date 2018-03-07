@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Scrollbar from './../../common/Scrollbar.jsx';
+import User from './../../common/User.jsx';
 
 export default class RouletteBets extends Component {
     static PropTypes = {
@@ -17,11 +18,7 @@ export default class RouletteBets extends Component {
         const {color} = this.props;
         let bets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((el, i) =>
             (<div className="rBets__item" key={i}>
-                <div>
-                    <span className="avatar" style={{backgroundImage: `url('./static/images/user.png')`}}/>
-                    <span className='user__level'>12</span>
-                    <span>vkvhrhvlvrkrvhlrhvrl</span>
-                </div>
+                <User level={9} name={'ConorMcGregor'} image='./static/images/user.png'/>
                 <div>
                     <i className='icon-poker-piece'/>1123
                 </div>

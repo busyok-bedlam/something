@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Select from 'react-select';
 import Scrollbar from './../common/Scrollbar.jsx';
+import User from './../common/User.jsx';
 import 'react-select/dist/react-select.css';
 
 export default class Chat extends Component {
@@ -62,43 +63,25 @@ export default class Chat extends Component {
                     <div className="chat__wrapper" >
                         <div style={{height: 'calc(100vh - 40rem)'}}>
                             <Scrollbar>
-                                <div className="chat__message" onScroll={this.handleSc}>
-                                    <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                                    <span className="user__level">11</span>
-                                    <span className="name">ConorMcGregor:</span>
-                                    <span className="message">
-                            orem ipsum dolor sit amet, consecte
-                        </span>
+                                <div className="chat__message">
+                                    <User level={9} name={'ConorMcGregor'} image='./static/images/user.png'/>
+                                    <span className="message">orem ipsum dolor sit amet, consecte</span>
                                 </div>
                                 <div className="chat__message">
-                                    <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                                    <span className="user__level user__level-1 icon-fire">11</span>
-                                    <span className="name">ConorMcGregor:</span>
-                                    <span className="message">
-                            orem ipsum dolor sit amet, consecte
-                        </span>
+                                    <User isModerator={true} name={'ConorMcGregor'} image='./static/images/user.png'/>
+                                    <span className="message">orem ipsum dolor sit amet, consecte</span>
                                 </div>
                                 <div className="chat__message">
-                                    <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                                    <span className="user__level user__level-2 icon-fire">11</span>
-                                    <span className="name">ConorMcGregor:</span>
-                                    <span className="message">
-                            orem ipsum dolor sit amet, consecte
-                        </span>
+                                    <User isAdmin={true} name={'ConorMcGregor'} image='./static/images/user.png'/>
+                                    <span className="message">orem ipsum dolor sit amet, consecte</span>
                                 </div>
-                                <div className="chat__message admin">
-                                    <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                                    <span className="name">[ADMIN] ConorMcGregor:</span>
-                                    <span className="message">
-                            orem ipsum dolor sit amet, consecte
-                        </span>
+                                <div className="chat__message">
+                                    <User level={99} name={'ConorMcGregor'} image='./static/images/user.png'/>
+                                    <span className="message">orem ipsum dolor sit amet, consecte</span>
                                 </div>
-                                <div className="chat__message moderator">
-                                    <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                                    <span className="name">[MODERATOR] ConorMcGregor</span>:
-                                    <span className="message">
-                            orem ipsum dolor sit amet, consecte
-                        </span>
+                                <div className="chat__message">
+                                    <User level={51} name={'ConorMcGregor'} image='./static/images/user.png'/>
+                                    <span className="message">orem ipsum dolor sit amet, consecte</span>
                                 </div>
                             </Scrollbar>
                         </div>

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Chat from './Chat.jsx';
-import RouletteLobby from './RouletteGame/RouletteLobby.jsx';
-import RouletteWheel from './RouletteGame/RouletteWheel.jsx';
-import RouletteBets from './RouletteGame/RouletteBets.jsx';
+import CrashGame from './CrashGame/CrashGame.jsx';
+import CrashLobby from './CrashGame/CrashLobby.jsx';
+import CrashHistory from './CrashGame/CrashHistory.jsx';
+import ModalController from './../../lib/ModalController';
 
 export default class Roulette extends Component {
 
@@ -34,13 +35,11 @@ export default class Roulette extends Component {
         } = this.props;
         return (
             <div className='container'>
-                <div className="roulette">
-                    <RouletteWheel/>
-                    <RouletteLobby/>
-                    <div className="rBets">
-                        <RouletteBets color={RouletteBets.type.COLOR1}/>
-                        <RouletteBets color={RouletteBets.type.COLOR2}/>
-                        <RouletteBets color={RouletteBets.type.COLOR3}/>
+                <div className="crash">
+                    <CrashHistory />
+                    <div>
+                        <CrashGame />
+                        <CrashLobby />
                     </div>
                 </div>
                 <Chat/>

@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import User from './../common/User.jsx';
 
 export default class TopPlayers extends Component {
     render() {
@@ -40,11 +41,7 @@ export default class TopPlayers extends Component {
                 <div>
                     <div className="top-players__item">
                         <div className='place'>1</div>
-                        <div className='name'>
-                            <span className="avatar" style={{backgroundImage: 'url("./static/images/user.png")'}}/>
-                            <span className="user__level">11</span>
-                            <span className="name">ConorMcGregor</span>
-                        </div>
+                        <User level={9} name={'ConorMcGregor'} image='./static/images/user.png'/>
                         <div>356</div>
                         <div><i className='icon-poker-piece'/> 333 333</div>
                     </div>

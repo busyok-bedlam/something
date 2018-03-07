@@ -1,0 +1,58 @@
+.cHistory {
+  padding: 2rem 0;
+  background-color: $headerBg;
+  &__header,
+  &__item,
+  &__irem-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+  }
+  &__item,
+  &__irem-header {
+    div {
+      min-width: 20%;
+      max-width: 20%;
+      flex-basis: 20%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .name {
+      min-width: 40%;
+      max-width: 40%;
+      flex-basis: 40%;
+    }
+  }
+  &__header {
+    padding: 0 2rem;
+    .players {
+      color: $contentText;
+      font-weight: 300;
+      span {
+        color: #fff;
+      }
+    }
+    .bets {
+      font-family: $robotoC;
+      i {
+        margin: 0 10px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+  &__table {
+    padding: 2rem;
+  }
+  &__item {
+    height: 40px;
+  }
+  &__item-header {
+    height: 60px;
+    font-size: 1.8rem;
+    font-weight: 300;
+    border-bottom: 1px solid $contentBg;
+  }
+}

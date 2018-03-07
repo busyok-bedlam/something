@@ -9,7 +9,10 @@
 @import "game";
 
 // Roulette
-@import "roulette/roulette";
+@import "roulette/roulette.scss";
+
+// Crash game
+@import "crash/crash";
 
 // Pages
 @import "support";

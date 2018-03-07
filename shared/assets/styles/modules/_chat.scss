@@ -77,24 +77,6 @@
       color: $contentText;
       word-break: break-all;
     }
-    &.admin {
-      .name {
-        color: $green;
-        padding-left: 0;
-      }
-      .message {
-        color: #fff;
-      }
-    }
-    &.moderator {
-      .name {
-        color: $moderatorColor;
-        padding-left: 0;
-      }
-      .message {
-        color: #fff;
-      }
-    }
   }
   &__textarea {
     min-height: 8.8rem;
@@ -179,5 +161,25 @@
         color: nth($levelFireColors, $i);
       }
     }
+  }
+}
+
+.user__admin {
+  .name {
+    color: $green;
+    padding-left: 0;
+  }
+  + .message {
+    color: #fff;
+  }
+}
+
+.user__moderator {
+  .name {
+    color: $moderatorColor;
+    padding-left: 0;
+  }
+  + .message {
+    color: #fff;
   }
 }
