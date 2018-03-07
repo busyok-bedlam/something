@@ -8,11 +8,12 @@ export default class User extends Component {
         level: PropTypes.number,
         name: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,
+        className: PropTypes.string
     };
 
     render() {
-        let {level, isAdmin, isModerator, name, image} = this.props;
-        let colorLevel, classNameUser = '';
+        let {level, isAdmin, isModerator, name, image, className} = this.props;
+        let colorLevel = '', classNameUser = '';
         if (isAdmin) classNameUser = "user__admin";
         if (isModerator) classNameUser = "user__moderator";
         if (!isAdmin && !isModerator) {
@@ -39,7 +40,7 @@ export default class User extends Component {
         }
 
         return (
-            <span className={'user ' + classNameUser}>
+            <span className={'user ' + classNameUser + className}>
                 <span className="avatar" style={{backgroundImage: `url("${image}")`}}/>
                 {level && <span className={colorLevel}>{level}</span>}
                 <span className="name">

@@ -1,13 +1,18 @@
 .cHistory {
   padding: 2rem 0;
   background-color: $headerBg;
+  min-width: 46.66%;
+  flex-basis: 46.66%;
+  + div {
+    min-width: 52.5%;
+    flex-basis: 52.5%;
+  }
   &__header,
   &__item,
   &__irem-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
   }
   &__item,
   &__irem-header {
@@ -44,15 +49,28 @@
     }
   }
   &__table {
-    padding: 2rem;
+    padding: 2rem 0;
   }
   &__item {
     height: 40px;
+    padding-left: 2rem;
+    &-good {
+      color: $pink;
+    }
+    &-bad {
+      color: $green;
+    }
+    .avatar {
+      width: 25px;
+      min-width: 25px;
+      height: 25px;
+    }
   }
   &__item-header {
     height: 60px;
     font-size: 1.8rem;
     font-weight: 300;
+    padding: 0 2rem;
     border-bottom: 1px solid $contentBg;
   }
 }

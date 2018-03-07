@@ -67,10 +67,9 @@
       height: 2.4rem;
       display: inline-block;
       vertical-align: middle;
-      margin-right: 10px;
     }
     .name {
-      padding: 0 12px 0 5px;
+      padding: 0 12px 0 0;
     }
     .message {
       font-weight: 300;
@@ -132,8 +131,10 @@
 }
 
 .user__level {
+  color: #fff;
   font-size: 14px;
   padding: 0 5px;
+  margin: 0 5px;
   background-color: $navBg;
   font-family: $robotoC;
   display: inline-block;

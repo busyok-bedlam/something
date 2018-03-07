@@ -1,6 +1,8 @@
 .crash {
   min-width: 67.84%;
   flex-basis: 67.84%;
+  display: flex;
+  justify-content: space-between;
 }
 
 @import "crashHistory";
