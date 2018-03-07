@@ -1,0 +1,25 @@
+@media (max-width: $mobile) {
+  .top-players {
+    .page-header {
+      padding-bottom: 2.5rem;
+    }
+    &__buttons {
+      display: block;
+      .header__bottom-right-link {
+        width: 33.33%;
+        line-height: 5rem;
+      }
+    }
+    &__total {
+      flex-wrap: wrap;
+      padding: 2rem 0;
+      > * {
+        min-width: 50%;
+        flex-basis: 50%;
+      }
+      h3 {
+        margin: 10px 0 15px;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 .input-float {
   position: relative;
-  margin-top: 41px;
+  margin-top: 4.1rem;
   background-color: $navBg;
   z-index: 1;
   input,
@@ -17,15 +17,15 @@
     }
   }
   input {
-    height: 45px;
-    padding: 0 15px;
+    height: 4.5rem;
+    padding: 0 1.5rem;
     color: #fff;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 16px;
   }
   textarea {
     color: $contentText;
-    padding: 15px;
+    padding: 1.5rem;
     height: 26rem;
     resize: none;
     overflow: hidden;
@@ -33,23 +33,23 @@
   }
   label {
     color: $contentText;
-    font-size: 18px;
+    font-size: 1.8rem;
     letter-spacing: 1px;
     position: absolute;
-    left: 15px;
-    top: 10px;
+    left: 1.5rem;
+    top: 1rem;
     z-index: -1;
     transition: .2s ease all;
   }
-  &.invalid + label,
+  &.invalid label,
   input:valid + label,
   input:focus + label,
   textarea:valid + label,
   textarea:focus + label {
     color: #fff;
-    top: -24px;
+    top: -2.4rem;
     left: 0;
-    font-size: 16px;
+    font-size: 1.6rem;
   }
   &-textarea {
     height: 26rem;

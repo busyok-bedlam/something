@@ -1,0 +1,15 @@
+@media (max-width: $mobile) {
+  .support {
+    form {
+      padding-top: 0;
+    }
+    &__buttons {
+      display: block;
+      margin-top: 0;
+    }
+    .footer__social {
+      margin: 2rem 0;
+      text-align: right;
+    }
+  }
+}

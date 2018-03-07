@@ -74,13 +74,12 @@
         width: 40px;
         font-size: 0;
         display: block;
-        text-align: center;
+        position: relative;
         i {
-          font-size: 15px;
-          margin: 0 auto;
-          display: block;
-          left: 0;
-          top: 0;
+          top: 50%;
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
       }
     }
