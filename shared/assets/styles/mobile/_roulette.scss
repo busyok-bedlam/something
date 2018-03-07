@@ -4,3 +4,31 @@
     flex-basis: 100%;
   }
 }
+
+@media (max-width: $mobile) {
+  .roulette {
+    display: block;
+  }
+  .rWheel{
+    &__wrapper {
+      margin: 0 auto 2rem;
+    }
+    &__timer-data {
+      font-size: 7rem;
+    }
+    &__gamble {
+      font-size: 3.5rem;
+    }
+    &__winner {
+      font-size: 7rem;
+    }
+  }
+  .rBets__wrapper {
+    width: 100%;
+    vertical-align: top;
+    margin-bottom: 2rem;
+    &:not(:last-child) {
+      margin-right: 0;
+    }
+  }
+}

@@ -64,7 +64,7 @@ export default class Scrollbar extends Component {
                         right: 0,
                         bottom: 0,
                         overflowY: 'scroll',
-                        paddingRight: '20px',
+                        paddingRight: '17px',
                         marginRight: '-17px'
                     }}/>
             );

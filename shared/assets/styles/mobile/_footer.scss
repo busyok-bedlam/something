@@ -1,6 +1,11 @@
 @media (max-width: $mobile) {
   .footer {
-    padding-bottom: 10px;
+    padding-bottom: 5.7rem;
+  }
+}
+
+@media (max-width: $mobile) {
+  .footer {
     .container {
       display: block;
       position: relative;
@@ -19,6 +24,9 @@
     }
     &__social {
       padding-top: 10px;
+      a {
+        padding-right: 1.5rem !important;
+      }
     }
     &__nav {
       width: 100%;
