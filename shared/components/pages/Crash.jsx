@@ -36,11 +36,11 @@ export default class Roulette extends Component {
         return (
             <div className='container'>
                 <div className="crash">
-                    <CrashHistory />
-                    <div>
+                    <div className='crash__container'>
                         <CrashGame />
                         <CrashLobby />
                     </div>
+                    <CrashHistory />
                 </div>
                 <Chat/>
             </div>

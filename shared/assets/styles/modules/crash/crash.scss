@@ -3,6 +3,11 @@
   flex-basis: 67.84%;
   display: flex;
   justify-content: space-between;
+  flex-direction: row-reverse;
+  &__container {
+    min-width: 52.5%;
+    flex-basis: 52.5%;
+  }
 }
 
 @import "crashHistory";

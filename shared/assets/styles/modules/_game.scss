@@ -41,6 +41,10 @@
     font-family: $robotoC;
     border: 1px solid #575c63;
     background-color: $navBg;
+    &:hover,
+    &:focus {
+      border-color: $main;
+    }
   }
 }
 
@@ -56,7 +60,7 @@
   }
   a {
     color: $main;
-    font-size: 14px;
+    font-size: 1.4rem;
     text-decoration: underline;
     font-weight: 300;
     white-space: nowrap;

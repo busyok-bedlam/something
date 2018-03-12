@@ -1,0 +1,15 @@
+@media (max-width: $tablet) {
+  .crash {
+    min-width: 100%;
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: $mobile) {
+  .crash {
+    display: block;
+  }
+  .cLobby {
+    margin-bottom: 2rem;
+  }
+}

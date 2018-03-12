@@ -3,10 +3,6 @@
   background-color: $headerBg;
   min-width: 45.7%;
   flex-basis: 45.7%;
-  + div {
-    min-width: 52.5%;
-    flex-basis: 52.5%;
-  }
   &__header,
   &__item,
   &__irem-header {

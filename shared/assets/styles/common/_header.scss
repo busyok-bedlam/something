@@ -154,6 +154,7 @@
         position: relative;
         line-height: 11rem;
         letter-spacing: .15px;
+        white-space: nowrap;
         transition: .2s ease-out all;
         &:after {
           content: '';
