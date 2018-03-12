@@ -1,20 +1,73 @@
 .cGame {
   background-color: $navBg;
+  &__content {
+    padding: 1.5rem 2rem;
+    position: relative;
+    &-crashed {
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(25, 27, 31, .8);
+        z-index: 2;
+      }
+    }
+  }
   &__header {
     color: $contentText;
     font-size: 1.4rem;
     font-weight: 300;
-    margin-bottom: 2.5rem;
     span {
       color: #fff;
       font-family: $robotoC;
     }
     i {
+      margin: 0 1rem;
+      line-height: 15px;
       display: inline-block;
       vertical-align: middle;
     }
   }
   &__graph {
     position: relative;
+    min-height: 14vw;
+    canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #8f35e3;
+    }
+  }
+  &__caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 3;
+    white-space: nowrap;
+    .coeff {
+      font-size: 4.7vw;
+    }
+    .crashed {
+      display: block;
+      color: $main;
+      font-size: 2.6vw;
+      line-height: 2.6vw;
+      margin-bottom: 2.7vw;
+      text-transform: uppercase;
+    }
+    .next-round {
+      font-size: 2.65vw;
+      line-height: 2.65vw;
+      span {
+        color: $main;
+      }
+    }
   }
 }

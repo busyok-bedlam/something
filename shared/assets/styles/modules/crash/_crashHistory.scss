@@ -1,8 +1,8 @@
 .cHistory {
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   background-color: $headerBg;
-  min-width: 46.66%;
-  flex-basis: 46.66%;
+  min-width: 45.7%;
+  flex-basis: 45.7%;
   + div {
     min-width: 52.5%;
     flex-basis: 52.5%;
@@ -23,15 +23,21 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      padding-right: 5%;
+      text-align: right;
     }
     .name {
       min-width: 40%;
       max-width: 40%;
       flex-basis: 40%;
+      padding-right: 0;
+      text-align: left;
     }
   }
   &__header {
     padding: 0 2rem;
+    font-size: 1.8rem;
+    letter-spacing: .5px;
     .players {
       color: $contentText;
       font-weight: 300;
@@ -42,14 +48,15 @@
     .bets {
       font-family: $robotoC;
       i {
-        margin: 0 10px;
+        margin: 0 7px;
         display: inline-block;
-        vertical-align: middle;
+        vertical-align: text-top;
+        font-size: 1.5rem;
       }
     }
   }
   &__table {
-    padding: 2rem 0;
+    padding: 1rem 0;
   }
   &__item {
     height: 40px;
@@ -64,13 +71,15 @@
       width: 25px;
       min-width: 25px;
       height: 25px;
+      margin-right: 5px;
     }
   }
   &__item-header {
-    height: 60px;
+    height: 57px;
     font-size: 1.8rem;
     font-weight: 300;
-    padding: 0 2rem;
+    margin: 0 2rem;
+    padding-left: 0;
     border-bottom: 1px solid $contentBg;
   }
 }

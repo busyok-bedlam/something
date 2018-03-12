@@ -61,7 +61,7 @@ export default class Chat extends Component {
                         />
                     </div>
                     <div className="chat__wrapper" >
-                        <div style={{height: 'calc(100vh - 40rem)'}}>
+                        <div style={{height: 'calc(100vh - 41rem)'}}>
                             <Scrollbar>
                                 <div className="chat__message">
                                     <User level={9} name={'ConorMcGregor'} image='./static/images/user.png'/>

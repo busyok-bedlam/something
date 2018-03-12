@@ -51,9 +51,6 @@ class App extends Component {
         if(chat) {
             let heightContent = document.getElementsByClassName("main-wrapper__content")[0].offsetHeight;
             let scrollTop = e.target.scrollTop;
-            console.log(scrollTop);
-            console.log(heightContent);
-            console.log(chat.offsetHeight);
             if((heightContent - chat.offsetHeight) > scrollTop) chat.style.marginTop = scrollTop+'px';
         }
     }
