@@ -14,7 +14,7 @@ export default {
     WEBPACK_PORT: 3005,
     SECRET: 'asdlkfjsalkjld4fsd5yg56hregrthfsdfsdflflksytreyrea75832hfh83thf3h',
     SECRET_ADMIN: 'asdlkdfdfdalkjld42425ajy65gtregre7s67u65htyeksreds545gtrf33',
-    STATIC_URL: "http://localhost:3005",
+    STATIC_URL: isDev ? "http://localhost:3005" : 'http://li1504-46.members.linode.com:9990',
     ORIGIN: isDev ? 'http://localhost:3000' : 'http://li1504-46.members.linode.com:9990',
     HOST: isDev ? 'localhost' : 'li1504-46.members.linode.com',
     ADMIN_ORIGIN: isDev ? 'http://localhost:3007' : 'https://admin.panos.com',
