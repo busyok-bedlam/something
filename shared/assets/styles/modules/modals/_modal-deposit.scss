@@ -1,12 +1,15 @@
 .modal-deposit {
+  .modal__header {
+    padding: 2rem 0;
+  }
   &__wrapper {
-    max-width: 990px;
+    max-width: 800px;
     margin: 0 auto;
   }
   &__balance {
     text-align: center;
     font-size: 2.314rem;
-    margin-bottom: 6rem;
+    margin-bottom: 2rem;
     letter-spacing: .5px;
     i {
       font-size: 1.6rem;
@@ -33,7 +36,7 @@
     height: 100%;
     overflow: hidden;
     text-align: center;
-    padding: 3rem 2rem;
+    padding: 2rem 1rem;
     background-color: $navBg;
     transition: .2s ease all;
     display: flex;
@@ -74,13 +77,13 @@
     > object {
       display: block;
       max-width: 180px;
-      margin: 2.9rem auto;
+      margin: 1rem auto;
     }
     .button {
       display: block;
       width: 100%;
-      height: 6rem;
-      line-height: 6rem;
+      height: 4rem;
+      line-height: 4rem;
       max-width: 300px;
       text-transform: uppercase;
     }
@@ -101,8 +104,9 @@
         justify-content: center;
         align-items: center;
         object {
-          margin-bottom: -1rem;
+          margin-bottom: 1rem;
           max-width: 210px;
+          max-height: 85px;
         }
       }
     }

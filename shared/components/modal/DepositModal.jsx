@@ -31,7 +31,7 @@ class DepositModal extends Component {
                     </div>
                     <div className='modal-deposit__balance'>Balance <i className='icon-poker-piece'/> <span>1123</span>
                     </div>
-                    <div style={{height: 'calc(80vh - 24rem)'}}>
+                    <div style={{height: 'calc(80vh - 20rem)'}}>
                         <Scrollbar>
                             <div style={{padding: '0 2rem'}}>
                                 <div className='modal-deposit__block'>
