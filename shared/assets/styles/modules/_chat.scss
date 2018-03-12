@@ -67,9 +67,13 @@
       height: 2.4rem;
       display: inline-block;
       vertical-align: middle;
+      margin-right: 5px;
     }
     .name {
       padding: 0 12px 0 0;
+      &:after {
+        content: ": ";
+      }
     }
     .message {
       font-weight: 300;
@@ -134,7 +138,7 @@
   color: #fff;
   font-size: 14px;
   padding: 0 5px;
-  margin: 0 5px;
+  margin-right: 5px;
   background-color: $navBg;
   font-family: $robotoC;
   display: inline-block;
