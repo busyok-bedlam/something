@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Scrollbar from './../common/Scrollbar.jsx';
-import 'react-select/dist/react-select.css';
+import ShopItem from './ShopItem.jsx';
+
 
 export default class Shop extends Component {
     state = {
@@ -28,10 +29,25 @@ export default class Shop extends Component {
                             </button>
                         </div>
                     </div>
+                    <div className="shop__container fix-scroll-margin" style={{height: 'calc(100vh - 30rem)'}}>
+                        <Scrollbar>
+                            <ShopItem />
+                            <ShopItem />
+                            <ShopItem />
+                            <ShopItem />
+                            <ShopItem />
+                            <ShopItem />
+                        </Scrollbar>
+                    </div>
                 </div>
-                <aside className="shop__aside">
-                    dwkld
-                    <Scrollbar></Scrollbar>
+                <aside className="cart fix-scroll-margin" style={{height: 'calc(100vh - 23.3rem)'}}>
+                    <Scrollbar>
+                        <ShopItem />
+                        <ShopItem />
+                        <ShopItem />
+                        <ShopItem />
+                        <ShopItem />
+                    </Scrollbar>
                 </aside>
             </div>
         );

@@ -1,5 +1,6 @@
 @import "sidebar";
 @import "chat";
+@import "weapon";
 
 //Modals
 @import "modals/modals";
@@ -15,6 +16,9 @@
 @import "crash/crash";
 
 // Pages
-@import "shop";
 @import "support";
 @import "top-players";
+
+// Shop (Deposit)
+@import "shop";
+@import "cart";
