@@ -1,4 +1,66 @@
 .cart {
   min-width: 28.7%;
   flex-basis: 28.7%;
+  background-color: $navBg;
+  &__header {
+    position: relative;
+    height: 5.7rem;
+    line-height: 5.7rem;
+    background-color: $contentBg;
+    h2 {
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    i {
+      color: #a4adba;
+      font-size: 2.7rem;
+      margin: 0 2rem 0 -1rem;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .count {
+      top: 50%;
+      right: 2rem;
+      font-size: 1.6rem;
+      color: $contentText;
+      position: absolute;
+      transform: translateY(-50%);
+    }
+  }
+  &__goods {
+    padding: 2rem 0 0 2rem;
+  }
+  &__footer {
+    font-size: 1.8rem;
+    padding: 2rem 0;
+    margin: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #6b717a;
+    span {
+      font-family: $robotoC;
+    }
+    i {
+      font-size: 14px;
+      margin: 0 7px;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 14px;
+    }
+    .button {
+      text-transform: uppercase;
+      width: 100%;
+      max-width: 220px;
+    }
+  }
+  .weapon__item {
+    margin-right: 2rem;
+    width: calc(50% - 1rem);
+    padding-bottom: calc(50% - 1rem);
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
 }

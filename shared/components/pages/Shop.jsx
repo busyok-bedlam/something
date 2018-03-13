@@ -21,7 +21,7 @@ export default class Shop extends Component {
                         <div>
                             <button className="button button-price">
                                 <span>Price</span>
-                                <i  className='arrow-icon'/>
+                                <i className='arrow-icon'/>
                             </button>
                             <button className="button button-refresh">
                                 <span><i className='icon-refresh'/>Refresh</span>
@@ -31,23 +31,45 @@ export default class Shop extends Component {
                     </div>
                     <div className="shop__container fix-scroll-margin" style={{height: 'calc(100vh - 30rem)'}}>
                         <Scrollbar>
-                            <ShopItem />
-                            <ShopItem />
-                            <ShopItem />
-                            <ShopItem />
-                            <ShopItem />
-                            <ShopItem />
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
                         </Scrollbar>
                     </div>
                 </div>
-                <aside className="cart fix-scroll-margin" style={{height: 'calc(100vh - 23.3rem)'}}>
-                    <Scrollbar>
-                        <ShopItem />
-                        <ShopItem />
-                        <ShopItem />
-                        <ShopItem />
-                        <ShopItem />
-                    </Scrollbar>
+                <aside className="cart">
+                    <div className="game__header">
+                        <div className='balance'>Balance: <i className='icon-poker-piece'/><span>1123</span></div>
+                        <button
+                            onClick={() => ModalController.openModal('DepositModal')}
+                            className='button'>Deposit now
+                        </button>
+                    </div>
+                    <div className="cart__header">
+                        <h2>
+                            <i className='icon-cart'/>
+                            Your cart
+                        </h2>
+                        <div className="count">15 skins</div>
+                    </div>
+                    <div className="cart__goods fix-scroll-margin" style={{height: 'calc(100vh - 43.3rem)'}}>
+                        <Scrollbar>
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
+                            <ShopItem/>
+                        </Scrollbar>
+                    </div>
+                    <div className="cart__footer">
+                        <div>
+                            Total: <i className='icon-poker-piece'/><span>1123</span>
+                        </div>
+                        <button className="button button-green">Buy now</button>
+                    </div>
                 </aside>
             </div>
         );
