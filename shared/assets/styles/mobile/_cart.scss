@@ -1,0 +1,54 @@
+@media (min-width: 576px) and (max-width: $tablet) {
+  .cart {
+    &__header {
+      .count {
+        top: 15px;
+        right: 1rem;
+        transform: none;
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: $mobile) {
+  .cart {
+    &__goods {
+      height: calc(100vh - 45.3rem) !important;
+    }
+    &__footer {
+      display: block;
+      .button {
+        height: 4rem;
+        line-height: 4rem;
+        max-width: 100%;
+        margin-top: 1rem;
+      }
+    }
+    .weapon__item {
+      margin-right: 0;
+      width: 100%;
+      padding-bottom: 100%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .cart {
+    right: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    top: calc(100% - 5.7rem);
+    transition: 1s ease top;
+    &-open {
+      top: 0;
+    }
+    .game__header {
+      display: none;
+    }
+    &__goods {
+      height: calc(100vh - 15.3rem) !important;
+    }
+  }
+}

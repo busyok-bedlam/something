@@ -41,6 +41,7 @@
     border-top: 1px solid #6b717a;
     span {
       font-family: $robotoC;
+      white-space: nowrap;
     }
     i {
       font-size: 14px;
@@ -52,7 +53,9 @@
     .button {
       text-transform: uppercase;
       width: 100%;
-      max-width: 220px;
+      max-width: 50%;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
   .weapon__item {

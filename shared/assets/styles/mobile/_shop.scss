@@ -1,0 +1,54 @@
+@media (max-width: $tablet) {
+  .shop {
+    &__container {
+      .weapon__item {
+        width: calc(33.33% - 1.333rem);
+        padding-bottom: calc(33.33% - 1.33rem);
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+        &:nth-child(5n) {
+          margin-right: 2rem;
+        }
+      }
+    }
+    &__input {
+      + div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .button-price {
+      max-width: 30%;
+    }
+    .button-refresh {
+      max-width: 70%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .shop {
+    min-width: 100%;
+    flex-basis: 100%;
+    &__header {
+      display: block;
+    }
+    &__input {
+      margin-bottom: 1rem;
+    }
+    &__container {
+      .weapon__item {
+        width: calc(50% - 1rem);
+        padding-bottom: calc(50% - 1rem);
+        &:nth-child(3n) {
+          margin-right: 2rem;
+        }
+        &:nth-child(2n) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
