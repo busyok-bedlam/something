@@ -1,0 +1,77 @@
+.shop {
+  min-width: 67.8%;
+  flex-basis: 67.8%;
+  &__aside {
+    min-width: 28.7%;
+    flex-basis: 28.7%;
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__input {
+    min-width: 39%;
+    flex-basis: 39%;
+    height: 5.7rem;
+    position: relative;
+    background-color: $navBg;
+    border: 1px solid #575c63;
+    + div {
+      min-width: 60%;
+      flex-basis: 60%;
+      text-align: right;
+    }
+    input {
+      color: #fff;
+      height: 100%;
+      width: 100%;
+      padding: 0 1.5rem;
+      background: transparent;
+      border: none;
+      position: relative;
+      z-index: 2;
+    }
+    i {
+      position: absolute;
+      top: 50%;
+      right: 1.5rem;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+  }
+  .button {
+    font-size: 1.6rem;
+    background-color: $navBg;
+    padding: 0 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    &:hover,
+    &:focus {
+      background-color: darken($navBg, 15);
+    }
+  }
+  .button + .button {
+    margin-left: 2rem;
+  }
+  .button-price {
+    max-width: 100px;
+    .arrow-icon {
+      right: -5px;
+    }
+  }
+  .button-refresh {
+    max-width: 220px;
+    i {
+      font-size: 2rem;
+      margin-right: 1rem;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .items {
+      color: $contentText;
+      font-weight: 300;
+    }
+  }
+}

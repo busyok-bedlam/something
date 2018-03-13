@@ -137,3 +137,37 @@ textarea {
 .logoSVG {
   max-width: 140px;
 }
+
+.arrow-icon {
+  height: 13px;
+  width: 13px;
+  min-width: 13px;
+  position: relative;
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    width: 7px;
+    height: 1px;
+    transition: .2s ease all;
+  }
+  &:before {
+    left: -1.5px;
+    transform: rotate(45deg);
+  }
+  &:after {
+    left: 3px;
+    transform: rotate(-45deg);
+  }
+  &-active {
+    &:before {
+      transform: rotate(-45deg);
+    }
+    &:after {
+      transform: rotate(45deg);
+    }
+  }
+}
