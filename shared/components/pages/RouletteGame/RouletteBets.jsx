@@ -32,7 +32,7 @@ export default class RouletteBets extends Component {
                     {/* TODO: Add scroll for my bet and add class "active"*/}
                     <button className="button-border">Find me</button>
                 </div>
-                <div style={{height: '24.4rem'}}>
+                <div style={{height: '24.4rem'}} className='fix-scroll-margin'>
                     <Scrollbar>
                         {
                             bets

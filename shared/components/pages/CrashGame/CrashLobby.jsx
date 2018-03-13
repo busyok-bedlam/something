@@ -7,10 +7,12 @@ export default class CrashHistory extends Component {
             <div className='cLobby'>
                 <div className="game__lobby">
                     <div className="game__info">
-                        <h2>Chose bet (max 300 000)</h2>
-                        <input type="text"/>
-                        <button className="button button-green">Start game</button>
-                        {/*<button className="button button-pink">Stop</button>*/}
+                        <div>
+                            <h2>Chose bet (max 300 000)</h2>
+                            <input type="text"/>
+                            <button className="button button-green">Start game</button>
+                            {/*<button className="button button-pink">Stop</button>*/}
+                        </div>
                         <div className="game__hash">
                             <div className="left">
                                 <b>№ 11239912323</b>

@@ -69,7 +69,7 @@ class App extends Component {
                         <ToastContainer/>
                     </div>
                     <Header {...this.props} />
-                    <main className="main-wrapper" style={{height: 'calc(100vh - 14rem)'}}>
+                    <main className="main-wrapper fix-scroll-margin" style={{height: 'calc(100vh - 14rem)'}}>
                         <Scrollbar onScroll={this.handleScroll}>
                             <div className='main-wrapper__content'>
                                 {this.props.children}

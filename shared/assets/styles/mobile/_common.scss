@@ -18,6 +18,12 @@
   }
 }
 
+@media (max-width: $tablet) {
+  .fix-scroll-margin > div > div {
+    margin-right: 0 !important;
+  }
+}
+
 @media (max-width: $mobile) {
   .container {
     max-width: 576px;
