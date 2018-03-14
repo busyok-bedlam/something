@@ -1,0 +1,20 @@
+@media (max-width: $mobile) {
+  .profile {
+    .container {
+      display: block;
+      max-width: 410px;
+    }
+    &__user {
+      min-height: 300px;
+      margin-bottom:2rem;
+    }
+    &__info {
+      .header__bottom-right-link {
+        width: 33.33%;
+      }
+      .top-players__total {
+        padding: 2rem;
+      }
+    }
+  }
+}
