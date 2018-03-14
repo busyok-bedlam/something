@@ -1,0 +1,49 @@
+.faq {
+  .page-container {
+    max-width: 980px;
+  }
+  &__item {
+    margin-bottom: 1px;
+    background-color: $navBg;
+    &:hover {
+      background-color: $contentBg;
+    }
+    &-active {
+      background-color: $contentBg;
+      &:hover {
+        background-color: $contentBg;
+      }
+      .faq__content {
+        max-height: 2000px;
+      }
+    }
+  }
+  &__header {
+    min-height: 88px;
+    font-size: 2.4rem;
+    position: relative;
+    cursor: pointer;
+    padding: 0 6rem 0 2rem;
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      background-color: #fff;
+      position: absolute;
+      top: 50%;
+      width: 7px;
+      height: 1px;
+      transition: .2s ease all;
+    }
+    &:before {}
+    &:after {}
+  }
+  &__content {
+    color: $contentText;
+    font-size: 1.6rem;
+    font-weight: 300;
+    overflow: hidden;
+    max-height: 0;
+    transition: 1s ease-out all;
+  }
+}

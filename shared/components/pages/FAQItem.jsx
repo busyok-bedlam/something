@@ -15,12 +15,12 @@ export default class FAQItem extends Component {
         const {title, text} = this.props;
         return (
             <div
-                className={(this.state.itemOpen) ? "faq__item active" : "faq__item"}>
-                <div className="faq__item-header"
+                className={(this.state.itemOpen) ? "faq__item faq__item-active" : "faq__item"}>
+                <div className="faq__header"
                      onClick={this.toggleItem.bind(this)}>
                     {title}
                 </div>
-                <div className="faq__item-content">
+                <div className="faq__content">
                     <p>
                         {text}
                     </p>

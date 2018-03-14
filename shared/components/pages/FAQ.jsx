@@ -4,17 +4,22 @@ import api from '../../api';
 
 export default class FAQ extends Component {
     state={
-        faqs: [],
-    }
+        faqs: [
+            {
+                title: "gfljgvlkj",
+                text: 'vriojroivei'
+            }
+        ],
+    };
 
     async componentWillMount(){
-        try{
-            const {faqs} = await api.faq.getFaqs();
-            this.setState({faqs});
-        } catch (error){
-            console.error(error);
-            alert(error.message || error.toString());
-        }
+        // try{
+        //     const {faqs} = await api.faq.getFaqs();
+        //     this.setState({faqs});
+        // } catch (error){
+        //     console.error(error);
+        //     alert(error.message || error.toString());
+        // }
     }
 
     __renderFaqs(){
@@ -33,13 +38,9 @@ export default class FAQ extends Component {
 
     render() {
         return (
-            <div className="faq container">
-                <h2 className="main-header">FAQ</h2>
-                <div>Lorem ipsum dolor sit amet, consectetur adipisicingelit,
-                    sed do eiusmod tempor incididunt
-                    ut labore et dolore magna aliqua. Ut enim
-                </div>
-                <div className="faq__wrapper">
+            <div className="faq">
+                <h2 className="page-header">FAQ</h2>
+                <div className="faq__wrapper page-container">
                     {this.__renderFaqs()}
                 </div>
             </div>
