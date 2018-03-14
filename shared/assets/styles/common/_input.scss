@@ -42,6 +42,7 @@
     transition: .2s ease all;
   }
   &.invalid label,
+  &.valid label,
   input:valid + label,
   input:focus + label,
   textarea:valid + label,

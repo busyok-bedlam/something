@@ -54,7 +54,7 @@ export default class Support extends Component {
                         placeholder="Steam link"
                         className="input-float"
                         required='true'
-                        validations={[validate.required]}
+                        validations={[validate.required, validate.steamLink]}
                     />
                     <Textarea cols="30"
                               rows="10"

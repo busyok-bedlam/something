@@ -28,6 +28,20 @@ export default class validate {
         }
     }
 
+    static steamLink(value){
+        const linkPattern = new RegExp('(?:https?:\/\/)?steamcommunity\.com\/(?:profiles|id)\/[a-zA-Z0-9]+');
+        if (!linkPattern.test(value)) {
+            return <div className="invalid-message">Is not a valid steam link.</div>
+        }
+    }
+
+    static tradeLink(value){
+        const linkPattern = new RegExp('(?:https?:\\/\\/)?steamcommunity\\.com\\/tradeoffer\\/new\\/\\?partner=[a-zA-Z0-9]+&token=[a-zA-Z0-9]+');
+        if (!linkPattern.test(value)) {
+            return <div className="invalid-message">Is not a valid steam link.</div>
+        }
+    }
+
     static isEqual(value, props, components) {
         const bothUsed = components.password[0].isUsed && components.passwordConfirm[0].isUsed;
         const bothChanged = components.password[0].isChanged && components.passwordConfirm[0].isChanged;
