@@ -7,6 +7,7 @@ import CrashPage from "./containers/CrashPage.jsx";
 import FAQPage from "./containers/pages/FAQPage.jsx";
 import ShopPage from "./containers/pages/ShopPage.jsx";
 import SupportPage from "./containers/pages/SupportPage.jsx";
+import ProfilePage from "./containers/pages/ProfilePage.jsx";
 import TopPlayersPage from "./containers/pages/TopPlayersPage.jsx";
 import NotFoundPage from './containers/NotFoundPage.jsx';
 
@@ -18,6 +19,7 @@ export default (
         <Route path='/faq' component={FAQPage}/>
         <Route path='/shop' component={ShopPage}/>
         <Route path='/support' component={SupportPage}/>
+        <Route path='/profile' component={ProfilePage}/>
         <Route path='/top-players' component={TopPlayersPage}/>
 
         <Route path='*' component={NotFoundPage}/>

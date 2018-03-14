@@ -16,7 +16,7 @@ export default class AuthHeader extends Component {
         return (
             <div className="header__top-right">
                 <div className="user">
-                    <NavLink to='/user'>
+                    <NavLink to='/profile'>
                         <div className="avatar"
                              style={{backgroundImage: `url(${avatar})`}}/>
                         <div>
