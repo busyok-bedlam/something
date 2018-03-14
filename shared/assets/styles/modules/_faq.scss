@@ -5,6 +5,7 @@
   &__item {
     margin-bottom: 1px;
     background-color: $navBg;
+    transition: 1s ease-out all;
     &:hover {
       background-color: $contentBg;
     }
@@ -23,7 +24,9 @@
     font-size: 2.4rem;
     position: relative;
     cursor: pointer;
-    padding: 0 6rem 0 2rem;
+    padding: 1rem 6rem 1rem 2rem;
+    display: flex;
+    align-items: center;
     &:before,
     &:after {
       content: '';
@@ -41,9 +44,13 @@
   &__content {
     color: $contentText;
     font-size: 1.6rem;
+    line-height: 2.4rem;
     font-weight: 300;
     overflow: hidden;
     max-height: 0;
     transition: 1s ease-out all;
+    p {
+      padding: 2rem;
+    }
   }
 }

@@ -117,11 +117,12 @@
   }
   &__button {
     width: calc(33.33% - 13.33px);
-    height: 9rem;
+    height: 6rem;
     display: inline-block;
     background-color: #fff;
     background-repeat: no-repeat;
     background-position: center;
+    background-size: 4.5rem;
     border: none;
     &:not(:last-child) {
       margin-right: 2rem;
