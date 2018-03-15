@@ -46,7 +46,7 @@ export default class RouletteLobby extends Component {
                         <div className="game__hash">
                             <div className="left">
                                 <b>№ 11239912323</b>
-                                <NavLink to='/fair-game'>Fair game</NavLink>
+                                <a onClick={() => ModalController.openModal('FairGameModal')}>Fair game</a>
                             </div>
                             <div className="right">
                                 <b>Hash round: </b>

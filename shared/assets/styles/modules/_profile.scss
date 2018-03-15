@@ -72,6 +72,10 @@
   &__name {
     font-size: 2.4rem;
     line-height: 4rem;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   &__level {
     min-width: 100%;

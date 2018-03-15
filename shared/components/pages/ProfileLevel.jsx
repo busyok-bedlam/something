@@ -1,20 +1,21 @@
 import React, {Component} from "react";
 import Progress from 'react-progressbar';
 import ModalController from '../../lib/ModalController';
+import PropTypes from 'prop-types';
 import {LoadingScreen} from '../../lib/LoadingScreen';
 import {toast} from 'react-toastify';
 
 export default class ProfileLevel extends Component {
-    render() {
+    static propTypes = {
+        user: PropTypes.object.isRequired
+    };
 
-    let {avatarFull, displayName} = this.props.user;
+    render() {
+        let {avatarFull, displayName} = this.props.user;
         return (
             <div className="profile__user profile__user-level-1">
-                <div className="profile__level">
-                    71
-                    <i className='icon-fire'/>
-                </div>
-                <div className="profile__name">${displayName}</div>
+                <div className="profile__level">71<i className='icon-fire'/></div>
+                <div className="profile__name">{displayName}</div>
                 <div className="avatar"
                      style={{backgroundImage: `url(${avatarFull})`}}/>
                 <div className="profile__xp">

@@ -1,6 +1,7 @@
 .faq {
   .page-container {
     max-width: 980px;
+    margin-top: 4rem;
   }
   &__item {
     margin-bottom: 1px;
@@ -8,14 +9,28 @@
     transition: 1s ease-out all;
     &:hover {
       background-color: $contentBg;
+      .faq__header {
+        &:before,
+        &:after {
+          background-color: $main;
+        }
+      }
     }
     &-active {
       background-color: $contentBg;
       &:hover {
         background-color: $contentBg;
       }
+      .faq__header {
+        &:before {
+          transform: rotate(90deg) scale(0);
+        }
+        &:after {
+          transform: rotate(180deg);
+        }
+      }
       .faq__content {
-        max-height: 2000px;
+        max-height: 1000px;
       }
     }
   }
@@ -34,12 +49,14 @@
       background-color: #fff;
       position: absolute;
       top: 50%;
-      width: 7px;
-      height: 1px;
+      width: 2.2rem;
+      right: 25px;
+      height: 2px;
       transition: .2s ease all;
     }
-    &:before {}
-    &:after {}
+    &:after {
+      transform: rotate(90deg);
+    }
   }
   &__content {
     color: $contentText;

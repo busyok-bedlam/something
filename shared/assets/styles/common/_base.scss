@@ -171,3 +171,20 @@ textarea {
     }
   }
 }
+
+.content-page {
+  max-width: 980px;
+  .page-header {
+    padding-bottom: 1rem;
+  }
+  h3 {
+    font-size: 2.4rem;
+    margin: 5.2rem 0 3rem;
+  }
+  p {
+    color: $contentText;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    margin-bottom: 2.3rem;
+  }
+}

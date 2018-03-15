@@ -17,6 +17,13 @@ class DepositModal extends Component {
         setTimeout(ModalController.closeModal, 200);
     }
 
+    componentDidMount() {
+        let close = document.createElement('div');
+        close.classList.add("modal__close");
+        close.addEventListener('click', ::this.handleClose);
+        document.getElementsByClassName('modal__overlay')[0].appendChild(close);
+    }
+
     render() {
         return (
             <Dialog
@@ -24,7 +31,6 @@ class DepositModal extends Component {
                 onRequestClose={::this.handleClose}
                 overlayClassName={"modal__overlay"}
                 contentClassName={"modal modal-deposit"}>
-                <div onClick={::this.handleClose} className="modal__close"/>
                 <div className="modal-deposit__wrapper">
                     <div className="modal__header">
                         <h3>Deposit</h3>

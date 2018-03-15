@@ -49,7 +49,7 @@ export default class FAQ extends Component {
             <div className="faq">
                 <h2 className="page-header">FAQ</h2>
                 <div className="faq__wrapper page-container">
-                    {/*{this.__renderFaqs()}*/}
+                    {this.__renderFaqs()}
                 </div>
             </div>
         );

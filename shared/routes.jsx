@@ -9,6 +9,7 @@ import ShopPage from "./containers/pages/ShopPage.jsx";
 import SupportPage from "./containers/pages/SupportPage.jsx";
 import ProfilePage from "./containers/pages/ProfilePage.jsx";
 import TopPlayersPage from "./containers/pages/TopPlayersPage.jsx";
+import PrivacyPolicy from './components/pages/PrivacyPolicy.jsx';
 import NotFoundPage from './containers/NotFoundPage.jsx';
 
 export default (
@@ -21,7 +22,7 @@ export default (
         <Route path='/support' component={SupportPage}/>
         <Route path='/profile' component={ProfilePage}/>
         <Route path='/top-players' component={TopPlayersPage}/>
-
+        <Route path='/privacy-policy' component={PrivacyPolicy}/>
         <Route path='*' component={NotFoundPage}/>
     </Route>
 );

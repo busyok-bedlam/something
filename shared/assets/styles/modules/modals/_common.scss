@@ -6,8 +6,8 @@
   position: absolute;
   width: 25px;
   height: 25px;
-  right: 25px;
-  top: 23px;
+  right: 4.5vw;
+  top: 3vw;
   cursor: pointer;
   &:before,
   &:after {
@@ -15,6 +15,7 @@
     display: block;
     height: 2px;
     width: 100%;
+    background-color: $contentText;
     transition: .2s ease all;
   }
   &:before {
@@ -27,8 +28,7 @@
     &:hover {
       &:before,
       &:after {
-        background-color: $green;
-        box-shadow: 0 0 20px $green;
+        background-color: #fff;
       }
     }
   }
@@ -39,7 +39,6 @@
   width: 90% !important;
   > div {
     width: 100%;
-    min-height: 80vh;
     position: absolute !important;
     left: 50%;
     top: 50%;
@@ -52,6 +51,9 @@
       max-height: initial !important;
       padding: 0 !important;
     }
+  }
+  &.modal-deposit {
+    max-width: 800px !important;
   }
   &.modal-without_pad {
     > div > div {
