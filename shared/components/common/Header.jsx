@@ -77,8 +77,8 @@ export default class Header extends Component {
                                 optionClassName='select__options'
                                 openOnFocus={true}
                                 options={[
-                                    {value: 'eng', label: 'ENG'},
-                                    {value: 'tur', label: 'TUR'},
+                                    {value: 'eng', label: <div className='select__option'><img src='./static/images/united-kingdom.svg' />ENG</div>},
+                                    {value: 'tur', label: <div className='select__option'><img src='./static/images/turkey.svg' />TUR</div>},
                                 ]}
                             />
                         </div>

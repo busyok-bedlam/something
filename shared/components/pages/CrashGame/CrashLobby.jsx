@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import NavLink from './../../common/NavLink.jsx';
+import ModalController from '../../../lib/ModalController';
 
 export default class CrashHistory extends Component {
     render() {
@@ -16,7 +16,7 @@ export default class CrashHistory extends Component {
                         <div className="game__hash">
                             <div className="left">
                                 <b>№ 11239912323</b>
-                                <NavLink to='/fair-game'>Fair game</NavLink>
+                                <a onClick={() => ModalController.openModal('FairGameModal')}>Fair game</a>
                             </div>
                             <div className="right">
                                 <b>Hash round: </b>

@@ -6,6 +6,11 @@
       font-family: $robotoC;
       display: flex;
       align-items: center;
+      img {
+        display: block;
+        width: 25px;
+        margin: 0 auto;
+      }
       > span:first-child {
         min-width: 71px;
         height: 2rem;
@@ -19,7 +24,7 @@
       .Select-placeholder,
       .Select--single > .Select-control .Select-value {
         line-height: 3.6rem;
-        padding-left: 2rem;
+        padding-left: 1rem;
         display: flex;
         align-items: center;
       }
@@ -29,6 +34,23 @@
       .Select-option {
         text-align: center;
         text-transform: uppercase;
+        white-space: nowrap;
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .Select-value-label {
+        display: block;
+        width: 30px;
+        height: 30px;
+        font-size: 0;
+      }
+      .select__option {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
     }
     &-right {

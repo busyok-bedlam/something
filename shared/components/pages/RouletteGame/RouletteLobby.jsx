@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import NavLink from './../../common/NavLink.jsx';
 import ModalController from '../../../lib/ModalController';
 
 export default class RouletteLobby extends Component {
