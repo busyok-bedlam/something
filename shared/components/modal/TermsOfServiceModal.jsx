@@ -36,6 +36,13 @@ class TermsOfUsageModal extends Component {
         location.href = '/api/auth/steam';
     }
 
+    componentDidMount() {
+        let close = document.createElement('div');
+        close.classList.add("modal__close");
+        close.addEventListener('click', ::this.handleClose);
+        document.getElementsByClassName('modal__overlay')[0].appendChild(close);
+    }
+
     render() {
         return (
             <Dialog
@@ -43,7 +50,6 @@ class TermsOfUsageModal extends Component {
                 onRequestClose={::this.handleClose}
                 overlayClassName={"modal__overlay"}
                 contentClassName={"modal modal-content"}>
-                <div onClick={::this.handleClose} className="modal__close"/>
                 <div className="modal__header">
                     <h3>Terms of Service</h3>
                 </div>
