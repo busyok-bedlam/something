@@ -14,12 +14,21 @@
       }
     }
     &__bottom {
+      opacity: 1;
       height: initial;
+      overflow: hidden;
       max-height: 1000px;
-      transition: .4s ease-in max-height;
+      transition: .6s ease max-height;
+      .header__bottom-right {
+        opacity: 1;
+        transition: .6s ease all;
+      }
       &-hide {
         max-height: 60px;
         overflow: hidden;
+        .header__bottom-right {
+          opacity: 0;
+        }
       }
       .container {
         display: block;

@@ -13,3 +13,9 @@
     margin-bottom: 2rem;
   }
 }
+
+@media (max-width: $smallMobile) {
+  .cGame__graph {
+    min-height: 150px;
+  }
+}

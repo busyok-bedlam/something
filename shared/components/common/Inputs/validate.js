@@ -8,10 +8,15 @@ export default class validate {
         }
     }
 
-    static hasNumber(value) {
+    static onlyLetters(value) {
         if (/\d/.test(value)) {
-            return <div className="invalid-message">Field can't contain
-                number</div>;
+            return <div className="invalid-message">Field can't contain number</div>;
+        }
+    }
+
+    static  onlyDigits(value) {
+        if(!/^[0-9]*$/.test(value)) {
+            return <div className="invalid-message">Field can't contain letter</div>
         }
     }
 
@@ -23,8 +28,7 @@ export default class validate {
 
     static email(value) {
         if (!isEmail(value)) {
-            return <div className="invalid-message">${value} is not a valid
-                email.</div>;
+            return <div className="invalid-message">${value} is not a valid email.</div>;
         }
     }
 

@@ -17,7 +17,7 @@ const Input = ({error, isChanged, isUsed, ...props}) => (
             <label htmlFor={props.id}>{props.placeholder}</label>
         </div>
         {isChanged && isUsed && error}
-    </div>
+</div>
 );
 
 Input.propTypes = {

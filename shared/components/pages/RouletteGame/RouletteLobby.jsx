@@ -1,8 +1,37 @@
 import React, {Component} from 'react';
+import BetButtons from '../../common/game/BetButtons.jsx';
+import GameHash from '../../common/game/GameHash.jsx';
 import ModalController from '../../../lib/ModalController';
 
 export default class RouletteLobby extends Component {
+    state = {
+        bet: 0,
+        disabledButton: true
+    };
+
+    handleChange = e => {
+        let value = e.target.value;
+        this.setState({
+            [e.target.name]: value,
+            disabledButton: this.validateBet(value)
+        });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+    };
+
+    handleInputValue (value) {
+        this.setState({
+            bet: value,
+            disabledButton: this.validateBet(value)
+        })
+    }
+
+    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > 300000;
+
     render() {
+        let {bet, disabledButton} = this.state;
         return (
             <div className="rLobby">
                 <div className="game__header">
@@ -31,42 +60,20 @@ export default class RouletteLobby extends Component {
                     </div>
                     <div className="game__info">
                         <h2>Choose bet</h2>
-                        <input type="text"/>
+                        <input type="number" value={bet} name='bet' onChange={this.handleChange}/>
                         <div className="rLobby__buttons">
-                            <button className="button button-pink">Bet x2</button>
-                            <button className="button button-green">Bet x14</button>
-                            <button className="button button-gray">Bet x2</button>
+                            <button className="button button-pink" disabled={disabledButton}>Bet x2</button>
+                            <button className="button button-green" disabled={disabledButton}>Bet x14</button>
+                            <button className="button button-gray" disabled={disabledButton}>Bet x2</button>
                         </div>
                         <div className="rLobby__history">
                             <div className="history__item history__item-color1">2</div>
                             <div className="history__item history__item-color2">3</div>
                             <div className="history__item history__item-color3">4</div>
                         </div>
-                        <div className="game__hash">
-                            <div className="left">
-                                <b>№ 11239912323</b>
-                                <a onClick={() => ModalController.openModal('FairGameModal')}>Fair game</a>
-                            </div>
-                            <div className="right">
-                                <b>Hash round: </b>
-                                <div>9370afdf275940f5df8c5a198a1c7492803139aa31
-                                    346bce4698463b
-                                </div>
-                                <b>Round number: </b>8
-                            </div>
-                        </div>
+                        <GameHash />
                     </div>
-                    <div className="game__sidebar">
-                        <button><i className='icon-refresh'/></button>
-                        <button>+10</button>
-                        <button>+100</button>
-                        <button>+1000</button>
-                        <button>+10000</button>
-                        <button>x2</button>
-                        <button>1/2</button>
-                        <button>All</button>
-                        <button><i className='icon-garbage'/></button>
-                    </div>
+                    <BetButtons bet={bet} allIn={300} handleChange={this.handleInputValue.bind(this)}/>
                 </div>
             </div>
         );
