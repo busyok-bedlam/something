@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import BetButtons from '../../common/game/BetButtons.jsx';
 import GameHash from '../../common/game/GameHash.jsx';
 import GameHeader from '../../common/game/GameHeader.jsx';
+import config from '../../../../config/game.js';
 import PropTypes from 'prop-types';
 
 export default class RouletteLobby extends Component {
@@ -11,7 +12,7 @@ export default class RouletteLobby extends Component {
     };
 
     state = {
-        disabledButton: true
+        disabledButton: false
     };
 
     handleChange = e => {
@@ -29,11 +30,12 @@ export default class RouletteLobby extends Component {
         })
     }
 
-    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > 300000 || value <= 0;
+    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > config.JACKPOT_MAX_BET || value < config.JACKPOT_MIN_BET;
 
     render() {
         let {disabledButton} = this.state;
         let {bet} = this.props;
+        let {JACKPOT_MIN_BET, JACKPOT_MAX_BET} = config;
         return (
             <div className="rLobby">
                 <GameHeader />
@@ -57,7 +59,7 @@ export default class RouletteLobby extends Component {
                     </div>
                     <div className="game__info">
                         <h2>Choose bet</h2>
-                        <input type="number" value={bet} name='bet' min={0} max={300000} onChange={this.handleChange}/>
+                        <input type="number" value={bet} name='bet' min={JACKPOT_MIN_BET} max={JACKPOT_MAX_BET} onChange={this.handleChange}/>
                         <div className="rLobby__buttons">
                             <button className="button button-pink" disabled={disabledButton}>Bet x2</button>
                             <button className="button button-green" disabled={disabledButton}>Bet x14</button>
@@ -71,7 +73,7 @@ export default class RouletteLobby extends Component {
                         <GameHash />
                     </div>
                     <BetButtons bet={bet}
-                                minBet={0}
+                                minBet={JACKPOT_MIN_BET}
                                 allInBet={300}
                                 handleInputValue={this.handleInputValue.bind(this)}/>
                 </div>

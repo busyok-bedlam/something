@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 export default class BetButtons extends Component {
     static propTypes = {
         bet: PropTypes.number.isRequired,
+        allInBet: PropTypes.number.isRequired,
+        minBet: PropTypes.number.isRequired,
         handleInputValue: PropTypes.func.isRequired,
     };
 

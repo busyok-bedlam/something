@@ -7,6 +7,7 @@ import * as userActions from '../actions/userActions';
 import * as gameActions from '../actions/gameActions';
 import {LoadingScreen} from '../lib/LoadingScreen';
 import Roulette from "../components/pages/Roulette.jsx";
+import config from '../../config/game.js';
 
 class RoulettePage extends Component {
     static propTypes = {
@@ -17,7 +18,7 @@ class RoulettePage extends Component {
     };
 
     state = {
-        bet: 0,
+        bet: config.JACKPOT_MIN_BET,
         isInventoryLoading: false,
     };
 
