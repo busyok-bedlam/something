@@ -4,11 +4,11 @@ import Chat from './Chat.jsx';
 import CrashGame from './CrashGame/CrashGame.jsx';
 import CrashLobby from './CrashGame/CrashLobby.jsx';
 import CrashHistory from './CrashGame/CrashHistory.jsx';
-import ModalController from './../../lib/ModalController';
 
 export default class Roulette extends Component {
 
     static propTypes = {
+        bet: PropTypes.number.isRequired,
         inventory: PropTypes.array.isRequired,
         selectedItems: PropTypes.object.isRequired,
         isInventoryLoading: PropTypes.bool.isRequired,
@@ -17,12 +17,14 @@ export default class Roulette extends Component {
         cbHandleSelectAll: PropTypes.func.isRequired,
         cbHandleDeselectItem: PropTypes.func.isRequired,
         cbHandleDeselectAll: PropTypes.func.isRequired,
+        lobbyHandleChangeValue: PropTypes.func.isRequired,
         // cbHandleSelectSteamInventorySort: PropTypes.func.isRequired,
         cbHandleWithdraw: PropTypes.func.isRequired,
     };
 
     render() {
         const {
+            bet,
             inventory,
             selectedItems,
             cbHandleUpdateInventory,
@@ -31,14 +33,15 @@ export default class Roulette extends Component {
             cbHandleDeselectItem,
             cbHandleDeselectAll,
             cbHandleWithdraw,
-            isInventoryLoading
+            isInventoryLoading,
+            lobbyHandleChangeValue
         } = this.props;
         return (
             <div className='container'>
                 <div className="crash">
                     <div className='crash__container'>
                         <CrashGame />
-                        <CrashLobby />
+                        <CrashLobby bet={bet} lobbyHandleChangeValue={lobbyHandleChangeValue}/>
                     </div>
                     <CrashHistory />
                 </div>

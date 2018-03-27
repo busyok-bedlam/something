@@ -8,6 +8,7 @@ import RouletteBets from './RouletteGame/RouletteBets.jsx';
 export default class Roulette extends Component {
 
     static propTypes = {
+        bet: PropTypes.number.isRequired,
         inventory: PropTypes.array.isRequired,
         selectedItems: PropTypes.object.isRequired,
         isInventoryLoading: PropTypes.bool.isRequired,
@@ -16,12 +17,14 @@ export default class Roulette extends Component {
         cbHandleSelectAll: PropTypes.func.isRequired,
         cbHandleDeselectItem: PropTypes.func.isRequired,
         cbHandleDeselectAll: PropTypes.func.isRequired,
+        lobbyHandleChangeValue: PropTypes.func.isRequired,
         // cbHandleSelectSteamInventorySort: PropTypes.func.isRequired,
         cbHandleWithdraw: PropTypes.func.isRequired,
     };
 
     render() {
         const {
+            bet,
             inventory,
             selectedItems,
             cbHandleUpdateInventory,
@@ -30,13 +33,14 @@ export default class Roulette extends Component {
             cbHandleDeselectItem,
             cbHandleDeselectAll,
             cbHandleWithdraw,
-            isInventoryLoading
+            isInventoryLoading,
+            lobbyHandleChangeValue
         } = this.props;
         return (
             <div className='container'>
                 <div className="roulette">
                     <RouletteWheel/>
-                    <RouletteLobby/>
+                    <RouletteLobby bet={bet} lobbyHandleChangeValue={lobbyHandleChangeValue}/>
                     <div className="rBets">
                         <RouletteBets color={RouletteBets.type.COLOR1}/>
                         <RouletteBets color={RouletteBets.type.COLOR2}/>

@@ -1,28 +1,29 @@
 import React, {Component} from 'react';
 import BetButtons from '../../common/game/BetButtons.jsx';
 import GameHash from '../../common/game/GameHash.jsx';
+import PropTypes from "prop-types";
 
-export default class CrashHistory extends Component {
+export default class CrashLobby extends Component {
+    static propTypes = {
+        bet: PropTypes.number.isRequired,
+        lobbyHandleChangeValue: PropTypes.func.isRequired,
+    };
+
     state = {
-        bet: 0,
         disabledButton: true
     };
 
     handleChange = e => {
         let value = e.target.value;
+        this.props.lobbyHandleChangeValue(value);
         this.setState({
-            [e.target.name]: value,
             disabledButton: this.validateBet(value)
         });
     };
 
-    handleSubmit = e => {
-        e.preventDefault();
-    };
-
     handleInputValue (value) {
+        this.props.lobbyHandleChangeValue(value);
         this.setState({
-            bet: value,
             disabledButton: this.validateBet(value)
         })
     }
@@ -30,7 +31,8 @@ export default class CrashHistory extends Component {
     validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > 300000;
 
     render() {
-        let {bet, disabledButton} = this.state;
+        let {disabledButton} = this.state;
+        let {bet} = this.props;
         return (
             <div className='cLobby'>
                 <div className="game__lobby">
@@ -43,7 +45,10 @@ export default class CrashHistory extends Component {
                         </form>
                         <GameHash />
                     </div>
-                    <BetButtons bet={bet} allIn={300} handleChange={this.handleInputValue.bind(this)}/>
+                    <BetButtons bet={bet}
+                                minBet={0}
+                                allInBet={300}
+                                handleInputValue={this.handleInputValue.bind(this)}/>
                 </div>
             </div>
         );

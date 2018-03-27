@@ -1,25 +1,31 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 export default class BetButtons extends Component {
+    static propTypes = {
+        bet: PropTypes.number.isRequired,
+        handleInputValue: PropTypes.func.isRequired,
+    };
+
     handleAddBet = e => {
         let addValue = e.target.getAttribute('data-add');
-        this.props.handleChange(this.props.bet + parseInt(addValue))
+        this.props.handleInputValue(this.props.bet + parseInt(addValue))
     };
 
     handleMultiplyBet = () => {
-        this.props.handleChange(this.props.bet * 2);
+        this.props.handleInputValue(this.props.bet * 2);
     };
 
     handleDivideBet = () => {
-        this.props.handleChange(Math.round(this.props.bet / 2));
+        this.props.handleInputValue(Math.round(this.props.bet / 2));
     };
 
     handleAllIn = () => {
-        this.props.handleChange(this.props.allIn);
+        this.props.handleInputValue(this.props.allInBet);
     };
 
     handleResetBet = () => {
-        this.props.handleChange(0);
+        this.props.handleInputValue(this.props.minBet);
     };
 
     render() {

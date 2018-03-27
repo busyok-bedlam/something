@@ -1,15 +1,14 @@
-import React, {Component}   from 'react';
-import {connect}            from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {toast}              from 'react-toastify';
-import PropTypes            from 'prop-types';
-import * as userActions     from '../actions/userActions';
-import * as gameActions     from '../actions/gameActions';
-import {LoadingScreen}      from '../lib/LoadingScreen';
+import {toast} from 'react-toastify';
+import PropTypes from 'prop-types';
+import * as userActions from '../actions/userActions';
+import * as gameActions from '../actions/gameActions';
+import {LoadingScreen} from '../lib/LoadingScreen';
 import Roulette from "../components/pages/Roulette.jsx";
 
 class RoulettePage extends Component {
-
     static propTypes = {
         user: PropTypes.object.isRequired,
         game: PropTypes.object.isRequired,
@@ -18,10 +17,11 @@ class RoulettePage extends Component {
     };
 
     state = {
-      isInventoryLoading: false,
+        bet: 0,
+        isInventoryLoading: false,
     };
 
-    async componentDidMount(){
+    async componentDidMount() {
         await this.__loadUserInventory();
     }
 
@@ -38,46 +38,52 @@ class RoulettePage extends Component {
         }
     }
 
-    async cbHandleUpdateInventory(){
+    async cbHandleUpdateInventory() {
         await this.__loadUserInventory();
     }
 
-    cbHandleSelectItem(item){
+    cbHandleSelectItem(item) {
         const {gameActions} = this.props;
         gameActions.selectItem(item);
     }
 
-    cbHandleSelectAll(){
+    cbHandleSelectAll() {
         const {gameActions, user} = this.props;
         const {inventory} = user;
         gameActions.selectAllItems(inventory);
     }
 
-    cbHandleDeselectItem(itemID){
+    cbHandleDeselectItem(itemID) {
         const {gameActions} = this.props;
         gameActions.deselectItem(itemID);
     }
 
-    cbHandleDeselectAll(){
+    cbHandleDeselectAll() {
         const {gameActions} = this.props;
         gameActions.deselectAllItems();
     }
 
-    async cbHandleWithdraw(){
-        try{
+    lobbyHandleChangeValue(value) {
+        this.setState({
+            bet: value,
+        })
+    }
+
+    async cbHandleWithdraw() {
+        try {
             const {userActions, game} = this.props;
             LoadingScreen.open();
             // const ids = Object.keys(game.selectedItems);
             const ids = [];
-            for(let key in game.selectedItems){
+            for (let key in game.selectedItems) {
                 ids.push(game.selectedItems[key].assetID);
             }
 
-            if(!ids.length){
+            if (!ids.length) {
                 return toast('No items selected', 'error');
             }
             await userActions.createWithdrawOffer(ids);
-        } catch(error){
+        } catch (error) {
             console.error(error);
             toast(error.message || error.toString());
         } finally {
@@ -92,10 +98,11 @@ class RoulettePage extends Component {
         } = this.props;
         const {inventory} = user;
         const {selectedItems} = game;
-
+        let {bet, isInventoryLoading} = this.state;
 
         return (
             <Roulette
+                bet={bet}
                 inventory={inventory}
                 selectedItems={selectedItems}
                 cbHandleUpdateInventory={::this.cbHandleUpdateInventory}
@@ -104,7 +111,8 @@ class RoulettePage extends Component {
                 cbHandleDeselectItem={::this.cbHandleDeselectItem}
                 cbHandleDeselectAll={::this.cbHandleDeselectAll}
                 cbHandleWithdraw={::this.cbHandleWithdraw}
-                isInventoryLoading={this.state.isInventoryLoading}
+                lobbyHandleChangeValue={::this.lobbyHandleChangeValue}
+                isInventoryLoading={isInventoryLoading}
             />
         );
     }
@@ -128,4 +136,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default  connect(mapStateToProps, mapDispatchToProps)(RoulettePage);
+export default connect(mapStateToProps, mapDispatchToProps)(RoulettePage);
