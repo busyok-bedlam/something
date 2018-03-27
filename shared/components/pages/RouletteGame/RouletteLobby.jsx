@@ -58,7 +58,7 @@ export default class RouletteLobby extends Component {
                         </div>
                     </div>
                     <div className="game__info">
-                        <h2>Choose bet</h2>
+                        <h2>Choose bet (max {JACKPOT_MAX_BET})</h2>
                         <input type="number" value={bet} name='bet' min={JACKPOT_MIN_BET} max={JACKPOT_MAX_BET} onChange={this.handleChange}/>
                         <div className="rLobby__buttons">
                             <button className="button button-pink" disabled={disabledButton}>Bet x2</button>

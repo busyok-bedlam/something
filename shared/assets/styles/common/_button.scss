@@ -14,28 +14,24 @@
     cursor: not-allowed;
     opacity: .3;
   }
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: darken($main, 10);
   }
   &-gray {
     background-color: $contentBg;
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: darken($contentBg, 10);
     }
   }
   &-green {
     background-color: $green;
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: darken($green, 10);
     }
   }
   &-pink {
     background-color: $pink;
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: darken($pink, 10);
     }
   }
@@ -62,8 +58,7 @@
   font-family: $roboto;
   font-weight: 400;
   transition: .2s ease all;
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: #6b717a;
   }
 }

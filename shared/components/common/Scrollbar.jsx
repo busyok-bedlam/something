@@ -26,6 +26,10 @@ export default class Scrollbar extends Component {
         return this.refs.scrollbar.getValues();
     }
 
+    scrollTo(offset) {
+        this.refs.scrollbar.scrollTop(offset);
+    }
+
     render() {
         const verticalThumb = props => {
             return (
