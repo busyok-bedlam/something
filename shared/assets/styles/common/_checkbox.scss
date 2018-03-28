@@ -8,16 +8,19 @@
   border: 1px solid $main;
   margin-right: 13px;
   cursor: pointer;
+  user-select: none;
   &__wrapper {
     display: flex;
     align-items: center;
   }
   label {
-    height: 20px;
-    width: 20px;
+    height: 19px;
+    width: 19px;
     position: absolute;
-    left: 0;
-    top: 0;
+    left: -1px;
+    top: -1px;
+    cursor: pointer;
+    transform: translateZ(0);
     &:after {
       content: '';
       width: 10px;

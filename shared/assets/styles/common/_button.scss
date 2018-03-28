@@ -10,6 +10,7 @@
   max-width: 300px;
   cursor: pointer;
   transition: .2s ease all;
+  user-select: none;
   &:disabled {
     cursor: not-allowed;
     opacity: .3;
