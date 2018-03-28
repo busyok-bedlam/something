@@ -2,11 +2,12 @@ import {createStore, applyMiddleware} from 'redux';
 import thunkMiddleware                from 'redux-thunk';
 import {redirect}                     from '../middlewares/redirect';
 import rootReducer                    from '../reducers';
+import { composeWithDevTools }        from 'redux-devtools-extension';
 
-const createStoreWithMiddleware = applyMiddleware(
+const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(
     thunkMiddleware,
     redirect
-)(createStore);
+))(createStore);
 
 const txt = '../reducers';
 
