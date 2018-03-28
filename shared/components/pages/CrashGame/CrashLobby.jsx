@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import BetButtons from '../../common/game/BetButtons.jsx';
 import GameHash from '../../common/game/GameHash.jsx';
 import PropTypes from "prop-types";
-import config from '../../../../config/game.js';
+import config from '../../../../config/crash.js';
 
 export default class CrashLobby extends Component {
     static propTypes = {

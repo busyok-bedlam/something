@@ -7,7 +7,7 @@ import * as userActions from '../actions/userActions';
 import * as gameActions from '../actions/gameActions';
 import {LoadingScreen} from '../lib/LoadingScreen';
 import Crash from "../components/pages/Crash.jsx";
-import config from '../../config/game.js';
+import config from '../../config/crash.js';
 
 class CrashPage extends Component {
 
@@ -89,7 +89,7 @@ class CrashPage extends Component {
 
     lobbyHandleChangeValue(value) {
         this.setState({
-            bet: value,
+            bet: parseInt(value)
         })
     }
 

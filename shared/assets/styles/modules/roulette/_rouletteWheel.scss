@@ -6,39 +6,31 @@
     width: 84%;
     padding-bottom: 84%;
     position: relative;
-    > object:not(.rWheel__pointer) {
+    > div {
       position: absolute;
       width: 100%;
       height: 100%;
     }
-    &-waiting {
-      .rWheel__pointer {
-        opacity: 0;
-      }
-      .rWheel__timer-data {
-        opacity: 1;
-      }
+    object {
+      max-width: 100%;
     }
-    &-gamble {
-      .rWheel__gamble {
-        opacity: 1;
-      }
+    .rWheel__winner-color1,
+    .rWheel__winner-color2,
+    .rWheel__winner-color3 {
+      font-size: 5.3vw;
+      border-radius: 50%;
     }
-    &-winner {
-      .rWheel__winner-color1 {
-        opacity: 1;
-        background-color: $rouletteColor1;
-      }
-      .rWheel__winner-color2 {
-        opacity: 1;
-        background-color: $rouletteColor2;
-      }
-      .rWheel__winner-color3 {
-        opacity: 1;
-        background-color: $rouletteColor3;
-      }
+    .rWheel__winner-color1 {
+      background-color: $rouletteColor1;
+    }
+    .rWheel__winner-color2 {
+      background-color: $rouletteColor2;
+    }
+    .rWheel__winner-color3 {
+      background-color: $rouletteColor3;
     }
   }
+
   &__pointer {
     position: absolute;
     left: 50%;
@@ -58,30 +50,30 @@
   &__gamble,
   &__winner {
     color: #fff;
-    opacity: 0;
     top: 50%;
     left: 50%;
     width: 50%;
     height: 50%;
     line-height: 50%;
+    opacity: 0;
     font-family: $robotoC;
     position: absolute;
     text-align: center;
     white-space: nowrap;
-    transform: translate(-50%, -50%);
-    transition: .2s ease all;
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translate(-50%, -50%) scale(0);
+    transition: .4s ease all;
+    &.zoom {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
   }
   &__timer-data {
     font-size: 5.3vw;
   }
   &__gamble {
     font-size: 2.7vw;
-  }
-  &__winner {
-    font-size: 5.3vw;
-    border-radius: 50%;
   }
 }

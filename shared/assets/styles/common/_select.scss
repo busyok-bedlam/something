@@ -11,11 +11,18 @@
       background: #575c63;
     }
   }
-  &.is-open,
   &.is-focused {
+    > .Select-control {
+      border-color: transparent !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+  }
+  &.is-open {
     > .Select-control {
       border: 1px solid #575c63 !important;
       background: #575c63 !important;
+      box-shadow: none !important;
     }
     .Select-arrow-zone {
       &:before {

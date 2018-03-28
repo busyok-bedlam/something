@@ -16,7 +16,7 @@ import Previous from 'material-ui/svg-icons/av/replay-10';
 import Right from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Left from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import api from "../../api";
-import gameConfig from '../../../../config/game';
+import gameConfig from '../../../../config/crash';
 import adminConfig from '../../../../config/admin';
 import SupportInfoModal from './Support/SupportInfoModal.jsx';
 

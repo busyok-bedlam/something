@@ -1,30 +1,30 @@
-export const JACKPOT_BETTING = 'JACKPOT_BETTING';
-export const JACKPOT_IN_GAME = 'JACKPOT_IN_GAME';
-export const JACKPOT_REWARDS = 'JACKPOT_REWARDS';
+import jackpot from './../../config/jackpot'
 
-export function jackpotBetting(item) {
+export const {JACKPOT_BETTING, JACKPOT_IN_GAME, JACKPOT_REWARDS} = jackpot;
+
+export function jackpotBetting(game) {
     return async dispatch => {
         return dispatch({
             type: JACKPOT_BETTING,
-            payload: {item},
+            payload: {game},
         })
     }
 }
 
-export function jackpotInGame(item) {
+export function jackpotInGame(game) {
     return async dispatch => {
         return dispatch({
             type: JACKPOT_IN_GAME,
-            payload: {item},
+            payload: {game},
         })
     }
 }
 
-export function jackpotRewards(item) {
+export function jackpotRewards(game) {
     return async dispatch => {
         return dispatch({
             type: JACKPOT_REWARDS,
-            payload: {item},
+            payload: {game},
         })
     }
 }

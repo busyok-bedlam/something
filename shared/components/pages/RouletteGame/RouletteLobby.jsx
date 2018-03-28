@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import BetButtons from '../../common/game/BetButtons.jsx';
 import GameHash from '../../common/game/GameHash.jsx';
 import GameHeader from '../../common/game/GameHeader.jsx';
-import config from '../../../../config/game.js';
+import jackpot from '../../../../config/jackpot.js';
 import PropTypes from 'prop-types';
 
 export default class RouletteLobby extends Component {
@@ -30,12 +30,12 @@ export default class RouletteLobby extends Component {
         })
     }
 
-    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > config.JACKPOT_MAX_BET || value < config.JACKPOT_MIN_BET;
+    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > jackpot.JACKPOT_MAX_BET || value < jackpot.JACKPOT_MIN_BET;
 
     render() {
         let {disabledButton} = this.state;
         let {bet} = this.props;
-        let {JACKPOT_MIN_BET, JACKPOT_MAX_BET} = config;
+        let {JACKPOT_MIN_BET, JACKPOT_MAX_BET} = jackpot;
         return (
             <div className="rLobby">
                 <GameHeader />

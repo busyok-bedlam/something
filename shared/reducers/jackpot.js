@@ -5,23 +5,29 @@ import {
 } from '../actions/jackpotActions';
 
 let initialState = {
-    jackpot: {},
+    game: {},
+    lastGame: {},
+    bets: {},
+    status: '',
 };
 
 export default function jackpot(state = initialState, action) {
     switch (action.type) {
         case JACKPOT_BETTING: {
-            const {item} = action.payload;
-            state.selectedItems[item._id] = item;
-            return {...state};
+            // const {game} = action.payload;
+            let game = {};
+            game.lastBet = 12;
+            game.date = new Date(Date.now());
+            let lastGame ={};
+            lastGame.lastBet = 12;
+            lastGame.date = new Date(Date.now());
+            return {...state, game, lastGame, status: action.type};
         }
         case JACKPOT_IN_GAME: {
-            const {itemID} = action.payload;
-            delete state.selectedItems[itemID];
-            return {...state};
+            return {...state, status: action.type};
         }
         case JACKPOT_REWARDS:{
-            return {...state, selectedItems:{}}
+            return {...state, status: action.type}
         }
         default:
             return state;

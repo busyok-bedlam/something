@@ -188,3 +188,18 @@ textarea {
     margin-bottom: 2.3rem;
   }
 }
+
+.zoomRoulette {
+  animation: .4s zoomRoulette;
+}
+
+@keyframes zoomRoulette {
+  0% {
+    transform:  scale(0) !important;
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) !important;
+    opacity: 1;
+  }
+}

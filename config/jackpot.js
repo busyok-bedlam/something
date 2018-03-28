@@ -1,0 +1,9 @@
+const isDev = process.env.NODE_ENV === 'development';
+
+export default {
+    JACKPOT_MIN_BET: 5,
+    JACKPOT_MAX_BET: 300000,
+    JACKPOT_BETTING: "JACKPOT_BETTING",
+    JACKPOT_IN_GAME: "JACKPOT_IN_GAME",
+    JACKPOT_REWARDS: "JACKPOT_REWARDS"
+}
