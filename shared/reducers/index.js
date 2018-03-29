@@ -5,7 +5,7 @@ import loadingScreen     from './loadingScreen';
 import modal             from './modal';
 import chat              from './chat';
 import game              from './game';
-import jackpot           from './jackpot';
+import roulette           from './roulette';
 
 export default combineReducers({
     user,
@@ -13,6 +13,6 @@ export default combineReducers({
     modal,
     chat,
     game,
-    jackpot,
+    roulette,
     routing: routerReducer,
 });

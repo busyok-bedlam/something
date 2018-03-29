@@ -20,22 +20,22 @@ export default class Roulette extends Component {
     render() {
         const {
             bet,
-            jackpot,
-            handleJackpotBetting,
-            handleJackpotInGame,
-            handleJackpotRewards,
+            roulette,
+            handleRouletteBetting,
+            handleRouletteInGame,
+            handleRouletteRewards,
             lobbyHandleChangeValue
         } = this.props;
         return (
             <div className='container'>
-                <button className="button" onClick={()=> handleJackpotBetting({})}>Betting</button>
-                <button className="button" onClick={()=> handleJackpotInGame({})}>In game</button>
-                <button className="button" onClick={()=> handleJackpotRewards({})}>Rewards</button>
+                <button className="button" onClick={()=> handleRouletteBetting({})}>Betting</button>
+                <button className="button" onClick={()=> handleRouletteInGame({})}>In game</button>
+                <button className="button" onClick={()=> handleRouletteRewards({})}>Rewards</button>
                 <div className="roulette">
-                    <RouletteWheel jackpot={jackpot}/>
+                    <RouletteWheel roulette={roulette}/>
                     <RouletteLobby
-                        jackpot={jackpot} bet={bet} handleJackpotRewards={handleJackpotRewards}
-                        handleJackpotInGame={handleJackpotInGame} handleJackpotBetting={handleJackpotBetting}
+                        roulette={roulette} bet={bet} handleRouletteRewards={handleRouletteRewards}
+                        handleRouletteInGame={handleRouletteInGame} handleRouletteBetting={handleRouletteBetting}
                         lobbyHandleChangeValue={lobbyHandleChangeValue}/>
                     <div className="rBets">
                         <RouletteBets color={RouletteBets.type.COLOR1}/>

@@ -1,34 +1,49 @@
 import React, {Component} from 'react';
 import DonutChart from "react-svg-donut-chart";
-import jackpot from '../../../../config/jackpot.js';
-
-const dataPie = [
-    {value: 5, stroke: "#3a3f46", strokeWidth: .5},
-    {value: 6, stroke: "#ff7900", strokeWidth: .5},
-];
+import roulette from '../../../../config/roulette.js';
 
 export default class RouletteWheel extends Component {
     state = {
-        status: ''
+        status: '',
+        timerSeconds: null,
+        donutData: []
     };
 
     componentWillReceiveProps(nextProps) {
-        let {JACKPOT_BETTING, JACKPOT_IN_GAME, JACKPOT_REWARDS} = jackpot;
-        let {status} = nextProps.jackpot;
+        let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
+        let {status} = nextProps.roulette;
         switch (status) {
-            case JACKPOT_BETTING: {
+            case ROULETTE_BETTING: {
                 this.setState({
                     status
                 });
+                let endDate = nextProps.roulette.game.date;
+                this.seconds = Math.round((endDate.getTime() - new Date().getTime()) / 1000);
+                this.setIntervalID = setInterval(() => {
+                    this.timer.classList.remove('zoom');
+                    this.setState({
+                        timerSeconds: this.seconds,
+                        donutData: [
+                            {value: (roulette.ROULETTE_TIMER - this.seconds), stroke: "#3a3f46", strokeWidth: .5},
+                            {value: this.seconds, stroke: "#ff7900", strokeWidth: .5}
+                        ]
+                    });
+                    this.timer.classList.add('zoom');
+                    this.seconds--;
+                    if (this.seconds < 0) {
+                        clearInterval(this.setIntervalID)
+                    }
+                }, 1000);
                 break;
             }
-            case JACKPOT_IN_GAME: {
+            case ROULETTE_IN_GAME: {
                 this.setState({
                     status
                 });
+                setTimeout(() => this.gamble.classList.remove('zoom'), 500);
                 break;
             }
-            case JACKPOT_REWARDS: {
+            case ROULETTE_REWARDS: {
                 this.setState({
                     status
                 });
@@ -38,8 +53,8 @@ export default class RouletteWheel extends Component {
     }
 
     render() {
-        let {status,} = this.state;
-        let {JACKPOT_BETTING, JACKPOT_IN_GAME, JACKPOT_REWARDS} = jackpot;
+        let {status, timerSeconds, donutData} = this.state;
+        let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
         return (
             <div className="rWheel">
                 <div className={'rWheel__wrapper'}>
@@ -51,12 +66,17 @@ export default class RouletteWheel extends Component {
                             Your browser does not support SVG.
                         </object>
                         <div className='rWheel__timer'>
-                            <DonutChart data={dataPie}/>
+                            <DonutChart data={donutData}/>
                         </div>
-                            <div className={(status === JACKPOT_BETTING) ? "rWheel__timer-data zoom" : "rWheel__timer-data"}>5</div>
-                            <div className={(status === JACKPOT_IN_GAME) ? "rWheel__gamble zoom" : "rWheel__gamble"}>Gamble!</div>
-                            {/* TODO: Change color: ..-color1 (2 or 3)*/}
-                            <div className={(status === JACKPOT_REWARDS) ? "rWheel__winner rWheel__winner-color1 zoom" : "rWheel__winner rWheel__winner-color1"}>11</div>
+                        <div
+                            className={(status === ROULETTE_BETTING) ? "rWheel__timer-data zoom" : "rWheel__timer-data"} ref={timer => this.timer = timer}>{timerSeconds}</div>
+                        <div className={(status === ROULETTE_IN_GAME) ? "rWheel__gamble zoom" : "rWheel__gamble"}
+                             ref={gamble => this.gamble = gamble}>Gamble!
+                        </div>
+                        {/* TODO: Change color: ..-color1 (2 or 3)*/}
+                        <div
+                            className={(status === ROULETTE_REWARDS) ? "rWheel__winner rWheel__winner-color1 zoom" : "rWheel__winner rWheel__winner-color1"}>11
+                        </div>
                     </div>
                 </div>
             </div>

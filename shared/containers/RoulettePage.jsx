@@ -5,10 +5,10 @@ import {toast} from 'react-toastify';
 import PropTypes from 'prop-types';
 import * as userActions from '../actions/userActions';
 import * as gameActions from '../actions/gameActions';
-import * as jackpotActions from '../actions/jackpotActions';
+import * as rouletteActions from '../actions/rouletteActions';
 import {LoadingScreen} from '../lib/LoadingScreen';
 import Roulette from "../components/pages/Roulette.jsx";
-import jackpot from '../../config/jackpot.js';
+import roulette from '../../config/roulette.js';
 
 class RoulettePage extends Component {
     static propTypes = {
@@ -16,11 +16,11 @@ class RoulettePage extends Component {
         game: PropTypes.object.isRequired,
         userActions: PropTypes.object.isRequired,
         gameActions: PropTypes.object.isRequired,
-        jackpotActions: PropTypes.object.isRequired,
+        rouletteActions: PropTypes.object.isRequired,
     };
 
     state = {
-        bet: jackpot.JACKPOT_MIN_BET,
+        bet: roulette.ROULETTE_MIN_BET,
         isInventoryLoading: false,
     };
 
@@ -41,17 +41,17 @@ class RoulettePage extends Component {
         }
     }
 
-    handleJackpotBetting() {
-        const {jackpotActions} = this.props;
-        jackpotActions.jackpotBetting();
+    handleRouletteBetting() {
+        const {rouletteActions} = this.props;
+        rouletteActions.rouletteBetting();
     }
-    handleJackpotInGame() {
-        const {jackpotActions} = this.props;
-        jackpotActions.jackpotInGame();
+    handleRouletteInGame() {
+        const {rouletteActions} = this.props;
+        rouletteActions.rouletteInGame();
     }
-    handleJackpotRewards() {
-        const {jackpotActions} = this.props;
-        jackpotActions.jackpotRewards();
+    handleRouletteRewards() {
+        const {rouletteActions} = this.props;
+        rouletteActions.rouletteRewards();
     }
 
     lobbyHandleChangeValue(value) {
@@ -86,7 +86,7 @@ class RoulettePage extends Component {
         const {
             user,
             game,
-            jackpot
+            roulette
         } = this.props;
         const {inventory} = user;
         const {selectedItems} = game;
@@ -95,12 +95,12 @@ class RoulettePage extends Component {
         return (
             <Roulette
                 bet={bet}
-                jackpot={jackpot}
+                roulette={roulette}
                 inventory={inventory}
                 selectedItems={selectedItems}
-                handleJackpotBetting={::this.handleJackpotBetting}
-                handleJackpotInGame={::this.handleJackpotInGame}
-                handleJackpotRewards={::this.handleJackpotRewards}
+                handleRouletteBetting={::this.handleRouletteBetting}
+                handleRouletteInGame={::this.handleRouletteInGame}
+                handleRouletteRewards={::this.handleRouletteRewards}
                 cbHandleWithdraw={::this.cbHandleWithdraw}
                 lobbyHandleChangeValue={::this.lobbyHandleChangeValue}
                 isInventoryLoading={isInventoryLoading}
@@ -113,19 +113,19 @@ function mapStateToProps(state) {
     const {
         user,
         game,
-        jackpot
+        roulette
     } = state;
     return {
         user,
         game,
-        jackpot
+        roulette
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         userActions: bindActionCreators(userActions, dispatch),
-        jackpotActions: bindActionCreators(jackpotActions, dispatch),
+        rouletteActions: bindActionCreators(rouletteActions, dispatch),
         gameActions: bindActionCreators(gameActions, dispatch),
     }
 }

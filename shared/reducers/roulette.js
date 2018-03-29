@@ -1,8 +1,8 @@
 import {
-    JACKPOT_BETTING,
-    JACKPOT_IN_GAME,
-    JACKPOT_REWARDS
-} from '../actions/jackpotActions';
+    ROULETTE_BETTING,
+    ROULETTE_IN_GAME,
+    ROULETTE_REWARDS
+} from '../actions/rouletteActions';
 
 let initialState = {
     game: {},
@@ -11,22 +11,23 @@ let initialState = {
     status: '',
 };
 
-export default function jackpot(state = initialState, action) {
+export default function roulette(state = initialState, action) {
     switch (action.type) {
-        case JACKPOT_BETTING: {
+        case ROULETTE_BETTING: {
             // const {game} = action.payload;
             let game = {};
             game.lastBet = 12;
-            game.date = new Date(Date.now());
+            game.date = new Date();
+            game.date.setSeconds(game.date.getSeconds() + 10);
             let lastGame ={};
             lastGame.lastBet = 12;
             lastGame.date = new Date(Date.now());
             return {...state, game, lastGame, status: action.type};
         }
-        case JACKPOT_IN_GAME: {
+        case ROULETTE_IN_GAME: {
             return {...state, status: action.type};
         }
-        case JACKPOT_REWARDS:{
+        case ROULETTE_REWARDS:{
             return {...state, status: action.type}
         }
         default:

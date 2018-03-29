@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import BetButtons from '../../common/game/BetButtons.jsx';
 import GameHash from '../../common/game/GameHash.jsx';
 import GameHeader from '../../common/game/GameHeader.jsx';
-import jackpot from '../../../../config/jackpot.js';
+import roulette from '../../../../config/roulette.js';
 import PropTypes from 'prop-types';
 
 export default class RouletteLobby extends Component {
@@ -30,12 +30,12 @@ export default class RouletteLobby extends Component {
         })
     }
 
-    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > jackpot.JACKPOT_MAX_BET || value < jackpot.JACKPOT_MIN_BET;
+    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET;
 
     render() {
         let {disabledButton} = this.state;
         let {bet} = this.props;
-        let {JACKPOT_MIN_BET, JACKPOT_MAX_BET} = jackpot;
+        let {ROULETTE_MIN_BET, ROULETTE_MAX_BET} = roulette;
         return (
             <div className="rLobby">
                 <GameHeader />
@@ -58,8 +58,8 @@ export default class RouletteLobby extends Component {
                         </div>
                     </div>
                     <div className="game__info">
-                        <h2>Choose bet (max {JACKPOT_MAX_BET})</h2>
-                        <input type="number" value={bet} name='bet' min={JACKPOT_MIN_BET} max={JACKPOT_MAX_BET} onChange={this.handleChange}/>
+                        <h2>Choose bet (max {ROULETTE_MAX_BET})</h2>
+                        <input type="number" value={bet} name='bet' min={ROULETTE_MIN_BET} max={ROULETTE_MAX_BET} onChange={this.handleChange}/>
                         <div className="rLobby__buttons">
                             <button className="button button-pink" disabled={disabledButton}>Bet x2</button>
                             <button className="button button-green" disabled={disabledButton}>Bet x14</button>
@@ -73,7 +73,7 @@ export default class RouletteLobby extends Component {
                         <GameHash />
                     </div>
                     <BetButtons bet={bet}
-                                minBet={JACKPOT_MIN_BET}
+                                minBet={ROULETTE_MIN_BET}
                                 allInBet={300}
                                 handleInputValue={this.handleInputValue.bind(this)}/>
                 </div>
