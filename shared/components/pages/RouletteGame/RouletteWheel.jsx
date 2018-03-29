@@ -5,8 +5,8 @@ import roulette from '../../../../config/roulette.js';
 export default class RouletteWheel extends Component {
     state = {
         status: '',
-        timerSeconds: null,
-        donutData: []
+        timerSeconds: 20,
+        donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
     };
 
     componentWillReceiveProps(nextProps) {
@@ -15,12 +15,16 @@ export default class RouletteWheel extends Component {
         switch (status) {
             case ROULETTE_BETTING: {
                 this.setState({
-                    status
+                    status,
+                    timerSeconds: null,
+                    donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
+                this.setIntervalID && clearInterval(this.setIntervalID);
+                this.seconds = 0;
                 let endDate = nextProps.roulette.game.date;
                 this.seconds = Math.round((endDate.getTime() - new Date().getTime()) / 1000);
                 this.setIntervalID = setInterval(() => {
-                    this.timer.classList.remove('zoom');
+                    setTimeout(() => this.timerBlock.classList.remove('zoom'), 500);
                     this.setState({
                         timerSeconds: this.seconds,
                         donutData: [
@@ -28,29 +32,35 @@ export default class RouletteWheel extends Component {
                             {value: this.seconds, stroke: "#ff7900", strokeWidth: .5}
                         ]
                     });
-                    this.timer.classList.add('zoom');
-                    this.seconds--;
-                    if (this.seconds < 0) {
-                        clearInterval(this.setIntervalID)
+                    this.timerBlock.classList.add('zoom');
+                    if (this.seconds <= 0) {
+                        return clearInterval(this.setIntervalID);
                     }
+                    this.seconds--;
                 }, 1000);
                 break;
             }
             case ROULETTE_IN_GAME: {
                 this.setState({
-                    status
+                    status,
+                    donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
-                setTimeout(() => this.gamble.classList.remove('zoom'), 500);
+                this.gambleBlock.classList.add('zoom');
+                this.wheelBlock.style.transform = 'rotate(' + (1440 + 7) + 'deg)';
+                setTimeout(() => this.gambleBlock.classList.remove('zoom'), 500);
                 break;
             }
             case ROULETTE_REWARDS: {
                 this.setState({
-                    status
+                    status,
+                    donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
+                this.wheelWinnerBlock.style.transform = 'rotate(' + 7 + 'deg)';
                 break;
             }
         }
     }
+
 
     render() {
         let {status, timerSeconds, donutData} = this.state;
@@ -58,25 +68,23 @@ export default class RouletteWheel extends Component {
         return (
             <div className="rWheel">
                 <div className={'rWheel__wrapper'}>
-                    <div>
-                        <object type="image/svg+xml" data="static/images/icons/roulette.svg">
-                            Your browser does not support SVG.
-                        </object>
-                        <object className='rWheel__pointer' type="image/svg+xml" data="static/images/icons/pointer.svg">
-                            Your browser does not support SVG.
-                        </object>
-                        <div className='rWheel__timer'>
-                            <DonutChart data={donutData}/>
-                        </div>
-                        <div
-                            className={(status === ROULETTE_BETTING) ? "rWheel__timer-data zoom" : "rWheel__timer-data"} ref={timer => this.timer = timer}>{timerSeconds}</div>
-                        <div className={(status === ROULETTE_IN_GAME) ? "rWheel__gamble zoom" : "rWheel__gamble"}
-                             ref={gamble => this.gamble = gamble}>Gamble!
-                        </div>
-                        {/* TODO: Change color: ..-color1 (2 or 3)*/}
-                        <div
-                            className={(status === ROULETTE_REWARDS) ? "rWheel__winner rWheel__winner-color1 zoom" : "rWheel__winner rWheel__winner-color1"}>11
-                        </div>
+                    <div className="rWheel__roulette" ref={wheel => this.wheelBlock = wheel}/>
+                    <div className={(status === ROULETTE_REWARDS) ? "rWheel__pointer move" : "rWheel__pointer"}/>
+                    <div
+                        className={(status === ROULETTE_REWARDS) ? "rWheel__roulette-winner" : "rWheel__roulette-winner hide"}
+                        ref={winner => this.wheelWinnerBlock = winner}/>
+                    <div className='rWheel__timer'>
+                        <DonutChart data={donutData}/>
+                    </div>
+                    <div
+                        className={(status === ROULETTE_BETTING) ? "rWheel__timer-data zoom" : "rWheel__timer-data"}
+                        ref={timer => this.timerBlock = timer}>{timerSeconds}</div>
+                    <div className={(status === ROULETTE_IN_GAME) ? "rWheel__gamble zoom" : "rWheel__gamble"}
+                         ref={gamble => this.gambleBlock = gamble}>Gamble!
+                    </div>
+                    {/* TODO: Change color: ..-color1 (2 or 3)*/}
+                    <div
+                        className={(status === ROULETTE_REWARDS) ? "rWheel__winner rWheel__winner-color1 zoom" : "rWheel__winner rWheel__winner-color1"}>11
                     </div>
                 </div>
             </div>

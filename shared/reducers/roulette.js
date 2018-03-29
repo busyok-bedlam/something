@@ -19,8 +19,8 @@ export default function roulette(state = initialState, action) {
             let game = {};
             game.lastBet = 12;
             game.date = new Date();
-            game.date.setSeconds(game.date.getSeconds() + 10);
-            let lastGame = {};
+            game.date.setSeconds(game.date.getSeconds() + 3);
+            let lastGame ={};
             lastGame.lastBet = 12;
             lastGame.date = new Date(Date.now());
             return {...state, game, lastGame, status: action.type};
