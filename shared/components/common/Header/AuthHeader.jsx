@@ -9,10 +9,11 @@ export default class AuthHeader extends Component {
         cbHandleLogout: PropTypes.func.isRequired,
         displayName: PropTypes.string.isRequired,
         avatar: PropTypes.string.isRequired,
+        balance: PropTypes.number.isRequired
     };
 
     render() {
-        const {cbHandleLogout, displayName, avatar} = this.props;
+        const {cbHandleLogout, displayName, avatar, balance} = this.props;
         return (
             <div className="header__top-right">
                 <div className="user">
@@ -23,7 +24,7 @@ export default class AuthHeader extends Component {
                             <div
                                 className="name">{displayName}
                             </div>
-                            <div className="coin">1123</div>
+                            <div className="coin">{balance}</div>
                         </div>
                     </NavLink>
                 </div>

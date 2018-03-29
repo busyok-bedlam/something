@@ -15,7 +15,7 @@ export default class RouletteBets extends Component {
     };
 
     handleClick = () => {
-        if(this.myBet) {
+        if (this.myBet) {
             const {offsetTop, offsetHeight} = this.myBet;
             this.columnScroll.scrollTo(offsetTop - Math.round(this.wrapperScroll.offsetHeight / 2) + Math.round(offsetHeight / 2));
         }

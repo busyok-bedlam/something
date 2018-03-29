@@ -1,7 +1,8 @@
 import {
     ROULETTE_BETTING,
     ROULETTE_IN_GAME,
-    ROULETTE_REWARDS
+    ROULETTE_REWARDS,
+    WS_BALANCE_UPDATE
 } from '../actions/rouletteActions';
 
 let initialState = {
@@ -19,7 +20,7 @@ export default function roulette(state = initialState, action) {
             game.lastBet = 12;
             game.date = new Date();
             game.date.setSeconds(game.date.getSeconds() + 10);
-            let lastGame ={};
+            let lastGame = {};
             lastGame.lastBet = 12;
             lastGame.date = new Date(Date.now());
             return {...state, game, lastGame, status: action.type};
@@ -27,8 +28,12 @@ export default function roulette(state = initialState, action) {
         case ROULETTE_IN_GAME: {
             return {...state, status: action.type};
         }
-        case ROULETTE_REWARDS:{
+        case ROULETTE_REWARDS: {
             return {...state, status: action.type}
+        }
+        case WS_BALANCE_UPDATE: {
+
+            console.log(action.payload.message);
         }
         default:
             return state;

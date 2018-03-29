@@ -1,5 +1,5 @@
 import config from '../../config';
-const isDev =process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development';
 
 export function renderFullHTML({componentHTML, initialState, title, csrfToken,}) {
     const staticUrl = `${isDev ? `http://localhost:${config.WEBPACK_PORT}` : ''}/static/build`;

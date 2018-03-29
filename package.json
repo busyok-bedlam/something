@@ -1,5 +1,5 @@
 {
-  "name": "panos",
+  "name": "csgoblaze",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "start_chat": "node ./chatService/runner.js",
     "start_admin": "node ./admin/server/runner.js",
     "nodemon": "nodemon server/runner.js",
+    "nodemon_roulette": "nodemon rouletteService/runner.js",
     "nodemon_bots": "node botsService/runner.js",
     "nodemon_chat": "nodemon chatService/runner.js",
     "nodemon_ws": "nodemon server/lib/WSServer/runner.js",

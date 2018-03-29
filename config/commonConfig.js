@@ -1,5 +1,5 @@
 export default {
-  USER_STATUS:{
-    FREE:"FREE",
-  },
+    USER_STATUS: {
+      FREE:"FREE"
+  }
 }

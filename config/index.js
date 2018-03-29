@@ -11,6 +11,7 @@ export default {
     BOTS_HTTP_PORT: isDev ? 3003 : 9993,
     BOTS_HTTP_HOST: 'http://localhost',
     HTTP_PORT_CHAT: isDev ? 3004 : 9994,
+    HTTP_PORT_ROULETTE: isDev ? 3006 : 9996,
     WEBPACK_PORT: 3005,
     SECRET: 'asdlkfjsalkjld4fsd5yg56hregrthfsdfsdflflksytreyrea75832hfh83thf3h',
     SECRET_ADMIN: 'asdlkdfdfdalkjld42425ajy65gtregre7s67u65htyeksreds545gtrf33',

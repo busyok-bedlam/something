@@ -21,6 +21,7 @@ export default class Roulette extends Component {
         const {
             bet,
             roulette,
+            rouletteActions,
             handleRouletteBetting,
             handleRouletteInGame,
             handleRouletteRewards,
@@ -34,8 +35,12 @@ export default class Roulette extends Component {
                 <div className="roulette">
                     <RouletteWheel roulette={roulette}/>
                     <RouletteLobby
-                        roulette={roulette} bet={bet} handleRouletteRewards={handleRouletteRewards}
-                        handleRouletteInGame={handleRouletteInGame} handleRouletteBetting={handleRouletteBetting}
+                        roulette={roulette}
+                        rouletteActions={rouletteActions}
+                        bet={bet}
+                        handleRouletteRewards={handleRouletteRewards}
+                        handleRouletteInGame={handleRouletteInGame}
+                        handleRouletteBetting={handleRouletteBetting}
                         lobbyHandleChangeValue={lobbyHandleChangeValue}/>
                     <div className="rBets">
                         <RouletteBets color={RouletteBets.type.COLOR1}/>

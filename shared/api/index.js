@@ -4,6 +4,7 @@ import FaqAPI       from './FaqAPI';
 import RedBlackGameAPI from './RedBlackGameAPI';
 import WebSocketAPI from './WebSocketAPI';
 import ChatSocketAPI from './ChatSocketAPI';
+import RouletteSocketAPI from './RouletteSocketAPI';
 
 export const apiClient = new ApiClient();
 
@@ -13,6 +14,7 @@ const combinedAPI = {
     faq: new FaqAPI(apiClient),
     webSocket: new WebSocketAPI(),
     chatSocket: new ChatSocketAPI(),
+    rouletteSocket: new RouletteSocketAPI()
 };
 
 export default combinedAPI;

@@ -76,7 +76,7 @@ export default function (ctx, next) {
                     componentHTML,
                     initialState,
                     config,
-                    title: "CsGoBlaze",
+                    title: "CSGOBlaze",
                     csrfToken: ctx.csrf,
                     localeData: localeData[locale]
                 });

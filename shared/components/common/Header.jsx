@@ -12,6 +12,7 @@ export default class Header extends Component {
         isAuth: PropTypes.bool.isRequired,
         displayName: PropTypes.string,
         avatar: PropTypes.string,
+        balance: PropTypes.number,
         cbHandleLogout: PropTypes.func.isRequired,
     };
 
@@ -57,6 +58,7 @@ export default class Header extends Component {
             isAuth,
             displayName,
             avatar,
+            balance,
             cbHandleLogout,
         } = this.props;
         const {selectedOption, time, menuOpen} = this.state;
@@ -88,6 +90,7 @@ export default class Header extends Component {
                                     cbHandleLogout={cbHandleLogout}
                                     displayName={displayName}
                                     avatar={avatar}
+                                    balance={balance}
                                 /> :
                                 <NotAuthHeader/>
                         }

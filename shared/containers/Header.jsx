@@ -35,6 +35,7 @@ class Header extends React.Component {
                 isAuth={user.isAuth}
                 displayName={user.displayName}
                 avatar={user.avatarFull}
+                balance={user.balance}
                 cbHandleLogout={::this.cbHandleLogout}
                 location={this.props.location}
             />

@@ -5,6 +5,9 @@ import GameHeader from '../../common/game/GameHeader.jsx';
 import roulette from '../../../../config/roulette.js';
 import PropTypes from 'prop-types';
 
+
+// let {ROULETTE_MIN_BET, ROULETTE_MAX_BET} = roulette;
+
 export default class RouletteLobby extends Component {
     static propTypes = {
         bet: PropTypes.number.isRequired,
@@ -26,16 +29,30 @@ export default class RouletteLobby extends Component {
     handleInputValue (value) {
         this.props.lobbyHandleChangeValue(value);
         this.setState({
-            disabledButton: this.validateBet(value)
+            disabledButton: this.validateBet(value),
+            value
         })
     }
+
+    handleNewBet = (color, e) => {
+        let {value} = this.state;
+        // e.preventDefault();
+        // e.stopPropagation();
+        this.props.rouletteActions.rouletteNewBet({color, value})
+    };
 
     validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET;
 
     render() {
         let {disabledButton} = this.state;
         let {bet} = this.props;
-        let {ROULETTE_MIN_BET, ROULETTE_MAX_BET} = roulette;
+        let {
+            ROULETTE_MIN_BET,
+            ROULETTE_MAX_BET,
+            ROULETTE_COLOR_PINK,
+            ROULETTE_COLOR_GREEN,
+            ROULETTE_COLOR_GREY
+        } = roulette;
         return (
             <div className="rLobby">
                 <GameHeader />
@@ -61,9 +78,18 @@ export default class RouletteLobby extends Component {
                         <h2>Choose bet (max {ROULETTE_MAX_BET})</h2>
                         <input type="number" value={bet} name='bet' min={ROULETTE_MIN_BET} max={ROULETTE_MAX_BET} onChange={this.handleChange}/>
                         <div className="rLobby__buttons">
-                            <button className="button button-pink" disabled={disabledButton}>Bet x2</button>
-                            <button className="button button-green" disabled={disabledButton}>Bet x14</button>
-                            <button className="button button-gray" disabled={disabledButton}>Bet x2</button>
+                            <button
+                                onClick={() => this.handleNewBet(ROULETTE_COLOR_PINK)}
+                                className="button button-pink"
+                                disabled={disabledButton}>Bet x2</button>
+                            <button
+                                onClick={() => this.handleNewBet(ROULETTE_COLOR_GREEN)}
+                                className="button button-green"
+                                disabled={disabledButton}>Bet x14</button>
+                            <button
+                                onClick={() => this.handleNewBet(ROULETTE_COLOR_GREY)}
+                                className="button button-gray"
+                                disabled={disabledButton}>Bet x2</button>
                         </div>
                         <div className="rLobby__history">
                             <div className="history__item history__item-color1">2</div>

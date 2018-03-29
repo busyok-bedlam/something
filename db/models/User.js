@@ -8,6 +8,7 @@ const userSchema = new db.Schema({
     profileUrl: {type: String},
     tradeURL: String,
     isAdmin: Boolean,
+    balance: Number
 });
 
 
@@ -18,6 +19,7 @@ userSchema.methods.getPublicFields = function () {
         avatar: this.avatar,
         avatarFull: this.avatarFull,
         tradeURL: this.tradeURL,
+        balance: this.balance
 
     }
 };

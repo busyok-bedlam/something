@@ -9,6 +9,7 @@ import * as rouletteActions from '../actions/rouletteActions';
 import {LoadingScreen} from '../lib/LoadingScreen';
 import Roulette from "../components/pages/Roulette.jsx";
 import roulette from '../../config/roulette.js';
+import RouletteSocket from "../lib/rouletteWS";
 
 class RoulettePage extends Component {
     static propTypes = {
@@ -25,6 +26,7 @@ class RoulettePage extends Component {
     };
 
     async componentDidMount() {
+        RouletteSocket.start();
         await this.__loadUserInventory();
     }
 
@@ -86,7 +88,8 @@ class RoulettePage extends Component {
         const {
             user,
             game,
-            roulette
+            roulette,
+            rouletteActions
         } = this.props;
         const {inventory} = user;
         const {selectedItems} = game;
@@ -96,6 +99,7 @@ class RoulettePage extends Component {
             <Roulette
                 bet={bet}
                 roulette={roulette}
+                rouletteActions={rouletteActions}
                 inventory={inventory}
                 selectedItems={selectedItems}
                 handleRouletteBetting={::this.handleRouletteBetting}
@@ -123,6 +127,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+
+    RouletteSocket.setDispatch(dispatch);
+
     return {
         userActions: bindActionCreators(userActions, dispatch),
         rouletteActions: bindActionCreators(rouletteActions, dispatch),

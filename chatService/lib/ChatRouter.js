@@ -113,7 +113,7 @@ export default class ChatRouter {
                     }
                 }
             );
-            ChatRouter.__newMessages.forEach(message=>ChatRouter.messages.push(message));
+            ChatRouter.__newMessages.forEach(message => ChatRouter.messages.push(message));
             if(ChatRouter.messages.length > config.chatConfig.CHAT_LENGTH){
                 ChatRouter.messages.splice(0, ChatRouter.messages.length - config.chatConfig.CHAT_LENGTH);
             }
