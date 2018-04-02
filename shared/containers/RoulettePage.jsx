@@ -25,10 +25,17 @@ class RoulettePage extends Component {
         isInventoryLoading: false,
     };
 
-    async componentDidMount() {
+    componentDidMount() {
+        console.log('did mount');
         RouletteSocket.start();
-        await this.__loadUserInventory();
+        // await this.__loadUserInventory();
     }
+
+    componentWillUnmount() {
+        RouletteSocket.getInstance()
+            .then(instance => instance.onclose());
+
+    };
 
     async __loadUserInventory() {
         try {

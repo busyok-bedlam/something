@@ -6,12 +6,13 @@ import {
     UPDATE_USER_STEAM_INVENTORY_SORT,
     UPDATE_USER_INVENTORY,
 } from '../actions/userActions';
+
 import wsMessageType from '../../config/wsMessageType.json';
 
 let initialState = {
+    balance: 0,
     userName: null,
     isAuth: false,
-
     steamInventory: [],
     steamInventorySort: 1,
     inventory: [],
@@ -85,6 +86,13 @@ export default function user(state = initialState, action) {
         }
 
         case wsMessageType.WS_DISCONNECT_GAME: {
+            const {user} = action.payload;
+            state.balance = user.balance;
+            return {...state};
+        }
+
+        case wsMessageType.WS_BALANCE_UPDATE: {
+            console.log(action);
             const {user} = action.payload;
             state.balance = user.balance;
             return {...state};

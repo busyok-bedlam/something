@@ -111,7 +111,7 @@ export default class WSServer {
             WSServer.__clientOnConnectionCallBack && WSServer.__clientOnConnectionCallBack(userID, WSServer.send, true /*is auth user*/);
         } else {
             const client = Clients.getClient(sid);
-            if(client){
+            if (client){
                 return ws.send({
                     type: wsMessageType.WS_ERROR,
                     payload: {

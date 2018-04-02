@@ -5,6 +5,7 @@ export const {
     ROULETTE_BETTING,
     ROULETTE_IN_GAME,
     ROULETTE_REWARDS,
+    ROULETTE_INIT
 } = roulette;
 
 export const {
@@ -43,8 +44,7 @@ export function rouletteNewBet(bet) {
     return async dispatch => {
         await api.rouletteSocket.send(WS_ROULETTE_NEW_BET, bet);
         return dispatch({
-            type: WS_BALANCE_UPDATE,
-            payload: {bet}
+            type: 'NO_TYPE'
         })
     }
 

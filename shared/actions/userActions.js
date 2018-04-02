@@ -49,12 +49,12 @@ export function logout() {
     }
 }
 
-export function setupTradeURL(tradeURL=null) {
+export function setupTradeURL(tradeURL = null) {
     return async dispatch => {
         const response = await api.user.setupTradeURL({tradeURL});
         return dispatch({
             type: UPDATE_USER_DATA,
-            payload:{tradeURL: response.tradeURL},
+            payload: {tradeURL: response.tradeURL}
         })
     }
 }
@@ -64,7 +64,7 @@ export function loadSteamInventory() {
         const {items} = await api.user.loadSteamInventory();
         return dispatch({
             type: UPDATE_USER_STEAM_INVENTORY,
-            payload:{items},
+            payload: {items},
         })
     }
 }
@@ -73,7 +73,7 @@ export function selectSteamInventorySort(sort) {
     return async dispatch => {
         return dispatch({
             type: UPDATE_USER_STEAM_INVENTORY_SORT,
-            payload:{steamInventorySort: sort},
+            payload: {steamInventorySort: sort},
         })
     }
 }
@@ -83,7 +83,7 @@ export function loadInventory() {
         const {items} = await api.user.loadInventory();
         return dispatch({
             type: UPDATE_USER_INVENTORY,
-            payload:{items},
+            payload: {items}
         })
     }
 }
@@ -93,7 +93,7 @@ export function createDepositOffer(assetIDs) {
         const {ids} = await api.user.createDepositOffer({assetIDs});
         return dispatch({
             type: DEPOSIT_OFFER_SENT,
-            payload:{ids},
+            payload: {ids}
         })
     }
 }
@@ -103,7 +103,7 @@ export function createWithdrawOffer(ids) {
         const response = await api.user.createWithdrawOffer({ids});
         return dispatch({
             type: WITHDRAW_OFFER_SENT,
-            payload:{ids: response.ids},
+            payload: {ids: response.ids}
         })
     }
 }
@@ -113,7 +113,7 @@ export function loadTradeHistory(type) {
         const {trades} = await api.user.loadTradeHistory({type});
         return dispatch({
             type: UPDATE_USER_DATA,
-            payload:{trades},
+            payload: {trades}
         })
     }
 }

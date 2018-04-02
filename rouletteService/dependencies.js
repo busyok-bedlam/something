@@ -36,4 +36,23 @@ di
         key: 'sessionStore',
         type: 'value',
         value: mongoStore
+    })
+    .register({
+        key: 'players',
+        type: CONTAINER_TYPE_VALUE,
+        value: {
+            ROULETTE_COLOR_PINK: [],
+            ROULETTE_COLOR_GREEN: [],
+            ROULETTE_COLOR_GREY: [],
+            total: {
+                ROULETTE_COLOR_PINK: 0,
+                ROULETTE_COLOR_GREEN: 0,
+                ROULETTE_COLOR_GREY: 0,
+            }
+        }
+    })
+    .register({
+        key: 'currentGame',
+        type: CONTAINER_TYPE_VALUE,
+        value: {}
     });

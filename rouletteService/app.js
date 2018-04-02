@@ -6,6 +6,8 @@ import di         from './di';
 const sessionStore = di.get('sessionStore');
 const config = di.get('config');
 
+
+
 WSServer.setOnConnection(RouletteRouter.onClientConnection);
 WSServer.setOnMessage(RouletteRouter.onClientMessage);
 WSServer.setOnClose(RouletteRouter.onClientClose);
@@ -18,6 +20,8 @@ WSServer.start(
         // isOnlyOrigin: true,
         isOnlyOrigin: false,
         // origin: config.ORIGIN,
-        // broadcastPeriod: config.chatConfig.BROADCAST_PERIOD,
+        broadcastPeriod: config.rouletteConfig.BROADCAST_PERIOD,
     }
 );
+
+RouletteRouter.run();

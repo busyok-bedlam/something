@@ -12,6 +12,17 @@ export default class RouletteWheel extends Component {
     componentWillReceiveProps(nextProps) {
         let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
         let {status} = nextProps.roulette;
+
+        // if (this.props.roulette.status == ROULETTE_BETTING && status == ROULETTE_IN_GAME) {
+        //     this.setState({
+        //         status,
+        //         donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
+        //     });
+        //     this.gambleBlock.classList.add('zoom');
+        //     // this.wheelBlock.style.transform = 'rotate(' + (1440 + 7) + 'deg)';
+        //     this.wheelBlock.style.transform = 'rotate(' + (1440 + 7) + 'deg)';
+        //     setTimeout(() => this.gambleBlock.classList.remove('zoom'), 500);
+        // }
         switch (status) {
             case ROULETTE_BETTING: {
                 this.setState({
@@ -46,8 +57,10 @@ export default class RouletteWheel extends Component {
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
                 this.gambleBlock.classList.add('zoom');
+                // this.wheelBlock.style.transform = 'rotate(' + (1440 + 7) + 'deg)';
                 this.wheelBlock.style.transform = 'rotate(' + (1440 + 7) + 'deg)';
                 setTimeout(() => this.gambleBlock.classList.remove('zoom'), 500);
+
                 break;
             }
             case ROULETTE_REWARDS: {
