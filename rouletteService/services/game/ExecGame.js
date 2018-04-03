@@ -13,9 +13,7 @@ const {
 export default class ExecGame {
     exec() {
         console.log('ExecGame');
-        WSServer.sendToAll({
-            type: ROULETTE_IN_GAME
-        });
+
 
         currentGame.counter = WHEEL_TIME * 10;
 
@@ -32,6 +30,14 @@ export default class ExecGame {
             ) % 15;
 
         console.log(currentGame.sector);
+        console.log(Math.floor(Math.random() * 24) + 0);
+
+        WSServer.sendToAll({
+            type: ROULETTE_IN_GAME,
+            sector: currentGame.sector,
+            angle: Math.floor(Math.random() * 24) + 0
+        });
+
 
         return new Promise(resolve => {
             this.timerWheel = setInterval(() => {

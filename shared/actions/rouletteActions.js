@@ -5,12 +5,13 @@ export const {
     ROULETTE_BETTING,
     ROULETTE_IN_GAME,
     ROULETTE_REWARDS,
-    ROULETTE_INIT
+    ROULETTE_INIT,
+    ROULETTE_PLAYERS
 } = roulette;
 
 export const {
     WS_ROULETTE_NEW_BET,
-    WS_BALANCE_UPDATE
+    WS_BALANCE_UPDATE,
 } = wsMessageType;
 
 export function rouletteBetting(game) {

@@ -34,7 +34,14 @@ export default class InitGame {
 
         this.__checkActualHashAndDay();
 
-        WSServer.sendToAll({type: ROULETTE_BETTING});
+        WSServer.sendToAll({
+            type: ROULETTE_BETTING,
+            payload: {
+                rouletteID: currentGame.rouletteID,
+                hash: currentGame.hash,
+                timer: currentGame.counter
+            }
+        });
 
 
         return new Promise(resolve => {

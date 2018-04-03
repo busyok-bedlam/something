@@ -13,6 +13,7 @@ const {
 export default class FinishGame {
     exec() {
         console.log('FinishGame');
+
         WSServer.sendToAll({
             type: ROULETTE_REWARDS
         });

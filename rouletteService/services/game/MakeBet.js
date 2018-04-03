@@ -1,8 +1,11 @@
 import di from '../../di';
+import WSServer from '../../lib/WSServer';
 const db = di.get('db');
 const players = di.get('players');
 const {rouletteConfig} = di.get('config');
+const {wsMessageType} = di.get('config');
 const UserModel = db.models.users;
+
 
 
 export default class MakeBet {
@@ -46,7 +49,8 @@ export default class MakeBet {
         this.__addBet(user, data);
 
         return {
-            user: user.getPublicFields()
+            user: user.getPublicFields(),
+            data: data
         }
 
     }
@@ -56,12 +60,13 @@ export default class MakeBet {
         const isExist = listPlayers.some(player => {
             if (player.userID === user.id) {
                 player.bet += data.value;
-
                 return true;
             }
 
             return false;
         });
+
+
 
         if (!isExist) {
             listPlayers.push({
@@ -70,9 +75,18 @@ export default class MakeBet {
                 avatar: user.avatar,
                 bet: data.value
             });
+
         }
 
         players.total[data.color] += data.value;
+
+        WSServer.sendToAll({
+            type: wsMessageType.WS_ROULETTE_PLAYERS,
+            payload: {
+                players: players
+            }
+        });
+
     }
 
 

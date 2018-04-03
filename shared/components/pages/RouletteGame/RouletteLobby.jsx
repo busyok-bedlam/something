@@ -46,6 +46,7 @@ export default class RouletteLobby extends Component {
     render() {
         let {disabledButton} = this.state;
         let {bet} = this.props;
+        let {userBet} = this.props.roulette;
         let {
             ROULETTE_MIN_BET,
             ROULETTE_MAX_BET,
@@ -62,15 +63,15 @@ export default class RouletteLobby extends Component {
                         <div className="wrapper">
                             <div>
                                 <div className="color color-1"/>
-                                <div className="bet"><i className='icon-poker-piece'/>1245</div>
+                                <div className="bet"><i className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_PINK ? userBet.value : 0}</div>
                             </div>
                             <div>
                                 <div className="color color-2"/>
-                                <div className="bet"><i className='icon-poker-piece'/>1245</div>
+                                <div className="bet"><i className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_GREEN ? userBet.value : 0}</div>
                             </div>
                             <div>
                                 <div className="color color-3"/>
-                                <div className="bet"><i className='icon-poker-piece'/>1245</div>
+                                <div className="bet"><i className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_GREY ? userBet.value : 0}</div>
                             </div>
                         </div>
                     </div>

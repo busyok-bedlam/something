@@ -34,10 +34,13 @@ export default class RouletteRouter {
             switch (type) {
                 case WS_ROULETTE_NEW_BET: {
                     await runService(['game', 'MakeBet'], {id, data})
-                        .then(data => {
+                        .then(res => {
                             return sendResponse(id, {
                                 type: WS_BALANCE_UPDATE,
-                                payload: data
+                                payload: {
+                                    userBet: res.data,
+                                    user: res.user
+                                }
                             })
                         });
                 }
@@ -74,12 +77,9 @@ export default class RouletteRouter {
 
         await runService(['game', 'LastGames'])
             .then(() => {
+                //last games // sector & color
                 RouletteRouter.runGame();
             });
-
-        // setInterval(() => {
-        //     RouletteRouter.runGame();
-        // }, 25 * 1000)
 
     };
 

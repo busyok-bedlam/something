@@ -26,14 +26,13 @@ class RoulettePage extends Component {
     };
 
     componentDidMount() {
-        console.log('did mount');
         RouletteSocket.start();
         // await this.__loadUserInventory();
     }
 
     componentWillUnmount() {
-        RouletteSocket.getInstance()
-            .then(instance => instance.onclose());
+        // RouletteSocket.getInstance()
+        //     .then(instance => instance.onclose());
 
     };
 
