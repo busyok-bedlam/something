@@ -34,8 +34,10 @@ export default class ExecGame {
 
         WSServer.sendToAll({
             type: ROULETTE_IN_GAME,
-            sector: currentGame.sector,
-            angle: Math.floor(Math.random() * 24) + 0
+            payload: {
+                sector: currentGame.sector,
+                angle: Math.floor(Math.random() * 24) + 0
+            }
         });
 
 

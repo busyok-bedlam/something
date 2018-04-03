@@ -10,10 +10,7 @@ import wsMessageType from '../../config/wsMessageType.json';
 
 let initialState = {
     game: {},
-    lastGame: {},
-    bets: {},
     status: '',
-    players: {},
     userBet: {}
 };
 
@@ -30,18 +27,11 @@ export default function roulette(state = initialState, action) {
             }
         }
         case ROULETTE_BETTING: {
-            // const {game} = action.payload;
-            let game = {};
-            game.lastBet = 12;
-            game.date = new Date();
-            game.date.setSeconds(game.date.getSeconds() + 20); //ROULETTE_TIMER
-            let lastGame = {};
-            lastGame.lastBet = 12;
-            lastGame.date = new Date(Date.now());
-            return {...state, game, lastGame, status: action.type};
+            return {...state, game: action.payload, status: action.type};
         }
         case ROULETTE_IN_GAME: {
-            return {...state, status: action.type};
+            let game  = {...state.game, ...action.payload};
+            return {...state, game, status: action.type};
         }
         case ROULETTE_REWARDS: {
             return {...state, status: action.type}

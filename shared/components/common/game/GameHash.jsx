@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
 import ModalController from '../../../lib/ModalController';
+import PropTypes from 'prop-types';
 
 export default class GameHash extends Component {
+    static propTypes = {
+        gameID: PropTypes.object.isRequired,
+        hash: PropTypes.object.isRequired,
+    };
+
     render() {
+        let {gameID, hash} = this.props;
         return (
             <div className="game__hash">
                 <div className="left">
@@ -11,10 +18,8 @@ export default class GameHash extends Component {
                 </div>
                 <div className="right">
                     <b>Hash round: </b>
-                    <div>9370afdf275940f5df8c5a198a1c7492803139aa31
-                        346bce4698463b
-                    </div>
-                    <b>Round number: </b>8
+                    <div>{hash}</div>
+                    <b>Round number: </b> {gameID}
                 </div>
             </div>
         );

@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import DonutChart from "react-svg-donut-chart";
 import roulette from '../../../../config/roulette.js';
+import PropTypes from 'prop-types';
 
 export default class RouletteWheel extends Component {
+    static propTypes = {
+        roulette: PropTypes.object.isRequired,
+    };
+
     state = {
         status: '',
         angleLast: 0,
@@ -32,9 +37,7 @@ export default class RouletteWheel extends Component {
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
                 this.setIntervalID && clearInterval(this.setIntervalID);
-                this.seconds = 0;
-                let endDate = nextProps.roulette.game.date;
-                this.seconds = Math.round((endDate.getTime() - new Date().getTime()) / 1000);
+                this.seconds = nextProps.roulette.game.timer;
                 this.setIntervalID = setInterval(() => {
                     setTimeout(() => this.timerBlock.classList.remove('zoom'), 500);
                     this.setState({
@@ -53,31 +56,29 @@ export default class RouletteWheel extends Component {
                 break;
             }
             case ROULETTE_IN_GAME: {
-                let sector = 2;
-                let offset = 3;
-                // TODO: increment sector
-                let angle = - (24 * sector - (24 - offset));
-                console.log(angle)
+                let {sector, angle} = nextProps.roulette.game;
+                let angleWheel = - (24 * sector - (24 - angle));
+                console.log(angleWheel);
                 this.setState({
                     status,
-                    angleLast: angle,
+                    angleLast: angleWheel,
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
                 this.gambleBlock.classList.add('zoom');
                 this.wheelBlock.style.transition = '7s ease all';
-                this.wheelBlock.style.transform = 'rotate(' + (1440 + angle ) + 'deg)';
+                this.wheelBlock.style.transform = 'rotate(' + (1440 + angleWheel ) + 'deg)';
                 setTimeout(() => this.gambleBlock.classList.remove('zoom'), 500);
                 break;
             }
             case ROULETTE_REWARDS: {
+                let {angle} = nextProps.roulette.game;
                 this.setState({
                     status,
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
-                let offset = 3;
                 this.wheelBlock.style.transition = 'none';
                 this.wheelBlock.style.transform = 'rotate('+ this.state.angleLast + 'deg)';
-                this.wheelWinnerBlock.style.transform = 'rotate(' + (12 - offset) + 'deg)';
+                this.wheelWinnerBlock.style.transform = 'rotate(' + (12 - angle) + 'deg)';
                 break;
             }
         }
@@ -86,6 +87,7 @@ export default class RouletteWheel extends Component {
 
     render() {
         let {status, timerSeconds, donutData} = this.state;
+        let {sector} = this.props.roulette.game || "";
         let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
         return (
             <div className="rWheel">
@@ -102,11 +104,14 @@ export default class RouletteWheel extends Component {
                         className={(status === ROULETTE_BETTING) ? "rWheel__timer-data zoom" : "rWheel__timer-data"}
                         ref={timer => this.timerBlock = timer}>{timerSeconds}</div>
                     <div className={(status === ROULETTE_IN_GAME) ? "rWheel__gamble zoom" : "rWheel__gamble"}
-                         ref={gamble => this.gambleBlock = gamble}>Gamble!
+                         ref={gamble => this.gambleBlock = gamble}>Go!
                     </div>
                     {/* TODO: Change color: ..-color1 (2 or 3)*/}
                     <div
-                        className={(status === ROULETTE_REWARDS) ? "rWheel__winner rWheel__winner-color1 zoom" : "rWheel__winner rWheel__winner-color1"}>11
+                        className={(status === ROULETTE_REWARDS)
+                            ? "rWheel__winner rWheel__winner-color1 zoom"
+                            : "rWheel__winner rWheel__winner-color1"}>
+                        {sector && sector - 1}
                     </div>
                 </div>
             </div>

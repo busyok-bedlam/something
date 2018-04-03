@@ -26,7 +26,7 @@ export default class RouletteLobby extends Component {
         });
     };
 
-    handleInputValue (value) {
+    handleInputValue(value) {
         this.props.lobbyHandleChangeValue(value);
         this.setState({
             disabledButton: this.validateBet(value),
@@ -45,7 +45,7 @@ export default class RouletteLobby extends Component {
 
     render() {
         let {disabledButton} = this.state;
-        let {bet} = this.props;
+        let {bet, roulette} = this.props;
         let {userBet} = this.props.roulette;
         let {
             ROULETTE_MIN_BET,
@@ -56,48 +56,58 @@ export default class RouletteLobby extends Component {
         } = roulette;
         return (
             <div className="rLobby">
-                <GameHeader />
+                <GameHeader/>
                 <div className="game__lobby">
                     <div className="rLobby__bet">
                         <h3>Your bet:</h3>
                         <div className="wrapper">
                             <div>
                                 <div className="color color-1"/>
-                                <div className="bet"><i className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_PINK ? userBet.value : 0}</div>
+                                <div className="bet"><i
+                                    className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_PINK ? userBet.value : 0}
+                                </div>
                             </div>
                             <div>
                                 <div className="color color-2"/>
-                                <div className="bet"><i className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_GREEN ? userBet.value : 0}</div>
+                                <div className="bet"><i
+                                    className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_GREEN ? userBet.value : 0}
+                                </div>
                             </div>
                             <div>
                                 <div className="color color-3"/>
-                                <div className="bet"><i className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_GREY ? userBet.value : 0}</div>
+                                <div className="bet"><i
+                                    className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_GREY ? userBet.value : 0}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="game__info">
                         <h2>Choose bet (max {ROULETTE_MAX_BET})</h2>
-                        <input type="number" value={bet} name='bet' min={ROULETTE_MIN_BET} max={ROULETTE_MAX_BET} onChange={this.handleChange}/>
+                        <input type="number" value={bet} name='bet' min={ROULETTE_MIN_BET} max={ROULETTE_MAX_BET}
+                               onChange={this.handleChange}/>
                         <div className="rLobby__buttons">
                             <button
                                 onClick={() => this.handleNewBet(ROULETTE_COLOR_PINK)}
                                 className="button button-pink"
-                                disabled={disabledButton}>Bet x2</button>
+                                disabled={disabledButton}>Bet x2
+                            </button>
                             <button
                                 onClick={() => this.handleNewBet(ROULETTE_COLOR_GREEN)}
                                 className="button button-green"
-                                disabled={disabledButton}>Bet x14</button>
+                                disabled={disabledButton}>Bet x14
+                            </button>
                             <button
                                 onClick={() => this.handleNewBet(ROULETTE_COLOR_GREY)}
                                 className="button button-gray"
-                                disabled={disabledButton}>Bet x2</button>
+                                disabled={disabledButton}>Bet x2
+                            </button>
                         </div>
                         <div className="rLobby__history">
                             <div className="history__item history__item-color1">2</div>
                             <div className="history__item history__item-color2">3</div>
                             <div className="history__item history__item-color3">4</div>
                         </div>
-                        <GameHash />
+                        <GameHash gameID={roulette.game.rouletteID} hash={roulette.game.hash}/>
                     </div>
                     <BetButtons bet={bet}
                                 minBet={ROULETTE_MIN_BET}

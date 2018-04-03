@@ -29,7 +29,7 @@ export default class InitGame {
         players.total[ROULETTE_COLOR_GREEN] = 0;
         players.total[ROULETTE_COLOR_GREY] = 0;
 
-        currentGame.counter = ROULETTE_TIMER * 10;
+        currentGame.counter = ROULETTE_TIMER;
         currentGame.rouletteID = currentGame.lastRouletteID + 1;
 
         this.__checkActualHashAndDay();
@@ -61,7 +61,7 @@ export default class InitGame {
                     clearInterval(this.timerBet);
                     resolve();
                 }
-            }, 100);
+            }, 1000);
         });
 
     }
