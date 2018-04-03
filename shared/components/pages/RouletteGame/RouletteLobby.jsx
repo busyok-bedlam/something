@@ -26,7 +26,7 @@ export default class RouletteLobby extends Component {
         });
     };
 
-    handleInputValue(value) {
+    handleInputValue (value) {
         this.props.lobbyHandleChangeValue(value);
         this.setState({
             disabledButton: this.validateBet(value),
@@ -36,8 +36,6 @@ export default class RouletteLobby extends Component {
 
     handleNewBet = (color, e) => {
         let {value} = this.state;
-        // e.preventDefault();
-        // e.stopPropagation();
         this.props.rouletteActions.rouletteNewBet({color, value})
     };
 
@@ -45,8 +43,10 @@ export default class RouletteLobby extends Component {
 
     render() {
         let {disabledButton} = this.state;
-        let {bet, roulette} = this.props;
-        let {userBet} = this.props.roulette;
+        let {bet} = this.props;
+        let {userBets} = this.props.roulette;
+        let {rouletteID, hash} = this.props.roulette.game;
+
         let {
             ROULETTE_MIN_BET,
             ROULETTE_MAX_BET,
@@ -56,28 +56,22 @@ export default class RouletteLobby extends Component {
         } = roulette;
         return (
             <div className="rLobby">
-                <GameHeader/>
+                <GameHeader />
                 <div className="game__lobby">
                     <div className="rLobby__bet">
                         <h3>Your bet:</h3>
                         <div className="wrapper">
                             <div>
                                 <div className="color color-1"/>
-                                <div className="bet"><i
-                                    className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_PINK ? userBet.value : 0}
-                                </div>
+                                <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_PINK]}</div>
                             </div>
                             <div>
                                 <div className="color color-2"/>
-                                <div className="bet"><i
-                                    className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_GREEN ? userBet.value : 0}
-                                </div>
+                                <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREEN]}</div>
                             </div>
                             <div>
                                 <div className="color color-3"/>
-                                <div className="bet"><i
-                                    className='icon-poker-piece'/>{userBet.color == ROULETTE_COLOR_GREY ? userBet.value : 0}
-                                </div>
+                                <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREY]}</div>
                             </div>
                         </div>
                     </div>
@@ -107,7 +101,7 @@ export default class RouletteLobby extends Component {
                             <div className="history__item history__item-color2">3</div>
                             <div className="history__item history__item-color3">4</div>
                         </div>
-                        <GameHash gameID={roulette.game.rouletteID} hash={roulette.game.hash}/>
+                        <GameHash gameID={rouletteID} hash={hash}/>
                     </div>
                     <BetButtons bet={bet}
                                 minBet={ROULETTE_MIN_BET}

@@ -7,11 +7,32 @@ import {
 } from '../actions/rouletteActions';
 
 import wsMessageType from '../../config/wsMessageType.json';
+import rouletteConfig from '../../config/roulette.js';
 
 let initialState = {
     game: {},
-    status: '',
-    userBet: {}
+    lastGame: {},
+    bets: {},
+    status: ROULETTE_BETTING,
+    players: {
+        [rouletteConfig.ROULETTE_COLOR_PINK]: [],
+        [rouletteConfig.ROULETTE_COLOR_GREEN]: [],
+        [rouletteConfig.ROULETTE_COLOR_GREY]: [],
+        total: {
+            [rouletteConfig.ROULETTE_COLOR_PINK]: 0,
+            [rouletteConfig.ROULETTE_COLOR_GREEN]: 0,
+            [rouletteConfig.ROULETTE_COLOR_GREY]: 0,
+        }
+    },
+    userBets: {
+        [rouletteConfig.ROULETTE_COLOR_PINK]: 0,
+        [rouletteConfig.ROULETTE_COLOR_GREEN]: 0,
+        [rouletteConfig.ROULETTE_COLOR_GREY]: 0,
+        bets: []
+    },
+    rouletteID: 0,
+    counter: 0,
+    hash: 0
 };
 
 export default function roulette(state = initialState, action) {
@@ -20,11 +41,8 @@ export default function roulette(state = initialState, action) {
     switch (action.type) {
 
         case ROULETTE_INIT: {
-            console.log(action.payload);
-            return {
-                ...state,
-                counter: action.counter
-            }
+            let game = {...state.game, ...action.payload};
+            return {...state, game, status: action.payload.status};
         }
         case ROULETTE_BETTING: {
             return {...state, game: action.payload, status: action.type};
@@ -37,15 +55,21 @@ export default function roulette(state = initialState, action) {
             return {...state, status: action.type}
         }
 
-        case wsMessageType.WS_ROULETTE_PLAYERS: {
-            return {...state}
-        }
+        // case wsMessageType.WS_ROULETTE_PLAYERS: {
+        //     console.log('');
+        //     return {...state}
+        // }
 
+        //todo rename type
         case wsMessageType.WS_BALANCE_UPDATE: {
-            console.log(action);
-            const {userBet} = action.payload;
-            state.userBet = userBet;
-            return {...state};
+
+            const {color, value} = action.payload.userBet;
+            const currentAmount = state.userBets[color];
+            state.userBets.bets.push({color, value});
+            return {
+                ...state,
+                userBets: {...state.userBets, [color]: (currentAmount + value)},
+            };
         }
         default:
             return state;

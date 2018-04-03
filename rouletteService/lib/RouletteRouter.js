@@ -21,7 +21,6 @@ const {
 export default class RouletteRouter {
 
     static async onClientConnection(id, sendResponse, isAuth) {
-        console.log('connection');
         RouletteRouter.__sendToInit(id, sendResponse);
     }
 
@@ -67,7 +66,9 @@ export default class RouletteRouter {
             payload: {
                 rouletteID: currentGame.rouletteID,
                 players: players,
-                counter: currentGame.counter
+                counter: currentGame.counter,
+                status: currentGame.status,
+                hash: currentGame.hash
             }
         })
 

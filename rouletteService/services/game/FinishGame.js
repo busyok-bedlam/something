@@ -15,10 +15,12 @@ export default class FinishGame {
         console.log('FinishGame');
 
         WSServer.sendToAll({
-            type: ROULETTE_REWARDS
+            type: ROULETTE_REWARDS,
+            payload: {}
         });
 
-        currentGame.counter = PAUSE_TIME * 10;
+        currentGame.status = ROULETTE_REWARDS;
+        currentGame.counter = PAUSE_TIME;
 
         roulette_games
             .update({_id: currentGame.day}, {
@@ -47,10 +49,10 @@ export default class FinishGame {
                     currentGame.counter--;
                 } else {
                     clearInterval(this.timerPause);
-                    currentGame.lastDoubleID = currentGame.rouletteID;
+                    currentGame.lastRouletteID = currentGame.rouletteID;
                     resolve();
                 }
-            }, 100);
+            }, 1000);
         });
 
     }

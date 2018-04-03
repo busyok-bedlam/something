@@ -29,6 +29,7 @@ export default class InitGame {
         players.total[ROULETTE_COLOR_GREEN] = 0;
         players.total[ROULETTE_COLOR_GREY] = 0;
 
+        currentGame.status = ROULETTE_BETTING;
         currentGame.counter = ROULETTE_TIMER;
         currentGame.rouletteID = currentGame.lastRouletteID + 1;
 
@@ -39,7 +40,7 @@ export default class InitGame {
             payload: {
                 rouletteID: currentGame.rouletteID,
                 hash: currentGame.hash,
-                timer: currentGame.counter
+                counter: currentGame.counter
             }
         });
 

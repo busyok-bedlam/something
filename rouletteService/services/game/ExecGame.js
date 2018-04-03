@@ -14,8 +14,8 @@ export default class ExecGame {
     exec() {
         console.log('ExecGame');
 
-
-        currentGame.counter = WHEEL_TIME * 10;
+        currentGame.status = ROULETTE_IN_GAME;
+        currentGame.counter = WHEEL_TIME;
 
         const hash = crypto.createHash('sha256')
             .update(
@@ -30,7 +30,6 @@ export default class ExecGame {
             ) % 15;
 
         console.log(currentGame.sector);
-        console.log(Math.floor(Math.random() * 24) + 0);
 
         WSServer.sendToAll({
             type: ROULETTE_IN_GAME,
@@ -49,7 +48,7 @@ export default class ExecGame {
                     resolve();
                     clearInterval(this.timerWheel);
                 }
-            }, 100);
+            }, 1000);
         });
     }
 }
