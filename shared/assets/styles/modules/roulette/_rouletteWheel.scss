@@ -24,6 +24,30 @@
   }
   &__roulette {
     transform: rotate(0deg);
+    //transition: 7s ease all;
+  }
+  &__roulette-winner,
+  &__roulette {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-image: url('/static/images/roulette.png');
+  }
+  &__roulette-winner {
+    z-index: 3;
+    background-image: url('/static/images/roulette-win.png');
+    &.hide {
+      opacity: 0;
+    }
+  }
+  &__roulette {
+    transform: rotate(0deg);
     transition: 7s ease all;
   }
   &__roulette-winner,

@@ -5,6 +5,7 @@ import roulette from '../../../../config/roulette.js';
 export default class RouletteWheel extends Component {
     state = {
         status: '',
+        angleLast: 0,
         timerSeconds: 20,
         donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
     };
@@ -52,15 +53,20 @@ export default class RouletteWheel extends Component {
                 break;
             }
             case ROULETTE_IN_GAME: {
+                let sector = 2;
+                let offset = 3;
+                // TODO: increment sector
+                let angle = - (24 * sector - (24 - offset));
+                console.log(angle)
                 this.setState({
                     status,
+                    angleLast: angle,
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
                 this.gambleBlock.classList.add('zoom');
-                // this.wheelBlock.style.transform = 'rotate(' + (1440 + 7) + 'deg)';
-                this.wheelBlock.style.transform = 'rotate(' + (1440 + 7) + 'deg)';
+                this.wheelBlock.style.transition = '7s ease all';
+                this.wheelBlock.style.transform = 'rotate(' + (1440 + angle ) + 'deg)';
                 setTimeout(() => this.gambleBlock.classList.remove('zoom'), 500);
-
                 break;
             }
             case ROULETTE_REWARDS: {
@@ -68,7 +74,10 @@ export default class RouletteWheel extends Component {
                     status,
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
-                this.wheelWinnerBlock.style.transform = 'rotate(' + 7 + 'deg)';
+                let offset = 3;
+                this.wheelBlock.style.transition = 'none';
+                this.wheelBlock.style.transform = 'rotate('+ this.state.angleLast + 'deg)';
+                this.wheelWinnerBlock.style.transform = 'rotate(' + (12 - offset) + 'deg)';
                 break;
             }
         }
