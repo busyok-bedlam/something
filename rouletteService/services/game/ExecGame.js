@@ -25,9 +25,7 @@ export default class ExecGame {
             )
             .digest('hex');
 
-        currentGame.sector = parseInt(
-                hash.substr(0, 8), 16
-            ) % 15;
+        currentGame.sector = parseInt(hash.substr(0, 8), 16) % 15;
 
         console.log(currentGame.sector);
 

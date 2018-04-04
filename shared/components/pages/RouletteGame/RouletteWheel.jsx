@@ -49,6 +49,7 @@ export default class RouletteWheel extends Component {
                 this.timerBlock.classList.remove('zoom');
                 this.setIntervalID && clearInterval(this.setIntervalID);
                 let {sector, angle} = nextProps.roulette.game;
+                sector += 1;
                 let angleWheel = - (24 * sector - (24 - angle));
                 console.log(angleWheel);
                 this.setState({
@@ -103,7 +104,8 @@ export default class RouletteWheel extends Component {
                         className={(status === ROULETTE_REWARDS)
                             ? "rWheel__winner rWheel__winner-color1 zoom"
                             : "rWheel__winner rWheel__winner-color1"}>
-                        {sector && sector - 1}
+                        {/*{sector && sector - 1}*/}
+                        {sector}
                     </div>
                 </div>
             </div>

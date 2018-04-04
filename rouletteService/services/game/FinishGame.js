@@ -7,7 +7,8 @@ const currentGame = di.get('currentGame');
 
 const {
     ROULETTE_REWARDS,
-    PAUSE_TIME
+    PAUSE_TIME,
+    ROULETTE_WHEEL
 } = config.rouletteConfig;
 
 export default class FinishGame {
@@ -18,6 +19,11 @@ export default class FinishGame {
             type: ROULETTE_REWARDS,
             payload: {}
         });
+
+        const {
+            number: winSector,
+            color: winColor
+        } = ROULETTE_WHEEL[currentGame.sector];
 
         currentGame.status = ROULETTE_REWARDS;
         currentGame.counter = PAUSE_TIME;
@@ -33,8 +39,8 @@ export default class FinishGame {
                         $each: [{
                             rouletteID: currentGame.rouletteID,
                             hashGame: currentGame.hashGame,
-                            // sector: winSector,
-                            // color: winColor.substring(6).toLowerCase()
+                            sector: winSector,
+                            color: winColor.substring(6).toLowerCase()
                         }],
                         $position: 0
                     },

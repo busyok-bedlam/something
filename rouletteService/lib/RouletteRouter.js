@@ -43,7 +43,7 @@ export default class RouletteRouter {
                             })
                         });
                 }
-                    break;
+                break;
             }
 
         } catch (error) {
@@ -77,8 +77,8 @@ export default class RouletteRouter {
     static async run() {
 
         await runService(['game', 'LastGames'])
-            .then(() => {
-                //last games // sector & color
+            .then((last) => {
+                console.log(last);
                 RouletteRouter.runGame();
             });
 
@@ -86,9 +86,13 @@ export default class RouletteRouter {
 
     static async runGame() {
         try {
+
             await runService(['game', 'InitGame']);
+
             await runService(['game', 'ExecGame']);
+
             await runService(['game', 'FinishGame']);
+
             await RouletteRouter.runGame();
 
         } catch (error) {
