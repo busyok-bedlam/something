@@ -58,18 +58,18 @@ export default class RouletteLobby extends Component {
             <div className="rLobby">
                 <GameHeader />
                 <div className="game__lobby">
-                    <div className="rLobby__bet">
+                    <div className={(!userBets[ROULETTE_COLOR_PINK] || !userBets[ROULETTE_COLOR_GREEN] || !userBets[ROULETTE_COLOR_GREY]) ? "rLobby__bet hide" : "rLobby__bet"}>
                         <h3>Your bet:</h3>
                         <div className="wrapper">
-                            <div>
+                            <div className={(userBets[ROULETTE_COLOR_PINK]) ? '' : 'hide'}>
                                 <div className="color color-1"/>
                                 <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_PINK]}</div>
                             </div>
-                            <div>
+                            <div className={(userBets[ROULETTE_COLOR_GREEN]) ? '' : 'hide'}>
                                 <div className="color color-2"/>
                                 <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREEN]}</div>
                             </div>
-                            <div>
+                            <div className={(userBets[ROULETTE_COLOR_GREY]) ? '' : 'hide'}>
                                 <div className="color color-3"/>
                                 <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREY]}</div>
                             </div>
