@@ -46,6 +46,8 @@ export default class RouletteWheel extends Component {
                 break;
             }
             case ROULETTE_IN_GAME: {
+                this.timerBlock.classList.remove('zoom');
+                this.setIntervalID && clearInterval(this.setIntervalID);
                 let {sector, angle} = nextProps.roulette.game;
                 let angleWheel = - (24 * sector - (24 - angle));
                 console.log(angleWheel);
