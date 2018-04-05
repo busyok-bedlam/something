@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Chat from './Chat.jsx';
+import Chat from '../../containers/Chat.jsx';
 import CrashGame from './CrashGame/CrashGame.jsx';
 import CrashLobby from './CrashGame/CrashLobby.jsx';
 import CrashHistory from './CrashGame/CrashHistory.jsx';

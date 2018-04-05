@@ -7,7 +7,18 @@ const userSchema = new db.Schema({
     avatarFull: {type: String},
     profileUrl: {type: String},
     tradeURL: String,
-    isAdmin: Boolean,
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    isModerator: {
+        type: Boolean,
+        default: false
+    },
+    level: {
+        type: Number,
+        default: 1
+    },
     balance: Number
 });
 
@@ -19,8 +30,9 @@ userSchema.methods.getPublicFields = function () {
         avatar: this.avatar,
         avatarFull: this.avatarFull,
         tradeURL: this.tradeURL,
-        balance: this.balance
-
+        balance: this.balance,
+        isAdmin: this.isAdmin,
+        isModerator: this.isModerator
     }
 };
 

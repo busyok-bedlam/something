@@ -5,8 +5,18 @@ const db = di.get('db');
 const UsersModel = db.models.users;
 
 export default class ChatRouter {
-    static __newMessages = [];
-    static messages = [];
+    static __newMessages = {
+        eng: [],
+        tur: []
+    };
+    static messages = {
+        eng: [],
+        tur: []
+    };
+    static usersOnline = {
+        eng: 0,
+        tur: 0
+    };
 
     static async onClientMessage(id, payload, sendResponse, isAuth = false) {
         try {
@@ -18,18 +28,52 @@ export default class ChatRouter {
                         if (!isAuth) {
                             throw new Error("Not auth user");
                         }
-
                         const user = await UsersModel.findById(id);
-
+                        const room = Clients.allClients[id].room;
                         const message = {
                             text: data.message,
                             displayName: user.displayName,
+                            level: user.level,
+                            isAdmin: user.isAdmin,
+                            isModerator: user.isModerator,
                             avatar: user.avatar,
                             date: new Date(),
                         };
-
-                        ChatRouter.__newMessages.push(message);
+                        ChatRouter.__newMessages[room].push(message);
                         return;
+                    } catch (error) {
+                        console.error(error);
+                        return sendResponse(
+                            id,
+                            {
+                                type: config.wsMessageType.WS_ERROR,
+                                payload: {
+                                    message: `Error in sending: ${error.message || error.toString()}`
+                                }
+                            }
+                        )
+                    }
+                }
+
+                case config.wsMessageType.WS_CHAT_CHANGE_ROOM: {
+                    try {
+                        if (!isAuth) {
+                            throw new Error("Not auth user");
+                        }
+                        let oldRoom = Clients.allClients[id].room;
+                        ChatRouter.usersOnline[oldRoom]--;
+                        Clients.allClients[id].room = data.room;
+                        ChatRouter.usersOnline[data.room]++;
+                        return sendResponse(
+                            id,
+                            {
+                                type: config.wsMessageType.WS_CHAT_CHANGE_ROOM,
+                                payload: {
+                                    messages: ChatRouter.messages[data.room],
+                                    usersOnline: ChatRouter.usersOnline
+                                }
+                            }
+                        )
                     } catch (error) {
                         console.error(error);
                         return sendResponse(
@@ -74,13 +118,16 @@ export default class ChatRouter {
     static async onClientConnection(id, sendResponse, isAuth) {
         try {
             console.log('User connected, isAuth: ' + isAuth);
+            const room = Clients.allClients[id].room;
+            ChatRouter.usersOnline[room]++;
             sendResponse(
                 id,
                 {
                     type: config.wsMessageType.WS_CHAT_MESSAGES,
                     payload: {
-                        messages: ChatRouter.messages,
-                        usersOnline: Object.keys(Clients.allClients).length,
+                        room,
+                        messages: ChatRouter.messages[room],
+                        usersOnline: ChatRouter.usersOnline
                     }
                 }
             )
@@ -98,28 +145,37 @@ export default class ChatRouter {
         }
     }
 
-    static onClientClose() {
+    static onClientClose(userID) {
         console.log('close');
+        const room = Clients.allClients[userID].room;
+        ChatRouter.usersOnline[room]--;
     }
 
     static async onClientBroadcast(sendResponseToAll) {
-        if (ChatRouter.__newMessages.length) {
-            sendResponseToAll(
-                {
-                    type: config.wsMessageType.WS_CHAT_NEW_MESSAGES,
-                    payload: {
-                        messages: ChatRouter.__newMessages,
-                        usersOnline: Object.keys(Clients.allClients).length,
+        for (let room in ChatRouter.__newMessages) {
+            if (ChatRouter.__newMessages.hasOwnProperty(room)) {
+                if (ChatRouter.__newMessages[room].length) {
+                    sendResponseToAll(
+                        {
+                            type: config.wsMessageType.WS_CHAT_NEW_MESSAGES,
+                            payload: {
+                                room,
+                                messages: ChatRouter.__newMessages[room],
+                                usersOnline: ChatRouter.usersOnline,
+                            }
+                        }
+                    );
+                    ChatRouter.__newMessages[room].forEach(message => ChatRouter.messages[room].push(message));
+                    if (ChatRouter.messages[room].length > config.chatConfig.CHAT_LENGTH) {
+                        ChatRouter.messages[room].splice(0, ChatRouter.messages[room].length - config.chatConfig.CHAT_LENGTH);
                     }
                 }
-            );
-            ChatRouter.__newMessages.forEach(message => ChatRouter.messages.push(message));
-            if (ChatRouter.messages.length > config.chatConfig.CHAT_LENGTH) {
-                ChatRouter.messages.splice(0, ChatRouter.messages.length - config.chatConfig.CHAT_LENGTH);
             }
-            ChatRouter.__newMessages = [];
-
         }
+        ChatRouter.__newMessages = {
+            eng: [],
+            tur: []
+        };
     }
 
 }

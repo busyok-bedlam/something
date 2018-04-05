@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Chat from './Chat.jsx';
+import Chat from '../../containers/Chat.jsx';
 import RouletteLobby from './RouletteGame/RouletteLobby.jsx';
 import RouletteWheel from './RouletteGame/RouletteWheel.jsx';
 import RouletteBets from './RouletteGame/RouletteBets.jsx';
@@ -30,9 +30,6 @@ export default class Roulette extends Component {
         } = this.props;
         return (
             <div className='container'>
-                {/*<button className="button" onClick={()=> handleRouletteBetting({})}>Betting</button>*/}
-                {/*<button className="button" onClick={()=> handleRouletteInGame({})}>In game</button>*/}
-                {/*<button className="button" onClick={()=> handleRouletteRewards({})}>Rewards</button>*/}
                 <div className="roulette">
                     <RouletteWheel roulette={roulette}/>
                     <RouletteLobby

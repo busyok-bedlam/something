@@ -97,11 +97,10 @@ export default class WSServer {
                     }
                 })
             }
-            Clients.addAuthClient(userID, {ws});
-            // clients[userID] = {ws};
+            Clients.addAuthClient(userID, {ws, room: 'eng'});
             ws.on('close', () => {
-                const wsInstrance = Clients.removeClient(userID);
-                WSServer.__clientOnCloseCallBack && WSServer.__clientOnCloseCallBack(wsInstrance);
+                WSServer.__clientOnCloseCallBack && WSServer.__clientOnCloseCallBack(userID);
+                Clients.removeClient(userID);
             });
             ws.on('message', function incoming(data) {
                 const payload = JSON.parse(data);
@@ -120,7 +119,7 @@ export default class WSServer {
                 })
             }
 
-            Clients.addClient(sid, {ws});
+            Clients.addClient(sid, {ws, room: 'eng'});
             // visitors[sid] = {ws};
             ws.on('close', () => {
                 const wsInstance = Clients.removeClient(sid);
@@ -182,6 +181,5 @@ export default class WSServer {
             setInterval(() => WSServer.__clientOnBroadcastCallBack(WSServer.sendToAll), WSServer.broadcastPeriod);
         }
     }
-
 
 }
