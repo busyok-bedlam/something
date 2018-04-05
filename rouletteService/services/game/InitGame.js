@@ -40,7 +40,8 @@ export default class InitGame {
             payload: {
                 rouletteID: currentGame.rouletteID,
                 hash: currentGame.hash,
-                counter: currentGame.counter
+                counter: currentGame.counter,
+                players: players
             }
         });
 

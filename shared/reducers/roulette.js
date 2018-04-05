@@ -36,7 +36,7 @@ let initialState = {
 };
 
 export default function roulette(state = initialState, action) {
-    console.log(action);
+    console.log(state);
 
     switch (action.type) {
 
@@ -45,7 +45,16 @@ export default function roulette(state = initialState, action) {
             return {...state, game, status: action.payload.status};
         }
         case ROULETTE_BETTING: {
-            return {...state, game: action.payload, status: action.type};
+            return {
+                ...state,
+                userBets: {
+                    ...state.userBets,
+                    [rouletteConfig.ROULETTE_COLOR_PINK]: 0,
+                    [rouletteConfig.ROULETTE_COLOR_GREEN]: 0,
+                    [rouletteConfig.ROULETTE_COLOR_GREY]: 0,
+                    bets: []},
+                game: action.payload,
+                status: action.type};
         }
         case ROULETTE_IN_GAME: {
             let game  = {...state.game, ...action.payload};

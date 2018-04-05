@@ -103,6 +103,7 @@ class RoulettePage extends Component {
 
         return (
             <Roulette
+                user={user}
                 bet={bet}
                 roulette={roulette}
                 rouletteActions={rouletteActions}

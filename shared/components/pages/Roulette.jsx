@@ -19,6 +19,7 @@ export default class Roulette extends Component {
 
     render() {
         const {
+            user,
             bet,
             roulette,
             rouletteActions,
@@ -29,12 +30,13 @@ export default class Roulette extends Component {
         } = this.props;
         return (
             <div className='container'>
-                <button className="button" onClick={()=> handleRouletteBetting({})}>Betting</button>
-                <button className="button" onClick={()=> handleRouletteInGame({})}>In game</button>
-                <button className="button" onClick={()=> handleRouletteRewards({})}>Rewards</button>
+                {/*<button className="button" onClick={()=> handleRouletteBetting({})}>Betting</button>*/}
+                {/*<button className="button" onClick={()=> handleRouletteInGame({})}>In game</button>*/}
+                {/*<button className="button" onClick={()=> handleRouletteRewards({})}>Rewards</button>*/}
                 <div className="roulette">
                     <RouletteWheel roulette={roulette}/>
                     <RouletteLobby
+                        user={user}
                         roulette={roulette}
                         rouletteActions={rouletteActions}
                         bet={bet}

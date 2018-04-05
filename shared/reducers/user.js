@@ -33,7 +33,7 @@ export default function user(state = initialState, action) {
             }
         }
 
-        case UPDATE_USER_DATA: {
+        case 'UPDATE_USER_DATA': {
             for (let key in action.payload) {
                 state[key] = action.payload[key];
             }

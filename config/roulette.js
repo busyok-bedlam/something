@@ -19,22 +19,27 @@ export default {
     WHEEL_TIME: 7,
     PAUSE_TIME: 5,
 
+    "ROULETTE_COLOR_PINK_MULTIPLY": 2,
+    "ROULETTE_COLOR_GREEN_MULTIPLY": 14,
+    "ROULETTE_COLOR_GREY_MULTIPLY": 2,
+
+
     ROULETTE_WHEEL: [
-        {"number": 0, "color": "COLOR_GREEN"},
-        {"number": 1, "color": "COLOR_PINK"},
-        {"number": 8, "color": "COLOR_GREY"},
-        {"number": 2, "color": "COLOR_PINK"},
-        {"number": 9, "color": "COLOR_GREY"},
-        {"number": 3, "color": "COLOR_PINK"},
-        {"number": 10, "color": "COLOR_GREY"},
-        {"number": 4, "color": "COLOR_PINK"},
-        {"number": 11, "color": "COLOR_GREY"},
-        {"number": 5, "color": "COLOR_PINK"},
-        {"number": 12, "color": "COLOR_GREY"},
-        {"number": 6, "color": "COLOR_PINK"},
-        {"number": 13, "color": "COLOR_GREY"},
-        {"number": 7, "color": "COLOR_PINK"},
-        {"number": 14, "color": "COLOR_GREY"}
+        {"number": 0, "color": "ROULETTE_COLOR_GREEN"},
+        {"number": 1, "color": "ROULETTE_COLOR_PINK"},
+        {"number": 8, "color": "ROULETTE_COLOR_GREY"},
+        {"number": 2, "color": "ROULETTE_COLOR_PINK"},
+        {"number": 9, "color": "ROULETTE_COLOR_GREY"},
+        {"number": 3, "color": "ROULETTE_COLOR_PINK"},
+        {"number": 10, "color": "ROULETTE_COLOR_GREY"},
+        {"number": 4, "color": "ROULETTE_COLOR_PINK"},
+        {"number": 11, "color": "ROULETTE_COLOR_GREY"},
+        {"number": 5, "color": "ROULETTE_COLOR_PINK"},
+        {"number": 12, "color": "ROULETTE_COLOR_GREY"},
+        {"number": 6, "color": "ROULETTE_COLOR_PINK"},
+        {"number": 13, "color": "ROULETTE_COLOR_GREY"},
+        {"number": 7, "color": "ROULETTE_COLOR_PINK"},
+        {"number": 14, "color": "ROULETTE_COLOR_GREY"}
     ],
 
 

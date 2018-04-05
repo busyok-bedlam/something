@@ -44,11 +44,9 @@ export default class RouletteLobby extends Component {
 
     render() {
         let {disabledButton} = this.state;
-        let {bet} = this.props;
+        let {bet, user} = this.props;
         let {userBets} = this.props.roulette;
         let {rouletteID, hash} = this.props.roulette.game;
-
-
         let {
             ROULETTE_MIN_BET,
             ROULETTE_MAX_BET,
@@ -59,7 +57,7 @@ export default class RouletteLobby extends Component {
 
         return (
             <div className="rLobby">
-                <GameHeader />
+                <GameHeader user={user}/>
                 <div className="game__lobby">
                     <div className={(!userBets[ROULETTE_COLOR_PINK] && !userBets[ROULETTE_COLOR_GREEN] && !userBets[ROULETTE_COLOR_GREY]) ? "rLobby__bet hide" : "rLobby__bet"}>
                         <h3>Your bet:</h3>
