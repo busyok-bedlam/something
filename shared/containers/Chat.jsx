@@ -6,7 +6,9 @@ import * as chatActions from '../actions/chatActions';
 import Select from 'react-select';
 import Scrollbar from '../components/common/Scrollbar.jsx';
 import User from '../components/common/User.jsx';
+import {Picker} from 'emoji-mart';
 import 'react-select/dist/react-select.css';
+import PickerStyle from 'emoji-mart/css/emoji-mart.css';
 
 class Chat extends Component {
 
@@ -23,12 +25,12 @@ class Chat extends Component {
 
     state = {
         message: '',
-        selectedOption: 'eng',
-        showChat: false
+        showChat: false,
+        hidden: true,
     };
 
     handleChange = (selectedOption) => {
-        this.setState({selectedOption: selectedOption.value});
+        localStorage.setItem('chatRoomBlaze', selectedOption.value);
         this.props.chatActions.changeRoom(selectedOption.value);
     };
 
@@ -60,15 +62,17 @@ class Chat extends Component {
         const {chat} = this.props;
         const {messages} = chat;
         const list = [];
-        messages.forEach((message, key) => {
-            list.push(
-                <div className="chat__message" key={key}>
-                    <User level={message.level || ''} name={message.displayName} image={message.avatar}
-                          isModerator={message.isModerator} isAdmin={message.isAdmin}/>
-                    <span className="message">{message.text}</span>
-                </div>
-            )
-        });
+        if(messages.length > 0) {
+            messages.forEach((message, key) => {
+                list.push(
+                    <div className="chat__message" key={key}>
+                        <User level={message.level || ''} name={message.displayName} image={message.avatar}
+                              isModerator={message.isModerator} isAdmin={message.isAdmin}/>
+                        <span className="message">{message.text}</span>
+                    </div>
+                )
+            });
+        }
         return list;
     }
 
@@ -92,6 +96,16 @@ class Chat extends Component {
         }
     }
 
+    componentDidMount() {
+        document.addEventListener('input', this.handleCursorPosition.bind(this), true);
+        document.addEventListener('click', this.handleCursorPosition.bind(this), true);
+    }
+
+    componentWillUnmount() {
+        document.addEventListener('input', this.handleCursorPosition.bind(this), true);
+        document.addEventListener('click', this.handleCursorPosition.bind(this), true);
+    }
+
     // Send on Enter press
     handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -99,8 +113,65 @@ class Chat extends Component {
         }
     };
 
+    // Handle emoji picker
+
+    openEmojiPicker = () => {
+
+        if (this.state.hidden) {
+            document.addEventListener('click', this.handleOutsideClick, false);
+        } else {
+            document.removeEventListener('click', this.handleOutsideClick, false);
+        }
+
+        this.setState({
+            hidden: !this.state.hidden
+        });
+    };
+
+    handleOutsideClick = (e) => {
+        if (this.node.contains(e.target)) {
+            return;
+        } else {
+            this.openEmojiPicker();
+        }
+    };
+
+    handleEmojiPicker = (emoji, e) => {
+        if (this.state.hidden) {
+            document.addEventListener('click', this.handleOutsideClick, false);
+        } else {
+            document.removeEventListener('click', this.handleOutsideClick, false);
+        }
+
+        if (emoji.colons !== undefined) {
+            const textareaStrParts = [
+                `${this.textarea.value.substring(0, this.state.curserPositonStart)}`,
+                ` ${emoji.native} `,
+                `${this.textarea.value.substring(this.state.curserPositonStart, this.state.curserPositonEnd)}`,
+            ];
+            let textareaValue = textareaStrParts.join('');
+            this.textarea.value = textareaValue;
+            this.textarea.click();
+            this.textarea.focus();
+        }
+
+        this.setState({
+            hidden: !this.state.hidden
+        });
+    };
+
+    handleCursorPosition(e) {
+        if (e.target === this.textarea) {
+            this.setState({
+                curserPositonStart: e.target.selectionStart,
+                curserPositonEnd: e.target.selectionEnd
+            });
+        }
+    }
+
+
     render() {
-        const {selectedOption, showChat} = this.state;
+        const {showChat} = this.state;
         const {usersOnline} = this.props.chat;
 
         return (
@@ -110,7 +181,7 @@ class Chat extends Component {
                         <h2 onClick={this.handleShowChat.bind(this)}>Chat</h2>
                         <Select
                             name="form-field-name"
-                            value={selectedOption}
+                            value={this.props.chat.room || 'eng'}
                             onOpen={this.handleOnOpen.bind(this)}
                             onChange={this.handleChange}
                             searchable={false}
@@ -145,8 +216,27 @@ class Chat extends Component {
                                    wrap="hard"
                                    placeholder='Type here'/>
                             <div className="chat__buttons">
-                                <button><i className="icon-smile"/></button>
+                                <button onClick={this.handleEmojiPicker}><i className="icon-smile"/></button>
                                 <button onClick={this.handleChatMessage}><i className="icon-send"/></button>
+                                <div ref={node => (this.node = node)}>
+                                    {!this.state.hidden &&
+                                    <Picker
+                                        style={{PickerStyle,
+                                            position: 'absolute',
+                                            right: '0px',
+                                            bottom: '87px',
+                                            width: '320px',
+                                        }}
+                                        title='Pick Emoji'
+                                        color={'#44b982'}
+                                        perLine={7}
+                                        include={this.state.include}
+                                        onClick={this.handleEmojiPicker}
+                                        set='emojione'
+                                        showPreview={false}
+                                    />
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>

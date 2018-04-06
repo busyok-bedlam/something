@@ -7,7 +7,6 @@ export function sendMessage(message = '') {
     }
 }
 
-
 export function changeRoom(room = '') {
     return async dispatch => {
         api.chatSocket.send(WS_CHAT_CHANGE_ROOM, {room});

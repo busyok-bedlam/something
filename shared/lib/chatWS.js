@@ -1,5 +1,5 @@
 import config from '../../config/index';
-import {WS_CHAT_CLOSE} from '../../config/wsMessageType.json';
+import {WS_CHAT_CLOSE, WS_CHAT_CHANGE_ROOM} from '../../config/wsMessageType.json';
 
 export default class Socket {
     static instance = null;
@@ -25,15 +25,19 @@ export default class Socket {
                         'echo-protocol',
                     );
                     Socket.instance.onopen = event => {
-
                         console.log('Chat socket open.');
+                        Socket.instance.send(JSON.stringify({
+                            type: WS_CHAT_CHANGE_ROOM, data: {
+                                room: localStorage.getItem('chatRoomBlaze') || 'eng'
+                            }
+                        }));
                         Socket.instance.onmessage = event => {
                             let data = JSON.parse(event.data);
                             return Socket.dispatch(data);
                         };
                         Socket.instance.onclose = event => {
                             console.log('Chat Socket closed');
-                            if(Socket.dispatch){
+                            if (Socket.dispatch) {
                                 Socket.dispatch({
                                     type: WS_CHAT_CLOSE,
                                 })
@@ -49,6 +53,13 @@ export default class Socket {
                         resolve(Socket.instance);
 
                     };
+
+                    Socket.instance.onerror = err => {
+                        console.error(err);
+                        setTimeout(() => {
+                            Socket.start();
+                        }, 5000);
+                    }
                 }
             } catch (error) {
                 console.error('Error in chat socket connection: ' + error.message);

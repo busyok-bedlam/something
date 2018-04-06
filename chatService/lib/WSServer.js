@@ -178,7 +178,7 @@ export default class WSServer {
 
     static __startBroadcast() {
         if (WSServer.broadcastPeriod && WSServer.__clientOnBroadcastCallBack) {
-            setInterval(() => WSServer.__clientOnBroadcastCallBack(WSServer.sendToAll), WSServer.broadcastPeriod);
+            setInterval(() => WSServer.__clientOnBroadcastCallBack(WSServer.send), WSServer.broadcastPeriod);
         }
     }
 

@@ -1,5 +1,6 @@
-import di      from '../di';
+import di from '../di';
 import Clients from './Clients';
+
 const config = di.get('config');
 const db = di.get('db');
 const UsersModel = db.models.users;
@@ -21,7 +22,6 @@ export default class ChatRouter {
     static async onClientMessage(id, payload, sendResponse, isAuth = false) {
         try {
             const {type, data} = payload;
-
             switch (type) {
                 case config.wsMessageType.WS_CHAT_MESSAGE: {
                     try {
@@ -69,6 +69,7 @@ export default class ChatRouter {
                             {
                                 type: config.wsMessageType.WS_CHAT_CHANGE_ROOM,
                                 payload: {
+                                    room: data.room,
                                     messages: ChatRouter.messages[data.room],
                                     usersOnline: ChatRouter.usersOnline
                                 }
@@ -147,35 +148,40 @@ export default class ChatRouter {
 
     static onClientClose(userID) {
         console.log('close');
-        const room = Clients.allClients[userID].room;
-        ChatRouter.usersOnline[room]--;
+        if (userID) {
+            const room = Clients.allClients[userID].room;
+            ChatRouter.usersOnline[room]--;
+        }
     }
 
-    static async onClientBroadcast(sendResponseToAll) {
-        for (let room in ChatRouter.__newMessages) {
-            if (ChatRouter.__newMessages.hasOwnProperty(room)) {
-                if (ChatRouter.__newMessages[room].length) {
-                    sendResponseToAll(
-                        {
-                            type: config.wsMessageType.WS_CHAT_NEW_MESSAGES,
-                            payload: {
-                                room,
-                                messages: ChatRouter.__newMessages[room],
-                                usersOnline: ChatRouter.usersOnline,
-                            }
+    static async onClientBroadcast(sendResponse) {
+        // Sending to all user messages from chat
+        for (let client in Clients.allClients) {
+            if (Clients.allClients.hasOwnProperty(client)) {
+                let clientRoom = Clients.allClients[client].room;
+                sendResponse(
+                    client,
+                    {
+                        type: config.wsMessageType.WS_CHAT_NEW_MESSAGES,
+                        payload: {
+                            room: clientRoom,
+                            messages: ChatRouter.__newMessages[clientRoom],
+                            usersOnline: ChatRouter.usersOnline,
                         }
-                    );
-                    ChatRouter.__newMessages[room].forEach(message => ChatRouter.messages[room].push(message));
-                    if (ChatRouter.messages[room].length > config.chatConfig.CHAT_LENGTH) {
-                        ChatRouter.messages[room].splice(0, ChatRouter.messages[room].length - config.chatConfig.CHAT_LENGTH);
                     }
+                )
+            }
+        }
+        //
+        for (let room in ChatRouter.messages) {
+            if (ChatRouter.messages.hasOwnProperty(room)) {
+                ChatRouter.messages[room] = ChatRouter.messages[room].concat(ChatRouter.__newMessages[room]);
+                ChatRouter.__newMessages[room] = [];
+                if (ChatRouter.messages[room].length > config.chatConfig.CHAT_LENGTH) {
+                    ChatRouter.messages[room].splice(0, ChatRouter.messages[room].length - config.chatConfig.CHAT_LENGTH);
                 }
             }
         }
-        ChatRouter.__newMessages = {
-            eng: [],
-            tur: []
-        };
     }
 
 }

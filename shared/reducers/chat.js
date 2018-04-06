@@ -20,7 +20,7 @@ export default function modal(state = initialState, action) {
     switch (action.type) {
         case WS_CHAT_MESSAGES: {
             const {messages, usersOnline, room} = action.payload;
-            return {...state, messages, room, isLoading: false, usersOnline};
+            return {...state, messages, room: room, isLoading: false, usersOnline};
         }
 
         case WS_CHAT_NEW_MESSAGES: {

@@ -25,6 +25,7 @@
     "cookie": "^0.3.1",
     "cookie-parser": "^1.4.3",
     "cookies": "^0.7.1",
+    "emoji-mart": "^2.5.1",
     "isomorphic-fetch": "^2.2.1",
     "js-cookie": "^2.1.4",
     "koa": "^2.2.0",

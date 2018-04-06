@@ -1,0 +1,25 @@
+.emoji-mart {
+  overflow: hidden;
+  border-radius: 0 !important;
+  background: $bodyBg !important;
+}
+
+.emoji-mart-bar {
+  background: $headerBg !important;
+}
+
+.emoji-mart-category-label span {
+  color: #fff !important;
+  background: $bodyBg !important;
+}
+
+.chat__textarea input {
+  border-radius: 0 !important;
+}
+
+@media (min-width: $mobile) {
+  .emoji-mart-scroll {
+    margin-right: -17px;
+    padding-left: 13px !important;
+  }
+}
