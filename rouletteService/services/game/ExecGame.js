@@ -27,13 +27,18 @@ export default class ExecGame {
 
         currentGame.sector = parseInt(hash.substr(0, 8), 16) % 15;
 
+        currentGame.hashGame = crypto.createHash('sha224')
+            .update((currentGame.rouletteID + config.rouletteConfig.ROULETTE_WHEEL[currentGame.sector].number).toString())
+            .digest('hex');
+
         console.log(currentGame.sector);
 
         WSServer.sendToAll({
             type: ROULETTE_IN_GAME,
             payload: {
                 sector: currentGame.sector,
-                angle: Math.floor(Math.random() * 24) + 0
+                angle: Math.floor(Math.random() * 24) + 0,
+                hash: currentGame.hashGame
             }
         });
 

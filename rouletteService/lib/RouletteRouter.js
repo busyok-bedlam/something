@@ -5,6 +5,7 @@ const config = di.get('config');
 const db = di.get('db');
 const players = di.get('players');
 const currentGame = di.get('currentGame');
+const lastGames = di.get('lastGames');
 const {
     WS_ROULETTE_NEW_BET,
     WS_BALANCE_UPDATE
@@ -68,7 +69,8 @@ export default class RouletteRouter {
                 players: players,
                 counter: currentGame.counter,
                 status: currentGame.status,
-                hash: currentGame.hash
+                hash: currentGame.hash,
+                lastGames
             }
         })
 
@@ -78,7 +80,6 @@ export default class RouletteRouter {
 
         await runService(['game', 'LastGames'])
             .then((last) => {
-                console.log(last);
                 RouletteRouter.runGame();
             });
 

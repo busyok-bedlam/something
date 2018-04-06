@@ -7,6 +7,7 @@ const roulette_games = db.model('roulette_games');
 const users = db.model('users');
 const currentGame = di.get('currentGame');
 const players = di.get('players');
+const lastGames = di.get('lastGames');
 
 import wsMessageType from '../../../config/wsMessageType.json';
 
@@ -19,11 +20,6 @@ const {
 export default class FinishGame {
     exec() {
         console.log('FinishGame');
-
-        WSServer.sendToAll({
-            type: ROULETTE_REWARDS,
-            payload: {}
-        });
 
         const {
             number: winSector,
@@ -38,7 +34,11 @@ export default class FinishGame {
 
         const winMultiply = config.rouletteConfig[`${winColor}_MULTIPLY`];
         const winningPlayers = {};
-        console.log(winMultiply);
+
+        const winColorLength = lastGames.push({
+            sector: winSector,
+            color: winColor.substring(15).toLowerCase()
+        });
 
         players[winColor].forEach(player => {
             // globalProfit -= player.bet * winMultiply;
@@ -112,7 +112,7 @@ export default class FinishGame {
                             rouletteID: currentGame.rouletteID,
                             hashGame: currentGame.hashGame,
                             sector: winSector,
-                            color: winColor.substring(6).toLowerCase()
+                            color: winColor.substring(15).toLowerCase()
                         }],
                         $position: 0
                     },
@@ -120,6 +120,19 @@ export default class FinishGame {
             }, {upsert: true})
             .catch(err => console.error(err));
 
+        if (winColorLength > 6) {lastGames.shift()}
+
+
+        WSServer.sendToAll({
+            type: ROULETTE_REWARDS,
+            payload: {
+                sector: winSector,
+                color: winColor,
+                lastGames
+            }
+            //sector
+            //winColor
+        });
 
         return new Promise(resolve => {
             this.timerPause = setInterval(() => {

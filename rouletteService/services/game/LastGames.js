@@ -3,12 +3,13 @@ import di from '../../di';
 const db = di.get('db');
 const roulette_games = db.model('roulette_games');
 const currentGame = di.get('currentGame');
+const lastGames = di.get('lastGames');
 
 export default class LastGames {
     exec() {
 
         return roulette_games
-            .findOne({}, {games: {$slice: 10}})
+            .findOne({}, {games: {$slice: 6}})
             .sort('-_id')
             .then(doc => {
                 let last = [];
@@ -28,15 +29,13 @@ export default class LastGames {
                     currentGame.sector = last[last.length - 1].sector;
                 }
                 return last;
+            })
+            .then((games) => {
+                games.forEach((game, idx) => {
+                    lastGames[idx] = game;
+                });
+                return lastGames;
             });
-
-            // Last Games
-            // .then((games) => {
-            //     games.forEach((game, idx) => {
-            //         lastGames[idx] = game;
-            //     });
-            //     return lastGames;
-            // });
 
     }
 }
