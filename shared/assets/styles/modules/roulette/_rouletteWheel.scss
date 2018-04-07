@@ -6,19 +6,19 @@
     width: 84%;
     padding-bottom: 84%;
     position: relative;
-    .rWheel__winner-color1,
-    .rWheel__winner-color2,
-    .rWheel__winner-color3 {
+    .rWheel__winner-pink,
+    .rWheel__winner-green,
+    .rWheel__winner-grey {
       font-size: 5.3vw;
       border-radius: 50%;
     }
-    .rWheel__winner-color1 {
+    .rWheel__winner-pink {
       background-color: $rouletteColor1;
     }
-    .rWheel__winner-color2 {
+    .rWheel__winner-green {
       background-color: $rouletteColor2;
     }
-    .rWheel__winner-color3 {
+    .rWheel__winner-grey {
       background-color: $rouletteColor3;
     }
   }

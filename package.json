@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "webpack -p",
+    "build": "webpack --progress -p",
     "build_admin": "webpack --env.admin -p",
     "start": "node ./server/runner.js",
     "start_chat": "node ./chatService/runner.js",

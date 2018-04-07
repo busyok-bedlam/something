@@ -27,7 +27,7 @@ export default class RouletteWheel extends Component {
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
                 this.setIntervalID && clearInterval(this.setIntervalID);
-                this.seconds = nextProps.roulette.game.counter;
+                this.seconds = nextProps.roulette.counter; //game
                 this.setIntervalID = setInterval(() => {
                     setTimeout(() => this.timerBlock.classList.remove('zoom'), 500);
                     this.setState({
@@ -48,7 +48,7 @@ export default class RouletteWheel extends Component {
             case ROULETTE_IN_GAME: {
                 this.timerBlock.classList.remove('zoom');
                 this.setIntervalID && clearInterval(this.setIntervalID);
-                let {sector, angle} = nextProps.roulette.game;
+                let {sector, angle} = nextProps.roulette; //game
                 sector += 1;
                 let angleWheel = - (24 * sector - (24 - angle));
                 console.log(angleWheel);
@@ -64,7 +64,7 @@ export default class RouletteWheel extends Component {
                 break;
             }
             case ROULETTE_REWARDS: {
-                let {angle} = nextProps.roulette.game;
+                let {angle} = nextProps.roulette; //game
                 this.setState({
                     status,
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
@@ -77,11 +77,13 @@ export default class RouletteWheel extends Component {
         }
     }
 
-
     render() {
         let {status, timerSeconds, donutData} = this.state;
-        let {sector} = this.props.roulette.game || "";
+        let {sector} = this.props.roulette || ""; //game
         let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
+        let {color} = this.props.roulette;
+        let lowCaseColor = color.substring(15).toLowerCase();
+
         return (
             <div className="rWheel">
                 <div className={'rWheel__wrapper'}>
@@ -102,8 +104,8 @@ export default class RouletteWheel extends Component {
                     {/* TODO: Change color: ..-color1 (2 or 3)*/}
                     <div
                         className={(status === ROULETTE_REWARDS)
-                            ? "rWheel__winner rWheel__winner-color1 zoom"
-                            : "rWheel__winner rWheel__winner-color1"}>
+                            ? `rWheel__winner rWheel__winner-${lowCaseColor} zoom`
+                            : `rWheel__winner rWheel__winner-${lowCaseColor}`}>
                         {/*{sector && sector - 1}*/}
                         {sector}
                     </div>

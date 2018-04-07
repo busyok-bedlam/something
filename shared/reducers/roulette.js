@@ -11,7 +11,7 @@ import rouletteConfig from '../../config/roulette.js';
 
 let initialState = {
     game: {},
-    lastGame: {},
+    lastGames: [],
     bets: {},
     status: ROULETTE_BETTING,
     players: {
@@ -32,7 +32,9 @@ let initialState = {
     },
     rouletteID: 0,
     counter: 0,
-    hash: 0
+    hash: 0,
+    color: '',
+    sector: 0
 };
 
 export default function roulette(state = initialState, action) {
@@ -41,27 +43,51 @@ export default function roulette(state = initialState, action) {
     switch (action.type) {
 
         case ROULETTE_INIT: {
-            let game = {...state.game, ...action.payload};
-            return {...state, game, status: action.payload.status};
-        }
-        case ROULETTE_BETTING: {
+            // let game = {...state.game, ...action.payload};
+            let payload = action.payload;
             return {
                 ...state,
+                ...payload,
+                // status: action.payload.status,
+                // lastGames: action.payload.lastGames
+            };
+        }
+        case ROULETTE_BETTING: {
+            let payload = action.payload;
+            return {
+                ...state,
+                ...payload,
                 userBets: {
                     ...state.userBets,
                     [rouletteConfig.ROULETTE_COLOR_PINK]: 0,
                     [rouletteConfig.ROULETTE_COLOR_GREEN]: 0,
                     [rouletteConfig.ROULETTE_COLOR_GREY]: 0,
                     bets: []},
-                game: action.payload,
-                status: action.type};
+                // game: action.payload,
+                status: action.type,
+                sector: 0,
+                hash: ''
+            };
         }
         case ROULETTE_IN_GAME: {
-            let game  = {...state.game, ...action.payload};
-            return {...state, game, status: action.type};
+            // let game  = {...state.game, ...action.payload};
+            let payload = action.payload;
+            return {
+                ...state,
+                ...payload,
+                status: action.type
+            };
+
         }
         case ROULETTE_REWARDS: {
-            return {...state, status: action.type}
+            console.log(action.payload.lastGames);
+            return {
+                ...state,
+                status: action.type,
+                color: action.payload.color,
+                sector: action.payload.sector,
+                lastGames: action.payload.lastGames
+            };
         }
 
         // case wsMessageType.WS_ROULETTE_PLAYERS: {

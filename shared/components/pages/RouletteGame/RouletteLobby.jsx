@@ -40,13 +40,22 @@ export default class RouletteLobby extends Component {
         this.props.rouletteActions.rouletteNewBet({color, value})
     };
 
+    renderHistory = () => {
+        this.props.roulette.lastGames.map((game, i) => {
+            console.log(game);
+            return (
+                <div className="history__item history__item-color1">{game.sect}</div>
+            )
+        });
+    };
+
     validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET;
 
     render() {
         let {disabledButton} = this.state;
         let {bet, user} = this.props;
-        let {userBets} = this.props.roulette;
-        let {rouletteID, hash} = this.props.roulette.game;
+        let {userBets, sector} = this.props.roulette;
+        let {rouletteID, hash, status} = this.props.roulette; //game
         let {
             ROULETTE_MIN_BET,
             ROULETTE_MAX_BET,
@@ -98,11 +107,17 @@ export default class RouletteLobby extends Component {
                             </button>
                         </div>
                         <div className="rLobby__history">
-                            <div className="history__item history__item-color1">2</div>
-                            <div className="history__item history__item-color2">3</div>
-                            <div className="history__item history__item-color3">4</div>
+
+                            {this.props.roulette.lastGames.map((game, i) => (
+                                <div
+                                    key={i}
+                                    className={`history__item history__item-${game.color}`}>{game.sector}</div>)
+                            )}
+
+                            {/*<div className="history__item history__item-color2">3</div>*/}
+                            {/*<div className="history__item history__item-color3">4</div>*/}
                         </div>
-                        <GameHash gameID={rouletteID} hash={hash}/>
+                        <GameHash gameID={rouletteID} hash={hash} number={sector} status={status}/>
                     </div>
                     <BetButtons bet={bet}
                                 minBet={ROULETTE_MIN_BET}

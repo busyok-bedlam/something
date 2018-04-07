@@ -4,6 +4,7 @@ import crypto from 'crypto';
 const players = di.get('players');
 const config = di.get('config');
 const currentGame = di.get('currentGame');
+const lastGames= di.get('lastGames');
 
 const {
     ROULETTE_COLOR_PINK,
@@ -41,7 +42,8 @@ export default class InitGame {
                 rouletteID: currentGame.rouletteID,
                 hash: currentGame.hash,
                 counter: currentGame.counter,
-                players: players
+                players: players,
+                lastGames
             }
         });
 

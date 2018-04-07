@@ -55,4 +55,9 @@ di
         key: 'currentGame',
         type: CONTAINER_TYPE_VALUE,
         value: {}
+    })
+    .register({
+        key: 'lastGames',
+        type: CONTAINER_TYPE_VALUE,
+        value: []
     });

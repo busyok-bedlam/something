@@ -28,13 +28,13 @@
       &:not(:last-child) {
         margin-right: 2rem;
       }
-      &-color1 {
+      &-pink {
         background-color: $rouletteColor1;
       }
-      &-color2 {
+      &-green {
         background-color: $rouletteColor2;
       }
-      &-color3 {
+      &-grey {
         background-color: $rouletteColor3;
       }
     }

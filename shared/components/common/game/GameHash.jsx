@@ -9,7 +9,7 @@ export default class GameHash extends Component {
     };
 
     render() {
-        let {gameID, hash} = this.props;
+        let {gameID, hash, number, status} = this.props;
         return (
             <div className="game__hash">
                 <div className="left">
@@ -19,7 +19,7 @@ export default class GameHash extends Component {
                 <div className="right">
                     <b>Hash round: </b>
                     <div>{hash}</div>
-                    <b>Round number: </b> {gameID}
+                    <b>Round number: </b> {number && status !== 'ROULETTE_IN_GAME' ? number : ''}
                 </div>
             </div>
         );
