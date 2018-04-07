@@ -20,6 +20,8 @@ export default class ChatRouter {
     };
 
     static async onClientMessage(id, payload, sendResponse, isAuth = false) {
+        console.log(payload.type)
+        console.log(Clients.allClients)
         try {
             const {type, data} = payload;
             switch (type) {
@@ -57,13 +59,16 @@ export default class ChatRouter {
 
                 case config.wsMessageType.WS_CHAT_CHANGE_ROOM: {
                     try {
+                        console.log('change')
+                        console.log(ChatRouter.usersOnline)
                         if (!isAuth) {
                             throw new Error("Not auth user");
+                        } else {
+                            let oldRoom = Clients.allClients[id].room;
+                            ChatRouter.usersOnline[oldRoom]--;
+                            Clients.allClients[id].room = data.room;
+                            ChatRouter.usersOnline[data.room]++;
                         }
-                        let oldRoom = Clients.allClients[id].room;
-                        ChatRouter.usersOnline[oldRoom]--;
-                        Clients.allClients[id].room = data.room;
-                        ChatRouter.usersOnline[data.room]++;
                         return sendResponse(
                             id,
                             {
@@ -119,8 +124,10 @@ export default class ChatRouter {
     static async onClientConnection(id, sendResponse, isAuth) {
         try {
             console.log('User connected, isAuth: ' + isAuth);
-            const room = Clients.allClients[id].room;
-            ChatRouter.usersOnline[room]++;
+            if(isAuth) {
+                const room = Clients.allClients[id].room;
+                ChatRouter.usersOnline[room]++;
+            }
             sendResponse(
                 id,
                 {

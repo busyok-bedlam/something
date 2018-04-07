@@ -31,7 +31,7 @@ class Chat extends Component {
 
     handleChange = (selectedOption) => {
         localStorage.setItem('chatRoomBlaze', selectedOption.value);
-        this.props.chatActions.changeRoom(selectedOption.value);
+        this.props.user.isAuth && this.props.chatActions.changeRoom(selectedOption.value);
     };
 
     componentWillUpdate() {
@@ -142,7 +142,6 @@ class Chat extends Component {
         } else {
             document.removeEventListener('click', this.handleOutsideClick, false);
         }
-
         if (emoji.colons !== undefined) {
             const textareaStrParts = [
                 `${this.textarea.value.substring(0, this.state.curserPositonStart)}`,

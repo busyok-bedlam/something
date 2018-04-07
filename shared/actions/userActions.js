@@ -41,6 +41,7 @@ export function info() {
 }
 
 export function logout() {
+    location.reload();
     return async dispatch => {
         await api.user.logout();
         return dispatch({

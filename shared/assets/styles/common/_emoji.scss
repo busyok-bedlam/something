@@ -23,3 +23,8 @@
     padding-left: 13px !important;
   }
 }
+
+.emoji-mart-category .emoji-mart-emoji:hover:before {
+  border-radius: 0 !important;
+  background-color: $contentBg !important;
+}
