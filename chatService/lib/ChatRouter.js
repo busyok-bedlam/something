@@ -20,8 +20,6 @@ export default class ChatRouter {
     };
 
     static async onClientMessage(id, payload, sendResponse, isAuth = false) {
-        console.log(payload.type)
-        console.log(Clients.allClients)
         try {
             const {type, data} = payload;
             switch (type) {
@@ -59,8 +57,6 @@ export default class ChatRouter {
 
                 case config.wsMessageType.WS_CHAT_CHANGE_ROOM: {
                     try {
-                        console.log('change')
-                        console.log(ChatRouter.usersOnline)
                         if (!isAuth) {
                             throw new Error("Not auth user");
                         } else {
