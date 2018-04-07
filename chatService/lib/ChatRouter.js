@@ -124,8 +124,8 @@ export default class ChatRouter {
     static async onClientConnection(id, sendResponse, isAuth) {
         try {
             console.log('User connected, isAuth: ' + isAuth);
+            const room = Clients.allClients[id].room;
             if(isAuth) {
-                const room = Clients.allClients[id].room;
                 ChatRouter.usersOnline[room]++;
             }
             sendResponse(
