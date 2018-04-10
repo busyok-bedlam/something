@@ -14,7 +14,10 @@ import wsMessageType from '../../../config/wsMessageType.json';
 const {
     ROULETTE_REWARDS,
     PAUSE_TIME,
-    ROULETTE_WHEEL
+    ROULETTE_WHEEL,
+    ROULETTE_COLOR_PINK,
+    ROULETTE_COLOR_GREEN,
+    ROULETTE_COLOR_GREY
 } = config.rouletteConfig;
 
 export default class FinishGame {
@@ -26,7 +29,7 @@ export default class FinishGame {
             color: winColor
         } = ROULETTE_WHEEL[currentGame.sector];
 
-        let globalProfit = 0;
+        let lossColors = [];
 
         currentGame.status = ROULETTE_REWARDS;
         currentGame.counter = PAUSE_TIME;
@@ -34,8 +37,9 @@ export default class FinishGame {
 
         const winMultiply = config.rouletteConfig[`${winColor}_MULTIPLY`];
         const winningPlayers = {};
+        const losingPlayers = {};
 
-        const winColorLength = lastGames.push({
+        const winColorLength = lastGames.unshift({
             sector: winSector,
             color: winColor.substring(15).toLowerCase()
         });
@@ -58,32 +62,78 @@ export default class FinishGame {
             };
         });
 
-        console.log(winningPlayers);
+        switch (winColor) {
+            case ROULETTE_COLOR_PINK:
+                lossColors[0] = ROULETTE_COLOR_GREEN;
+                lossColors[1] = ROULETTE_COLOR_GREY;
+                break;
 
-        const allPlayers = Object.assign({}, winningPlayers);
+            case ROULETTE_COLOR_GREEN:
+                lossColors[0] = ROULETTE_COLOR_PINK;
+                lossColors[1] = ROULETTE_COLOR_GREY;
+                break;
 
-        console.log(allPlayers);
+            case ROULETTE_COLOR_GREY:
+                lossColors[0] = ROULETTE_COLOR_PINK;
+                lossColors[1] = ROULETTE_COLOR_GREEN;
+                break;
+        }
+
+        players[lossColors[0]].forEach(player => {
+
+            // if (!allClients[v.userID]) {
+            //     console.error("Loss Player but not client: ", v.userID);
+            // }
+
+            losingPlayers[player.userID] = {
+                profit: player.bet,
+                // ws: allClients[v.userID]
+                //     ? allClients[v.userID].ws
+                //     : null
+            };
+        });
+
+        players[lossColors[1]].forEach(player => {
+
+            // if (!allClients[v.userID]) {
+            //     console.error("Loss Player but not client: ", v.userID);
+            // }
+
+            if (losingPlayers[player.userID]) {
+                losingPlayers[player.userID].profit += player.bet;
+            } else {
+                losingPlayers[player.userID] = {
+                    profit: player.bet,
+                    // ws: allClients[v.userID]
+                    //     ? allClients[v.userID].ws
+                    //     : null
+                };
+            }
+        });
+
+        const allPlayers = Object.assign({}, winningPlayers, losingPlayers);
+
 
         users
             .find({_id: {$in: Object.keys(allPlayers)}})
             .then(result => {
                 result.forEach(user => {
 
-                    // if (!user.rouletteGameProfit) {
-                    //     user.rouletteProfit = {
-                    //         winnings: 0,
-                    //         losses: 0,
-                    //         sum: 0
-                    //     };
-                    // }
+                    if (!user.rouletteGameProfit) {
+                        user.rouletteProfit = {
+                            wins: 0,
+                            losses: 0,
+                            profit: 0
+                        };
+                    }
 
                     if (winningPlayers[user.id]) {
                         const {profit} = winningPlayers[user.id];
                         console.log(profit);
 
                         user.balance += profit;
-                        // user.rouletteGameProfit.winnings++;
-                        // user.rouletteGameProfit.sum += profit;
+                        user.rouletteGameProfit.wins++;
+                        user.rouletteGameProfit.profit += profit;
                         user
                             .save()
                             .then((updatedUser) => {
@@ -95,6 +145,12 @@ export default class FinishGame {
                                     }
                                 });
                         });
+                    } else if (losingPlayers[user.id]) {
+                        user.rouletteGameProfit.losses++;
+                        user.rouletteGameProfit.profit -= losingPlayers[user.id].profit;
+                        user.save();
+                    } else {
+                        console.error(new Error('Unknown player.'))
                     }
                 });
             });
@@ -120,7 +176,7 @@ export default class FinishGame {
             }, {upsert: true})
             .catch(err => console.error(err));
 
-        if (winColorLength > 6) {lastGames.shift()}
+        if (winColorLength > 10) {lastGames.pop()}
 
 
         WSServer.sendToAll({

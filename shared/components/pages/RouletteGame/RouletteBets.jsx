@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Scrollbar from './../../common/Scrollbar.jsx';
 import User from './../../common/User.jsx';
+import rouletteConfig from '../../../../config/roulette.js';
 
 export default class RouletteBets extends Component {
     static PropTypes = {
@@ -9,9 +10,9 @@ export default class RouletteBets extends Component {
     };
 
     static type = {
-        COLOR1: 'rBets__wrapper-color1',
-        COLOR2: 'rBets__wrapper-color2',
-        COLOR3: 'rBets__wrapper-color3'
+        COLOR1: 'rBets__wrapper-pink',
+        COLOR2: 'rBets__wrapper-green',
+        COLOR3: 'rBets__wrapper-grey'
     };
 
     handleClick = () => {
@@ -22,12 +23,12 @@ export default class RouletteBets extends Component {
     };
 
     render() {
-        const {color} = this.props;
-        let bets = [{user: 21561245}, {user: 21561241}, {user: 21561241}, {user: 21561241}, {user: 21561241}, {user: 21561241}, {user: 21561241}, {user: 21561241}].map((el, i) =>
-            (<div className={(el.user === 21561245) ? "rBets__item active" : "rBets__item"} key={i} ref={block => {if(el.user === 21561245) this.myBet = block}}>
-                <User level={9} name={'ConorMcGregor'} image='./static/images/user.png'/>
+        const {color, players, user, total} = this.props;
+        let bets = players.map((el, i) =>
+            (<div className={(el.userID === user.id) ? "rBets__item active" : "rBets__item"} key={i} ref={block => { if(el.user === user.id) this.myBet = block}}>
+                <User level={9} name={el.displayName} image={el.avatar}/>
                 <div>
-                    <i className='icon-poker-piece'/>1123
+                    <i className='icon-poker-piece'/>{el.bet}
                 </div>
             </div>)
         );
@@ -35,7 +36,7 @@ export default class RouletteBets extends Component {
         return (
             <div className={"rBets__wrapper " + color}>
                 <div className="rBets__header">
-                    <h2>Total bet: <i className='icon-poker-piece'/><span>1123</span></h2>
+                    <h2>Total bet: <i className='icon-poker-piece'/><span>{total}</span></h2>
                     {/* TODO: Add scroll for my bet and add class "active"*/}
                     <button className="button-border" onClick={this.handleClick}>Find me</button>
                 </div>

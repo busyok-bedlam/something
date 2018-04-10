@@ -2,6 +2,7 @@ import di from '../../di';
 import WSServer from '../../lib/WSServer';
 const db = di.get('db');
 const players = di.get('players');
+const currentGame = di.get('currentGame');
 const {rouletteConfig} = di.get('config');
 const {wsMessageType} = di.get('config');
 const UserModel = db.models.users;
@@ -66,8 +67,6 @@ export default class MakeBet {
             return false;
         });
 
-
-
         if (!isExist) {
             listPlayers.push({
                 userID: user.id,
@@ -83,7 +82,8 @@ export default class MakeBet {
         WSServer.sendToAll({
             type: wsMessageType.WS_ROULETTE_PLAYERS,
             payload: {
-                players: players
+                players: players,
+                counter: currentGame.counter
             }
         });
 

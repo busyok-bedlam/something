@@ -9,7 +9,7 @@ export default class LastGames {
     exec() {
 
         return roulette_games
-            .findOne({}, {games: {$slice: 6}})
+            .findOne({}, {games: {$slice: 10}})
             .sort('-_id')
             .then(doc => {
                 let last = [];

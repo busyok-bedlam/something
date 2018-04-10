@@ -107,6 +107,7 @@ class RoulettePage extends Component {
                 bet={bet}
                 roulette={roulette}
                 rouletteActions={rouletteActions}
+                players={roulette.players}
                 inventory={inventory}
                 selectedItems={selectedItems}
                 handleRouletteBetting={::this.handleRouletteBetting}

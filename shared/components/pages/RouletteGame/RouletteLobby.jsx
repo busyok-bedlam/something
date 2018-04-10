@@ -5,30 +5,34 @@ import GameHeader from '../../common/game/GameHeader.jsx';
 import roulette from '../../../../config/roulette.js';
 import PropTypes from 'prop-types';
 
-
-// let {ROULETTE_MIN_BET, ROULETTE_MAX_BET} = roulette;
+const {
+    ROULETTE_MIN_BET,
+    ROULETTE_MAX_BET,
+    ROULETTE_BETTING
+} = roulette;
 
 export default class RouletteLobby extends Component {
     static propTypes = {
-        bet: PropTypes.number.isRequired,
+        // bet: PropTypes.number.isRequired,
         lobbyHandleChangeValue: PropTypes.func.isRequired,
     };
 
     state = {
         disabledButton: false,
-        value: 0
+        value: ROULETTE_MIN_BET
     };
 
     handleChange = e => {
-        let value = e.target.value;
-        this.props.lobbyHandleChangeValue(value);
+        let value = +e.target.value;
         this.setState({
+            value,
             disabledButton: this.validateBet(value)
         });
     };
 
     handleInputValue (value) {
-        this.props.lobbyHandleChangeValue(value);
+        // this.props.lobbyHandleChangeValue(value);
+
         this.setState({
             disabledButton: this.validateBet(value),
             value
@@ -36,24 +40,20 @@ export default class RouletteLobby extends Component {
     }
 
     handleNewBet = (color, e) => {
-        let {value} = this.state;
-        this.props.rouletteActions.rouletteNewBet({color, value})
-    };
-
-    renderHistory = () => {
-        this.props.roulette.lastGames.map((game, i) => {
-            console.log(game);
-            return (
-                <div className="history__item history__item-color1">{game.sect}</div>
-            )
-        });
+        if (this.props.roulette.status !== ROULETTE_BETTING) {
+            this.errorMessage = 'You cannot to bet';
+            console.error('You cannot to bet')
+        } else {
+            let {value} = this.state;
+            this.props.rouletteActions.rouletteNewBet({color, value})
+        }
     };
 
     validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET;
 
     render() {
-        let {disabledButton} = this.state;
-        let {bet, user} = this.props;
+        let {disabledButton, value} = this.state;
+        let {user} = this.props;
         let {userBets, sector} = this.props.roulette;
         let {rouletteID, hash, status} = this.props.roulette; //game
         let {
@@ -87,7 +87,7 @@ export default class RouletteLobby extends Component {
                     </div>
                     <div className="game__info">
                         <h2>Choose bet (max {ROULETTE_MAX_BET})</h2>
-                        <input type="number" value={bet} name='bet' min={ROULETTE_MIN_BET} max={ROULETTE_MAX_BET}
+                        <input type="number" value={value} name='bet' min={ROULETTE_MIN_BET} max={ROULETTE_MAX_BET}
                                onChange={this.handleChange}/>
                         <div className="rLobby__buttons">
                             <button
@@ -119,7 +119,7 @@ export default class RouletteLobby extends Component {
                         </div>
                         <GameHash gameID={rouletteID} hash={hash} number={sector} status={status}/>
                     </div>
-                    <BetButtons bet={bet}
+                    <BetButtons bet={value}
                                 minBet={ROULETTE_MIN_BET}
                                 allInBet={300}
                                 handleInputValue={this.handleInputValue.bind(this)}/>

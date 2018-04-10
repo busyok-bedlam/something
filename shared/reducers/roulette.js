@@ -10,6 +10,7 @@ import wsMessageType from '../../config/wsMessageType.json';
 import rouletteConfig from '../../config/roulette.js';
 
 let initialState = {
+    total: 0,
     game: {},
     lastGames: [],
     bets: {},
@@ -38,7 +39,9 @@ let initialState = {
 };
 
 export default function roulette(state = initialState, action) {
-    console.log(state);
+    // console.log(state.userBets);
+    // console.log(state);
+    console.log(action.type);
 
     switch (action.type) {
 
@@ -64,6 +67,7 @@ export default function roulette(state = initialState, action) {
                     [rouletteConfig.ROULETTE_COLOR_GREY]: 0,
                     bets: []},
                 // game: action.payload,
+                players: action.payload.players,
                 status: action.type,
                 sector: 0,
                 hash: ''
@@ -90,10 +94,13 @@ export default function roulette(state = initialState, action) {
             };
         }
 
-        // case wsMessageType.WS_ROULETTE_PLAYERS: {
-        //     console.log('');
-        //     return {...state}
-        // }
+        case wsMessageType.WS_ROULETTE_PLAYERS: {
+            return {
+                ...state,
+                players: action.payload.players,
+                counter: action.payload.counter
+            }
+        }
 
         //todo rename type
         case wsMessageType.WS_BALANCE_UPDATE: {

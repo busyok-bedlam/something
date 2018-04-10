@@ -4,6 +4,7 @@ import Chat from '../../containers/Chat.jsx';
 import RouletteLobby from './RouletteGame/RouletteLobby.jsx';
 import RouletteWheel from './RouletteGame/RouletteWheel.jsx';
 import RouletteBets from './RouletteGame/RouletteBets.jsx';
+import rouletteConfig from '../../../config/roulette.js'
 
 export default class Roulette extends Component {
     static propTypes = {
@@ -21,6 +22,7 @@ export default class Roulette extends Component {
         const {
             user,
             bet,
+            players,
             roulette,
             rouletteActions,
             handleRouletteBetting,
@@ -28,6 +30,15 @@ export default class Roulette extends Component {
             handleRouletteRewards,
             lobbyHandleChangeValue
         } = this.props;
+
+        const {
+            ROULETTE_COLOR_PINK,
+            ROULETTE_COLOR_GREEN,
+            ROULETTE_COLOR_GREY
+        } = rouletteConfig;
+
+        console.log(players.total.ROULETTE_COLOR_PINK);
+
         return (
             <div className='container'>
                 <div className="roulette">
@@ -42,9 +53,21 @@ export default class Roulette extends Component {
                         handleRouletteBetting={handleRouletteBetting}
                         lobbyHandleChangeValue={lobbyHandleChangeValue}/>
                     <div className="rBets">
-                        <RouletteBets color={RouletteBets.type.COLOR1}/>
-                        <RouletteBets color={RouletteBets.type.COLOR2}/>
-                        <RouletteBets color={RouletteBets.type.COLOR3}/>
+                        <RouletteBets
+                            user={user}
+                            total={players.total.ROULETTE_COLOR_PINK}
+                            players={players[rouletteConfig.ROULETTE_COLOR_PINK]}
+                            color={RouletteBets.type.COLOR1}/>
+                        <RouletteBets
+                            user={user}
+                            total={players.total.ROULETTE_COLOR_GREEN}
+                            players={players[rouletteConfig.ROULETTE_COLOR_GREEN]}
+                            color={RouletteBets.type.COLOR2}/>
+                        <RouletteBets
+                            user={user}
+                            total={players.total.ROULETTE_COLOR_GREY}
+                            players={players[rouletteConfig.ROULETTE_COLOR_GREY]}
+                            color={RouletteBets.type.COLOR3}/>
                     </div>
                 </div>
                 <Chat/>

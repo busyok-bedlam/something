@@ -33,13 +33,13 @@
     &:not(:last-child) {
       margin-right: 20px;
     }
-    &-color1 {
+    &-pink {
       border-top: 1rem solid $rouletteColor1;
     }
-    &-color2 {
+    &-green {
       border-top: 1rem solid $rouletteColor2;
     }
-    &-color3 {
+    &-grey {
       border-top: 1rem solid $rouletteColor3;
     }
   }

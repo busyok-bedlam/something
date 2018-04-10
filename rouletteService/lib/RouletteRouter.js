@@ -39,7 +39,8 @@ export default class RouletteRouter {
                                 type: WS_BALANCE_UPDATE,
                                 payload: {
                                     userBet: res.data,
-                                    user: res.user
+                                    user: res.user,
+                                    counter: currentGame.counter
                                 }
                             })
                         });
