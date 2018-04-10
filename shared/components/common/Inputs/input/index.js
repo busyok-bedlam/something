@@ -10,7 +10,7 @@ const Input = ({error, isChanged, isUsed, ...props}) => (
                      ? (error)
                          ? {className: props.className + ` invalid`}
                          : {className: props.className + ` valid`}
-                     : 'input-float' )
+                     : {className: 'input-float'})
              }
         >
             <input {...props} placeholder='' className=''/>
