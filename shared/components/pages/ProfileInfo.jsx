@@ -52,7 +52,7 @@ export default class ProfileInfo extends Component {
     };
 
     componentDidMount() {
-        setTimeout(() => this.handleChangeGame(null, this.props.user, 'all'), 0);
+        setTimeout(() => this.handleChangeGame(null, this.props.user, this.state.selectedGame), 0);
     }
 
     render() {
