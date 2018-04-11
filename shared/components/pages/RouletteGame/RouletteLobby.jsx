@@ -49,7 +49,7 @@ export default class RouletteLobby extends Component {
         }
     };
 
-    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET;
+    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET || value > this.props.user.balance;
 
     render() {
         let {disabledButton, value} = this.state;
@@ -71,18 +71,18 @@ export default class RouletteLobby extends Component {
                     <div className={(!userBets[ROULETTE_COLOR_PINK] && !userBets[ROULETTE_COLOR_GREEN] && !userBets[ROULETTE_COLOR_GREY]) ? "rLobby__bet hide" : "rLobby__bet"}>
                         <h3>Your bet:</h3>
                         <div className="wrapper">
-                            <div className={(userBets[ROULETTE_COLOR_PINK]) ? '' : 'hide'}>
+                            {!!userBets[ROULETTE_COLOR_PINK] && <div>
                                 <div className="color color-1"/>
                                 <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_PINK]}</div>
-                            </div>
-                            <div className={(userBets[ROULETTE_COLOR_GREEN]) ? '' : 'hide'}>
+                            </div>}
+                            {!!userBets[ROULETTE_COLOR_GREEN] && <div>
                                 <div className="color color-2"/>
                                 <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREEN]}</div>
-                            </div>
-                            <div className={(userBets[ROULETTE_COLOR_GREY]) ? '' : 'hide'}>
+                            </div>}
+                            {!!userBets[ROULETTE_COLOR_GREY] && <div>
                                 <div className="color color-3"/>
                                 <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREY]}</div>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                     <div className="game__info">
@@ -121,7 +121,7 @@ export default class RouletteLobby extends Component {
                     </div>
                     <BetButtons bet={value}
                                 minBet={ROULETTE_MIN_BET}
-                                allInBet={300}
+                                allInBet={user.balance}
                                 handleInputValue={this.handleInputValue.bind(this)}/>
                 </div>
             </div>
