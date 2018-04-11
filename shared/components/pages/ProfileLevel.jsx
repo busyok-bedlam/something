@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import Progress from 'react-progressbar';
 import ModalController from '../../lib/ModalController';
 import PropTypes from 'prop-types';
-import {LoadingScreen} from '../../lib/LoadingScreen';
-import {toast} from 'react-toastify';
 
 export default class ProfileLevel extends Component {
     static propTypes = {
@@ -11,18 +9,40 @@ export default class ProfileLevel extends Component {
     };
 
     render() {
-        let {avatarFull, displayName} = this.props.user;
+        let {avatarFull, displayName, level, balance, xp} = this.props.user;
+        let colorLevel = '';
+        const levelMaximum = 700;
+        switch (true) {
+            case (level < 49):
+                colorLevel = "profile__user";
+                break;
+            case (level < 59):
+                colorLevel = "profile__user profile__user-level-1";
+                break;
+            case (level < 69):
+                colorLevel = "profile__user profile__user-level-2";
+                break;
+            case (level < 79):
+                colorLevel = "profile__user profile__user-level-3";
+                break;
+            case (level < 99):
+                colorLevel = "profile__user profile__user-level-4";
+                break;
+            default:
+                colorLevel = "profile__user profile__user-level-5";
+                break;
+        }
         return (
-            <div className="profile__user profile__user-level-1">
-                <div className="profile__level">71<i className='icon-fire'/></div>
+            <div className={colorLevel}>
+                <div className="profile__level">{level}<i className='icon-fire'/></div>
                 <div className="profile__name">{displayName}</div>
                 <div className="avatar"
                      style={{backgroundImage: `url(${avatarFull})`}}/>
                 <div className="profile__xp">
-                    XP: <span>350</span>/700
-                    <Progress completed={75}/>
+                    XP: <span>{(xp) ? xp : 0}</span>/{levelMaximum}
+                    <Progress completed={(xp > 0) ? Math.round(xp / levelMaximum  * 100) : 0}/>
                 </div>
-                <div className="profile__balance">Balance: <i className='icon-poker-piece'/> <span>1123</span></div>
+                <div className="profile__balance">Balance: <i className='icon-poker-piece'/> <span>{balance}</span></div>
                 <button
                     onClick={() => ModalController.openModal('DepositModal')}
                     className="button mobile-hide">Deposit

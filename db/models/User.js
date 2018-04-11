@@ -24,7 +24,13 @@ const userSchema = new db.Schema({
         profit: {type: Number, default: 0},
         wins: {type: Number, default: 0},
         losses: {type: Number, default: 0}
-    }
+    },
+    crashGameProfit: {
+        profit: {type: Number, default: 0},
+        wins: {type: Number, default: 0},
+        losses: {type: Number, default: 0}
+    },
+    xp: Number
 });
 
 
@@ -36,9 +42,12 @@ userSchema.methods.getPublicFields = function () {
         avatarFull: this.avatarFull,
         tradeURL: this.tradeURL,
         balance: this.balance,
+        level: this.level,
+        xp: this.xp,
         isAdmin: this.isAdmin,
         isModerator: this.isModerator,
-        rouletteGameProfit: this.rouletteGameProfit
+        rouletteGameProfit: this.rouletteGameProfit,
+        crashGameProfit: this.crashGameProfit
     }
 };
 

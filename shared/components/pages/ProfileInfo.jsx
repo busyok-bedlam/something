@@ -1,16 +1,20 @@
 import React, {Component} from "react";
-
 import Form from './../common/Inputs/form';
 import Input from '././../common/Inputs/input';
 import Button from './../common/Inputs/button';
 import validate from './../common/Inputs/validate.js';
-import {LoadingScreen} from '../../lib/LoadingScreen';
-import {toast} from 'react-toastify';
-
+import PropTypes from 'prop-types';
 
 export default class ProfileInfo extends Component {
+
     state = {
-      steamLink: ''
+        selectedGame: 'all',
+        infoGame: {}
+    };
+
+    static propTypes = {
+        user: PropTypes.object.isRequired,
+        setTradeLink: PropTypes.func.isRequired,
     };
 
     openProfileWindow = () => {
@@ -18,57 +22,84 @@ export default class ProfileInfo extends Component {
     };
 
     handleSubmit = e => {
-      e.preventDefault();
-        const linkPattern = new RegExp('(?:https?:\/\/)?steamcommunity\.com\/(?:profiles|id)\/[a-zA-Z0-9]+');
-        if (linkPattern.test(this.state.steamLink)) {
-            alert('success')
+        e.preventDefault();
+        let link = e.target.steamLink.value;
+        this.props.setTradeLink(link);
+    };
+
+    handleChangeGame = (e, userObject, gameName)=> {
+        const user = userObject || this.props.user;
+        const game = gameName || e.target.name;
+        if(game === 'all') {
+            this.setState({
+                selectedGame: game,
+                infoGame: {
+                    wins: user['rouletteGameProfit'].wins + user['crashGameProfit'].wins,
+                    losses: user['rouletteGameProfit'].losses + user['crashGameProfit'].losses,
+                    profit: user['rouletteGameProfit'].profit + user['crashGameProfit'].profit
+                }
+            })
         } else {
-            alert('fall')
+            this.setState({
+                selectedGame: game,
+                infoGame: {
+                    wins: user[game].wins,
+                    losses: user[game].losses,
+                    profit: user[game].profit
+                }
+            })
         }
     };
 
-    onChange = e => {
-      this.setState({
-          [e.target.name]: e.target.value
-      });
-    };
-
-    handleClick () {
-        console.log(this)
+    componentDidMount() {
+        setTimeout(() => this.handleChangeGame(null, this.props.user, 'all'), 0);
     }
 
     render() {
-        let {steamLink} = this.state;
-
+        let {selectedGame, infoGame} = this.state;
         return (
             <div className="profile__info">
                 <div className="profile__header">
-                    <button className="header__bottom-right-link active">All</button>
-                    <button className="header__bottom-right-link">Roulette</button>
-                    <button className="header__bottom-right-link">Crash</button>
+                    <button name="all"
+                            onClick={this.handleChangeGame}
+                            className={selectedGame === "all"
+                                ? "header__bottom-right-link active"
+                                : "header__bottom-right-link"}>
+                        All
+                    </button>
+                    <button name="rouletteGameProfit"
+                            onClick={this.handleChangeGame}
+                            className={selectedGame === "rouletteGameProfit"
+                                ? "header__bottom-right-link active"
+                                : "header__bottom-right-link"}>
+                        Roulette
+                    </button>
+                    <button name="crashGameProfit"
+                            onClick={this.handleChangeGame}
+                            className={selectedGame === "crashGameProfit"
+                                ? "header__bottom-right-link active"
+                                : "header__bottom-right-link"}>
+                        Crash
+                    </button>
                 </div>
                 <div className="top-players__total">
                     <div>
-                        <h3>2333</h3>
+                        <h3>{infoGame.wins}</h3>
                         <span>wins</span></div>
                     <div>
-                        <h3>100 000</h3>
+                        <h3>{infoGame.losses}</h3>
                         <span>losses</span></div>
                     <div>
-                        <h3>759</h3>
+                        <h3>{infoGame.profit}</h3>
                         <span>profit</span></div>
                 </div>
-                <Form ref={c => {
-                    this.form = c
-                }} onSubmit={this.handleSubmit} className="row">
+                <Form onSubmit={this.handleSubmit} className="row">
                     <Input
                         type="text"
                         name="steamLink"
                         placeholder="Steam link"
                         className="input-float"
                         required='true'
-                        value={steamLink}
-                        onChange={this.onChange}
                         validations={[validate.required, validate.tradeLink]}
                     />
                     <div className="profile__buttons">

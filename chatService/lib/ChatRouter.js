@@ -58,7 +58,7 @@ export default class ChatRouter {
                 case config.wsMessageType.WS_CHAT_CHANGE_ROOM: {
                     try {
                         if (!isAuth) {
-                            throw new Error("Not auth user");
+                            console.log("Not auth user changed room");
                         } else {
                             let oldRoom = Clients.allClients[id].room;
                             ChatRouter.usersOnline[oldRoom]--;

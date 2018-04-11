@@ -9,7 +9,7 @@
     min-width: 32%;
     flex-basis: 32%;
     text-align: center;
-    background-color: $navBg;
+    background-color: $headerBg;
     padding: 2rem;
     border-radius: 10px 0 0;
     display: flex;
@@ -25,10 +25,10 @@
     .progressbar-container {
       border-radius: 25px;
       overflow: hidden;
-      background-color: $headerBg;
+      background-color: $navBg;
     }
     .progressbar-progress {
-      background-color: $navBg !important;
+      background-color: $main !important;
     }
     .button {
       text-transform: uppercase;
