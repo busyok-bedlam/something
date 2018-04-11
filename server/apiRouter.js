@@ -20,6 +20,8 @@ router.get('user/inventory', ::routes.user.getInventory);
 router.post('bots/deposit-offer', ::routes.user.createDepositOffer);
 router.post('bots/withdraw-offer', ::routes.user.createWithdrawOffer);
 
+router.post('support', ::routes.user.sendSupport);
+
 router.get('user/trade-history', ::routes.user.loadTradeHistory);
 
 router.get('user', ::routes.user.info);

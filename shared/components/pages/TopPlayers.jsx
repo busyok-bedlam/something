@@ -34,7 +34,7 @@ export default class TopPlayers extends Component {
                 </div>
                 <div className="top-players__header">
                     <div className='place'>Place</div>
-                    <div className='name'>Nickname</div>
+                    <div className='user'>Nickname</div>
                     <div>Wins</div>
                     <div>Profit</div>
                 </div>

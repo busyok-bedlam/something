@@ -10,7 +10,7 @@ const Textarea = ({error, isChanged, isUsed, ...props}) => (
                      ? (error)
                          ? {className: {...props}.className + ` invalid`}
                          : {className: {...props}.className + ` valid`}
-                     : {className: 'input-float'})
+                     : {className: props.className || 'input-float'})
              }>
             <textarea {...props} placeholder='' className=""/>
             <label htmlFor={props.id}>{props.placeholder}</label>

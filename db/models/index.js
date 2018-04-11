@@ -7,3 +7,4 @@ import './Trade';
 import './GameItem';
 import './RouletteBet';
 import './RouletteGame';
+import './Support'

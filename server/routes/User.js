@@ -7,6 +7,7 @@ const BRouter = new BotRouter();
 const passport = di.get('passport');
 const db = di.get('db');
 const UserModel = db.models.users;
+const SupportModel = db.models.support;
 
 export default class User extends Base {
 
@@ -82,6 +83,19 @@ export default class User extends Base {
         };
         const {ids} = await BRouter.exec('user', 'CreateDepositOffer', params);
         ctx.body = {ids};
+    }
+
+    async sendSupport(ctx) {
+        try {
+            const {body} = ctx.request;
+            const support = await new SupportModel(body);
+            support.save();
+            ctx.body = {'success': true};
+        } catch (error) {
+            ctx.body = {error};
+            //TODO remove console.error
+            console.error(error);
+        }
     }
 
     async createWithdrawOffer(ctx){

@@ -33,6 +33,10 @@ export default class UserAPI extends Base {
     loadTradeHistory(data){
         return this.apiClient.get('user/trade-history', data);
     }
+
+    sendSupport(data) {
+        return this.apiClient.post('support', data);
+    }
 }
 
 

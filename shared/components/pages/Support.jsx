@@ -10,66 +10,79 @@ import {LoadingScreen} from '../../lib/LoadingScreen';
 import {toast} from 'react-toastify';
 
 export default class Support extends Component {
+    state = {
+        success: false
+    };
+
     handleSubmit = async (event) => {
         event.preventDefault();
         try {
             LoadingScreen.open();
-            const {userActions} = this.props;
+            const {sendSupport} = this.props;
             const {email, steamLink, text} = event.target;
-            await userActions.sendSupportRequest({
+            console.log(email, steamLink, text);
+            let req = await sendSupport({
                 email: email.value,
                 steamLink: steamLink.value,
                 text: text.value
             });
+            this.setState({success: req.success})
             email.value = '';
             steamLink.value = '';
             text.value = '';
-            toast('Submitted');
+            // toast('Submitted');
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            toast(error.message || error.toString());
         } finally {
             LoadingScreen.close();
         }
     };
 
     render() {
+        let {success} = this.state;
+        let userSteamLink = "https://steamcommunity.com/profiles/" + this.props.user.id;
         return (
             <div className="support page-container">
                 <h2 className="page-header">Support</h2>
-                <Form ref={c => {
-                    this.form = c
-                }} onSubmit={this.handleSubmit} className="row">
-                    <Input
-                        type="email"
-                        name="email"
-                        placeholder="E-mail"
-                        className="input-float"
-                        required='true'
-                        validations={[validate.required, validate.email]}
-                    />
-                    <Input
-                        type="text"
-                        name="steamLink"
-                        placeholder="Steam link"
-                        className="input-float"
-                        required='true'
-                        validations={[validate.required, validate.steamLink]}
-                    />
-                    <Textarea cols="30"
-                              rows="10"
-                              name="text"
-                              className="input-float input-float-textarea"
-                              required='true'
-                              placeholder="Message"
-                              validations={[validate.required]}
-                    />
-                    <div className="support__buttons">
-                        <Social />
-                        <Button className="button">send
-                            message</Button>
-                    </div>
-                </Form>
+                {
+                    (success)
+                        ? <h3>Thanks for your request!</h3>
+                        : <Form ref={c => {
+                            this.form = c
+                        }} onSubmit={this.handleSubmit} className="row">
+                            <Input
+                                type="email"
+                                name="email"
+                                placeholder="E-mail"
+                                className="input-float"
+                                required='true'
+                                validations={[validate.required, validate.email]}
+                            />
+                            <Input
+                                type="text"
+                                name="steamLink"
+                                placeholder="Steam link"
+                                className="input-float valid"
+                                required='true'
+                                value={userSteamLink}
+                                validations={[validate.required, validate.steamLink]}
+                            />
+                            <Textarea cols="30"
+                                      rows="10"
+                                      name="text"
+                                      className="input-float input-float-textarea"
+                                      required='true'
+                                      placeholder="Message"
+                                      validations={[validate.required]}
+                            />
+                            <div className="support__buttons">
+                                <Social/>
+                                <Button className="button">send
+                                    message</Button>
+                            </div>
+                        </Form>
+                }
             </div>
         );
     }

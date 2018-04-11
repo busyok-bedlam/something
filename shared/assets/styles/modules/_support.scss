@@ -1,6 +1,6 @@
 .support {
   form {
-    padding-top: 2rem;
+    padding-top: 2.4rem;
   }
   .button {
     display: block;
@@ -22,5 +22,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  h3 {
+    font-size:  2rem;
+    text-align: center;
+    margin: 2rem 0;
   }
 }
