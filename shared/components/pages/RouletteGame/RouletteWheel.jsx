@@ -15,6 +15,10 @@ export default class RouletteWheel extends Component {
         donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
     };
 
+    componentWillUnmount() {
+        console.log('unmount');
+    }
+
     componentWillReceiveProps(nextProps) {
         let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
         let {status} = nextProps.roulette;

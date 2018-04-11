@@ -22,6 +22,8 @@ export default class InitGame {
 
         console.log('Init game');
 
+        currentGame.rouletteGameTotal = 0;
+
         players[ROULETTE_COLOR_PINK].splice(0, players[ROULETTE_COLOR_PINK].length);
         players[ROULETTE_COLOR_GREEN].splice(0, players[ROULETTE_COLOR_GREEN].length);
         players[ROULETTE_COLOR_GREY].splice(0, players[ROULETTE_COLOR_GREY].length);
@@ -36,6 +38,7 @@ export default class InitGame {
 
         this.__checkActualHashAndDay();
 
+
         WSServer.sendToAll({
             type: ROULETTE_BETTING,
             payload: {
@@ -43,7 +46,8 @@ export default class InitGame {
                 hash: currentGame.hash,
                 counter: currentGame.counter,
                 players: players,
-                lastGames
+                lastGames,
+                total: currentGame.rouletteGameTotal
             }
         });
 

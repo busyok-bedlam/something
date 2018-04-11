@@ -37,7 +37,7 @@ export default class ExecGame {
             type: ROULETTE_IN_GAME,
             payload: {
                 sector: currentGame.sector,
-                angle: Math.floor(Math.random() * 24) + 0,
+                angle: Math.floor(Math.random() * 22) + 2,
                 hash: currentGame.hashGame
             }
         });

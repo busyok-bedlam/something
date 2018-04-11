@@ -8,6 +8,7 @@ import CrashHistory from './CrashGame/CrashHistory.jsx';
 export default class Roulette extends Component {
 
     static propTypes = {
+        user: PropTypes.object.isRequired,
         bet: PropTypes.number.isRequired,
         inventory: PropTypes.array.isRequired,
         selectedItems: PropTypes.object.isRequired,
@@ -24,6 +25,7 @@ export default class Roulette extends Component {
 
     render() {
         const {
+            user,
             bet,
             inventory,
             selectedItems,
@@ -40,7 +42,7 @@ export default class Roulette extends Component {
             <div className='container'>
                 <div className="crash">
                     <div className='crash__container'>
-                        <CrashGame />
+                        <CrashGame user={user}/>
                         <CrashLobby bet={bet} lobbyHandleChangeValue={lobbyHandleChangeValue}/>
                     </div>
                     <CrashHistory />

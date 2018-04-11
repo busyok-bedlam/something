@@ -89,11 +89,13 @@ function mapStateToProps(state) {
         user,
         loadingScreen,
         modal,
+        roulette
     } = state;
     return {
         user,
         loadingScreen,
         modal,
+        roulette
     };
 }
 

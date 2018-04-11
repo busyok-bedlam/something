@@ -111,7 +111,7 @@ export default class Header extends Component {
                             </div>
                             <NavLink to='/' onlyActiveOnIndex className='button-game'>
                                 Roulette
-                                <div className="link-chip">7532</div>
+                                <div className="link-chip">{this.props.totalRoulette}</div>
                             </NavLink>
                             <NavLink to='/crash' className='button-game'>
                                 Crash

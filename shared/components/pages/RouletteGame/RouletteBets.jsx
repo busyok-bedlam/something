@@ -24,9 +24,10 @@ export default class RouletteBets extends Component {
 
     render() {
         const {color, players, user, total} = this.props;
+
         let bets = players.map((el, i) =>
             (<div className={(el.userID === user.id) ? "rBets__item active" : "rBets__item"} key={i} ref={block => { if(el.user === user.id) this.myBet = block}}>
-                <User level={9} name={el.displayName} image={el.avatar}/>
+                <User level={user.level} name={el.displayName} image={el.avatar}/>
                 <div>
                     <i className='icon-poker-piece'/>{el.bet}
                 </div>

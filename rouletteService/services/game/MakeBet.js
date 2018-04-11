@@ -6,6 +6,11 @@ const currentGame = di.get('currentGame');
 const {rouletteConfig} = di.get('config');
 const {wsMessageType} = di.get('config');
 const UserModel = db.models.users;
+const config = di.get('config');
+
+const {
+    WS_TOTALS_ROULETTE
+} = config.wsMessageType;
 
 
 
@@ -49,6 +54,31 @@ export default class MakeBet {
 
         this.__addBet(user, data);
 
+        // const roulettePromise = new Promise((resolve, reject) => {
+        //     redisClient.get('rouletteGameTotal', (err, reply) => {
+        //         if (err) {
+        //             reject(err);
+        //         }
+        //         resolve(reply);
+        //     });
+        // });
+        //
+        // Promise
+        //     .all([roulettePromise])
+        //     .then(totals => {
+        //         // const data = JSON.stringify({
+        //         //     type: WS_TOTALS_ROULETTE,
+        //         //     rouletteTotal: totals[0]
+        //         // });
+        //         // WSServer.sendToAll({
+        //         //     type: WS_TOTALS_ROULETTE,
+        //         //     payload: {
+        //         //         rouletteGameTotal: totals[0]
+        //         //     }
+        //         // });
+        //     });
+
+
         return {
             user: user.getPublicFields(),
             data: data
@@ -78,6 +108,18 @@ export default class MakeBet {
         }
 
         players.total[data.color] += data.value;
+
+        for (let color in players.total) {
+            currentGame.rouletteGameTotal += (+players.total[color]);
+        }
+
+
+        WSServer.sendToAll({
+            type: WS_TOTALS_ROULETTE,
+            payload: {
+                rouletteGameTotal: currentGame.rouletteGameTotal
+            }
+        });
 
         WSServer.sendToAll({
             type: wsMessageType.WS_ROULETTE_PLAYERS,

@@ -65,7 +65,8 @@ export default function roulette(state = initialState, action) {
                     [rouletteConfig.ROULETTE_COLOR_PINK]: 0,
                     [rouletteConfig.ROULETTE_COLOR_GREEN]: 0,
                     [rouletteConfig.ROULETTE_COLOR_GREY]: 0,
-                    bets: []},
+                    bets: []
+                },
                 // game: action.payload,
                 players: action.payload.players,
                 status: action.type,
@@ -112,6 +113,13 @@ export default function roulette(state = initialState, action) {
                 ...state,
                 userBets: {...state.userBets, [color]: (currentAmount + value)},
             };
+        }
+
+        case wsMessageType.WS_TOTALS_ROULETTE: {
+            console.log(+action.payload.rouletteGameTotal);
+            console.log(action.payload.rouletteGameTotal);
+
+            return {...state, total: +action.payload.rouletteGameTotal}
         }
         default:
             return state;

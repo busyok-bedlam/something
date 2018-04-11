@@ -37,8 +37,6 @@ export default class Roulette extends Component {
             ROULETTE_COLOR_GREY
         } = rouletteConfig;
 
-        console.log(players.total.ROULETTE_COLOR_PINK);
-
         return (
             <div className='container'>
                 <div className="roulette">

@@ -60,4 +60,4 @@ di
         key: 'lastGames',
         type: CONTAINER_TYPE_VALUE,
         value: []
-    });
+    })

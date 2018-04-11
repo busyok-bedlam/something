@@ -104,6 +104,7 @@ class CrashPage extends Component {
 
         return (
             <Crash
+                user={user}
                 bet={bet}
                 inventory={inventory}
                 selectedItems={selectedItems}

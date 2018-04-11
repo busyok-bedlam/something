@@ -6,9 +6,11 @@ const db = di.get('db');
 const players = di.get('players');
 const currentGame = di.get('currentGame');
 const lastGames = di.get('lastGames');
+import WSServer from '../lib/WSServer';
 const {
     WS_ROULETTE_NEW_BET,
-    WS_BALANCE_UPDATE
+    WS_BALANCE_UPDATE,
+    WS_TOTALS_ROULETTE
 } = config.wsMessageType;
 
 const {
@@ -58,6 +60,13 @@ export default class RouletteRouter {
     }
 
     static async onClientBroadcast(sendResponseToAll) {
+        // let rouletteGameTotal = 0;
+        //
+        // for (let color in players.total) {
+        //     rouletteGameTotal += (+players.total[color]);
+        // }
+        //
+        // redisClient.set('rouletteGameTotal', rouletteGameTotal);
 
     }
 
@@ -70,8 +79,9 @@ export default class RouletteRouter {
                 players: players,
                 counter: currentGame.counter,
                 status: currentGame.status,
-                hash: currentGame.hash,
-                lastGames
+                lastGames,
+                total: currentGame.rouletteGameTotal
+                //hash
             }
         })
 

@@ -12,6 +12,7 @@ class Header extends React.Component {
     static propTypes = {
         user: PropTypes.object.isRequired,
         userActions: PropTypes.object.isRequired,
+        roulette: PropTypes.object.isRequired
     };
 
     async cbHandleLogout(){
@@ -29,9 +30,10 @@ class Header extends React.Component {
     }
 
     render() {
-        const {user} = this.props;
+        const {user, roulette} = this.props;
         return (
             <HeaderComponent
+                totalRoulette={roulette.total}
                 isAuth={user.isAuth}
                 displayName={user.displayName}
                 avatar={user.avatarFull}
