@@ -42,7 +42,7 @@ export default class User extends Component {
         return (
             <span className={'user ' + classNameUser}>
                 <span className="avatar" style={{backgroundImage: `url("${image}")`}}/>
-                {level && <span className={colorLevel}>{level}</span>}
+                {level && !isModerator && !isAdmin && <span className={colorLevel}>{level}</span>}
                 <span className="name">
                     {isAdmin && <span>[ADMIN] </span>}
                     {isModerator && <span>[MODERATOR] </span>}

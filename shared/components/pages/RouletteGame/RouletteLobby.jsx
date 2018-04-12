@@ -30,7 +30,7 @@ export default class RouletteLobby extends Component {
         });
     };
 
-    handleInputValue (value) {
+    handleInputValue(value) {
         // this.props.lobbyHandleChangeValue(value);
 
         this.setState({
@@ -49,7 +49,13 @@ export default class RouletteLobby extends Component {
         }
     };
 
-    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET || value > this.props.user.balance;
+    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET || this.props.user.balance < value;
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            disabledButton: this.validateBet(this.state.value)
+        })
+    }
 
     render() {
         let {disabledButton, value} = this.state;
@@ -68,20 +74,24 @@ export default class RouletteLobby extends Component {
             <div className="rLobby">
                 <GameHeader user={user}/>
                 <div className="game__lobby">
-                    <div className={(!userBets[ROULETTE_COLOR_PINK] && !userBets[ROULETTE_COLOR_GREEN] && !userBets[ROULETTE_COLOR_GREY]) ? "rLobby__bet hide" : "rLobby__bet"}>
+                    <div
+                        className={(!userBets[ROULETTE_COLOR_PINK] && !userBets[ROULETTE_COLOR_GREEN] && !userBets[ROULETTE_COLOR_GREY]) ? "rLobby__bet hide" : "rLobby__bet"}>
                         <h3>Your bet:</h3>
                         <div className="wrapper">
                             {!!userBets[ROULETTE_COLOR_PINK] && <div>
                                 <div className="color color-1"/>
-                                <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_PINK]}</div>
+                                <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_PINK]}
+                                </div>
                             </div>}
                             {!!userBets[ROULETTE_COLOR_GREEN] && <div>
                                 <div className="color color-2"/>
-                                <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREEN]}</div>
+                                <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREEN]}
+                                </div>
                             </div>}
                             {!!userBets[ROULETTE_COLOR_GREY] && <div>
                                 <div className="color color-3"/>
-                                <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREY]}</div>
+                                <div className="bet"><i className='icon-poker-piece'/>{userBets[ROULETTE_COLOR_GREY]}
+                                </div>
                             </div>}
                         </div>
                     </div>

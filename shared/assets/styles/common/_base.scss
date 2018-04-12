@@ -11,6 +11,11 @@ body,
   outline: none;
 }
 
+*:not(input),
+*:not(textarea) {
+  user-select: none;
+}
+
 html {
   min-width: 320px;
   font-size: 10px !important;

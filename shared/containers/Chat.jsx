@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import * as chatActions from '../actions/chatActions';
 import Select from 'react-select';
 import Scrollbar from '../components/common/Scrollbar.jsx';
-import User from '../components/common/User.jsx';
 import {Picker} from 'emoji-mart';
 import 'react-select/dist/react-select.css';
 import PickerStyle from 'emoji-mart/css/emoji-mart.css';
+import ChatMessage from '../components/ChatMessage.jsx';
 
 class Chat extends Component {
 
@@ -59,17 +59,13 @@ class Chat extends Component {
     }
 
     __renderMessages() {
-        const {chat} = this.props;
+        const {user, chat} = this.props;
         const {messages} = chat;
         const list = [];
-        if(messages.length > 0) {
+        if (messages.length > 0) {
             messages.forEach((message, key) => {
                 list.push(
-                    <div className="chat__message" key={key}>
-                        <User level={message.level || ''} name={message.displayName} image={message.avatar}
-                              isModerator={message.isModerator} isAdmin={message.isAdmin}/>
-                        <span className="message">{message.text}</span>
-                    </div>
+                    <ChatMessage key={key} message={message} user={user}/>
                 )
             });
         }
@@ -188,7 +184,6 @@ class Chat extends Component {
                             clearable={false}
                             className='select'
                             optionClassName='select__options'
-                            openOnFocus={false}
                             options={[
                                 {
                                     value: 'eng',
@@ -221,7 +216,8 @@ class Chat extends Component {
                                 <div ref={node => (this.node = node)}>
                                     {!this.state.hidden &&
                                     <Picker
-                                        style={{PickerStyle,
+                                        style={{
+                                            PickerStyle,
                                             position: 'absolute',
                                             right: '0px',
                                             bottom: '87px',
