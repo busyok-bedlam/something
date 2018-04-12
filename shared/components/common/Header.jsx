@@ -16,12 +16,39 @@ export default class Header extends Component {
         cbHandleLogout: PropTypes.func.isRequired,
     };
 
-    state = {
-        auth: false,
-        time: '',
-        selectedOption: 'eng',
-        menuOpen: false
-    };
+    constructor() {
+        super();
+
+        this.totalInc = {
+            roulette: undefined,
+        };
+
+        this.total = {
+            roulette: 0,
+        };
+
+        this.state = {
+            totalToShow: {
+
+                roulette: 0,
+
+
+            },
+            auth: false,
+            time: '',
+            selectedOption: 'eng',
+            menuOpen: false
+        }
+    }
+
+    // state = {
+    //     auth: false,
+    //     time: '',
+    //     selectedOption: 'eng',
+    //     menuOpen: false
+    // };
+
+
 
     handleOpenMenu = () => {
       this.setState({
@@ -51,6 +78,58 @@ export default class Header extends Component {
 
     componentDidMount() {
         this.startTime();
+    }
+
+    totalUpdater(time, i) {
+        let total = this.total[i];
+        let totalToShow = this.state.totalToShow[i];
+
+        if (totalToShow + 1 < total) {
+
+            totalToShow += 1;
+            this.state.totalToShow[i] = totalToShow;
+            this.setState(this.state);
+
+            this.totalInc[i] = setTimeout(this.totalUpdater.bind(this, time, i), time);
+        } else if (totalToShow + 1 == total) {
+            this.state.totalToShow[i] = totalToShow + 1;
+            this.setState(this.state);
+        }
+    }
+
+    componentDidUpdate() {
+
+        let totals = {
+            roulette: this.props.totalRoulette,
+        };
+        for (let i in totals) {
+            let total = totals[i];
+
+            if (total != 0 && total > this.total[i]) {
+
+                let bet = total - this.total[i];
+                let inc = Math.floor(bet > 1000 ? bet * 0.02 : bet * 0.2);
+
+                this.total[i] = total;
+                this.state.totalToShow[i] = this.total[i] - inc;
+
+                this.setState(this.state);
+
+                if (this.totalInc[i]) {
+                    clearTimeout(this.totalInc[i]);
+                }
+
+                this.totalUpdater(Math.floor(800 / inc), i);
+
+            } else if (total == 0 && this.total[i] != 0) {
+                this.total[i] = 0;
+                if (this.totalInc[i]) {
+                    clearTimeout(this.totalInc[i]);
+                }
+                this.state.totalToShow[i] = 0;
+                this.setState(this.state);
+            }
+        }
     }
 
     render() {
@@ -110,7 +189,7 @@ export default class Header extends Component {
                             </div>
                             <NavLink to='/' onlyActiveOnIndex className='button-game'>
                                 Roulette
-                                <div className="link-chip">{this.props.totalRoulette}</div>
+                                <div className="link-chip">{this.state.totalToShow['roulette']}</div>
                             </NavLink>
                             <NavLink to='/crash' className='button-game'>
                                 Crash

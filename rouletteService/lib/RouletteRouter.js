@@ -16,7 +16,10 @@ const {
 const {
     ROULETTE_INIT,
     ROULETTE_BETTING,
-    ROULETTE_IN_GAME
+    ROULETTE_IN_GAME,
+    ROULETTE_COLOR_PINK,
+    ROULETTE_COLOR_GREEN,
+    ROULETTE_COLOR_GREY
 } = config.rouletteConfig;
 
 
@@ -72,6 +75,24 @@ export default class RouletteRouter {
 
     static async __sendToInit(id, sendResponse) {
 
+        const userBets = {};
+        userBets.bets = [];
+
+        userBets[ROULETTE_COLOR_PINK] = 0;
+        userBets[ROULETTE_COLOR_GREEN] = 0;
+        userBets[ROULETTE_COLOR_GREY] = 0;
+
+        //todo refactor user bets from db
+
+        let pinkBet = players[ROULETTE_COLOR_PINK].filter((player) => player.userID == id);
+        let greenBet = players[ROULETTE_COLOR_GREEN].filter((player) => player.userID == id);
+        let greyBet = players[ROULETTE_COLOR_GREY].filter((player) => player.userID == id);
+
+        userBets[ROULETTE_COLOR_PINK] = pinkBet.length > 0 ? pinkBet[0].bet : null;
+        userBets[ROULETTE_COLOR_GREEN] = greenBet.length > 0 ? greenBet[0].bet : null;
+        userBets[ROULETTE_COLOR_GREY] = greyBet.length > 0 ? greyBet[0].bet : null;
+
+
         sendResponse(id, {
             type: ROULETTE_INIT,
             payload: {
@@ -80,7 +101,8 @@ export default class RouletteRouter {
                 counter: currentGame.counter,
                 status: currentGame.status,
                 lastGames,
-                total: currentGame.rouletteGameTotal
+                total: currentGame.rouletteGameTotal,
+                userBets
                 //hash
             }
         })

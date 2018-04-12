@@ -119,7 +119,7 @@ export default function roulette(state = initialState, action) {
             console.log(+action.payload.rouletteGameTotal);
             console.log(action.payload.rouletteGameTotal);
 
-            return {...state, total: +action.payload.rouletteGameTotal}
+            return {...state, total: action.payload.rouletteGameTotal}
         }
         default:
             return state;

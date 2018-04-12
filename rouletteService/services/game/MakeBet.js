@@ -109,6 +109,8 @@ export default class MakeBet {
 
         players.total[data.color] += data.value;
 
+        currentGame.rouletteGameTotal = 0;
+
         for (let color in players.total) {
             currentGame.rouletteGameTotal += (+players.total[color]);
         }
