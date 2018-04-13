@@ -29,8 +29,7 @@ export default class RouletteWheel extends Component {
             case ROULETTE_BETTING: {
                 this.setState({
                     status,
-                    timerSeconds: null,
-                    donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
+                    timerSeconds: null
                 });
                 this.setIntervalID && clearInterval(this.setIntervalID);
                 this.seconds = nextProps.roulette.counter; //game
