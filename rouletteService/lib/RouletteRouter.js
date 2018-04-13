@@ -102,7 +102,9 @@ export default class RouletteRouter {
                 status: currentGame.status,
                 lastGames,
                 total: currentGame.rouletteGameTotal,
-                userBets
+                userBets,
+                sector: currentGame.sector,
+                angle: currentGame.angle
                 //hash
             }
         })

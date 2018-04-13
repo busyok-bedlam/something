@@ -35,6 +35,7 @@ export default class InitGame {
         currentGame.status = ROULETTE_BETTING;
         currentGame.counter = ROULETTE_TIMER;
         currentGame.rouletteID = currentGame.lastRouletteID + 1;
+        currentGame.sector = 0;
 
         this.__checkActualHashAndDay();
 

@@ -23,6 +23,8 @@ export default class RouletteWheel extends Component {
         let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
         let {status} = nextProps.roulette;
 
+        console.log(status);
+
         switch (status) {
             case ROULETTE_BETTING: {
                 this.setState({

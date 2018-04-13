@@ -33,6 +33,8 @@ export default class ExecGame {
 
         console.log(currentGame.sector);
 
+        currentGame.angle = Math.floor(Math.random() * 22) + 2;
+
         WSServer.sendToAll({
             type: ROULETTE_IN_GAME,
             payload: {
