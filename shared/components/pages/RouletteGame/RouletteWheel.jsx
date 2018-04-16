@@ -16,7 +16,7 @@ export default class RouletteWheel extends Component {
     };
 
     componentWillUnmount() {
-        console.log('unmount');
+        this.setIntervalID && clearInterval(this.setIntervalID);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -69,13 +69,16 @@ export default class RouletteWheel extends Component {
                 break;
             }
             case ROULETTE_REWARDS: {
-                let {angle} = nextProps.roulette; //game
+                let {angle, sector} = nextProps.roulette; //game
+                sector += 1;
+                let angleWheel = - (24 * sector - (24 - angle));
                 this.setState({
                     status,
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
+                this.gambleBlock.classList.add('zoom');
                 this.wheelBlock.style.transition = 'none';
-                this.wheelBlock.style.transform = 'rotate('+ this.state.angleLast + 'deg)';
+                this.wheelBlock.style.transform = 'rotate('+ angleWheel + 'deg)';
                 this.wheelWinnerBlock.style.transform = 'rotate(' + (12 - angle) + 'deg)';
                 break;
             }
