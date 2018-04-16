@@ -33,6 +33,7 @@ export default class Socket {
                         };
                         Socket.instance.onclose = event => {
                             console.log('Roulette Socket closed');
+                            Socket.instance.close();
                             if (Socket.dispatch){
                                 Socket.dispatch({
                                     type: WS_ROULETTE_CLOSE,

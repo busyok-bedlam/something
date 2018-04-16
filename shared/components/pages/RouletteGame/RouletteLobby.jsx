@@ -52,9 +52,28 @@ export default class RouletteLobby extends Component {
     validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET || this.props.user.balance < value;
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            disabledButton: this.validateBet(this.state.value)
-        })
+        let {
+            ROULETTE_COLOR_PINK,
+            ROULETTE_COLOR_GREEN,
+            ROULETTE_COLOR_GREY
+        } = roulette;
+        let {ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
+        let {userBets} = nextProps.roulette;
+
+        if(nextProps.roulette.status === ROULETTE_IN_GAME || nextProps.roulette.status === ROULETTE_REWARDS) {
+            this.setState({
+                disabledButton: true
+            });
+        } else {
+            this.setState({
+                disabledButton: this.validateBet(this.state.value)
+            });
+            if (!!userBets[ROULETTE_COLOR_GREEN] && (!!userBets[ROULETTE_COLOR_PINK]) || !!userBets[ROULETTE_COLOR_GREY]) {
+                this.setState({
+                    disabledButton: true
+                });
+            }
+        }
     }
 
     render() {
@@ -69,7 +88,6 @@ export default class RouletteLobby extends Component {
             ROULETTE_COLOR_GREEN,
             ROULETTE_COLOR_GREY
         } = roulette;
-
         return (
             <div className="rLobby">
                 <GameHeader user={user}/>
@@ -117,15 +135,11 @@ export default class RouletteLobby extends Component {
                             </button>
                         </div>
                         <div className="rLobby__history">
-
                             {this.props.roulette.lastGames.map((game, i) => (
                                 <div
                                     key={i}
                                     className={`history__item history__item-${game.color}`}>{game.sector}</div>)
                             )}
-
-                            {/*<div className="history__item history__item-color2">3</div>*/}
-                            {/*<div className="history__item history__item-color3">4</div>*/}
                         </div>
                         <GameHash gameID={rouletteID} hash={hash} number={sector} status={status}/>
                     </div>

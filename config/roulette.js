@@ -23,7 +23,6 @@ export default {
     "ROULETTE_COLOR_GREEN_MULTIPLY": 14,
     "ROULETTE_COLOR_GREY_MULTIPLY": 2,
 
-
     ROULETTE_WHEEL: [
         {"number": 0, "color": "ROULETTE_COLOR_GREEN"},
         {"number": 1, "color": "ROULETTE_COLOR_PINK"},
@@ -41,6 +40,4 @@ export default {
         {"number": 13, "color": "ROULETTE_COLOR_PINK"},
         {"number": 14, "color": "ROULETTE_COLOR_GREY"}
     ],
-
-
 }

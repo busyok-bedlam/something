@@ -42,6 +42,7 @@ export default class RouletteWheel extends Component {
                             {value: this.seconds, stroke: "#ff7900", strokeWidth: .5}
                         ]
                     });
+                    this.gambleBlock.classList.remove('zoom');
                     this.timerBlock.classList.add('zoom');
                     if (this.seconds <= 0) {
                         return clearInterval(this.setIntervalID);
@@ -76,7 +77,7 @@ export default class RouletteWheel extends Component {
                     status,
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
-                this.gambleBlock.classList.add('zoom');
+                this.gambleBlock.classList.remove('zoom');
                 this.wheelBlock.style.transition = 'none';
                 this.wheelBlock.style.transform = 'rotate('+ angleWheel + 'deg)';
                 this.wheelWinnerBlock.style.transform = 'rotate(' + (12 - angle) + 'deg)';
@@ -88,7 +89,7 @@ export default class RouletteWheel extends Component {
     render() {
         let {status, timerSeconds, donutData} = this.state;
         let {sector} = this.props.roulette || ""; //game
-        let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
+        let {ROULETTE_REWARDS} = roulette;
         let {color} = this.props.roulette;
         let lowCaseColor = color.substring(15).toLowerCase();
 
@@ -104,17 +105,15 @@ export default class RouletteWheel extends Component {
                         <DonutChart data={donutData}/>
                     </div>
                     <div
-                        className={(status === ROULETTE_BETTING) ? "rWheel__timer-data zoom" : "rWheel__timer-data"}
+                        className="rWheel__timer-data"
                         ref={timer => this.timerBlock = timer}>{timerSeconds}</div>
-                    <div className={(status === ROULETTE_IN_GAME) ? "rWheel__gamble zoom" : "rWheel__gamble"}
+                    <div className="rWheel__gamble"
                          ref={gamble => this.gambleBlock = gamble}>Go!
                     </div>
-                    {/* TODO: Change color: ..-color1 (2 or 3)*/}
                     <div
                         className={(status === ROULETTE_REWARDS)
                             ? `rWheel__winner rWheel__winner-${lowCaseColor} zoom`
                             : `rWheel__winner rWheel__winner-${lowCaseColor}`}>
-                        {/*{sector && sector - 1}*/}
                         {sector}
                     </div>
                 </div>
