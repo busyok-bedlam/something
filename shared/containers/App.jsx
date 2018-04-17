@@ -38,7 +38,7 @@ class App extends Component {
         try {
             // Socket.start();
             // ChatSocket.start();
-            document.getElementById('mainLoader').style.display = 'none';
+            // document.getElementById('mainLoader').style.display = 'none';
             const {userActions} = this.props;
             await userActions.info();
         } catch (error) {

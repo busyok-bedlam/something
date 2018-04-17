@@ -33,9 +33,7 @@ class LoginModal extends Component {
                 overlayClassName={"modal__overlay"}
                 contentClassName={"modal modal-login"}>
                 <div className="modal-login__wrapper">
-                    <object type="image/svg+xml" data="static/images/logo.svg">
-                        Your browser does not support SVG.
-                    </object>
+                    <img src="static/images/logo.png" alt='Blaze'/>
                     <div className="checkbox__wrapper">
                         <div className="checkbox">
                             <input type="checkbox" name="agree" id="agree" checked={this.state.agree} onChange={this.handleChange.bind(this)}/>

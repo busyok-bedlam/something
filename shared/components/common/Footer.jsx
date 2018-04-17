@@ -8,9 +8,7 @@ export default class Footer extends Component {
             <footer className="footer">
                 <div className="container">
                     <NavLink to='/' className='footer__logo'>
-                        <object className='logoSVG' type="image/svg+xml" data="static/images/logo.svg">
-                            Your browser does not support SVG.
-                        </object>
+                        <img className='logoSVG' src="static/images/logo.png" alt='Blaze'/>
                         <div>© 2018. All rights reserved</div>
                     </NavLink>
                     <nav className="footer__nav">

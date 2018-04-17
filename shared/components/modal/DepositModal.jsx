@@ -43,9 +43,7 @@ class DepositModal extends Component {
                                 <div className='modal-deposit__block'>
                                     <div className="modal-deposit__content">
                                         <h3>DEPOSIT WITH SKINS</h3>
-                                        <object type="image/svg+xml" data="static/images/csgo.svg">
-                                            Your browser does not support SVG.
-                                        </object>
+                                        <img src="static/images/logo.png" alt='Blaze'/>
                                         <h4>Exchange your skins for coins. </h4>
                                         <div className='price'>
                                             For every <span>1 cent</span> you will receive <span>1 coin</span>.
@@ -57,15 +55,11 @@ class DepositModal extends Component {
                                 <div className='modal-deposit__block'>
                                     <div className="modal-deposit__content modal-deposit__content-disabled">
                                         <div className="disabled">
-                                            <object type="image/svg+xml" data="static/images/logo.svg">
-                                                Your browser does not support SVG.
-                                            </object>
+                                            <img src="static/images/logo.png" alt='Blaze'/>
                                             <div>Coming soon</div>
                                         </div>
                                         <h3>DEPOSIT WITH PAYMENT SYSTEMS</h3>
-                                        <object type="image/svg+xml" data="static/images/moneybag.svg">
-                                            Your browser does not support SVG.
-                                        </object>
+                                        <img src="static/images/logo.png" alt='Blaze'/>
                                         <div className='modal-deposit__buttons'>
                                             <button className="modal-deposit__button modal-deposit__button-paypal"/>
                                             <button className="modal-deposit__button modal-deposit__button-bitcoin"/>

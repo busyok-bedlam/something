@@ -13,12 +13,13 @@ const {
 
 export default class RouletteLobby extends Component {
     static propTypes = {
-        // bet: PropTypes.number.isRequired,
         lobbyHandleChangeValue: PropTypes.func.isRequired,
     };
 
     state = {
         disabledButton: false,
+        disabledPinkButton: false,
+        disabledGreyButton: false,
         value: ROULETTE_MIN_BET
     };
 
@@ -26,35 +27,45 @@ export default class RouletteLobby extends Component {
         let value = +e.target.value;
         this.setState({
             value,
-            disabledButton: this.validateBet(value)
+            disabledButton: this.validateBet(value) || this.props.user.balance < value
         });
     };
 
     handleInputValue(value) {
-        // this.props.lobbyHandleChangeValue(value);
-
         this.setState({
-            disabledButton: this.validateBet(value),
+            disabledButton: this.validateBet(value) || this.props.user.balance < value,
             value
         })
     }
 
     handleNewBet = (color, e) => {
+        let {
+            ROULETTE_COLOR_PINK,
+            ROULETTE_COLOR_GREY
+        } = roulette;
         if (this.props.roulette.status !== ROULETTE_BETTING) {
             this.errorMessage = 'You cannot to bet';
             console.error('You cannot to bet')
         } else {
             let {value} = this.state;
-            this.props.rouletteActions.rouletteNewBet({color, value})
+            this.props.rouletteActions.rouletteNewBet({color, value});
+            if(color === ROULETTE_COLOR_PINK) {
+                this.setState({
+                    disabledGreyButton: true
+                })
+            }
+            if(color === ROULETTE_COLOR_GREY) {
+                this.setState({
+                    disabledPinkButton: true
+                })}
         }
     };
 
-    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET || this.props.user.balance < value;
+    validateBet = value => (!(/^[0-9]*$/.test(value))) || value === '' || value > roulette.ROULETTE_MAX_BET || value < roulette.ROULETTE_MIN_BET;
 
     componentWillReceiveProps(nextProps) {
         let {
             ROULETTE_COLOR_PINK,
-            ROULETTE_COLOR_GREEN,
             ROULETTE_COLOR_GREY
         } = roulette;
         let {ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
@@ -66,18 +77,16 @@ export default class RouletteLobby extends Component {
             });
         } else {
             this.setState({
-                disabledButton: this.validateBet(this.state.value)
+                disabledPinkButton: !!userBets[ROULETTE_COLOR_GREY],
+                disabledGreyButton:  !!userBets[ROULETTE_COLOR_PINK],
+                disabledButton: this.validateBet(this.state.value) || nextProps.user.balance < this.state.value
             });
-            if (!!userBets[ROULETTE_COLOR_GREEN] && (!!userBets[ROULETTE_COLOR_PINK]) || !!userBets[ROULETTE_COLOR_GREY]) {
-                this.setState({
-                    disabledButton: true
-                });
-            }
+
         }
     }
 
     render() {
-        let {disabledButton, value} = this.state;
+        let {disabledButton, disabledPinkButton, disabledGreyButton, value} = this.state;
         let {user} = this.props;
         let {userBets, sector} = this.props.roulette;
         let {rouletteID, hash, status} = this.props.roulette; //game
@@ -121,7 +130,7 @@ export default class RouletteLobby extends Component {
                             <button
                                 onClick={() => this.handleNewBet(ROULETTE_COLOR_PINK)}
                                 className="button button-pink"
-                                disabled={disabledButton}>Bet x2
+                                disabled={disabledButton || disabledPinkButton}>Bet x2
                             </button>
                             <button
                                 onClick={() => this.handleNewBet(ROULETTE_COLOR_GREEN)}
@@ -131,7 +140,7 @@ export default class RouletteLobby extends Component {
                             <button
                                 onClick={() => this.handleNewBet(ROULETTE_COLOR_GREY)}
                                 className="button button-gray"
-                                disabled={disabledButton}>Bet x2
+                                disabled={disabledButton || disabledGreyButton}>Bet x2
                             </button>
                         </div>
                         <div className="rLobby__history">

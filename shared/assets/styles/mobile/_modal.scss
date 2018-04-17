@@ -15,7 +15,7 @@
       h4 {
         margin-bottom: 0;
       }
-      > object {
+      > img {
         max-height: 80px;
         margin: 0 auto;
       }
@@ -35,7 +35,7 @@
     &__content {
       &-disabled {
         .disabled {
-          object {
+          img {
             max-width: 160px;
             max-height: 100px;
             margin-bottom: 0;
@@ -58,7 +58,7 @@
 @media (max-width: $smallMobile) {
   .modal-login {
     .button,
-    object {
+    img {
       max-width: 170px;
     }
   }
