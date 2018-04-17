@@ -40,7 +40,7 @@ export default class Roulette extends Component {
         return (
             <div className='container'>
                 <div className="roulette">
-                    <RouletteWheel roulette={roulette}/>
+                    <RouletteWheel color={roulette.color} sector={roulette.sector} angle={roulette.angle} counter={roulette.counter} status={roulette.status} roulette={roulette}/>
                     <RouletteLobby
                         user={user}
                         roulette={roulette}

@@ -31,7 +31,7 @@ class RoulettePage extends Component {
 
     componentWillUnmount() {
         RouletteSocket.start()
-            .then(instance => instance.onclose());
+            .then(instance => instance.close());
     }
 
     async __loadUserInventory() {

@@ -36,15 +36,14 @@ class App extends Component {
 
     async componentDidMount() {
         try {
-            // Socket.start();
-            // ChatSocket.start();
-            // document.getElementById('mainLoader').style.display = 'none';
+            ChatSocket.start();
             const {userActions} = this.props;
             await userActions.info();
         } catch (error) {
             console.error(error);
             alert(error.message || error.toString())
         }
+        document.getElementById('mainLoader').style.display = 'none';
     }
 
     handleScroll(e) {

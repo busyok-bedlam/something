@@ -21,18 +21,18 @@ export default class RouletteWheel extends Component {
 
     componentWillReceiveProps(nextProps) {
         let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
-        let {status} = nextProps.roulette;
-
-        console.log(status);
-
+        let {status} = nextProps;
+        if(nextProps.status === this.props.status) return;
         switch (status) {
             case ROULETTE_BETTING: {
+
+                console.log('gfjifji')
                 this.setState({
                     status,
                     timerSeconds: null
                 });
                 this.setIntervalID && clearInterval(this.setIntervalID);
-                this.seconds = nextProps.roulette.counter; //game
+                this.seconds = nextProps.counter; //game
                 this.setIntervalID = setInterval(() => {
                     setTimeout(() => this.timerBlock.classList.remove('zoom'), 500);
                     this.setState({
@@ -54,7 +54,7 @@ export default class RouletteWheel extends Component {
             case ROULETTE_IN_GAME: {
                 this.timerBlock.classList.remove('zoom');
                 this.setIntervalID && clearInterval(this.setIntervalID);
-                let {sector, angle} = nextProps.roulette; //game
+                let {sector, angle} = nextProps; //game
                 sector += 1;
                 let angleWheel = - (24 * sector - (24 - angle));
                 console.log(angleWheel);
@@ -70,7 +70,7 @@ export default class RouletteWheel extends Component {
                 break;
             }
             case ROULETTE_REWARDS: {
-                let {angle, sector} = nextProps.roulette; //game
+                let {angle, sector} = nextProps; //game
                 sector += 1;
                 let angleWheel = - (24 * sector - (24 - angle));
                 this.setState({
@@ -90,7 +90,7 @@ export default class RouletteWheel extends Component {
         let {status, timerSeconds, donutData} = this.state;
         let {sector} = this.props.roulette || ""; //game
         let {ROULETTE_REWARDS} = roulette;
-        let {color} = this.props.roulette;
+        let color = this.props.color;
         let lowCaseColor = color.substring(15).toLowerCase();
 
         return (
