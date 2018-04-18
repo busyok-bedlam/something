@@ -20,19 +20,21 @@ export default class RouletteWheel extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
-        let {status} = nextProps;
         if(nextProps.status === this.props.status) return;
+        this.animateRoulette(nextProps)
+    }
+
+    animateRoulette(componentProps) {
+        let {ROULETTE_BETTING, ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
+        let {status} = componentProps;
         switch (status) {
             case ROULETTE_BETTING: {
-
-                console.log('gfjifji')
                 this.setState({
                     status,
                     timerSeconds: null
                 });
                 this.setIntervalID && clearInterval(this.setIntervalID);
-                this.seconds = nextProps.counter; //game
+                this.seconds = componentProps.counter; //game
                 this.setIntervalID = setInterval(() => {
                     setTimeout(() => this.timerBlock.classList.remove('zoom'), 500);
                     this.setState({
@@ -54,7 +56,7 @@ export default class RouletteWheel extends Component {
             case ROULETTE_IN_GAME: {
                 this.timerBlock.classList.remove('zoom');
                 this.setIntervalID && clearInterval(this.setIntervalID);
-                let {sector, angle} = nextProps; //game
+                let {sector, angle} = componentProps; //game
                 sector += 1;
                 let angleWheel = - (24 * sector - (24 - angle));
                 console.log(angleWheel);
@@ -70,7 +72,7 @@ export default class RouletteWheel extends Component {
                 break;
             }
             case ROULETTE_REWARDS: {
-                let {angle, sector} = nextProps; //game
+                let {angle, sector} = componentProps; //game
                 sector += 1;
                 let angleWheel = - (24 * sector - (24 - angle));
                 this.setState({

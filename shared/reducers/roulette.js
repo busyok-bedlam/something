@@ -14,7 +14,7 @@ let initialState = {
     game: {},
     lastGames: [],
     bets: {},
-    status: ROULETTE_BETTING,
+    status: ROULETTE_INIT,
     players: {
         [rouletteConfig.ROULETTE_COLOR_PINK]: [],
         [rouletteConfig.ROULETTE_COLOR_GREEN]: [],
@@ -121,6 +121,11 @@ export default function roulette(state = initialState, action) {
 
             return {...state, total: action.payload.rouletteGameTotal}
         }
+
+        case wsMessageType.WS_ROULETTE_CLOSE: {
+            return initialState
+        }
+
         default:
             return state;
     }

@@ -85,7 +85,8 @@
     .message {
       font-weight: 300;
       color: $contentText;
-      word-break: break-all;
+      word-wrap: break-word;
+      word-break: break-word;
     }
     &.user {
       cursor: pointer;
