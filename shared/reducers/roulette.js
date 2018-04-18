@@ -123,7 +123,7 @@ export default function roulette(state = initialState, action) {
         }
 
         case wsMessageType.WS_ROULETTE_CLOSE: {
-            return initialState
+            return {...state, status: initialState.status}
         }
 
         default:
