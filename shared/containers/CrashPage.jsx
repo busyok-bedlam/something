@@ -8,6 +8,8 @@ import * as gameActions from '../actions/gameActions';
 import {LoadingScreen} from '../lib/LoadingScreen';
 import Crash from "../components/pages/Crash.jsx";
 import config from '../../config/crash.js';
+import CrashSocket from "../lib/crashWS";
+import RouletteSocket from "../lib/rouletteWS";
 
 class CrashPage extends Component {
 
@@ -23,9 +25,18 @@ class CrashPage extends Component {
         isInventoryLoading: false,
     };
 
-    async componentDidMount() {
-        await this.__loadUserInventory();
+    componentDidMount() {
+        this.socket = CrashSocket.start();
     }
+
+    componentWillUnmount() {
+        CrashSocket.start()
+            .then(instance => instance.close());
+    }
+
+    // async componentDidMount() {
+    //     await this.__loadUserInventory();
+    // }
 
     async __loadUserInventory() {
         try {
@@ -133,6 +144,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+
+    CrashSocket.setDispatch(dispatch);
+
     return {
         userActions: bindActionCreators(userActions, dispatch),
         gameActions: bindActionCreators(gameActions, dispatch),
