@@ -1,8 +1,10 @@
 import di from '../../di';
 
 const db = di.get('db');
-const GamesModel = db.models.games;
+// const GamesModel = db.models.games;
+const crash_games = db.model('crash_games');
 const config = di.get('config');
+const crashConfig = config.crashConfig;
 // import gameConfig from '../../../config/game';
 // const BetsModel = db.models.bets;
 // const UsersModel = db.models.users;
@@ -10,15 +12,15 @@ const config = di.get('config');
 
 export default class RewardsGame {
     async exec() {
-        const gameConfig = config.gameConfig;
+        const crashConfig = config.crashConfig;
         console.log('rewards game');
         await this.__done();
-        await GamesModel.findOneAndUpdate(
+        await crash_games.findOneAndUpdate(
             {
-                status: gameConfig.STATUS.REWARDS,
+                status: crashConfig.STATUS.REWARDS,
             },
             {
-                status: gameConfig.STATUS.FINISHED,
+                status: crashConfig.STATUS.FINISHED,
                 gameEnd: new Date(),
             });
 

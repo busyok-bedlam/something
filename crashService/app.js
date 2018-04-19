@@ -6,7 +6,7 @@ import di         from './di';
 const sessionStore = di.get('sessionStore');
 const config = di.get('config');
 
-// GameRouter.gameStart();
+GameRouter.gameStart();
 
 WSServer.setOnConnection(GameRouter.onClientConnection);
 WSServer.setOnMessage(GameRouter.onClientMessage);
@@ -17,7 +17,6 @@ WSServer.start(
     sessionStore,
     {
         port: config.HTTP_PORT_CRASH,
-        // isOnlyOrigin: true,
         isOnlyOrigin: false,
         origin: config.ORIGIN,
         broadcastPeriod: config.crashConfig.BROADCAST_PERIOD,

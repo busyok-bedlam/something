@@ -3,30 +3,32 @@ import Clients from "../../lib/Clients";
 import WSServer from '../../lib/WSServer';
 
 const db = di.get('db');
-const GamesModel = db.models.games;
+// const GamesModel = db.models.games;
+const crash_games = db.model('crash_games');
 const config = di.get('config');
-const gameConfig = config.gameConfig;
-const wsGameConfig = config.wsGameMessageType;
+const crashConfig = config.crashConfig;
+const wsMessageType = config.wsMessageType;
 
 
 export default class CreateGame {
 
     async exec() {
         console.log('create game');
-        const inProcess = await GamesModel.findOne({status: {'$ne': gameConfig.STATUS.FINISHED}});
+        const inProcess = await crash_games.findOne({status: {'$ne': crashConfig.STATUS.FINISHED}});
 
         if (inProcess) {
             throw new Error('in procces');
         } else {
             let dateNow = Date.now();
             let gameStart = dateNow + 9000;
-            let game = await new GamesModel({
-                status: gameConfig.STATUS.BETTING,
+            let game = await new crash_games({
+                status: crashConfig.STATUS.BETTING,
                 createdAt: dateNow,
                 gameStart: gameStart,
             }).save();
+            // console.log('game', game);
             const data = {
-                    type: wsGameConfig.WSM_CURRENT_GAME,
+                    type: wsMessageType.WS_CURRENT_CRASH_GAME,
                     payload: game,
                 };
             WSServer.sendToAll(data);

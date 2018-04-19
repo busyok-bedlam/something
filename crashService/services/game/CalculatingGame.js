@@ -1,14 +1,14 @@
 import di from '../../di';
 import WSServer from '../../lib/WSServer';
-import runService from '../../mixins/runService';
+// import runService from '../../mixins/runService';
 // import BetResalst from "../bets/BetResalst";
-import GameRouter from '../../lib/GameRouter';
+// import GameRouter from '../../lib/GameRouter';
 
 const db = di.get('db');
-const GamesModel = db.models.games;
+const crash_games = db.model('crash_games');
 const config = di.get('config');
-const gameConfig = config.gameConfig;
-const wsGameConfig = config.wsGameMessageType;
+const crashConfig = config.crashConfig;
+const wsMessageType = config.wsMessageType;
 
 export default class CalculatingGame {
     async exec(autoCashCalculating) {
@@ -35,12 +35,12 @@ export default class CalculatingGame {
 
     async __calculateBets (autoCashCalculating) {
         console.log('__calculateBets');
-        let game = await GamesModel.findOneAndUpdate(
+        let game = await crash_games.findOneAndUpdate(
             {
-                status: gameConfig.STATUS.BETTING,
+                status: crashConfig.STATUS.BETTING,
             },
             {
-                status: gameConfig.STATUS.CALCULATING,
+                status: crashConfig.STATUS.CALCULATING,
             });
         autoCashCalculating;
         return game;
@@ -48,10 +48,10 @@ export default class CalculatingGame {
 
     async __startGame(game) {
         console.log('__startGame');
-        game.status = gameConfig.STATUS.IN_GAME;
+        game.status = crashConfig.STATUS.IN_GAME;
         game.save();
         const data = {
-            type: wsGameConfig.WSM_CURRENT_GAME,
+            type: wsMessageType.WS_CURRENT_CRASH_GAME,
             payload: game,
         };
         WSServer.sendToAll(data);
@@ -62,18 +62,18 @@ export default class CalculatingGame {
         const value = await this.__calculateValue();
         console.log(value);
         if (value <= 1.00) {
-            game.status = gameConfig.STATUS.REWARDS;
+            game.status = crashConfig.STATUS.REWARDS;
             game.gameStart = new Date();
             game.gameEnd = new Date();
             game.value = value;
             game.save();
             const data = {
-                type: wsGameConfig.WSM_CURRENT_GAME,
+                type: wsMessageType.WS_CURRENT_CRASH_GAME,
                 payload: game,
             };
             WSServer.sendToAll(data);
-            await runService(['bets', 'BetResults'], value);
-            GameRouter.resultGameHistory(value);
+            // await runService(['bets', 'BetResults'], value);
+            // GameRouter.resultGameHistory(value);
             console.log(value);
         } else {
             let endTime = Math.sqrt(2 * (value - 1) / 0.03) * 1000;
@@ -81,21 +81,21 @@ export default class CalculatingGame {
             game.save();
             return new Promise(resolve => {
                 let timer = setInterval(async () => {
-                    game.status = gameConfig.STATUS.REWARDS;
+                    game.status = crashConfig.STATUS.REWARDS;
                     game.gameEnd = new Date();
                     game.value = value;
                     game.save();
                     const data = {
-                        type: wsGameConfig.WSM_CURRENT_GAME,
+                        type: wsMessageType.WS_CURRENT_CRASH_GAME,
                         payload: game,
                     };
                     console.log('end game', game.value);
                     WSServer.sendToAll(data);
                     clearInterval(timer);
-                    await runService(['bets', 'BetResults'], value);
+                    // await runService(['bets', 'BetResults'], value);
                     console.log(value);
                     setTimeout(resolve, 2000);
-                    GameRouter.resultGameHistory(value);
+                    // GameRouter.resultGameHistory(value);
                 }, endTime)
             });
         }

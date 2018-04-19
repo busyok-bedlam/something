@@ -6,10 +6,10 @@ import WSServer from "./WSServer";
 const config = di.get('config');
 const db = di.get('db');
 const UsersModel = db.models.users;
-const GamesModel = db.models.games;
+const crash_games = db.model('crash_games');
 const ItemsModel = db.models.items;
 const BetsModel = db.models.bets;
-const gameConfig = config.gameConfig;
+const crashConfig = config.crashConfig;
 const wsGameConfig = config.wsGameMessageType;
 
 export default class GameRouter {
@@ -17,12 +17,12 @@ export default class GameRouter {
     static resultHistory = [];
     static playersBet = [];
 
-    // static async autoCashCalculating() {
-    //     console.log('autoCashCalculating');
-    //     const bets = await BetsModel.find({status: gameConfig.STATUS.IN_GAME});
-    //     this.autoCashOuts = bets.map((bet) => {return {userId: bet.userId, autoCashOut: bet.autoCash}});
-    //     this.autoCashOuts.sort((a, b)=>{return a.autoCashOut - b.autoCashOut});
-    // }
+    static async autoCashCalculating() {
+        console.log('autoCashCalculating');
+        // const bets = await BetsModel.find({status: gameConfig.STATUS.IN_GAME});
+        // this.autoCashOuts = bets.map((bet) => {return {userId: bet.userId, autoCashOut: bet.autoCash}});
+        // this.autoCashOuts.sort((a, b)=>{return a.autoCashOut - b.autoCashOut});
+    }
 
     // static async resultGameHistory(value) {
     //     console.log('resultGameHistory');
@@ -100,19 +100,19 @@ export default class GameRouter {
     //     }
     // }
 
-    // static async gameStart() {
-    //     await GamesModel.remove({status: {'$ne': gameConfig.STATUS.FINISHED}});
-    //     setInterval(async() => {
-    //         try {
-    //             await runService(['game', 'CreateGame']);
-    //             await runService(['game', 'CalculatingGame'], this.autoCashCalculating());
-    //             await runService(['game', 'RewardsGame']);
-    //             this.autoCashOuts = [];
-    //         } catch (error ) {
-    //             console.error(error.message);
-    //         }
-    //     }, 5000);
-    // }
+    static async gameStart() {
+        await crash_games.remove({status: {'$ne': crashConfig.STATUS.FINISHED}});
+        setInterval(async() => {
+            try {
+                await runService(['game', 'CreateGame']);
+                await runService(['game', 'CalculatingGame'], this.autoCashCalculating());
+                await runService(['game', 'RewardsGame']);
+                this.autoCashOuts = [];
+            } catch (error ) {
+                console.error(error.message);
+            }
+        }, 5000);
+    }
 
     static async onClientMessage(id, payload, sendResponse, isAuth = false) {
         console.log('onClientMessage');
