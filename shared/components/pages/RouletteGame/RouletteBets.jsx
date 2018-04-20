@@ -2,11 +2,14 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Scrollbar from './../../common/Scrollbar.jsx';
 import User from './../../common/User.jsx';
-import rouletteConfig from '../../../../config/roulette.js';
+import roulette from '../../../../config/roulette.js';
 
 export default class RouletteBets extends Component {
     static PropTypes = {
-        color: PropTypes.string.isRequired
+        classByColor: PropTypes.string.isRequired,
+        ownColor: PropTypes.string.isRequired,
+        status: PropTypes.string.isRequired,
+        winnerColor: PropTypes.string.isRequired
     };
 
     static type = {
@@ -23,10 +26,12 @@ export default class RouletteBets extends Component {
     };
 
     render() {
-        const {color, players, user, total} = this.props;
+        const {classByColor, players, user, total, coeff, status, ownColor, winnerColor} = this.props;
 
         let bets = players.map((el, i) =>
-            (<div className={(el.userID === user.id) ? "rBets__item active" : "rBets__item"} key={i} ref={block => { if(el.user === user.id) this.myBet = block}}>
+            (<div className={(el.userID === user.id) ? "rBets__item active" : "rBets__item"} key={i} ref={block => {
+                if (el.user === user.id) this.myBet = block
+            }}>
                 <User level={user.level} name={el.displayName} image={el.avatar}/>
                 <div>
                     <i className='icon-poker-piece'/>{el.bet}
@@ -35,13 +40,27 @@ export default class RouletteBets extends Component {
         );
 
         return (
-            <div className={"rBets__wrapper " + color}>
+            <div className={"rBets__wrapper " + classByColor}>
                 <div className="rBets__header">
-                    <h2>Total bet: <i className='icon-poker-piece'/><span>{total}</span></h2>
-                    {/* TODO: Add scroll for my bet and add class "active"*/}
+                    <h2>Total bet: <i className='icon-poker-piece'/>
+                        <span>{
+                            status === roulette.ROULETTE_REWARDS
+                                ? (ownColor === winnerColor)
+                                    ? (total * coeff)
+                                    : (total > 0) ? "-" + total : total
+                                : total
+                        }</span>
+                    </h2>
                     <button className="button-border" onClick={this.handleClick}>Find me</button>
                 </div>
-                <div style={{height: '24.4rem'}} className='fix-scroll-margin' ref={el => this.wrapperScroll = el}>
+                <div style={{height: '24.4rem'}} className={
+                            status === roulette.ROULETTE_REWARDS
+                                ? (ownColor === winnerColor)
+                                    ? 'fix-scroll-margin'
+                                    : 'fix-scroll-margin disabled'
+                                : 'fix-scroll-margin'
+                        }
+                    ref={el => this.wrapperScroll = el}>
                     <Scrollbar ref={el => this.columnScroll = el}>
                         <div>
                             {

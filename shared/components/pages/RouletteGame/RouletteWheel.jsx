@@ -54,6 +54,11 @@ export default class RouletteWheel extends Component {
                 break;
             }
             case ROULETTE_IN_GAME: {
+                let countInGame;
+                if(componentProps.counter <= 7) {
+                    // If new counter (after socket connection)
+                    countInGame = componentProps.counter;
+                }
                 this.timerBlock.classList.remove('zoom');
                 this.setIntervalID && clearInterval(this.setIntervalID);
                 let {sector, angle} = componentProps; //game
@@ -66,7 +71,7 @@ export default class RouletteWheel extends Component {
                     donutData: [{value: (roulette.ROULETTE_TIMER), stroke: "#ff7900", strokeWidth: .5}]
                 });
                 this.gambleBlock.classList.add('zoom');
-                this.wheelBlock.style.transition = '7s ease all';
+                this.wheelBlock.style.transition = (countInGame || 7) + 's ease all';
                 this.wheelBlock.style.transform = 'rotate(' + (1440 + angleWheel ) + 'deg)';
                 setTimeout(() => this.gambleBlock.classList.remove('zoom'), 500);
                 break;

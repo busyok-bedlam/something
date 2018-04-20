@@ -4,7 +4,7 @@ import Chat from '../../containers/Chat.jsx';
 import RouletteLobby from './RouletteGame/RouletteLobby.jsx';
 import RouletteWheel from './RouletteGame/RouletteWheel.jsx';
 import RouletteBets from './RouletteGame/RouletteBets.jsx';
-import rouletteConfig from '../../../config/roulette.js'
+import rouletteConfig from '../../../config/roulette.js';
 
 export default class Roulette extends Component {
     static propTypes = {
@@ -53,19 +53,31 @@ export default class Roulette extends Component {
                     <div className="rBets">
                         <RouletteBets
                             user={user}
-                            total={players.total.ROULETTE_COLOR_PINK}
+                            status={roulette.status}
+                            winnerColor={roulette.color}
+                            coeff={rouletteConfig["ROULETTE_COLOR_PINK_MULTIPLY"]}
+                            ownColor={rouletteConfig.ROULETTE_COLOR_PINK}
+                            total={players.total.ROULETTE_COLOR_PINK || 0}
                             players={players[rouletteConfig.ROULETTE_COLOR_PINK]}
-                            color={RouletteBets.type.COLOR1}/>
+                            classByColor={RouletteBets.type.COLOR1}/>
                         <RouletteBets
                             user={user}
-                            total={players.total.ROULETTE_COLOR_GREEN}
+                            status={roulette.status}
+                            winnerColor={roulette.color}
+                            total={players.total.ROULETTE_COLOR_GREEN || 0}
+                            coeff={rouletteConfig["ROULETTE_COLOR_GREEN_MULTIPLY"]}
+                            ownColor={rouletteConfig.ROULETTE_COLOR_GREEN}
                             players={players[rouletteConfig.ROULETTE_COLOR_GREEN]}
-                            color={RouletteBets.type.COLOR2}/>
+                            classByColor={RouletteBets.type.COLOR2}/>
                         <RouletteBets
                             user={user}
-                            total={players.total.ROULETTE_COLOR_GREY}
+                            status={roulette.status}
+                            winnerColor={roulette.color}
+                            total={players.total.ROULETTE_COLOR_GREY || 0}
+                            coeff={rouletteConfig["ROULETTE_COLOR_GREY_MULTIPLY"]}
+                            ownColor={rouletteConfig.ROULETTE_COLOR_GREY}
                             players={players[rouletteConfig.ROULETTE_COLOR_GREY]}
-                            color={RouletteBets.type.COLOR3}/>
+                            classByColor={RouletteBets.type.COLOR3}/>
                     </div>
                 </div>
                 <Chat/>

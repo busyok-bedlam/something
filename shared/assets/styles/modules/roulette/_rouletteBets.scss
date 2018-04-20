@@ -43,6 +43,23 @@
       border-top: 1rem solid $rouletteColor3;
     }
   }
+  .fix-scroll-margin {
+    position: relative;
+    transition: .3s ease all;
+  }
+  .disabled {
+    filter: blur(2px);
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .2);
+      z-index: 2;
+    }
+  }
   &__item {
     height: 6.1rem;
     display: flex;
