@@ -6,6 +6,7 @@ const currentGame = di.get('currentGame');
 const {rouletteConfig} = di.get('config');
 const {wsMessageType} = di.get('config');
 const UserModel = db.models.users;
+const RouletteBetsModel = db.models.roulette_bets;
 const config = di.get('config');
 
 const {
@@ -86,7 +87,7 @@ export default class MakeBet {
 
     }
 
-    __addBet(user, data) {
+    async __addBet(user, data) {
         const listPlayers = players[data.color];
         const isExist = listPlayers.some(player => {
             if (player.userID === user.id) {
@@ -107,6 +108,14 @@ export default class MakeBet {
 
         }
 
+        await RouletteBetsModel.create({
+            rouletteID: currentGame.rouletteID,
+            color: data.color,
+            amount: data.value,
+            userID: user.id
+
+        });
+
         players.total[data.color] += data.value;
 
         currentGame.rouletteGameTotal = 0;
@@ -114,6 +123,8 @@ export default class MakeBet {
         for (let color in players.total) {
             currentGame.rouletteGameTotal += (+players.total[color]);
         }
+
+
 
 
         WSServer.sendToAll({

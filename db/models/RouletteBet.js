@@ -5,6 +5,8 @@ const RouletteBetSchema = new db.Schema({
     color: {type: String},
     amount: Number,
     userID: String,
+}, {
+    timestamps: true
 });
 
 db.model('roulette_bets', RouletteBetSchema);
