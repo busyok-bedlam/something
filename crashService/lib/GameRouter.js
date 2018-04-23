@@ -1,6 +1,6 @@
 import di      from '../di';
 import runService from '../mixins/runService';
-import Clients from './Clients';
+// import Clients from './Clients';
 import WSServer from "./WSServer";
 // import {WSM_CASHOUT} from "../../config/wsGameMessageType";
 const config = di.get('config');
@@ -121,107 +121,102 @@ export default class GameRouter {
         console.log('payload', payload);
         // let items = await ItemsModel.find({user: id});
         // console.log(items);
-        // console.log(id, payload);
-        // try {
-        //     const {type, data} = payload;
-        //
-        //     switch (type) {
-        //         case wsGameConfig.WSM_ADDED_BET: {
-        //             try {
-        //                 console.log('WSM_ADDED_BET');
-        //                 const game = await GamesModel.findOne({status: gameConfig.STATUS.BETTING});
-        //                 const user = await UsersModel.findOne({_id: id});
-        //                 if (!isAuth) {
-        //                     throw new Error("Not auth user");
-        //                 } else if (user.blocked) {
-        //                     throw new Error("You are blocked");
-        //                 } else if (!game) {
-        //                     throw new Error("Game not found");
-        //                 }
-        //
-        //                 const betData = {userId: id, data: data};
-        //                 await runService(['bets', 'CreateBet'], betData);
-        //                 let items = await ItemsModel.find(
-        //                     {
-        //                         user: id,
-        //                         app_id: user.gameType === 'csgo' ? 730 : 578080,
-        //                     }).populate('itemData');
-        //                 const itemsData = {
-        //                     type: "UPDATE_USER_INVENTORY",
-        //                     payload: {items},
-        //                 };
-        //                 sendResponse( id, itemsData);
-        //                 return;
-        //             } catch (error) {
-        //                 console.error(error);
-        //                 return sendResponse(
-        //                     id,
-        //                     {
-        //                         type: config.wsGameMessageType.WSM_ERROR,
-        //                         payload: {
-        //                             message: `Error in sending: ${error.message || error.toString()}`
-        //                         }
-        //                     }
-        //                 )
-        //             }
-        //         }
-        //
-        //         case wsGameConfig.WSM_CASHOUT: {
-        //             // await runService(['bets', 'CashOut'], {userId: id});
-        //             await GameRouter.cashOut(id);
-        //             return;
-        //         }
-        //
-        //         case wsGameConfig.WSM_SELECT_SKIN: {
-        //             let item = await ItemsModel.findOne({_id: data._id,});
-        //             if (item.status === gameConfig.STATUS.FREE) {
-        //                 item.status = gameConfig.STATUS.BETTING;
-        //                 item.selectedBy = id;
-        //                 item.save();
-        //             } else {
-        //                 sendResponse(
-        //                     id,
-        //                     {
-        //                         type: wsGameConfig.WSM_ERROR,
-        //                         payload: {
-        //                             message: `error, item is already chosen`
-        //                         }
-        //                     }
-        //                 )
-        //             }
-        //             return;
-        //         }
-        //
-        //         case wsGameConfig.WSM_DROP_SKIN: {
-        //             await GameRouter.unselectSkin(id);
-        //             return;
-        //         }
-        //
-        //         default: {
-        //             console.error(`Unknown message type: ${type}`);
-        //             return sendResponse(
-        //                 id,
-        //                 {
-        //                     type: wsGameConfig.WS_ERROR,
-        //                     payload: {
-        //                         message: `Unknown message type: ${type}`
-        //                     }
-        //                 }
-        //             )
-        //         }
-        //     }
-        // } catch (error) {
-        //     console.error(error.message);
-        //     return sendResponse(
-        //         id,
-        //         {
-        //             type: config.wsGameMessageType.WS_ERROR,
-        //             payload: {
-        //                 message: `Error: ${error.message}`
-        //             }
-        //         }
-        //     )
-        // }
+        console.log(id, payload);
+        try {
+            const {type, data} = payload;
+
+            switch (type) {
+                case wsMessageType.WS_CRASH_NEW_BET: {
+                    try {
+                        console.log('WS_CRASH_NEW_BET');
+                        const game = await crash_games.findOne({status: crashConfig.STATUS.IN_GAME});
+                        // const user = await users.findOne({_id: id});
+                        if (!isAuth) {
+                            throw new Error("Not auth user");
+                        // } else if (user.blocked) {
+                        //     throw new Error("You are blocked");
+                        } else if (!game) {
+                            throw new Error("Game not found");
+                        }
+
+                        const betData = {userId: id, data: data};
+                        await runService(['bets', 'CreateBet'], betData);
+                        // const itemsData = {
+                        //     type: wsMessageType.WS_BALANCE_UPDATE,
+                        //     payload: {user},
+                        // };
+                        // sendResponse( id, itemsData);
+                        return;
+                    } catch (error) {
+                        console.error(error);
+                        return sendResponse(
+                            id,
+                            {
+                                type: wsMessageType.WS_CRASH_ERROR,
+                                payload: {
+                                    message: `Error in sending: ${error.message || error.toString()}`
+                                }
+                            }
+                        )
+                    }
+                }
+
+                // case wsGameConfig.WSM_CASHOUT: {
+                //     // await runService(['bets', 'CashOut'], {userId: id});
+                //     await GameRouter.cashOut(id);
+                //     return;
+                // }
+                //
+                // case wsGameConfig.WSM_SELECT_SKIN: {
+                //     let item = await ItemsModel.findOne({_id: data._id,});
+                //     if (item.status === gameConfig.STATUS.FREE) {
+                //         item.status = gameConfig.STATUS.BETTING;
+                //         item.selectedBy = id;
+                //         item.save();
+                //     } else {
+                //         sendResponse(
+                //             id,
+                //             {
+                //                 type: wsGameConfig.WSM_ERROR,
+                //                 payload: {
+                //                     message: `error, item is already chosen`
+                //                 }
+                //             }
+                //         )
+                //     }
+                //     return;
+                // }
+                //
+                // case wsGameConfig.WSM_DROP_SKIN: {
+                //     await GameRouter.unselectSkin(id);
+                //     return;
+                // }
+
+                default: {
+                    console.error(`Unknown message type: ${type}`);
+                    return sendResponse(
+                        id,
+                        {
+                            type: wsMessageType.WS_CRASH_ERROR,
+                            payload: {
+                                message: `Unknown message type: ${type}`
+                            }
+                        }
+                    )
+                }
+            }
+        } catch (error) {
+            console.error(error.message);
+            return sendResponse(
+                id,
+                {
+                    type: config.wsGameMessageType.WS_ERROR,
+                    payload: {
+                        message: `Error: ${error.message}`
+                    }
+                }
+            )
+        }
     }
 
     static async onClientConnection(id, sendResponse, isAuth) {

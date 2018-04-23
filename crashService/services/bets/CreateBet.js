@@ -1,65 +1,54 @@
 import di from '../../di';
-import Clients from "../../lib/Clients";
+// import Clients from "../../lib/Clients";
 import WSServer from '../../lib/WSServer';
 
 const db = di.get('db');
-const GamesModel = db.models.games;
+const crash_games = db.model('crash_games');
+const crash_bets = db.model('crash_bets');
 const BetsModel = db.models.bets;
-const ItemsModel = db.models.items;
-const UsersModel = db.models.users;
+const users = db.model('users');
 const config = di.get('config');
-const gameConfig = config.gameConfig;
-const wsGameConfig = config.wsGameMessageType;
+const crashConfig = config.crashConfig;
+const wsMessageType = config.wsMessageType;
 
 export default class CreateBet {
 
     async exec(betData) {
         console.log('create BBBEEEETTTTT');
-        const {items, autoCashOut, selectedSkin} = betData.data;
+        const {amount, userID} = betData.data;
         try {
-            var amount = 0;
-            for (let i = 0; i < items.length; i++){
-                const item = await ItemsModel.findOneAndUpdate(
-                    {
-                        _id: items[i],
-                        status: 'FREE'
-                    },
-                    {
-                        status: gameConfig.STATUS.IN_GAME,
-                    }
-                );
-                amount = amount + item.price;
-            }
-            const game = await GamesModel.findOneAndUpdate(
+            const game = await crash_games.findOneAndUpdate(
                 {
-                    status: gameConfig.STATUS.BETTING
+                    status: crashConfig.STATUS.BETTING
                 },
                 {
                     $inc: { "totalAmount" : amount, "totalUsers": 1 },
                 });
-            const user = await UsersModel.findOneAndUpdate(
+            const user = await users.findOneAndUpdate(
                 {
-                    _id: betData.userId,
+                    _id: userID,
                 },
                 {
-                    status: gameConfig.STATUS.IN_GAME
+                    crashStatus: crashConfig.STATUS.IN_GAME,
+                    $inc: { "balance" : -amount}
                 }
             );
             const userData = {
-                type: wsGameConfig.UPDATE_USER_STATUS,
-                payload: gameConfig.STATUS.IN_GAME,
+                type: wsMessageType.WS_CRASH_UPDATE_USER_STATUS,
+                payload: crashConfig.STATUS.IN_GAME,
             };
-            WSServer.send(betData.userId, userData);
-            await new BetsModel({
-                gameId: game._id,
-                userId: betData.userId,
-                items: items,
+            WSServer.send(userID, userData);
+            await new crash_bets({
+                crashID: game._id,
+                userID: userID,
                 amount: amount,
-                autoCash: autoCashOut,
-                selectedSkin: selectedSkin,
                 createdAt:Date.now(),
-                gameType: user.gameType,
             }).save();
+            WSServer.send(userID,
+                {
+                    type: wsMessageType.WS_BALANCE_UPDATE,
+                    payload: {user},
+                });
         } catch (error ) {
             console.error(error.message);
         }

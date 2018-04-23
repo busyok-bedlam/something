@@ -7,6 +7,7 @@ const userSchema = new db.Schema({
     avatarFull: {type: String},
     profileUrl: {type: String},
     tradeURL: String,
+    crashStatus: {type: String, default: "FREE"},
     isAdmin: {
         type: Boolean,
         default: false
