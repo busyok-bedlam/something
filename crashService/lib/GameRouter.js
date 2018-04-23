@@ -5,12 +5,13 @@ import WSServer from "./WSServer";
 // import {WSM_CASHOUT} from "../../config/wsGameMessageType";
 const config = di.get('config');
 const db = di.get('db');
-const UsersModel = db.models.users;
+// const UsersModel = db.models.users;
+const users = db.model('users');
 const crash_games = db.model('crash_games');
-const ItemsModel = db.models.items;
-const BetsModel = db.models.bets;
+// const ItemsModel = db.models.items;
+// const bets = db.model('bets');
 const crashConfig = config.crashConfig;
-const wsGameConfig = config.wsGameMessageType;
+const wsMessageType = config.wsMessageType;
 
 export default class GameRouter {
     static autoCashOuts = [];

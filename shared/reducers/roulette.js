@@ -41,7 +41,7 @@ let initialState = {
 export default function roulette(state = initialState, action) {
     // console.log(state.userBets);
     // console.log(state);
-    console.log(action.type);
+    // console.log(action.type);
 
     switch (action.type) {
 

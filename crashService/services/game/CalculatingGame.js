@@ -4,6 +4,8 @@ import WSServer from '../../lib/WSServer';
 // import BetResalst from "../bets/BetResalst";
 // import GameRouter from '../../lib/GameRouter';
 
+import crypto from 'crypto';
+
 const db = di.get('db');
 const crash_games = db.model('crash_games');
 const config = di.get('config');
@@ -13,7 +15,6 @@ const wsMessageType = config.wsMessageType;
 export default class CalculatingGame {
     async exec(autoCashCalculating) {
         console.log('Calculating game');
-        // const value = await this.__calculateValue();
         let game = await this.__calculateBets(autoCashCalculating);
         game = await this.__startGame(game);
         await this.__gameProcces(game);
@@ -61,11 +62,15 @@ export default class CalculatingGame {
     async __gameProcces(game) {
         const value = await this.__calculateValue();
         console.log(value);
+        const hash = crypto.createHmac('sha256', crashConfig.SECRET_KEY)
+            .update(Math.random() + '' + Date.now() + '-' + game._id + '-' + value)
+            .digest('hex');
         if (value <= 1.00) {
             game.status = crashConfig.STATUS.REWARDS;
             game.gameStart = new Date();
             game.gameEnd = new Date();
             game.value = value;
+            game.hash = hash;
             game.save();
             const data = {
                 type: wsMessageType.WS_CURRENT_CRASH_GAME,
@@ -84,6 +89,7 @@ export default class CalculatingGame {
                     game.status = crashConfig.STATUS.REWARDS;
                     game.gameEnd = new Date();
                     game.value = value;
+                    game.hash = hash;
                     game.save();
                     const data = {
                         type: wsMessageType.WS_CURRENT_CRASH_GAME,

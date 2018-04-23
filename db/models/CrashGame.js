@@ -11,7 +11,7 @@ const CrashGameSchema = new db.Schema({
     gameStart: {type: Date, default: 0},
     gameEnd: {type: Date, default: 0},
     status: {type: String, default: crashConfig.STATUS.BETTING},
-    // hash: {type: String, required: false},
+    hash: {type: String, required: false},
 });
 
 CrashGameSchema.methods.getNewGameFields = function () {
@@ -21,4 +21,4 @@ CrashGameSchema.methods.getNewGameFields = function () {
     }
 };
 
-export default db.model('crash_games', CrashGameSchema);
+db.model('crash_games', CrashGameSchema);

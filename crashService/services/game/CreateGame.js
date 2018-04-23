@@ -26,7 +26,6 @@ export default class CreateGame {
                 createdAt: dateNow,
                 gameStart: gameStart,
             }).save();
-            // console.log('game', game);
             const data = {
                     type: wsMessageType.WS_CURRENT_CRASH_GAME,
                     payload: game,
