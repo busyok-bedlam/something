@@ -1,5 +1,6 @@
 import di from '../../di';
 import WSServer from '../../lib/WSServer';
+
 const db = di.get('db');
 const players = di.get('players');
 const currentGame = di.get('currentGame');
@@ -12,7 +13,6 @@ const config = di.get('config');
 const {
     WS_TOTALS_ROULETTE
 } = config.wsMessageType;
-
 
 
 export default class MakeBet {
@@ -103,18 +103,26 @@ export default class MakeBet {
                 userID: user.id,
                 displayName: user.displayName,
                 avatar: user.avatar,
-                bet: data.value
+                bet: data.value,
+                level: user.level
             });
-
+            await RouletteBetsModel.create({
+                rouletteID: currentGame.rouletteID,
+                color: data.color,
+                amount: data.value,
+                userID: user.id,
+                coefficient: rouletteConfig[data.color+"_MULTIPLY"]
+            });
+        } else {
+            await RouletteBetsModel.findOneAndUpdate({
+                    userID: user.id,
+                    color: data.color,
+                    rouletteID: currentGame.rouletteID
+                },
+                {$inc: {amount: data.value}}
+            );
         }
 
-        await RouletteBetsModel.create({
-            rouletteID: currentGame.rouletteID,
-            color: data.color,
-            amount: data.value,
-            userID: user.id
-
-        });
 
         players.total[data.color] += data.value;
 
@@ -123,8 +131,6 @@ export default class MakeBet {
         for (let color in players.total) {
             currentGame.rouletteGameTotal += (+players.total[color]);
         }
-
-
 
 
         WSServer.sendToAll({

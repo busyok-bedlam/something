@@ -5,6 +5,7 @@ const config = di.get('config');
 const db = di.get('db');
 const roulette_games = db.model('roulette_games');
 const users = db.model('users');
+const RouletteBetsModel = db.model('roulette_bets');
 const currentGame = di.get('currentGame');
 const players = di.get('players');
 const lastGames = di.get('lastGames');
@@ -112,8 +113,6 @@ export default class FinishGame {
         });
 
         const allPlayers = Object.assign({}, winningPlayers, losingPlayers);
-
-
         users
             .find({_id: {$in: Object.keys(allPlayers)}})
             .then(result => {
@@ -130,6 +129,12 @@ export default class FinishGame {
                     if (winningPlayers[user.id]) {
                         const {profit} = winningPlayers[user.id];
                         console.log(profit);
+                        console.log(winningPlayers[user.id]);
+                        RouletteBetsModel.update({
+                            rouletteID: currentGame.rouletteID,
+                            userID: user.id,
+                            color: winColor
+                        }, { isWinning: true }, { multi: true }, () => {});
 
                         user.balance += profit;
                         user.rouletteGameProfit.wins++;

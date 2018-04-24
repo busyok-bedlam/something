@@ -19,7 +19,7 @@ const userSchema = new db.Schema({
         type: Number,
         default: 1
     },
-    balance: Number,
+    balance: {type: Number, default: 0, min: 0},
     rouletteGameProfit: {
         profit: {type: Number, default: 0},
         wins: {type: Number, default: 0},
@@ -31,6 +31,8 @@ const userSchema = new db.Schema({
         losses: {type: Number, default: 0}
     },
     xp: Number
+}, {
+    timestamps: true
 });
 
 

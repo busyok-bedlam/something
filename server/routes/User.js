@@ -2,12 +2,13 @@ import di from '../di';
 import Base from './Base';
 import BotRouter from '../lib/botRouter';
 
-
 const BRouter = new BotRouter();
 const passport = di.get('passport');
 const db = di.get('db');
 const UserModel = db.models.users;
 const SupportModel = db.models.support;
+const RouletteBetsModel = db.model('roulette_bets');
+const RouletteGamesModel = db.model('roulette_games');
 
 export default class User extends Base {
 
@@ -74,7 +75,7 @@ export default class User extends Base {
         ctx.body = {items};
     }
 
-    async createDepositOffer(ctx){
+    async createDepositOffer(ctx) {
         const {assetIDs} = ctx.request.body;
         const {user} = ctx.state;
         const params = {
@@ -98,7 +99,7 @@ export default class User extends Base {
         }
     }
 
-    async createWithdrawOffer(ctx){
+    async createWithdrawOffer(ctx) {
         const {ids} = ctx.request.body;
         const {user} = ctx.state;
         const params = {
@@ -110,11 +111,11 @@ export default class User extends Base {
         ctx.body = {ids: response.ids};
     }
 
-    async loadTradeHistory(ctx){
+    async loadTradeHistory(ctx) {
         const {type} = ctx.query;
         const {user} = ctx.state;
         const {trades} = await this.runService(
-            ['steam','LoadTradeHistory'],
+            ['steam', 'LoadTradeHistory'],
             {
                 type,
                 userID: user._id,
@@ -122,4 +123,88 @@ export default class User extends Base {
         ctx.body = {trades};
     }
 
+    async getTopUsers(ctx) {
+        const {period} = ctx.query;
+        let lastWeek = new Date();
+        lastWeek.setDate(lastWeek.getDate() - period);
+        // Count games in period
+        let queryGames = [
+            {$limit: parseInt(period)},
+            {
+                $group: {
+                    _id: null,
+                    count: {$sum: {$size: "$games"}}
+                }
+            },
+            {$project: {_id: 0, count: 1}}
+        ];
+
+        // Users with high level >= 99
+        let queryTopPlayers = [
+            {
+                $match: {
+                    "level": {$gte: 99}
+                }
+            },
+            {$group: {_id: null, count: {$sum: 1}}},
+            {$project: {_id: 0, count: 1}}
+        ];
+
+        // New user in this period
+        let queryNewPlayers = [
+            {
+                $match: {
+                    "createdAt": {$gte: lastWeek}
+                }
+            },
+            {$group: {_id: null, count: {$sum: 1}}},
+            {$project: {_id: 0, count: 1}}
+        ];
+
+        // Top players Roulette
+        let queryRoulete = [
+            {$lookup: {from: 'users', localField: 'userID', foreignField: '_id', as: 'user'}},
+            {
+                $unwind: "$user"
+            },
+            {
+                $match: {
+                    "createdAt": {$gte: lastWeek},
+                    "isWinning": true,
+                    "userID": {$exists: true}
+                }
+            },
+            {
+                $group: {
+                    _id: "$userID",
+                    amount: {$sum: {$multiply: ["$amount", "$coefficient"]}},
+                    user: {$first: '$user'}
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    amount: 1,
+                    "displayName": "$user.displayName",
+                    "level": "$user.level",
+                    "avatarFull": "$user.avatarFull",
+                    "wins": "$user.rouletteGameProfit.wins"
+                }
+            },
+            {$sort: {amount: -1}},
+            {$limit: 10}
+        ];
+        const topRoulette = await RouletteBetsModel.aggregate(queryRoulete);
+        const uniquePlayers = await UserModel.aggregate(queryNewPlayers);
+        const topPlayers = await UserModel.aggregate(queryTopPlayers);
+        const gamesRoulette = await RouletteGamesModel.aggregate(queryGames);
+        const topCrash = [];
+        ctx.body = {
+            uniquePlayers: (uniquePlayers.length) ? uniquePlayers[0].count : 0,
+            topPlayers: (topPlayers.length) ? topPlayers[0].count : 0,
+            gamesRoulette: (gamesRoulette.length) ? gamesRoulette[0].count : 0,
+            topRoulette,
+            topCrash
+        };
+    }
 }

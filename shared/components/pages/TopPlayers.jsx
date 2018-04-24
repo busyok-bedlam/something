@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import User from './../common/User.jsx';
 import PropTypes from "prop-types";
+import api from './../../api';
 
 export default class TopPlayers extends Component {
     static propTypes = {
@@ -10,7 +11,13 @@ export default class TopPlayers extends Component {
 
     state = {
         selectedGame: 'all',
-        periodForInfo: 30
+        periodForInfo: 30,
+        uniquePlayers: 0,
+        topPlayers: 0,
+        gamesRoulette: 0,
+        topRoulette: [],
+        topCrash: [],
+        gamesCrash: 5
     };
 
     handleChangeGame = (e, userObject, gameName) => {
@@ -31,15 +38,33 @@ export default class TopPlayers extends Component {
         const period = e.target.name;
         this.setState({
             periodForInfo: parseInt(period)
-        })
+        }, function () {
+            this.__fetchData();
+        });
     };
 
-    componentDidMount() {
-        setTimeout(() => this.handleChangeGame(null, this.props.user, this.state.selectedGame), 0);
+    __fetchData = () => {
+        api.user.getTopUser({
+            period: this.state.periodForInfo,
+        })
+            .then(res => {
+                this.setState({
+                    uniquePlayers: res.uniquePlayers,
+                    topPlayers: res.topPlayers,
+                    topRoulette: res.topRoulette,
+                    gamesRoulette: res.gamesRoulette,
+                    topCrash: res.topCrash
+                });
+            })
+            .catch(err => console.error(err))
+    };
+
+    async componentDidMount() {
+        await this.__fetchData()
     }
 
     render() {
-        let {selectedGame, periodForInfo} = this.state;
+        let {selectedGame, periodForInfo, uniquePlayers, topPlayers, topRoulette, topCrash, gamesRoulette, gamesCrash} = this.state;
         return (
             <div className="top-players page-container">
                 <h2 className="page-header">Top players</h2>
@@ -53,16 +78,16 @@ export default class TopPlayers extends Component {
                                 : "header__bottom-right-link"}>
                             All
                         </button>
-                        <button name="rouletteGameProfit"
+                        <button name="roulette"
                                 onClick={this.handleChangeGame}
-                                className={selectedGame === "rouletteGameProfit"
+                                className={selectedGame === "roulette"
                                     ? "header__bottom-right-link active"
                                     : "header__bottom-right-link"}>
                             Roulette
                         </button>
-                        <button name="crashGameProfit"
+                        <button name="crash"
                                 onClick={this.handleChangeGame}
-                                className={selectedGame === "crashGameProfit"
+                                className={selectedGame === "crash"
                                     ? "header__bottom-right-link active"
                                     : "header__bottom-right-link"}>
                             Crash
@@ -97,16 +122,21 @@ export default class TopPlayers extends Component {
                 </div>
                 <div className="top-players__total">
                     <div>
-                        <h3>2333</h3>
+                        <h3>{topPlayers}</h3>
                         <span>players in top</span></div>
                     <div>
-                        <h3>100 000</h3>
+                        {(selectedGame === "roulette") && <h3>{(topRoulette.length) ? topRoulette[0].amount : 0}</h3>}
+                        {(selectedGame === "crash") && <h3>{(topCrash.length) ? topCrash[0].amount : 0}</h3>}
+                        {(selectedGame === "all") &&
+                        <h3>{((topRoulette.length && topRoulette[0].amount) || 0) + (topCrash.length && topCrash[0].amount || 0)}</h3>}
                         <span>max profit</span></div>
                     <div>
-                        <h3>759</h3>
+                        {(selectedGame === "roulette") && <h3>{gamesRoulette}</h3>}
+                        {(selectedGame === "crash") && <h3>{gamesCrash}</h3>}
+                        {(selectedGame === "all") && <h3>{gamesRoulette + gamesCrash}</h3>}
                         <span>games</span></div>
                     <div>
-                        <h3>54</h3>
+                        <h3>{uniquePlayers}</h3>
                         <span>unique players</span></div>
                 </div>
                 <div className="top-players__header">
@@ -116,12 +146,16 @@ export default class TopPlayers extends Component {
                     <div>Profit</div>
                 </div>
                 <div>
-                    <div className="top-players__item">
-                        <div className='place'>1</div>
-                        <User level={9} name={'ConorMcGregor'} image='./static/images/user.png'/>
-                        <div>356</div>
-                        <div><i className='icon-poker-piece'/> 333 333</div>
-                    </div>
+                    {
+                        topRoulette.map((el, key) =>
+                            <div className="top-players__item" key={key}>
+                                <div className='place'>{key + 1}</div>
+                                <User level={el.level} name={el.displayName} image={el.avatarFull}/>
+                                <div>{el.wins}</div>
+                                <div><i className='icon-poker-piece'/> {el.amount}</div>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         );

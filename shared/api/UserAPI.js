@@ -37,6 +37,10 @@ export default class UserAPI extends Base {
     sendSupport(data) {
         return this.apiClient.post('support', data);
     }
+
+    getTopUser(query) {
+        return this.apiClient.get('user/get-top-user', query)
+    }
 }
 
 
