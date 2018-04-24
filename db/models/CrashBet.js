@@ -9,6 +9,7 @@ const betSchema = new db.Schema({
     status: {type: String, default: crashConfig.STATUS.IN_GAME},
     result: {type: String, required: false},
     createdAt: { type: Date, default: Date.now()},
+    profit: {type: Number, default: 0, required: false},
 });
 
 db.model('crash_bets', betSchema);

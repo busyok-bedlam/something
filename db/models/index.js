@@ -8,4 +8,5 @@ import './GameItem';
 import './RouletteBet';
 import './RouletteGame';
 import './CrashGame';
+import './CrashBet';
 import './Support'

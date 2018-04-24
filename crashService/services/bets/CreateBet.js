@@ -5,7 +5,6 @@ import WSServer from '../../lib/WSServer';
 const db = di.get('db');
 const crash_games = db.model('crash_games');
 const crash_bets = db.model('crash_bets');
-const BetsModel = db.models.bets;
 const users = db.model('users');
 const config = di.get('config');
 const crashConfig = config.crashConfig;
