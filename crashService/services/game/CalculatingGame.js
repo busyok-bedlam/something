@@ -1,6 +1,6 @@
 import di from '../../di';
 import WSServer from '../../lib/WSServer';
-// import runService from '../../mixins/runService';
+import runService from '../../mixins/runService';
 // import BetResalst from "../bets/BetResalst";
 // import GameRouter from '../../lib/GameRouter';
 
@@ -13,9 +13,9 @@ const crashConfig = config.crashConfig;
 const wsMessageType = config.wsMessageType;
 
 export default class CalculatingGame {
-    async exec(autoCashCalculating) {
+    async exec() {
         console.log('Calculating game');
-        let game = await this.__calculateBets(autoCashCalculating);
+        let game = await this.__gameStatus();
         game = await this.__startGame(game);
         await this.__gameProcces(game);
     }
@@ -34,8 +34,8 @@ export default class CalculatingGame {
         else return 100 + Math.random() * 100;
     }
 
-    async __calculateBets (autoCashCalculating) {
-        console.log('__calculateBets');
+    async __gameStatus () {
+        console.log('__gameStatus  calculating game');
         let game = await crash_games.findOneAndUpdate(
             {
                 status: crashConfig.STATUS.BETTING,
@@ -43,7 +43,6 @@ export default class CalculatingGame {
             {
                 status: crashConfig.STATUS.CALCULATING,
             });
-        autoCashCalculating;
         return game;
     }
 
@@ -77,7 +76,7 @@ export default class CalculatingGame {
                 payload: game,
             };
             WSServer.sendToAll(data);
-            // await runService(['bets', 'BetResults'], value);
+            await runService(['bets', 'BetResults']);
             // GameRouter.resultGameHistory(value);
             console.log(value);
         } else {
@@ -98,7 +97,7 @@ export default class CalculatingGame {
                     console.log('end game', game.value);
                     WSServer.sendToAll(data);
                     clearInterval(timer);
-                    // await runService(['bets', 'BetResults'], value);
+                    await runService(['bets', 'BetResults']);
                     console.log(value);
                     setTimeout(resolve, 2000);
                     // GameRouter.resultGameHistory(value);

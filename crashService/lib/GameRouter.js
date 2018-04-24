@@ -10,16 +10,16 @@ const crashConfig = config.crashConfig;
 const wsMessageType = config.wsMessageType;
 
 export default class GameRouter {
-    static autoCashOuts = [];
+    // static autoCashOuts = [];
     // static resultHistory = [];
     static playersBet = [];
 
-    static async autoCashCalculating() {
-        console.log('autoCashCalculating');
-        // const bets = await BetsModel.find({status: gameConfig.STATUS.IN_GAME});
-        // this.autoCashOuts = bets.map((bet) => {return {userId: bet.userId, autoCashOut: bet.autoCash}});
-        // this.autoCashOuts.sort((a, b)=>{return a.autoCashOut - b.autoCashOut});
-    }
+    // static async autoCashCalculating() {
+    //     console.log('autoCashCalculating');
+    //     const bets = await BetsModel.find({status: gameConfig.STATUS.IN_GAME});
+    //     this.autoCashOuts = bets.map((bet) => {return {userId: bet.userId, autoCashOut: bet.autoCash}});
+    //     this.autoCashOuts.sort((a, b)=>{return a.autoCashOut - b.autoCashOut});
+    // }
 
     // static async resultGameHistory(value) {
     //     console.log('resultGameHistory');
@@ -72,9 +72,10 @@ export default class GameRouter {
         setInterval(async() => {
             try {
                 await runService(['game', 'CreateGame']);
-                await runService(['game', 'CalculatingGame'], this.autoCashCalculating());
+                // await runService(['game', 'CalculatingGame'], this.autoCashCalculating());
+                await runService(['game', 'CalculatingGame']);
                 await runService(['game', 'RewardsGame']);
-                this.autoCashOuts = [];
+                // this.autoCashOuts = [];
             } catch (error ) {
                 console.error(error.message);
             }

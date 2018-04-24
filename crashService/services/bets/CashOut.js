@@ -14,13 +14,18 @@ export default class CashOut {
 
     async exec(data) {
         const id = data.userID;
+        const profit = await this.__Rewards(id);
         try {
             await users.findOneAndUpdate(
                 {
                     _id: id,
                 },
                 {
-                    status: crashConfig.STATUS.FREE
+                    crashStatus: crashConfig.STATUS.FREE,
+                    $inc: { "balance" : profit},
+                    crashGameProfit: {
+                        $inc: { "profit" : profit, "wins" : 1},
+                    }
                 }
             );
             const userData = {
@@ -28,7 +33,6 @@ export default class CashOut {
                 payload: crashConfig.STATUS.FREE,
             };
             WSServer.send(id, userData);
-            await this.__Rewards(id);
         } catch (error) {
             console.error(error);
             return WSServer.send(
@@ -62,6 +66,7 @@ export default class CashOut {
         let cashOutAmount = currentValue * bet.amount;
         bet.profit = cashOutAmount.toFixed(2);
         bet.save();
+        return cashOutAmount.toFixed(2);
 
         // const data = {
         //     type: wsGameConfig.UPDATE_USER_INVENTORY,
