@@ -43,7 +43,6 @@ export default class RouletteRouter {
                             return sendResponse(id, {
                                 type: WS_BALANCE_UPDATE,
                                 payload: {
-                                    userBet: res.data,
                                     user: res.user,
                                     counter: currentGame.counter
                                 }

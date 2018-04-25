@@ -103,8 +103,7 @@ export default function roulette(state = initialState, action) {
             }
         }
 
-        //todo rename type
-        case wsMessageType.WS_BALANCE_UPDATE: {
+        case wsMessageType.WS_NEW_BET: {
 
             const {color, value} = action.payload.userBet;
             const currentAmount = state.userBets[color];

@@ -148,6 +148,13 @@ export default class MakeBet {
             }
         });
 
+        WSServer.send(user.id ,{
+            type: wsMessageType.WS_NEW_BET,
+            payload: {
+                userBet: data
+            }
+        })
+
     }
 
 
