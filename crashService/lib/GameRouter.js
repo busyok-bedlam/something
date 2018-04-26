@@ -13,6 +13,7 @@ export default class GameRouter {
     // static autoCashOuts = [];
     // static resultHistory = [];
     static playersBet = [];
+    static roundNumber = 1;
 
     // static async autoCashCalculating() {
     //     console.log('autoCashCalculating');
@@ -71,7 +72,8 @@ export default class GameRouter {
         await crash_games.remove({status: {'$ne': crashConfig.STATUS.FINISHED}});
         setInterval(async() => {
             try {
-                await runService(['game', 'CreateGame']);
+                await runService(['game', 'CreateGame'], this.roundNumber);
+                this.roundNumber++;
                 // await runService(['game', 'CalculatingGame'], this.autoCashCalculating());
                 await runService(['game', 'CalculatingGame']);
                 await runService(['game', 'RewardsGame']);
@@ -190,7 +192,7 @@ export default class GameRouter {
     }
 
     static async onClientBroadcast(sendResponseToAll) {
-        console.log('onClientBroadcast');
+        // console.log('onClientBroadcast');
         const game = await crash_games.findOne({status: {'$ne': crashConfig.STATUS.FINISHED}});
         if (game) {
             await GameRouter.playersBetCount(game);

@@ -5,36 +5,38 @@ import CrashGame from './CrashGame/CrashGame.jsx';
 import CrashLobby from './CrashGame/CrashLobby.jsx';
 import CrashHistory from './CrashGame/CrashHistory.jsx';
 
-export default class Roulette extends Component {
+export default class Crash extends Component {
 
     static propTypes = {
         user: PropTypes.object.isRequired,
+        crash: PropTypes.object.isRequired,
         bet: PropTypes.number.isRequired,
-        inventory: PropTypes.array.isRequired,
-        selectedItems: PropTypes.object.isRequired,
+        // inventory: PropTypes.array.isRequired,
+        // selectedItems: PropTypes.object.isRequired,
         isInventoryLoading: PropTypes.bool.isRequired,
-        cbHandleUpdateInventory: PropTypes.func.isRequired,
-        cbHandleSelectItem: PropTypes.func.isRequired,
-        cbHandleSelectAll: PropTypes.func.isRequired,
-        cbHandleDeselectItem: PropTypes.func.isRequired,
-        cbHandleDeselectAll: PropTypes.func.isRequired,
+        // cbHandleUpdateInventory: PropTypes.func.isRequired,
+        // cbHandleSelectItem: PropTypes.func.isRequired,
+        // cbHandleSelectAll: PropTypes.func.isRequired,
+        // cbHandleDeselectItem: PropTypes.func.isRequired,
+        // cbHandleDeselectAll: PropTypes.func.isRequired,
         lobbyHandleChangeValue: PropTypes.func.isRequired,
         // cbHandleSelectSteamInventorySort: PropTypes.func.isRequired,
-        cbHandleWithdraw: PropTypes.func.isRequired,
+        // cbHandleWithdraw: PropTypes.func.isRequired,
     };
 
     render() {
         const {
             user,
+            crash,
             bet,
-            inventory,
-            selectedItems,
-            cbHandleUpdateInventory,
-            cbHandleSelectItem,
-            cbHandleSelectAll,
-            cbHandleDeselectItem,
-            cbHandleDeselectAll,
-            cbHandleWithdraw,
+            // inventory,
+            // selectedItems,
+            // cbHandleUpdateInventory,
+            // cbHandleSelectItem,
+            // cbHandleSelectAll,
+            // cbHandleDeselectItem,
+            // cbHandleDeselectAll,
+            // cbHandleWithdraw,
             isInventoryLoading,
             lobbyHandleChangeValue
         } = this.props;
@@ -42,10 +44,10 @@ export default class Roulette extends Component {
             <div className='container'>
                 <div className="crash">
                     <div className='crash__container'>
-                        <CrashGame user={user}/>
-                        <CrashLobby bet={bet} lobbyHandleChangeValue={lobbyHandleChangeValue}/>
+                        <CrashGame user={user} crash={crash}/>
+                        <CrashLobby bet={bet} lobbyHandleChangeValue={lobbyHandleChangeValue} crash={crash} user={user}/>
                     </div>
-                    <CrashHistory />
+                    {/*<CrashHistory />*/}
                 </div>
                 <Chat/>
             </div>

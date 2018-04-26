@@ -30,6 +30,7 @@ export default class CalculatingGame {
         else if (value <= 95) return 5 + Math.random() * 5;
         else if (value <= 97) return 10 + Math.random() * 10;
         else if (value <= 98.95) return 20 + Math.random() * 30;
+        // if (value <= 98.95) return 20 + Math.random() * 30;
         else if (value <= 99.95) return 50 + Math.random() * 50;
         else return 100 + Math.random() * 100;
     }
@@ -62,14 +63,21 @@ export default class CalculatingGame {
         const value = await this.__calculateValue();
         console.log(value);
         const hash = crypto.createHmac('sha256', crashConfig.SECRET_KEY)
-            .update(Math.random() + '' + Date.now() + '-' + game._id + '-' + value)
+            .update(Math.random() + '' + Date.now() + '-' + game._id + '-' + game.roundNumber + '-' + value)
             .digest('hex');
+        game.gameStart = new Date();
+        game.hash = hash;
+        game.save();
+        const data = {
+            type: wsMessageType.WS_CURRENT_CRASH_GAME,
+            payload: game,
+        };
+        WSServer.sendToAll(data);
+
         if (value <= 1.00) {
             game.status = crashConfig.STATUS.REWARDS;
-            game.gameStart = new Date();
             game.gameEnd = new Date();
             game.value = value;
-            game.hash = hash;
             game.save();
             const data = {
                 type: wsMessageType.WS_CURRENT_CRASH_GAME,
@@ -81,14 +89,11 @@ export default class CalculatingGame {
             console.log(value);
         } else {
             let endTime = Math.sqrt(2 * (value - 1) / 0.03) * 1000;
-            game.gameStart = new Date();
-            game.save();
             return new Promise(resolve => {
                 let timer = setInterval(async () => {
                     game.status = crashConfig.STATUS.REWARDS;
                     game.gameEnd = new Date();
                     game.value = value;
-                    game.hash = hash;
                     game.save();
                     const data = {
                         type: wsMessageType.WS_CURRENT_CRASH_GAME,

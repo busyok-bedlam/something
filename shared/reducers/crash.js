@@ -1,45 +1,54 @@
+// import {
+//     SELECT_ITEM,
+//     SELECT_ALL_ITEMS,
+//     DESELECT_ITEM,
+//     DESELECT_ALL_ITEMS,
+//     // UPGRADE_SELECTED_ITEMS,
+//     CHANGE_AUTO_CASHOUT,
+//     SELECT_SKIN,
+//     DROP_SKIN,
+// } from '../actions/gameActions';
 import {
-    SELECT_ITEM,
-    SELECT_ALL_ITEMS,
-    DESELECT_ITEM,
-    DESELECT_ALL_ITEMS,
-} from '../actions/gameActions';
-
-import {WITHDRAW_OFFER_SENT} from '../actions/userActions';
+    WS_CURRENT_CRASH_GAME,
+} from '../../config/wsMessageType';
+import {toast} from 'react-toastify';
 
 let initialState = {
-    selectedItems: {},
+    currentCrashGame: {},
+    // selectedItems: {},
+    // autoCashOut: 1.00,
+    // selectedSkin: {},
+    // selectedSkinAmount: 0,
+    // resultHistory: [],
+    // playersBet: [],
 };
 
 
-export default function game(state = initialState, action) {
+export default function crash(state = initialState, action) {
     switch (action.type) {
-        case SELECT_ITEM: {
-            const {item} = action.payload;
-            state.selectedItems[item._id] = item;
-            return {...state};
-        }
-        case DESELECT_ITEM: {
-            const {itemID} = action.payload;
-            delete state.selectedItems[itemID];
-            return {...state};
-        }
 
-        case DESELECT_ALL_ITEMS:{
-            return {...state, selectedItems:{}}
+        case WS_CURRENT_CRASH_GAME: {
+            // console.log(action)
+            return {...state, currentCrashGame: action.payload};
         }
+        //
+        // case WSM_GAME_CLOSE: {
+        //     return {...state, currentGame: {}};
+        // }
+        //
+        // case WSM_ERROR: {
+        //     toast(action.payload.message);
+        //     return {...state};
+        // }
 
-        case SELECT_ALL_ITEMS: {
-            const {items} = action.payload;
-            items.forEach(item=>{
-                state.selectedItems[item._id] = item;
-            });
-            return {...state};
-        }
+        // case WSM_RESULT_HISTORY: {
+        //     return {...state, resultHistory: action.payload};
+        // }
+        //
+        // case WSM_PLAYERS_BET: {
+        //     return {...state, playersBet: action.payload};
+        // }
 
-        case WITHDRAW_OFFER_SENT:{
-            return {...state, selectedItems: {}};
-        }
         default:
             return state;
     }
