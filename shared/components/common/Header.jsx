@@ -191,7 +191,7 @@ export default class Header extends Component {
                             </NavLink>
                             <NavLink to='/crash' className='button-game'>
                                 Crash
-                                <div className="link-chip">7532</div>
+                                <div className="link-chip">0</div>
                             </NavLink>
                         </nav>
                         <nav className="header__bottom-right">

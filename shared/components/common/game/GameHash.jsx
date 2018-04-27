@@ -4,22 +4,25 @@ import PropTypes from 'prop-types';
 
 export default class GameHash extends Component {
     static propTypes = {
-        gameID: PropTypes.object.isRequired,
-        hash: PropTypes.object.isRequired,
+        _id: PropTypes.string.isRequired,
+        hash: PropTypes.string.isRequired,
+        roundNumber: PropTypes.number.isRequired,
     };
 
     render() {
-        let {gameID, hash, number, status} = this.props;
+        let {_id, hash, roundNumber} = this.props;
+        // console.log(hash);
         return (
             <div className="game__hash">
                 <div className="left">
-                    <b>{`# ${gameID}`}</b>
+                    <b>{`# ${_id}`}</b>
                     <a onClick={() => ModalController.openModal('FairGameModal')}>Fair game</a>
                 </div>
                 <div className="right">
                     <b>Hash round: </b>
                     <div>{hash}</div>
-                    <b>Round number: </b> {number && status !== 'ROULETTE_IN_GAME' ? number : ''}
+                    {/*<b>Round number: </b> {roundNumber && status !== 'ROULETTE_IN_GAME' ? roundNumber : ''}*/}
+                    <b>Round number: </b> {roundNumber}
                 </div>
             </div>
         );

@@ -17,6 +17,7 @@ let initialState = {
     steamInventorySort: 1,
     inventory: [],
     trades: [],
+    crashStatus: 'FREE',
 };
 
 
@@ -33,7 +34,7 @@ export default function user(state = initialState, action) {
             }
         }
 
-        case 'UPDATE_USER_DATA': {
+        case UPDATE_USER_DATA: {
             for (let key in action.payload) {
                 state[key] = action.payload[key];
             }
@@ -95,6 +96,12 @@ export default function user(state = initialState, action) {
             console.log(action);
             const {user} = action.payload;
             state.balance = user.balance;
+            return {...state};
+        }
+
+        case wsMessageType.WS_CRASH_UPDATE_USER_STATUS: {
+            console.log(action);
+            state.crashStatus = action.payload;
             return {...state};
         }
 

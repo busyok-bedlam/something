@@ -7,6 +7,7 @@ const userSchema = new db.Schema({
     avatarFull: {type: String},
     profileUrl: {type: String},
     tradeURL: String,
+    crashStatus: {type: String, default: "FREE"},
     isAdmin: {
         type: Boolean,
         default: false
@@ -49,7 +50,8 @@ userSchema.methods.getPublicFields = function () {
         isAdmin: this.isAdmin,
         isModerator: this.isModerator,
         rouletteGameProfit: this.rouletteGameProfit,
-        crashGameProfit: this.crashGameProfit
+        crashGameProfit: this.crashGameProfit,
+        crashStatus: this.crashStatus
     }
 };
 
