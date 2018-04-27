@@ -16,23 +16,29 @@ export default class CashOut {
         const id = data.userID;
         const profit = await this.__Rewards(id);
         try {
-            await users.findOneAndUpdate(
-                {
-                    _id: id,
-                },
-                {
-                    crashStatus: crashConfig.STATUS.FREE,
-                    $inc: { "balance" : profit},
-                    crashGameProfit: {
-                        $inc: { "profit" : profit, "wins" : 1},
-                    }
-                }
-            );
+            let user = await users.findOne({_id: id});
+                // {
+                //     crashStatus: crashConfig.STATUS.FREE,
+                //     $inc: { "balance" : profit},
+                //     crashGameProfit: {
+                //         $inc: { "profit" : profit, "wins" : 1},
+                //     }
+                // }
+            user.crashStatus = crashConfig.STATUS.FREE;
+            user.balance += profit;
+            user.crashGameProfit.profit += profit;
+            user.crashGameProfit.wins ++;
+            user.save();
             const userData = {
                 type: wsMessageType.WS_CRASH_UPDATE_USER_STATUS,
                 payload: crashConfig.STATUS.FREE,
             };
             WSServer.send(id, userData);
+            WSServer.send(id,
+                {
+                    type: wsMessageType.WS_BALANCE_UPDATE,
+                    payload: {user},
+                });
         } catch (error) {
             console.error(error);
             return WSServer.send(
@@ -52,21 +58,17 @@ export default class CashOut {
         const currentTime = (Date.now() - Date.parse(game.gameStart))/1000;
         const currentValue = (1 + 0.02 * currentTime * currentTime / 2).toFixed(2);
         console.log('currentValue', currentValue);
-        const bet = await crash_bets.findOneAndUpdate(
-            {
-                userId: id,
+        let bet = await crash_bets.findOne({
+                userID: id,
                 status: crashConfig.STATUS.IN_GAME,
-                gameId: game._id,
-            },
-            {
-                status: crashConfig.STATUS.FINISHED,
-                cashOut: currentValue,
-                result: 'won',
-            });
-        let cashOutAmount = currentValue * bet.amount;
+                crashID: game._id,});
+        bet.status = crashConfig.STATUS.FINISHED;
+        bet.cashOut = currentValue;
+        bet.result = 'won';
+        let cashOutAmount = bet.amount - currentValue * bet.amount;
         bet.profit = cashOutAmount.toFixed(2);
         bet.save();
-        return cashOutAmount.toFixed(2);
+        return bet.profit;
 
         // const data = {
         //     type: wsGameConfig.UPDATE_USER_INVENTORY,

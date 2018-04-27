@@ -48,7 +48,8 @@ userSchema.methods.getPublicFields = function () {
         isAdmin: this.isAdmin,
         isModerator: this.isModerator,
         rouletteGameProfit: this.rouletteGameProfit,
-        crashGameProfit: this.crashGameProfit
+        crashGameProfit: this.crashGameProfit,
+        crashStatus: this.crashStatus
     }
 };
 

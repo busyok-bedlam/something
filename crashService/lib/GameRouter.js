@@ -10,43 +10,8 @@ const crashConfig = config.crashConfig;
 const wsMessageType = config.wsMessageType;
 
 export default class GameRouter {
-    // static autoCashOuts = [];
-    // static resultHistory = [];
     static playersBet = [];
     static roundNumber = 1;
-
-    // static async autoCashCalculating() {
-    //     console.log('autoCashCalculating');
-    //     const bets = await BetsModel.find({status: gameConfig.STATUS.IN_GAME});
-    //     this.autoCashOuts = bets.map((bet) => {return {userId: bet.userId, autoCashOut: bet.autoCash}});
-    //     this.autoCashOuts.sort((a, b)=>{return a.autoCashOut - b.autoCashOut});
-    // }
-
-    // static async resultGameHistory(value) {
-    //     console.log('resultGameHistory');
-    //     const result = (Math.floor((value) * 100)/100).toFixed(2);
-    //     if (this.resultHistory.length > 11) {
-    //         console.log('more then 11 results');
-    //         this.resultHistory.unshift(result);
-    //         this.resultHistory.pop();
-    //     } else {
-    //         console.log('resultGameHistory push value');
-    //         this.resultHistory.unshift(result);
-    //     }
-    //     const data = {
-    //         type: wsGameConfig.WSM_RESULT_HISTORY,
-    //         payload: this.resultHistory,
-    //     };
-    //     WSServer.sendToAll(data);
-    // }
-    //
-    // static async sendGameHistory(id) {
-    //     const data = {
-    //         type: wsGameConfig.WSM_RESULT_HISTORY,
-    //         payload: this.resultHistory,
-    //     };
-    //     WSServer.send(id, data);
-    // }
 
     static async playersBetCount(game) {
         this.playersBet = [];
@@ -86,9 +51,8 @@ export default class GameRouter {
 
     static async onClientMessage(id, payload, sendResponse, isAuth = false) {
         console.log('onClientMessage');
-        console.log('id', id);
-        console.log('payload', payload);
-        console.log(id, payload);
+        // console.log('id', id);
+        // console.log('payload', payload);
         try {
             const {type, data} = payload;
 
@@ -96,7 +60,7 @@ export default class GameRouter {
                 case wsMessageType.WS_CRASH_NEW_BET: {
                     try {
                         console.log('WS_CRASH_NEW_BET');
-                        const game = await crash_games.findOne({status: crashConfig.STATUS.IN_GAME});
+                        const game = await crash_games.findOne({status: crashConfig.STATUS.BETTING});
                         if (!isAuth) {
                             throw new Error("Not auth user");
                         // } else if (user.blocked) {
@@ -105,7 +69,7 @@ export default class GameRouter {
                             throw new Error("Game not found");
                         }
 
-                        const betData = {userId: id, data: data};
+                        const betData = {userID: id, amount: data};
                         await runService(['bets', 'CreateBet'], betData);
                         return;
                     } catch (error) {
@@ -157,8 +121,6 @@ export default class GameRouter {
     static async onClientConnection(id, sendResponse, isAuth) {
         console.log('onClientConnection');
         console.log(isAuth);
-        // await GameRouter.sendGameHistory(id);
-        // await GameRouter.unselectSkin(id);
         try {
             console.log('User connected, isAuth: ' + isAuth);
             let game = await crash_games.findOne({status: {'$ne': crashConfig.STATUS.FINISHED}});

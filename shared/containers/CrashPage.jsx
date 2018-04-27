@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {toast} from 'react-toastify';
 import PropTypes from 'prop-types';
 import * as userActions from '../actions/userActions';
-import * as gameActions from '../actions/gameActions';
+import * as crashActions from '../actions/crashActions';
 import {LoadingScreen} from '../lib/LoadingScreen';
 import Crash from "../components/pages/Crash.jsx";
 import config from '../../config/crash.js';
@@ -18,6 +18,7 @@ class CrashPage extends Component {
         // game: PropTypes.object.isRequired,
         crash: PropTypes.object.isRequired,
         userActions: PropTypes.object.isRequired,
+        crashActions: PropTypes.object.isRequired,
         // gameActions: PropTypes.object.isRequired,
     };
 
@@ -78,28 +79,19 @@ class CrashPage extends Component {
     //     gameActions.deselectAllItems();
     // }
 
-    // async cbHandleWithdraw() {
-    //     try {
-    //         const {userActions, game} = this.props;
-    //         LoadingScreen.open();
-    //         // const ids = Object.keys(game.selectedItems);
-    //         const ids = [];
-    //         for (let key in game.selectedItems) {
-    //             ids.push(game.selectedItems[key].assetID);
-    //         }
-    //
-    //         if (!ids.length) {
-    //             return toast('No items selected', 'error');
-    //         }
-    //         await userActions.createWithdrawOffer(ids);
-    //     } catch (error) {
-    //         console.error(error);
-    //         toast(error.message || error.toString());
-    //     } finally {
-    //         LoadingScreen.close();
-    //     }
-    // }
-    //
+    cbHandleNewBet(bet) {
+        const {crashActions} = this.props;
+        crashActions.crashNewBet(bet);
+
+    }
+
+    cbHandleCashOut() {
+        const {crashActions} = this.props;
+        crashActions.crashCashOut();
+
+    }
+
+
     lobbyHandleChangeValue(value) {
         this.setState({
             bet: parseInt(value)
@@ -123,6 +115,8 @@ class CrashPage extends Component {
                 bet={bet}
                 isInventoryLoading={isInventoryLoading}
                 lobbyHandleChangeValue={::this.lobbyHandleChangeValue}
+                cbHandleNewBet={::this.cbHandleNewBet}
+                cbHandleCashOut={::this.cbHandleCashOut}
             />
         );
     }
@@ -147,7 +141,7 @@ function mapDispatchToProps(dispatch) {
 
     return {
         userActions: bindActionCreators(userActions, dispatch),
-        // gameActions: bindActionCreators(gameActions, dispatch),
+        crashActions: bindActionCreators(crashActions, dispatch),
     }
 }
 

@@ -14,24 +14,20 @@ export default class CreateBet {
 
     async exec(betData) {
         console.log('create BBBEEEETTTTT');
-        const {amount, userID} = betData.data;
+        console.log(betData);
+        const {amount, userID} = betData;
         try {
             const game = await crash_games.findOneAndUpdate(
                 {
                     status: crashConfig.STATUS.BETTING
                 },
                 {
-                    $inc: { "totalAmount" : amount, "totalUsers": 1 },
+                    $inc: { "totalAmount": amount, "totalUsers": 1 },
                 });
-            const user = await users.findOneAndUpdate(
-                {
-                    _id: userID,
-                },
-                {
-                    crashStatus: crashConfig.STATUS.IN_GAME,
-                    $inc: { "balance" : -amount}
-                }
-            );
+            const user = await users.findOne({_id: userID,});
+            user.crashStatus = crashConfig.STATUS.IN_GAME;
+            user.balance = user.balance - amount;
+            user.save();
             const userData = {
                 type: wsMessageType.WS_CRASH_UPDATE_USER_STATUS,
                 payload: crashConfig.STATUS.IN_GAME,

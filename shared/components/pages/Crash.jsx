@@ -11,17 +11,10 @@ export default class Crash extends Component {
         user: PropTypes.object.isRequired,
         crash: PropTypes.object.isRequired,
         bet: PropTypes.number.isRequired,
-        // inventory: PropTypes.array.isRequired,
-        // selectedItems: PropTypes.object.isRequired,
         isInventoryLoading: PropTypes.bool.isRequired,
-        // cbHandleUpdateInventory: PropTypes.func.isRequired,
-        // cbHandleSelectItem: PropTypes.func.isRequired,
-        // cbHandleSelectAll: PropTypes.func.isRequired,
-        // cbHandleDeselectItem: PropTypes.func.isRequired,
-        // cbHandleDeselectAll: PropTypes.func.isRequired,
         lobbyHandleChangeValue: PropTypes.func.isRequired,
-        // cbHandleSelectSteamInventorySort: PropTypes.func.isRequired,
-        // cbHandleWithdraw: PropTypes.func.isRequired,
+        cbHandleNewBet: PropTypes.func.isRequired,
+        cbHandleCashOut: PropTypes.func.isRequired,
     };
 
     render() {
@@ -29,25 +22,25 @@ export default class Crash extends Component {
             user,
             crash,
             bet,
-            // inventory,
-            // selectedItems,
-            // cbHandleUpdateInventory,
-            // cbHandleSelectItem,
-            // cbHandleSelectAll,
-            // cbHandleDeselectItem,
-            // cbHandleDeselectAll,
-            // cbHandleWithdraw,
-            isInventoryLoading,
-            lobbyHandleChangeValue
+            lobbyHandleChangeValue,
+            cbHandleNewBet,
+            cbHandleCashOut,
         } = this.props;
         return (
             <div className='container'>
                 <div className="crash">
                     <div className='crash__container'>
                         <CrashGame user={user} crash={crash}/>
-                        <CrashLobby bet={bet} lobbyHandleChangeValue={lobbyHandleChangeValue} crash={crash} user={user}/>
+                        <CrashLobby
+                            bet={bet}
+                            lobbyHandleChangeValue={lobbyHandleChangeValue}
+                            crash={crash}
+                            user={user}
+                            cbHandleNewBet={cbHandleNewBet}
+                            cbHandleCashOut={cbHandleCashOut}
+                        />
                     </div>
-                    {/*<CrashHistory />*/}
+                    <CrashHistory />
                 </div>
                 <Chat/>
             </div>
