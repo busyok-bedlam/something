@@ -14,7 +14,7 @@ export default class CashOut {
 
     async exec(data) {
         const id = data.userID;
-        const profit = await this.__Rewards(id);
+        const bet = await this.__Rewards(id);
         try {
             let user = await users.findOne({_id: id});
                 // {
@@ -25,9 +25,9 @@ export default class CashOut {
                 //     }
                 // }
             user.crashStatus = crashConfig.STATUS.FREE;
-            user.balance += profit;
-            user.crashGameProfit.profit += profit;
-            user.crashGameProfit.wins ++;
+            user.balance += bet.amount + bet.profit;
+            user.crashGameProfit.profit += bet.profit;
+            user.crashGameProfit.wins++;
             user.save();
             const userData = {
                 type: wsMessageType.WS_CRASH_UPDATE_USER_STATUS,
@@ -65,10 +65,10 @@ export default class CashOut {
         bet.status = crashConfig.STATUS.FINISHED;
         bet.cashOut = currentValue;
         bet.result = 'won';
-        let cashOutAmount = bet.amount - currentValue * bet.amount;
+        let cashOutAmount = currentValue * bet.amount - bet.amount;
         bet.profit = cashOutAmount.toFixed(2);
         bet.save();
-        return bet.profit;
+        return bet;
 
         // const data = {
         //     type: wsGameConfig.UPDATE_USER_INVENTORY,

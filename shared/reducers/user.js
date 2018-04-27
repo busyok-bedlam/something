@@ -93,14 +93,14 @@ export default function user(state = initialState, action) {
         }
 
         case wsMessageType.WS_BALANCE_UPDATE: {
-            console.log(action);
+            // console.log(action);
             const {user} = action.payload;
             state.balance = user.balance;
             return {...state};
         }
 
         case wsMessageType.WS_CRASH_UPDATE_USER_STATUS: {
-            console.log(action);
+            // console.log(action);
             state.crashStatus = action.payload;
             return {...state};
         }

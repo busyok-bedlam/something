@@ -31,7 +31,6 @@ export default class BetResults {
                     bets[i].save();
                     let user = await users.findOne({_id: bets[i].userID,});
                     user.crashStatus = crashConfig.STATUS.FREE;
-                    user.balance += bets[i].profit;
                     user.crashGameProfit.profit += bets[i].profit;
                     user.crashGameProfit.losses++;
                     user.save();
