@@ -81,6 +81,11 @@ export default class CrashGame extends Component {
         });
     }
 
+    componentWillUnmount() {
+        clearInterval(this.timer);
+        this.setState({gameStatus: 'FINISHED'});
+    }
+
     componentWillReceiveProps(nextProps) {
         const game = nextProps.crash.currentCrashGame;
         // console.log(game);
@@ -121,7 +126,8 @@ export default class CrashGame extends Component {
             });
         }
 
-        if (game && game.status === 'IN_GAME' && game.gameStart && this.props.crash.currentCrashGame.status !== 'IN_GAME') {
+        // if (game && game.status === 'IN_GAME' && game.gameStart && this.props.crash.currentCrashGame.status !== 'IN_GAME') {
+        if (game && game.status === 'IN_GAME' && game.gameStart && this.state.gameStatus !== 'IN_GAME') {
             clearInterval(this.timer);
             let currentTime = game.currentTime > 0 ? game.currentTime/1000 : 0;
             this.timer = setInterval(() => {
@@ -152,29 +158,13 @@ export default class CrashGame extends Component {
             this.setState({
                 gameStatus: game.status,
                 profit: game.value,
-                // result: game.value < 2 ? CrashGraph.types.BAD : CrashGraph.types.GOOD,
             });
         }
     }
 
     render() {
         let waitingTIme = this.state.waitingTime ? this.state.waitingTime : 0;
-
-        // const {result} = this.state;
-        // let profitClass = 'graph';
-        // switch (result) {
-        //     case CrashGraph.types.GOOD:
-        //         profitClass = 'graph graph-good';
-        //         break;
-        //     case CrashGraph.types.BAD:
-        //         profitClass = 'graph graph-bad';
-        //         break;
-        // }
         let profit = this.state.profit;
-        // const {
-        //     crash
-        // } = this.props;
-        // const currentGame = crash ? crash.currentGame : false;
         return (
             <div className='cGame'>
                 <GameHeader user={this.props.user}/>

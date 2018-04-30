@@ -11,7 +11,6 @@ const wsMessageType = config.wsMessageType;
 
 export default class GameRouter {
     static playersBet = [];
-    static roundNumber = 1;
 
     static async playersBetCount(game) {
         this.playersBet = [];
@@ -39,8 +38,8 @@ export default class GameRouter {
         await crash_games.remove({status: {'$ne': crashConfig.STATUS.FINISHED}});
         setInterval(async() => {
             try {
-                await runService(['game', 'CreateGame'], this.roundNumber);
-                this.roundNumber++;
+                await runService(['game', 'CreateGame']);
+                // this.roundNumber++;
                 // await runService(['game', 'CalculatingGame'], this.autoCashCalculating());
                 await runService(['game', 'CalculatingGame']);
                 await runService(['game', 'RewardsGame']);

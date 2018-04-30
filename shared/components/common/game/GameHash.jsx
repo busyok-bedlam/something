@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 
 export default class GameHash extends Component {
     static propTypes = {
-        _id: PropTypes.string.isRequired,
-        hash: PropTypes.string.isRequired,
-        roundNumber: PropTypes.number.isRequired,
+        _id: PropTypes.string,
+        hash: PropTypes.string,
     };
 
     render() {
-        let {_id, hash, roundNumber} = this.props;
+        let {_id, hash} = this.props;
         // console.log(hash);
         return (
             <div className="game__hash">
@@ -21,8 +20,6 @@ export default class GameHash extends Component {
                 <div className="right">
                     <b>Hash round: </b>
                     <div>{hash}</div>
-                    {/*<b>Round number: </b> {roundNumber && status !== 'ROULETTE_IN_GAME' ? roundNumber : ''}*/}
-                    <b>Round number: </b> {roundNumber}
                 </div>
             </div>
         );

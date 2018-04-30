@@ -12,7 +12,6 @@ const CrashGameSchema = new db.Schema({
     gameEnd: {type: Date, default: 0},
     status: {type: String, default: crashConfig.STATUS.BETTING},
     hash: {type: String, required: false},
-    roundNumber: {type: Number, required: false},
 });
 
 CrashGameSchema.methods.getNewGameFields = function () {

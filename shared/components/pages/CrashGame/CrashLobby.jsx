@@ -54,7 +54,7 @@ export default class CrashLobby extends Component {
         let {bet, user, crash} = this.props;
         let crashStatus = crash.currentCrashGame.status !== crashConfig.STATUS.BETTING;
         let {CRASH_MIN_BET, CRASH_MAX_BET} = crashConfig;
-        let {hash, _id, roundNumber, status} = crash.currentCrashGame;
+        let {hash, _id, status} = crash.currentCrashGame;
         return (
             <div className='cLobby'>
                 <div className="game__lobby">
@@ -71,7 +71,6 @@ export default class CrashLobby extends Component {
                         <GameHash
                             _id={_id}
                             hash={hash}
-                            roundNumber={roundNumber}
                             status={status}
                         />
                     </div>

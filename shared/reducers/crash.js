@@ -30,7 +30,7 @@ export default function crash(state = initialState, action) {
     switch (action.type) {
 
         case WS_CURRENT_CRASH_GAME: {
-            // console.log(action)
+            // console.log(action);
             return {...state, currentCrashGame: action.payload};
         }
         //

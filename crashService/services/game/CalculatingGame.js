@@ -63,7 +63,7 @@ export default class CalculatingGame {
         const value = await this.__calculateValue();
         console.log(value);
         const hash = crypto.createHmac('sha256', crashConfig.SECRET_KEY)
-            .update(Math.random() + '' + Date.now() + '-' + game._id + '-' + game.roundNumber + '-' + value)
+            .update(Math.random() + '' + Date.now() + '-' + game._id + '-' + value)
             .digest('hex');
         game.gameStart = new Date();
         game.hash = hash;

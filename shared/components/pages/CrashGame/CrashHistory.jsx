@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export default class CrashHistory extends Component {
     static propTypes = {
         playersBet: PropTypes.array.isRequired,
-        currentCrashGame: PropTypes.object.isRequired,
+        currentCrashGame: PropTypes.object,
     };
     render() {
         const {playersBet, currentCrashGame} = this.props;

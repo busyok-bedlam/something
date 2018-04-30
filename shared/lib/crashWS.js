@@ -37,11 +37,11 @@ export default class Socket {
                         };
                         Socket.instance.onclose = event => {
                             console.log('Crash Socket closed');
-                            if(Socket.dispatch){
-                                Socket.dispatch({
-                                    type: WS_CRASH_CLOSE,
-                                })
-                            }
+                            // if(Socket.dispatch){
+                            //     Socket.dispatch({
+                            //         type: WS_CRASH_CLOSE,
+                            //     })
+                            // }
                             if (!event.wasClean) {
                                 console.log('Crash Socket reconnection');
                                 setTimeout(() => {

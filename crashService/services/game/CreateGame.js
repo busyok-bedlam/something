@@ -12,7 +12,7 @@ const wsMessageType = config.wsMessageType;
 
 export default class CreateGame {
 
-    async exec(roundNumber) {
+    async exec() {
         console.log('create game');
         const inProcess = await crash_games.findOne({status: {'$ne': crashConfig.STATUS.FINISHED}});
 
@@ -25,7 +25,6 @@ export default class CreateGame {
                 status: crashConfig.STATUS.BETTING,
                 createdAt: dateNow,
                 gameStart: gameStart,
-                roundNumber: roundNumber,
             }).save();
             const data = {
                     type: wsMessageType.WS_CURRENT_CRASH_GAME,
