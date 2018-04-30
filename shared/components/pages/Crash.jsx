@@ -26,6 +26,7 @@ export default class Crash extends Component {
             cbHandleNewBet,
             cbHandleCashOut,
         } = this.props;
+        const {playersBet, currentCrashGame} = crash;
         return (
             <div className='container'>
                 <div className="crash">
@@ -40,7 +41,7 @@ export default class Crash extends Component {
                             cbHandleCashOut={cbHandleCashOut}
                         />
                     </div>
-                    <CrashHistory />
+                    <CrashHistory playersBet={playersBet} currentCrashGame={currentCrashGame} />
                 </div>
                 <Chat/>
             </div>

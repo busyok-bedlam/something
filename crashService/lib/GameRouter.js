@@ -15,15 +15,17 @@ export default class GameRouter {
 
     static async playersBetCount(game) {
         this.playersBet = [];
-        const bets = await crash_bets.find({gameId: game._id}).sort('-updatedAt');
+        const bets = await crash_bets.find({crashID: game._id}).sort('-updatedAt');
         for (let i = 0; i < bets.length; i++){
-            const user = await users.findOne({_id: bets[i].userId});
+            const user = await users.findOne({_id: bets[i].userID});
             this.playersBet.push({
                 userName: user.displayName,
                 userAvatar: user.avatarFull,
                 bet: bets[i].amount,
                 cashOut: bets[i].cashOut,
-                result: bets[i].result
+                result: bets[i].result,
+                profit: bets[i].profit,
+                level: user.level
             });
         }
         const data = {
