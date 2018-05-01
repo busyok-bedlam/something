@@ -1,16 +1,14 @@
 import db from "mongoose";
 
-const TradeSchema = new db.Schema({
-    status: String,
-    cratedAt: Date,
-    updatedAt: Date,
-    botID: String,
-    userID: String,
-    type: String,
+db.model('trades', db.Schema({
     offerID: String,
-    items: [{itemID: {type: db.Schema.Types.ObjectId, ref: 'items'}}],
-});
-
-db.model('trades', TradeSchema);
-
+    user: String,
+    userName: String,
+    bot: String,
+    items: [String],
+    type: String,
+    price: Number,
+    status: String,
+    date: Date,
+}));
 

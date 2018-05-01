@@ -31,7 +31,10 @@ const userSchema = new db.Schema({
         wins: {type: Number, default: 0},
         losses: {type: Number, default: 0}
     },
-    xp: Number
+    xp: Number,
+    needInventoryUpdate: {type: Date, default: new Date()},
+    tradeStatus: {type: String, default: 'FREE'},
+    withdrawBalance: {type: Number, default: 0},
 }, {
     timestamps: true
 });

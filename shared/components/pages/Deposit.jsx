@@ -1,29 +1,29 @@
 import React, {Component} from 'react';
 import Scrollbar          from './../common/Scrollbar.jsx';
 import ShopItem           from './ShopItem.jsx';
-import Cart               from './Cart.jsx';
-import PropTypes from 'prop-types';
+import Cart               from './CartDeposit.jsx';
+import PropTpes from 'prop-types';
 
-export default class Shop extends Component {
+export default class Deposit extends Component {
 
     static propTypes = {
-        inventory: PropTypes.array.isRequired,
-        selectedItems: PropTypes.object.isRequired,
-        loadMarketplaceInventory: PropTypes.func.isRequired,
-        selectItem: PropTypes.func.isRequired,
-        deselectItem: PropTypes.func.isRequired,
-        createWithdrawOffer: PropTypes.func.isRequired,
-        params: PropTypes.object.isRequired,
+        inventory: PropTpes.array.isRequired,
+        selectedItems: PropTpes.object.isRequired,
+        loadUserInventory: PropTpes.func.isRequired,
+        selectItem: PropTpes.func.isRequired,
+        deselectItem: PropTpes.func.isRequired,
+        createDepositOffer: PropTpes.func.isRequired,
+        params: PropTpes.object.isRequired,
     };
 
     onChange = e => {
-      this.setState({
-          [e.target.name]: e.target.value
-      })
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     };
 
     onSortPrice = () => {
-        if(this.state.price === 'up') {
+        if (this.state.price === 'up') {
             this.setState({
                 price: 'down'
             });
@@ -42,9 +42,9 @@ export default class Shop extends Component {
             list.push(
                 <ShopItem
                     key={item._id}
-                    iconUrl={item.data.icon_url}
+                    iconUrl={item.iconUrl}
                     name={item.name}
-                    price={item.data.price * 1000}
+                    price={item.price * 1000}
                     selected={selected}
                     onClick={selected ? ()=>deselectItem(item) : ()=>selectItem(item)}
                 />
@@ -54,36 +54,43 @@ export default class Shop extends Component {
     }
 
     render() {
-        const {params, loadMarketplaceInventory, selectedItems, createWithdrawOffer, deselectItem} = this.props;
+        const {params, loadUserInventory, selectedItems, deselectItem, createDepositOffer} = this.props;
         const {search, price} = params;
+
 
         return (
             <div className='container'>
                 <div className="shop">
                     <div className="shop__header">
                         <div className="shop__input">
-                            <input type="text" placeholder='Search' name='search' value={search} onChange={::this.onChange}/>
+                            <input type="text" placeholder='Search'
+                                   name='search' value={search}
+                                   onChange={::this.onChange}/>
                             <i className='icon-search'/>
                         </div>
                         <div>
-                            <button className="button button-price" onClick={::this.onSortPrice}>
+                            <button className="button button-price"
+                                    onClick={::this.onSortPrice}>
                                 <span>Price</span>
                                 <i className={(price === 'down') ? 'arrow-icon' : 'arrow-icon arrow-icon-active'}/>
                             </button>
-                            <button onClick={loadMarketplaceInventory} className="button button-refresh">
-                                <span><i className='icon-refresh'/>Refresh</span>
+                            <button onClick={loadUserInventory}
+                                    className="button button-refresh">
+                                <span><i
+                                    className='icon-refresh'/>Refresh</span>
                                 <span className='items'>(15 added)</span>
                             </button>
                         </div>
                     </div>
-                    <div className="shop__container fix-scroll-margin" style={{height: 'calc(100vh - 30rem)'}}>
+                    <div className="shop__container fix-scroll-margin"
+                         style={{height: 'calc(100vh - 30rem)'}}>
                         <Scrollbar>
                             {this.renderInventory()}
                         </Scrollbar>
                     </div>
                 </div>
                 <Cart
-                    createWithdrawOffer={createWithdrawOffer}
+                    createDepositOffer={createDepositOffer}
                     selectedItems={selectedItems}
                     deselectItem={deselectItem}
                 />

@@ -12,3 +12,5 @@ public/static/messages
 admin/public/static/uploads
 admin/public/static/build
 /uploads
+debug.log
+config/statistics.json

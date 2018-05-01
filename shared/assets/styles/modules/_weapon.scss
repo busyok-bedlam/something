@@ -51,6 +51,7 @@
         max-width: 80%;
       }
     }
+    &-selected,
     &:hover,
     &:focus {
       background-color: $contentBg;

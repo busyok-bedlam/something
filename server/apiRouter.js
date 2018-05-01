@@ -11,14 +11,14 @@ const router = new Router({
 //for all users
 router.get('auth/steam', ::routes.user.authSteam);
 router.get('auth/steam/return', passport.authenticate('steam', {successRedirect: '/', failureRedirect: '/'}));
+router.get('marketplace/marketplace-inventory', ::routes.marketplace.loadMarketplaceInventory);
 
 router.use(isAuthRoutes.isAuth);
 router.post('user/tradeurl', ::routes.user.setupTradeURL);
-router.get('user/steam-inventory', ::routes.user.getSteamInventory);
-router.get('user/inventory', ::routes.user.getInventory);
 
-router.post('bots/deposit-offer', ::routes.user.createDepositOffer);
-router.post('bots/withdraw-offer', ::routes.user.createWithdrawOffer);
+router.get('marketplace/user-inventory', ::routes.marketplace.loadUserInventory);
+router.post('marketplace/deposit-offer', ::routes.marketplace.createDepositOffer);
+router.post('marketplace/withdraw-offer', ::routes.marketplace.createWithdrawOffer);
 
 router.get('user/get-top-user', ::routes.user.getTopUsers);
 router.post('support', ::routes.user.sendSupport);

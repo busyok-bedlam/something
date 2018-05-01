@@ -5,8 +5,9 @@ import loadingScreen     from './loadingScreen';
 import modal             from './modal';
 import chat              from './chat';
 import game              from './game';
-import crash              from './crash';
-import roulette           from './roulette';
+import crash             from './crash';
+import roulette          from './roulette';
+import marketplace       from './marketplace';
 
 export default combineReducers({
     user,
@@ -16,5 +17,6 @@ export default combineReducers({
     game,
     crash,
     roulette,
+    marketplace,
     routing: routerReducer,
 });

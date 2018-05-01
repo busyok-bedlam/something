@@ -1,24 +1,20 @@
 import request from 'request-promise';
 import config from '../../config';
 const {
-    BOTS_HTTP_PORT,
-    BOTS_HTTP_HOST,
-} =config;
-console.log(BOTS_HTTP_HOST + ':' + BOTS_HTTP_PORT + '/api/bots/exec');
+    HTTP_PORT_MARKETPLACE,
+    MARKETPLACE_HOST,
+} = config;
 
 export default class marketplaceRouter {
     constructor() {
-        this.path = BOTS_HTTP_HOST + ':' + BOTS_HTTP_PORT + '/api/bots/exec';
+        this.path = MARKETPLACE_HOST + ':' + HTTP_PORT_MARKETPLACE + '/api/exec';
     }
 
-    async exec(type = '', service = '', params = {}) {
+    async exec(service, params = {}) {
 
         const body = {
-            data: {
-                type,
-                service,
-                params
-            }
+            service,
+            params
         };
 
         const options = {
@@ -33,7 +29,7 @@ export default class marketplaceRouter {
         const result = await request(options);
 
         if (result && result.error) {
-            throw new CustomError(result.error);
+            throw new Error(result.error);
         } else {
             return result;
         }

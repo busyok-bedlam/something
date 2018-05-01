@@ -4,15 +4,15 @@ import ShopItem from './ShopItem.jsx';
 import ModalController from './../../lib/ModalController.js';
 import PropTypes from 'prop-types';
 
-export default class Cart extends Component {
+export default class CartDeposit extends Component {
     static propTypes = {
         selectedItems: PropTypes.object.isRequired,
         deselectItem: PropTypes.func.isRequired,
-        createWithdrawOffer: PropTypes.func.isRequired,
+        createDepositOffer: PropTypes.func.isRequired,
     };
 
     state = {
-        cartShowed: false
+        cartShowed: false,
     };
 
     toggleCart = () => {
@@ -27,13 +27,13 @@ export default class Cart extends Component {
         let total = 0;
         for(let key in selectedItems){
             const item = selectedItems[key];
-            total += item.data.price;
+            total += item.price;
             list.push(
                 <ShopItem
                     key={item._id}
-                    iconUrl={item.data.icon_url}
+                    iconUrl={item.iconUrl}
                     name={item.name}
-                    price={item.data.price * 1000}
+                    price={item.price * 1000}
                     selected={false}
                     onClick={()=>deselectItem(item)}
                 />
@@ -44,16 +44,12 @@ export default class Cart extends Component {
 
     render() {
         let {cartShowed} = this.state;
-        const {createWithdrawOffer} = this.props;
         const {list, total} = this.renderItems();
+        const {createDepositOffer} = this.props;
         return (
             <aside className={(!cartShowed) ? "cart" : " cart cart-open"}>
                 <div className="game__header">
                     <div className='balance'>Balance: <i className='icon-poker-piece'/><span>1123</span></div>
-                    <button
-                        onClick={() => ModalController.openModal('DepositModal')}
-                        className='button'>Deposit now
-                    </button>
                 </div>
                 <div className="cart__header" onClick={::this.toggleCart}>
                     <h2>
@@ -69,9 +65,9 @@ export default class Cart extends Component {
                 </div>
                 <div className="cart__footer">
                     <div>
-                        Total:<span> <i className='icon-poker-piece'/>{(total * 1000).toFixed()}</span>
+                        Total: <span> <i className='icon-poker-piece'/>{(total*1000).toFixed()}</span>
                     </div>
-                    <button onClick={createWithdrawOffer} className="button button-green">Buy now</button>
+                    <button onClick={createDepositOffer} className="button button-green">Deposit now</button>
                 </div>
             </aside>
         );

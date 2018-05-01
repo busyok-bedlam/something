@@ -6,6 +6,7 @@ import RoulettePage from "./containers/RoulettePage.jsx";
 import CrashPage from "./containers/CrashPage.jsx";
 import FAQPage from "./containers/pages/FAQPage.jsx";
 import ShopPage from "./containers/pages/ShopPage.jsx";
+import DepositPage from "./containers/pages/DepositPage.jsx";
 import SupportPage from "./containers/pages/SupportPage.jsx";
 import ProfilePage from "./containers/pages/ProfilePage.jsx";
 import TopPlayersPage from "./containers/pages/TopPlayersPage.jsx";
@@ -19,6 +20,7 @@ export default (
         <Route path='/crash' component={CrashPage}/>
         <Route path='/faq' component={FAQPage}/>
         <Route path='/shop' component={ShopPage}/>
+        <Route path='/deposit' component={DepositPage}/>
         <Route path='/support' component={SupportPage}/>
         <Route path='/profile' component={ProfilePage}/>
         <Route path='/top-players' component={TopPlayersPage}/>

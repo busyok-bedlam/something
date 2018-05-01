@@ -2,14 +2,14 @@ import React, {Component}      from "react";
 import {connect}               from "react-redux";
 import {bindActionCreators}    from "redux";
 import * as marketplaceActions from "./../../actions/marketplaceActions";
-import Shop                    from './../../components/pages/Shop.jsx';
+import Deposit                 from './../../components/pages/Deposit.jsx';
 import PropTypes               from 'prop-types';
 import {LoadingScreen}         from '../../lib/LoadingScreen';
 import {toast}                 from 'react-toastify';
 
-class ShopPage extends Component {
+class DepositPage extends Component {
     async componentDidMount() {
-        await this.loadMarketplaceInventory();
+        await this.loadUserInventory();
     }
 
     componentWillUnmount(){
@@ -17,10 +17,10 @@ class ShopPage extends Component {
         marketplaceActions.clear();
     }
 
-    async loadMarketplaceInventory(){
+    async loadUserInventory(){
         try {
             const {marketplaceActions} = this.props;
-            await marketplaceActions.loadMarketplaceInventory({page: 0});
+            await marketplaceActions.loadUserInventory({page: 0});
         } catch (error) {
             console.error(error);
         }
@@ -28,23 +28,23 @@ class ShopPage extends Component {
 
     selectItem(item){
         const {marketplaceActions} = this.props;
-        marketplaceActions.selectItem(item._id, item);
+        marketplaceActions.selectItem(item.assetID, item)
     }
     deselectItem(item){
         const {marketplaceActions} = this.props;
-        marketplaceActions.deselectItem(item._id);
+        marketplaceActions.deselectItem(item.assetID)
     }
 
-    async createWithdrawOffer(){
+    async createDepositOffer(){
         try {
             LoadingScreen.open();
             const {marketplaceActions, marketplace, user} = this.props;
             const {selectedItems} = marketplace;
-            await marketplaceActions.createWithdrawOffer(Object.keys(selectedItems));
+            await marketplaceActions.createDepositOffer(Object.keys(selectedItems));
             location.href = `https://steamcommunity.com/profiles/${user.id}/tradeoffers`;
         } catch (error){
             console.error(error);
-            toast(error.message || error.toString());
+            toast(error.message || error.toString())
         } finally {
             LoadingScreen.close();
         }
@@ -55,14 +55,14 @@ class ShopPage extends Component {
         const {inventory, params, selectedItems} = marketplace;
 
         return (
-                <Shop
+                <Deposit
                     inventory={inventory}
                     selectedItems={selectedItems}
                     params={params}
-                    loadMarketplaceInventory={::this.loadMarketplaceInventory}
+                    loadUserInventory={::this.loadUserInventory}
                     selectItem={::this.selectItem}
                     deselectItem={::this.deselectItem}
-                    createWithdrawOffer={::this.createWithdrawOffer}
+                    createDepositOffer={::this.createDepositOffer}
                 />
         );
     }
@@ -85,10 +85,10 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-ShopPage.prototype.propTypes = {
+DepositPage.prototype.propTypes = {
     marketplaceActions: PropTypes.object.isRequired,
     marketplace: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DepositPage);
