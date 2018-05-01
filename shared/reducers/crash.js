@@ -33,20 +33,12 @@ export default function crash(state = initialState, action) {
             // console.log(action);
             return {...state, currentCrashGame: action.payload};
         }
-        //
-        // case WSM_GAME_CLOSE: {
-        //     return {...state, currentGame: {}};
-        // }
-        //
+
         case WS_CRASH_ERROR: {
             toast(action.payload.message);
             return {...state};
         }
 
-        // case WSM_RESULT_HISTORY: {
-        //     return {...state, resultHistory: action.payload};
-        // }
-        //
         case WS_CRASH_BETS: {
             return {...state, playersBet: action.payload};
         }

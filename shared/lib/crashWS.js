@@ -1,5 +1,5 @@
 import config from '../../config/index';
-import {WS_CRASH_CLOSE} from '../../config/wsMessageType';
+import {WS_CRASH_CLOSE, WS_CURRENT_CRASH_GAME} from '../../config/wsMessageType';
 
 export default class Socket {
     static instance = null;
@@ -37,11 +37,12 @@ export default class Socket {
                         };
                         Socket.instance.onclose = event => {
                             console.log('Crash Socket closed');
-                            // if(Socket.dispatch){
-                            //     Socket.dispatch({
-                            //         type: WS_CRASH_CLOSE,
-                            //     })
-                            // }
+                            if(Socket.dispatch){
+                                Socket.dispatch({
+                                    type: WS_CURRENT_CRASH_GAME,
+                                    payload: {},
+                                })
+                            }
                             if (!event.wasClean) {
                                 console.log('Crash Socket reconnection');
                                 setTimeout(() => {
