@@ -13,26 +13,19 @@ export default class Shop extends Component {
         selectItem: PropTypes.func.isRequired,
         deselectItem: PropTypes.func.isRequired,
         createWithdrawOffer: PropTypes.func.isRequired,
+        handleSearch: PropTypes.func.isRequired,
+        handleSort: PropTypes.func.isRequired,
         params: PropTypes.object.isRequired,
     };
 
-    onChange = e => {
-      this.setState({
-          [e.target.name]: e.target.value
-      })
-    };
-
-    onSortPrice = () => {
-        if(this.state.price === 'up') {
-            this.setState({
-                price: 'down'
-            });
-        } else {
-            this.setState({
-                price: 'up'
-            });
+    onFieldKeyUp(e){
+        console.log('keyye')
+        if(e.keyCode === 13){
+            const {handleSearch} = this.props;
+            handleSearch(e.target.value);
+            e.target.value = '';
         }
-    };
+    }
 
     renderInventory() {
         const {inventory, selectedItems, selectItem, deselectItem} = this.props;
@@ -54,7 +47,7 @@ export default class Shop extends Component {
     }
 
     render() {
-        const {params, loadMarketplaceInventory, selectedItems, createWithdrawOffer, deselectItem} = this.props;
+        const {params, loadMarketplaceInventory, selectedItems, createWithdrawOffer, deselectItem, handleSort} = this.props;
         const {search, price} = params;
 
         return (
@@ -62,13 +55,20 @@ export default class Shop extends Component {
                 <div className="shop">
                     <div className="shop__header">
                         <div className="shop__input">
-                            <input type="text" placeholder='Search' name='search' value={search} onChange={::this.onChange}/>
+                            <input
+                                type="text"
+                                placeholder={search || 'Search'}
+                                name='search'
+                                onKeyUp={::this.onFieldKeyUp}
+                            />
                             <i className='icon-search'/>
                         </div>
                         <div>
-                            <button className="button button-price" onClick={::this.onSortPrice}>
+                            <button
+                                className="button button-price"
+                                onClick={()=>handleSort({price: price === -1 ? 1 : -1})}>
                                 <span>Price</span>
-                                <i className={(price === 'down') ? 'arrow-icon' : 'arrow-icon arrow-icon-active'}/>
+                                <i className={(price === 1) ? 'arrow-icon' : 'arrow-icon arrow-icon-active'}/>
                             </button>
                             <button onClick={loadMarketplaceInventory} className="button button-refresh">
                                 <span><i className='icon-refresh'/>Refresh</span>

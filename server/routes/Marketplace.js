@@ -5,16 +5,13 @@ const MR = new marketplaceRouter();
 
 export default class Marketplace extends Base {
   async loadUserInventory(ctx) {
-    const {page} = ctx.request.body;
     const {user} = ctx.state;
-    const {inventory} = await MR.exec('user/LoadInventory', {userID: user._id});
-    ctx.body = {inventory};
+    const {inventory, params} = await MR.exec('user/LoadInventory', {userID: user._id, params: ctx.request.query});
+    ctx.body = {inventory, params};
   }
   async loadMarketplaceInventory(ctx) {
-    const {page} = ctx.request.body;
-    const {user} = ctx.state;
-    const {inventory} = await MR.exec('bot/LoadInventory', {});
-    ctx.body = {inventory};
+    const {inventory, params} = await MR.exec('bot/LoadInventory', {params: ctx.request.query});
+    ctx.body = {inventory, params};
   }
   async createDepositOffer(ctx) {
     const {ids} = ctx.request.body;

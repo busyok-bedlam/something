@@ -70,16 +70,17 @@ export default class LoadInventory {
             {
                 skip: (parseInt(params.page) || 0) * ITEMS_PER_PAGE,
                 limit: ITEMS_PER_PAGE,
-                sort: {price: -1}
+                sort: {price: parseInt(params.price) || 1}
             },
         );
 
         return {
             inventory: inventory,
             needInventoryUpdate: user ? user.needInventoryUpdate : false,
-            searchOptions: {
+            params: {
                 search: params.search,
                 page: (parseInt(params.page) || 0),
+                price: (parseInt(params.price) || 1),
             }
         };
     }

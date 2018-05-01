@@ -32,18 +32,17 @@ export default class LoadInventory {
                 skip: (parseInt(params.page) || 0) * ITEMS_PER_PAGE,
                 limit: ITEMS_PER_PAGE,
                 sort: {
-                    price: params.highToLow === 'true' ? -1 : 1
+                    price: parseInt(params.price) || 1
                 }
             })
             .populate('data');
 
         return {
             inventory,
-            searchOptions: {
+            params: {
                 page: (parseInt(params.page) || 0),
                 search: params.search || '',
-                highToLow: params.highToLow === 'true',
-                tradable: params.tradable === 'true',
+                price: parseInt(params.price || 1),
             }
         };
     }

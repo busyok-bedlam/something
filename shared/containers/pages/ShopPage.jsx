@@ -50,6 +50,24 @@ class ShopPage extends Component {
         }
     }
 
+    async handleSearch(search){
+        try {
+            const {marketplaceActions} = this.props;
+            await marketplaceActions.loadMarketplaceInventory({search});
+        } catch (error){
+            toast(error.message || error.toString());
+        }
+    }
+
+    async handleSort(value) {
+        try {
+            const {marketplaceActions, marketplace} = this.props;
+            await marketplaceActions.loadMarketplaceInventory({...marketplace.params, ...value});
+        } catch (error){
+            toast(error.message || error.toString());
+        }
+    }
+
     render() {
         const {marketplace} = this.props;
         const {inventory, params, selectedItems} = marketplace;
@@ -63,6 +81,8 @@ class ShopPage extends Component {
                     selectItem={::this.selectItem}
                     deselectItem={::this.deselectItem}
                     createWithdrawOffer={::this.createWithdrawOffer}
+                    handleSearch={::this.handleSearch}
+                    handleSort={::this.handleSort}
                 />
         );
     }

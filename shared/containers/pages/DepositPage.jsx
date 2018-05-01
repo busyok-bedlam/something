@@ -8,6 +8,7 @@ import {LoadingScreen}         from '../../lib/LoadingScreen';
 import {toast}                 from 'react-toastify';
 
 class DepositPage extends Component {
+
     async componentDidMount() {
         await this.loadUserInventory();
     }
@@ -33,6 +34,24 @@ class DepositPage extends Component {
     deselectItem(item){
         const {marketplaceActions} = this.props;
         marketplaceActions.deselectItem(item.assetID)
+    }
+
+    async handleSearch(search){
+        try {
+            const {marketplaceActions, marketplace} = this.props;
+            await marketplaceActions.loadUserInventory({search});
+        } catch (error){
+            toast(error.message || error.toString());
+        }
+    }
+
+    async handleSort(value) {
+        try {
+            const {marketplaceActions, marketplace} = this.props;
+            await marketplaceActions.loadUserInventory({...marketplace.params, ...value});
+        } catch (error){
+            toast(error.message || error.toString());
+        }
     }
 
     async createDepositOffer(){
@@ -63,6 +82,8 @@ class DepositPage extends Component {
                     selectItem={::this.selectItem}
                     deselectItem={::this.deselectItem}
                     createDepositOffer={::this.createDepositOffer}
+                    handleSearch={::this.handleSearch}
+                    handleSort={::this.handleSort}
                 />
         );
     }

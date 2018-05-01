@@ -9,7 +9,7 @@ let initialState = {
     selectedItems: {},
     params: {
         search: '',
-        price: 'up'
+        price: -1
     }
 };
 
