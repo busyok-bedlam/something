@@ -52,6 +52,7 @@ export default class GameRouter {
 
     static async onClientMessage(id, payload, sendResponse, isAuth = false) {
         console.log('onClientMessage');
+        const user = await users.findOne({_id: id});
         // console.log('id', id);
         // console.log('payload', payload);
         try {
@@ -64,8 +65,8 @@ export default class GameRouter {
                         const game = await crash_games.findOne({status: crashConfig.STATUS.BETTING});
                         if (!isAuth) {
                             throw new Error("Not auth user");
-                        // } else if (user.blocked) {
-                        //     throw new Error("You are blocked");
+                        } else if (user.blocked) {
+                            throw new Error("You are blocked");
                         } else if (!game) {
                             throw new Error("Game not found");
                         }

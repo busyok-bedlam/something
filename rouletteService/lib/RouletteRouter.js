@@ -3,6 +3,7 @@ import Clients from './Clients';
 import runService from '../mixins/runService';
 const config = di.get('config');
 const db = di.get('db');
+const users = db.model('users');
 const players = di.get('players');
 const currentGame = di.get('currentGame');
 const lastGames = di.get('lastGames');
@@ -31,10 +32,18 @@ export default class RouletteRouter {
     }
 
     static async onClientMessage(id, payload, sendResponse, isAuth = false) {
-        console.log(payload);
+        // console.log(payload);
+        console.log(isAuth);
 
         try {
             const {type, data} = payload;
+            const user = await users.findOne({_id: id});
+
+            if (!isAuth) {
+                throw new Error("Not auth user");
+            } else if (user.blocked) {
+                throw new Error("You are blocked");
+            }
 
             switch (type) {
                 case WS_ROULETTE_NEW_BET: {

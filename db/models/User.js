@@ -56,6 +56,7 @@ userSchema.methods.getPublicFields = function () {
         xp: this.xp,
         isAdmin: this.isAdmin,
         isModerator: this.isModerator,
+        blocked: this.blocked,
         profileUrl: this.profileUrl,
         rouletteGameProfit: this.rouletteGameProfit,
         crashGameProfit: this.crashGameProfit,

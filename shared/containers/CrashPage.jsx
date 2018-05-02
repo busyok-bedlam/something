@@ -1,29 +1,23 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {toast} from 'react-toastify';
 import PropTypes from 'prop-types';
 import * as userActions from '../actions/userActions';
 import * as crashActions from '../actions/crashActions';
-import {LoadingScreen} from '../lib/LoadingScreen';
 import Crash from "../components/pages/Crash.jsx";
-import config from '../../config/crash.js';
 import CrashSocket from "../lib/crashWS";
-import RouletteSocket from "../lib/rouletteWS";
+import {toast} from 'react-toastify';
 
 class CrashPage extends Component {
 
     static propTypes = {
         user: PropTypes.object.isRequired,
-        // game: PropTypes.object.isRequired,
         crash: PropTypes.object.isRequired,
         userActions: PropTypes.object.isRequired,
         crashActions: PropTypes.object.isRequired,
-        // gameActions: PropTypes.object.isRequired,
     };
 
     state = {
-        // bet: config.CRASH_MIN_BET,
         bet: 0,
         isInventoryLoading: false,
     };
@@ -37,52 +31,17 @@ class CrashPage extends Component {
             .then(instance => instance.close());
     }
 
-    // async componentDidMount() {
-    //     await this.__loadUserInventory();
-    // }
-
-    // async __loadUserInventory() {
-    //     try {
-    //         this.setState({isInventoryLoading: true});
-    //         const {userActions} = this.props;
-    //         await userActions.loadInventory();
-    //     } catch (error) {
-    //         console.error(error);
-    //         toast(error.message || error.toString(), 'error');
-    //     } finally {
-    //         this.setState({isInventoryLoading: true});
-    //     }
-    // }
-
-    // async cbHandleUpdateInventory() {
-    //     await this.__loadUserInventory();
-    // }
-
-    // cbHandleSelectItem(item) {
-    //     const {gameActions} = this.props;
-    //     gameActions.selectItem(item);
-    // }
-
-    // cbHandleSelectAll() {
-    //     const {gameActions, user} = this.props;
-    //     const {inventory} = user;
-    //     gameActions.selectAllItems(inventory);
-    // }
-
-    // cbHandleDeselectItem(itemID) {
-    //     const {gameActions} = this.props;
-    //     gameActions.deselectItem(itemID);
-    // }
-
-    // cbHandleDeselectAll() {
-    //     const {gameActions} = this.props;
-    //     gameActions.deselectAllItems();
-    // }
-
     cbHandleNewBet(bet) {
-        const {crashActions} = this.props;
-        crashActions.crashNewBet(bet);
+        const {crashActions, user} = this.props;
+        console.log(user);
 
+        if (user.blocked) {
+            toast('You are blocked');
+        } else if (!user.isAuth){
+            toast('You are not logged in');
+        } else {
+            crashActions.crashNewBet(bet);
+        }
     }
 
     cbHandleCashOut() {
@@ -101,11 +60,8 @@ class CrashPage extends Component {
     render() {
         const {
             user,
-            // game,
             crash,
         } = this.props;
-        // const {inventory} = user;
-        // const {selectedItems} = game;
         let {bet, isInventoryLoading} = this.state;
 
         return (
@@ -125,12 +81,10 @@ class CrashPage extends Component {
 function mapStateToProps(state) {
     const {
         user,
-        // game,
         crash,
     } = state;
     return {
         user,
-        // game,
         crash,
     };
 }

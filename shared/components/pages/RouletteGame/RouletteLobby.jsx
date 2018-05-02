@@ -4,6 +4,7 @@ import GameHash from '../../common/game/GameHash.jsx';
 import GameHeader from '../../common/game/GameHeader.jsx';
 import roulette from '../../../../config/roulette.js';
 import PropTypes from 'prop-types';
+import {toast} from "react-toastify";
 
 const {
     ROULETTE_MIN_BET,
@@ -43,7 +44,12 @@ export default class RouletteLobby extends Component {
             ROULETTE_COLOR_PINK,
             ROULETTE_COLOR_GREY
         } = roulette;
-        if (this.props.roulette.status !== ROULETTE_BETTING) {
+        let {user} = this.props;
+        if (user.blocked) {
+            toast('You are blocked');
+        } else if (!user.isAuth){
+            toast('You are not logged in');
+        } else if (this.props.roulette.status !== ROULETTE_BETTING) {
             this.errorMessage = 'You cannot to bet';
             console.error('You cannot to bet')
         } else {
