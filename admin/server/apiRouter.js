@@ -8,7 +8,7 @@ const router = new Router({
 
 
 router.post('admin/signin', ::routes.admin.signIn);
-router.post('admin/signup', ::routes.admin.signUp);
+// router.post('admin/signup', ::routes.admin.signUp);
 
 
 router.use(isAuthRoutes.isAuth);
@@ -18,14 +18,20 @@ router.post('admin/logout', ::routes.admin.logoutAdmin);
 router.get('user/count', ::routes.user.countUsers);
 router.get('user/list', ::routes.user.listUsers);
 router.post('user/update_balance', ::routes.user.updateBalance);
-router.get('user/get-id', ::routes.user.getUsersByID);
+router.post('user/get-id', ::routes.user.getUsersByID);
 router.get('user/get-name', ::routes.user.getUsersByName);
 // router.put('user/verify', ::routes.user.verifyUser);
-router.post('user/block', ::routes.user.blockUser);
-router.post('user/unblock', ::routes.user.unblockUser);
+router.post('user/update-user', ::routes.user.updateUser);
+router.post('user/update-user-credentials', ::routes.user.updateUserCredentials);
 
-router.get('games/count', ::routes.games.countGames);
-router.get('games/list', ::routes.games.listGames);
+// router.get('games/count', ::routes.games.countGames);
+// router.get('games/list', ::routes.games.listGames);
+
+router.get('bots/list', ::routes.bots.listBots);
+router.get('bots/botInGameItems', ::routes.bots.botInGameItems);
+router.get('bots/botItems', ::routes.bots.botItems);
+router.post('bots/deleteItems', ::routes.bots.deleteItems);
+router.post('bots/addItems', ::routes.bots.addItems);
 
 router.get('supports/count', ::routes.support.countSupports);
 router.get('supports/list', ::routes.support.listSupports);
@@ -61,7 +67,7 @@ router.post('faqs/delete', ::routes.faqs.deleteFaq);
 // router.get('item/count', routes.item.countItems.bind(routes.item));
 
 
-router.post('file/upload-banner', routes.file.uploadBanner.bind(routes.file));
+// router.post('file/upload-banner', routes.file.uploadBanner.bind(routes.file));
 // router.delete('file/delete-banner', routes.file.deleteBanner.bind(routes.file));
 //
 // router.post('file/upload-image', routes.file.uploadGameImage.bind(routes.file));

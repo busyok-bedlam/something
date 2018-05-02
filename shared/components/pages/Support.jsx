@@ -41,7 +41,7 @@ export default class Support extends Component {
 
     render() {
         let {success} = this.state;
-        let userSteamLink = "https://steamcommunity.com/profiles/" + this.props.user.id;
+        let userSteamLink = this.props.user.profileUrl;
         return (
             <div className="support page-container">
                 <h2 className="page-header">Support</h2>
@@ -65,6 +65,7 @@ export default class Support extends Component {
                                 placeholder="Steam link"
                                 className="input-float valid"
                                 required='true'
+                                readOnly={true}
                                 value={userSteamLink}
                                 validations={[validate.required, validate.steamLink]}
                             />

@@ -6,9 +6,9 @@ const isAuth = async function (ctx, next) {
     }
 };
 
-const isVerified = async function (ctx, next) {
-    if (!ctx.state.user.isVerified) {
-        throw new Error('This action for verified users only');
+const isBlocked = async function (ctx, next) {
+    if (!ctx.state.user.isBlocked) {
+        throw new Error('This action for active users only');
     } else {
         await next();
     }
@@ -16,5 +16,5 @@ const isVerified = async function (ctx, next) {
 
 export default {
     isAuth,
-    isVerified,
+    isBlocked,
 }

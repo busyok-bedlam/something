@@ -15,6 +15,7 @@ export default {
     HTTP_PORT_ROULETTE: isDev ? 3006 : 9996,
     HTTP_PORT_CRASH: isDev ? 3007 : 9997,
     WEBPACK_PORT: 3005,
+    WEBPACK_PORT_ADMIN: isDev ? 3005 : 9995,
     SECRET: 'asdlkfjsalkjld4fsd5yg56hregrthfsdfsdflflksytreyrea75832hfh83thf3h',
     SECRET_ADMIN: 'asdlkdfdfdalkjld42425ajy65gtregre7s67u65htyeksreds545gtrf33',
     STATIC_URL: isDev ? "http://localhost:3005" : 'http://li1419-184.members.linode.com:9990',

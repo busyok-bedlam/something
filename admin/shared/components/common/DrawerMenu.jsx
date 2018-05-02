@@ -40,30 +40,34 @@ class DrawerMenu extends React.Component {
                     onClick={this.changeMenu.bind(this, '/users')}
                     primaryText="Users"
                     key="Users"/>
+                {/*<MenuItem*/}
+                    {/*onClick={this.changeMenu.bind(this, '/games')}*/}
+                    {/*primaryText="Games"*/}
+                    {/*key="Games"/>*/}
                 <MenuItem
-                    onClick={this.changeMenu.bind(this, '/games')}
-                    primaryText="Games"
-                    key="Games"/>
-                <MenuItem
-                    onClick={this.changeMenu.bind(this, '/transactions')}
-                    primaryText="Transactions"
-                    key="Transactions"/>
-                <MenuItem
-                    onClick={this.changeMenu.bind(this, '/payouts')}
-                    primaryText="Payouts"
-                    key="Payouts"/>
+                    onClick={this.changeMenu.bind(this, '/bots')}
+                    primaryText="Bots"
+                    key="Bots"/>
+                {/*<MenuItem*/}
+                    {/*onClick={this.changeMenu.bind(this, '/transactions')}*/}
+                    {/*primaryText="Transactions"*/}
+                    {/*key="Transactions"/>*/}
+                {/*<MenuItem*/}
+                    {/*onClick={this.changeMenu.bind(this, '/payouts')}*/}
+                    {/*primaryText="Payouts"*/}
+                    {/*key="Payouts"/>*/}
                 <MenuItem
                     onClick={this.changeMenu.bind(this, '/support')}
                     primaryText="Support"
                     key="Support"/>
-                <MenuItem
-                    onClick={this.changeMenu.bind(this, '/faqs')}
-                    primaryText="FAQ"
-                    key="Faq"/>
-                <MenuItem
-                    onClick={this.changeMenu.bind(this, '/banner')}
-                    primaryText="Banners"
-                    key="Banners"/>
+                {/*<MenuItem*/}
+                    {/*onClick={this.changeMenu.bind(this, '/faqs')}*/}
+                    {/*primaryText="FAQ"*/}
+                    {/*key="Faq"/>*/}
+                {/*<MenuItem*/}
+                    {/*onClick={this.changeMenu.bind(this, '/banner')}*/}
+                    {/*primaryText="Banners"*/}
+                    {/*key="Banners"/>*/}
 
                 <hr/>
                 <MenuItem

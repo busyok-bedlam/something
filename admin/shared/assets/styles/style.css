@@ -3,7 +3,43 @@ body {
 }
 
 .login-page {
-    margin: 10% 30%;
+    width: 100%;
+    max-width: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.login-page img {
+    display: block;
+    margin: 0 auto 15px;
+    max-width: 200px;
+}
+
+.textfield {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 20px;
+}
+
+.td-button {
+    display: block;
+    text-align: center;
+}
+
+.td-button > * {
+    display: block !important;
+    width: 100% !important;
+}
+
+.td-button .date {
+    padding: 0 10px;
+}
+
+.button span {
+    padding: 0 !important;
 }
 
 .search-panel {
@@ -66,4 +102,72 @@ input.upload-file {
 
 .tab {
     padding: 20px;
+}
+
+.user-page {
+    min-height: calc(100vh - 144px);
+    padding-bottom: 60px;
+    position: relative;
+}
+
+#linePages {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    justify-content: center !important;
+}
+
+#linePages p {
+    min-height: 20px;
+    min-width: 20px;
+    text-align: center;
+    margin: 10px;
+}
+
+#linePages > * {
+    margin: 0 10px;
+}
+
+.loader {
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100% !important;
+    height: 100vh !important;
+    z-index: 10000;
+    background: rgba(0, 0, 0, .7);
+}
+
+.loader img {
+    width: 240px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loader-abs {
+    position: absolute;
+    background: transparent;
+    height: 100% !important;
+}
+
+.zoomLoader {
+    animation: 1s zoomLoader infinite;
+}
+
+@keyframes zoomLoader {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0.8;
+    }
 }

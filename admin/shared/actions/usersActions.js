@@ -38,30 +38,47 @@ export function updateBalance(userID, balance) {
     }
 }
 
-export function blockUser(userID, blockTimeID) {
+export function updateUser(data, options = {}) {
     return async dispatch => {
-        const res = await api.user.blockUser({userID, blockTimeID});
-        if(res.userID && res.blockedTime){
+        const res = await api.user.updateUser(data);
+        if(res){
             return dispatch({
-                type: BLOCK_USER,
+                type: UPDATE_USERS_STATE,
                 payload: {
-                    userID: res.userID,
-                    blockedTime: res.blockedTime,
-                }
+                    page: data.page,
+                    options,
+                    usersList: res.users,
+                },
             })
         }
     }
 }
 
-export function unblockUser(userID) {
+export function findUserByID(data, options = {}) {
     return async dispatch => {
-        const res = await api.user.unblockUser({userID});
-        if(res.userID){
+        const res = await api.user.findUserByID(data);
+        if(res){
             return dispatch({
-                type: UNBLOCK_USER,
+                type: UPDATE_USERS_STATE,
                 payload: {
-                    userID: res.userID,
-                }
+                    usersList: res.users,
+                },
+            })
+        }
+    }
+}
+
+export function updateUserCredentials(data, options = {}) {
+    return async dispatch => {
+        const res = await api.user.updateUserCredentials(data);
+        if(res){
+            return dispatch({
+                type: UPDATE_USERS_STATE,
+                payload: {
+                    page: data.page,
+                    options,
+                    usersList: res.users,
+                },
             })
         }
     }

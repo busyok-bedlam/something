@@ -2,7 +2,7 @@ import di   from '../di';
 import Base from './Base';
 
 const db = di.get('db');
-const SupportModel = db.models.supports;
+const SupportModel = db.models.support;
 const config = di.get('config');
 
 

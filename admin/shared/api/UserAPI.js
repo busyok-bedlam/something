@@ -14,12 +14,16 @@ export default class UserAPI extends Base {
         return this.apiClient.post('user/update_balance', data);
     }
 
-    blockUser(data) {
-        return this.apiClient.post('user/block', data);
+    updateUser(data) {
+        return this.apiClient.post('user/update-user', data);
     }
 
-    unblockUser(data) {
-        return this.apiClient.post('user/unblock', data);
+    findUserByID(data) {
+        return this.apiClient.post('user/get-id', data);
+    }
+
+    updateUserCredentials(data) {
+        return this.apiClient.post('user/update-user-credentials', data);
     }
 }
 

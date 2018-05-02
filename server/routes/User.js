@@ -89,7 +89,8 @@ export default class User extends Base {
     async sendSupport(ctx) {
         try {
             const {body} = ctx.request;
-            const support = await new SupportModel(body);
+            const userID = ctx.state.user._id;
+            const support = await new SupportModel({...body, userID: userID});
             support.save();
             ctx.body = {'success': true};
         } catch (error) {

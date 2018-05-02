@@ -8,7 +8,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 import '../assets/styles/style.css';
 
-class App extends Component {
+class App extends Component {    async componentDidMount() {
+    document.getElementById('mainLoader').style.display = 'none';
+}
 
     render() {
         return (

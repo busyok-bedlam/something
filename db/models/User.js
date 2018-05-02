@@ -32,6 +32,10 @@ const userSchema = new db.Schema({
         losses: {type: Number, default: 0}
     },
     xp: Number,
+    blocked: {type: Boolean, default: false},
+    blockedToDate: {type: Date, default: 0},
+    muted: {type: Boolean, default: false},
+    mutedToDate: {type: Date, default: 0},
     needInventoryUpdate: {type: Date, default: new Date()},
     tradeStatus: {type: String, default: 'FREE'},
     withdrawBalance: {type: Number, default: 0},
@@ -52,6 +56,7 @@ userSchema.methods.getPublicFields = function () {
         xp: this.xp,
         isAdmin: this.isAdmin,
         isModerator: this.isModerator,
+        profileUrl: this.profileUrl,
         rouletteGameProfit: this.rouletteGameProfit,
         crashGameProfit: this.crashGameProfit,
         crashStatus: this.crashStatus

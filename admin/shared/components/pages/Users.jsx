@@ -1,6 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import SelectField from 'material-ui/SelectField';
+import Checkbox from 'material-ui/Checkbox';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import {
@@ -11,16 +11,14 @@ import {
     TableRow,
     TableRowColumn
 } from 'material-ui/Table';
-import TextField from 'material-ui/TextField';
+import DropDownMenu from 'material-ui/DropDownMenu';
 import Forward from 'material-ui/svg-icons/av/forward-10';
 import Previous from 'material-ui/svg-icons/av/replay-10';
 import Right from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Left from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import api from "../../api";
-import adminConfig from '../../../../config/admin';
-import UpdateBalanceModal from './Users/UpdateBalanceModal.jsx';
-import BlockUserModal from './Users/BlockUserModal.jsx';
-import UnblockUserModal from './Users/UnblockUserModal.jsx';
+import config from "./../../../../config/admin";
+import TextField from 'material-ui/TextField';
 
 export default class Users extends React.Component {
 
@@ -28,29 +26,11 @@ export default class Users extends React.Component {
         super(props);
 
         this.state = {
-            countUsers: 0,
-            usersSelectType: '0',
-            inputs: {
-                userName: undefined,
-            },
-            modalOptions: {
-                user: undefined,
-                open: false,
-                onSubmit: null,
-                onClose: null,
-            },
-            modalBlockOptions: {
-                user: undefined,
-                open: false,
-                onSubmit: null,
-                onClose: null,
-            },
-            modalUnblockOptions: {
-                user: undefined,
-                open: false,
-                onSubmit: null,
-                onClose: null,
-            },
+            condition: 0,
+            periodBlocked: [],
+            periodMuted: [],
+            value: 0,
+            searchID: null
         };
     }
 
@@ -62,43 +42,8 @@ export default class Users extends React.Component {
             await usersActions.load(this.props.params.page || 0);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
-    }
-
-    async clear() {
-        try {
-            const {usersActions} = this.props;
-            const count = await api.user.userCount();
-            const {inputs} = this.state;
-            inputs.userName = undefined;
-            this.setState({countUsers: count.amountUsers, inputs});
-            await usersActions.load(0);
-            browserHistory.push(`/users`);
-        } catch (error) {
-            console.error(error);
-            alert(error.message || error.toString());
-        }
-    }
-
-    async handleSelectType(event, index, value) {
-
-        try {
-            const {usersActions, users} = this.props;
-            users.options.usersSelectType = value;
-            this.setState({usersSelectType: value});
-            await usersActions.load(0, users.options)
-        } catch (error) {
-            console.error(error);
-            alert(error.message || error.toString());
-        }
-    }
-
-    handleInputs(e) {
-        const inputs = this.state.inputs;
-        inputs[e.target.name] = e.target.value;
-        this.setState({inputs});
-
     }
 
     async selectPage(e) {
@@ -110,21 +55,21 @@ export default class Users extends React.Component {
             browserHistory.push(`/users/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     };
 
     async nextListPages() {
         try {
             const {usersActions, users} = this.props;
-            // const pages = parseInt(this.state.countUsers / 10) * 10;
-            // if (users.page > pages) return;
+            let countPage = Math.ceil(this.state.countUsers/config.USERS_PER_PAGE);
+            if (users.page + 10 >= countPage) return;
             const page = +users.page + 10;
             await usersActions.load(page, users.options);
             browserHistory.push(`/users/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     };
 
@@ -137,7 +82,7 @@ export default class Users extends React.Component {
             browserHistory.push(`/users/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
 
     };
@@ -145,15 +90,14 @@ export default class Users extends React.Component {
     async nextPage() {
         try {
             const {usersActions, users} = this.props;
-            if (users.page === +users.startPage + 9) {
-                return;
-            }
+            let countPage = Math.ceil(this.state.countUsers/config.USERS_PER_PAGE);
+            if (users.page + 1 >= countPage) return;
             const page = +users.page + 1;
             await usersActions.load(page, users.options);
             browserHistory.push(`/users/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     };
 
@@ -170,174 +114,155 @@ export default class Users extends React.Component {
             browserHistory.push(`/users/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     };
 
-    // searchByID() {
-    //     api.get('user/get-id', {id: this.textID.value})
-    //         .then(res => {
-    //             this.setState({
-    //                 users: res.users,
-    //                 pagesVisible: false
-    //             })
-    //         });
-    // };
-
-    async searchByName() {
-        try {
-            const {usersActions, users} = this.props;
-            const {userName} = this.state.inputs;
-            users.options.search = true;
-            users.options.searchField = 'userName';
-            users.options.searchValue = userName;
-            await usersActions.load(0, users.options)
-        } catch (error) {
-            console.error(error);
-            alert(error.message || error.toString());
+    handleBlockUser(id, st, idx, type) {
+        let period = this.state.periodBlocked[idx] ? this.state.periodBlocked[idx] : '1 day';
+        let blokedDate;
+        switch (period) {
+            case '1 hour':
+                blokedDate = new Date(Date.now() + 60 * 60 * 1000);
+                break;
+            case '1 day':
+                blokedDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
+                break;
+            case '7 day':
+                blokedDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+                break;
+            case '30 day':
+                blokedDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+                break;
+            default:
+                blokedDate = 0;
         }
-    };
-
-    // handleUserDetails = (user, e) => {
-    //     e.preventDefault();
-    //
-    //     this.props.adminActions.setCurrentUser(user);
-    //
-    //     browserHistory.push('/user/details');
-    // };
-
-    handleUpdateUserBalance(user) {
-        this.setState({
-            modalOptions:{
-                open: true,
-                user: user,
-                onSubmit: async (user, value)=>{
-                    try{
-                        const {usersActions} = this.props;
-                        await usersActions.updateBalance(user._id, value);
-                        this.setState({modalOptions:{open: false}})
-                    } catch (error){
-                        console.error(error);
-                        alert(error.message || error.toString());
-                    }
-                },
-                onClose: ()=>{
-                    this.setState({modalOptions:{open: false}})
-                },
-            }
-        })
-    };
-
-    handleBlock(user) {
-        this.setState({
-            modalBlockOptions:{
-                open: true,
-                user: user,
-                onSubmit: async (user, value)=>{
-                    try{
-                        const {usersActions} = this.props;
-                        await usersActions.blockUser(user._id, value);
-                        this.setState({modalBlockOptions:{open: false}})
-                    } catch (error){
-                        console.error(error);
-                        alert(error.message || error.toString());
-                    }
-                },
-                onClose: ()=>{
-                    this.setState({modalBlockOptions:{open: false}})
-                },
-            }
-        })
-    };
-
-    handleUnblock(user) {
-        this.setState({
-            modalUnblockOptions:{
-                open: true,
-                user: user,
-                onSubmit: async (user)=>{
-                    try{
-                        const {usersActions} = this.props;
-                        await usersActions.unblockUser(user._id);
-                        this.setState({modalUnblockOptions:{open: false}})
-                    } catch (error){
-                        console.error(error);
-                        alert(error.message || error.toString());
-                    }
-                },
-                onClose: ()=>{
-                    this.setState({modalUnblockOptions:{open: false}})
-                },
-            }
-        })
-    };
-
-    __renderSelectType() {
-        const selectTypes = [];
-        for (let key in adminConfig.USERS_SELECT_TYPES) {
-            selectTypes.push(
-                <MenuItem value={key}
-                          primaryText={adminConfig.USERS_SELECT_TYPES[key].title}/>
-            );
-        }
-        return selectTypes
+        this.props.usersActions.updateUser({
+            id: id,
+            type,
+            state: !st,
+            period: st ? 0 : blokedDate,
+            page: this.props.params.page || 0
+        });
     }
 
+    handleChangeBlocked = (idx, event, index, value) => {
+        let arr = this.state.periodBlocked;
+        arr[idx] = value;
+        this.setState({periodBlocked: arr});
+    };
+
+    handleChangeMuted = (idx, event, index, value) => {
+        let arr = this.state.periodMuted;
+        arr[idx] = value;
+        this.setState({periodMuted: arr});
+    };
+
+    handleUpdateCredentials = (id, name, value) => {
+        this.props.usersActions.updateUserCredentials({
+            id: id,
+            role: name,
+            state: !value,
+            page: this.props.params.page || 0
+        });
+    };
+
+    handleChangeSearchID = (event) => {
+        this.setState({
+            searchID: event.target.value,
+        });
+    };
+
+    async handleFindUserByID() {
+        try {
+            const {usersActions} = this.props;
+            // if (users.page + 1 >= countPage) return;
+            await usersActions.findUserByID({id: this.state.searchID});
+        } catch (error) {
+            console.dir(error);
+            console.error(error.message || error.toString());
+        }
+    };
 
     render() {
         const {page, usersList} = this.props.users;
         let users = [];
         let pages = [];
+        let countPage = Math.ceil(this.state.countUsers/config.USERS_PER_PAGE);
 
         usersList.map((user, idx) => {
-
+            let dateBlocked = new Date(user.blockedToDate);
+            let dateMuted = new Date(user.mutedToDate);
+            let createdAt = new Date(user.createdAt);
             users.push(
                 <TableRow key={`user-${idx}`}>
-                    <TableRowColumn>{user._id}</TableRowColumn>
+                    <TableRowColumn><a href={user.profileUrl} target="_blank">{user._id}</a></TableRowColumn>
+                    <TableRowColumn>{user.displayName}</TableRowColumn>
+                    <TableRowColumn>{user.balance}</TableRowColumn>
+                    <TableRowColumn>{createdAt.toLocaleString("en-GB")}</TableRowColumn>
                     <TableRowColumn>
-                        {`${user.firstName} ${user.lastName}`}
-                    </TableRowColumn>
-                    <TableRowColumn>{user.email}</TableRowColumn>
-                    <TableRowColumn>{user.userName}</TableRowColumn>
-                    <TableRowColumn
-                        style={{width: 100}}>{Math.floor(user.balance)}</TableRowColumn>
-                    <TableRowColumn>
-                        {/*<RaisedButton*/}
-                            {/*label="Details"*/}
-                            {/*primary={true}*/}
-                            {/*style={{margin: 12}}*/}
-                            {/*onTouchTap={this.handleUserDetails.bind(this, user)}*/}
-                        {/*/>*/}
-                        <RaisedButton
-                            label="Update balance"
-                            primary={true}
-                            style={{margin: 12}}
-                            onTouchTap={this.handleUpdateUserBalance.bind(this, user)}
+                        <Checkbox
+                            checked={user.isAdmin}
+                            onCheck={this.handleUpdateCredentials.bind(this, user._id, "isAdmin", user.isAdmin)}
                         />
                     </TableRowColumn>
                     <TableRowColumn>
-                        {user.isBlocked ?
+                        <Checkbox
+                            checked={user.isModerator}
+                            onCheck={this.handleUpdateCredentials.bind(this, user._id, "isModerator", user.isModerator)}
+                        />
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        <div className="td-button">
+                            {user.blocked ?
+                                <p className="date">{dateBlocked < new Date(2018, 0, 0) ? 'permanent' : dateBlocked.toLocaleString("en-GB")}</p>
+                                :
+                                <DropDownMenu
+                                    value={this.state.periodBlocked[idx] ? this.state.periodBlocked[idx] : '1 day'}
+                                    onChange={this.handleChangeBlocked.bind(this, idx)}
+                                    autoWidth={true}>
+                                    <MenuItem value={'1 day'} primaryText="Day"/>
+                                    <MenuItem value={'7 day'} primaryText="Week"/>
+                                    <MenuItem value={'30 day'} primaryText="Month"/>
+                                    <MenuItem value={'permanent'} primaryText="Permanent"/>
+                                </DropDownMenu>
+                            }
                             <RaisedButton
-                                label="unblock"
-                                secondary={true}
-                                style={{margin: 12}}
-                                onTouchTap={this.handleUnblock.bind(this, user)}
-                            />
-                            :
+                                className="button"
+                                label={user.blocked ? "Unblock" : 'Block'}
+                                secondary={!!user.blocked}
+                                onClick={this.handleBlockUser.bind(this, user._id, user.blocked, idx, 'blocked')}
+                            >
+                            </RaisedButton>
+                        </div>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        <div className="td-button">
+                            {user.muted ?
+                                <p className="date">{dateMuted < new Date(2018, 0, 0) ? 'permanent' : dateMuted.toLocaleString("en-GB")}</p>
+                                :
+                                <DropDownMenu
+                                    value={this.state.periodMuted[idx] ? this.state.periodMuted[idx] : '1 hour'}
+                                    onChange={this.handleChangeMuted.bind(this, idx)}
+                                    autoWidth={true}>
+                                    <MenuItem value={'1 hour'} primaryText="Hour"/>
+                                    <MenuItem value={'1 day'} primaryText="Day"/>
+                                    <MenuItem value={'permanent'} primaryText="Permanent"/>
+                                </DropDownMenu>
+                            }
                             <RaisedButton
-                                label="block user"
-                                primary={true}
-                                style={{margin: 12}}
-                                onTouchTap={this.handleBlock.bind(this, user)}
-                            />
-                        }
-
+                                className="button"
+                                label={user.muted ? "Unmute" : 'Mute'}
+                                secondary={!!user.muted}
+                                onClick={this.handleBlockUser.bind(this, user._id, user.muted, idx, 'muted')}
+                            >
+                            </RaisedButton>
+                        </div>
                     </TableRowColumn>
                 </TableRow>
             );
         });
-
-        for (let i = (page < 5) ? 0 : page - 5; i < ((page < 5) ? 10 : parseInt(page) + 5); i++) {
+        for (let i = (page < 5) ? 0 : page - 5; i < ((page < 5) ? ((countPage < 10) ? countPage : 10) : parseInt(page) + 5); i++) {
             pages.push(
                 <p
                     key={`page-${i}`}
@@ -355,63 +280,36 @@ export default class Users extends React.Component {
         }
 
         return (
-            <div>
+            <div className="user-page">
                 <section className="search-panel">
                     <div className="top-users">
-                        <p className="users-text">{`The number of users of the site - ${this.state.countUsers}.`}</p>
-                        <RaisedButton
-                            label="All users (clear)"
-                            primary={true}
-                            onTouchTap={::this.clear}
-                        />
-                    </div>
-                    <div className="top-users">
-                        {/*<TextField*/}
-                            {/*id="searchID"*/}
-                            {/*hintText="Enter ID"*/}
-                            {/*className="margin"*/}
-                        {/*/>*/}
-
-                        {/*<RaisedButton*/}
-                            {/*className="margin"*/}
-                            {/*label="Search by ID"*/}
-                            {/*primary={true}*/}
-                            {/*onTouchTap={::this.searchByID}*/}
-                        {/*/>*/}
-                        <TextField
-                            value={this.state.inputs.userName}
-                            className="margin"
-                            name="userName"
-                            id="searchName"
-                            hintText="Enter user name (part)"
-                            onChange={::this.handleInputs}
-                        />
-                        <RaisedButton
-                            className="margin"
-                            label="Search by user name"
-                            primary={true}
-                            onTouchTap={::this.searchByName}
-                        />
-                        <SelectField
-                            className="margin"
-                            floatingLabelText="Select Type"
-                            value={this.state.usersSelectType}
-                            onChange={::this.handleSelectType}>
-                            {this.__renderSelectType()}
-                        </SelectField>
+                        <p className="users-text">{`The number of users of the site - ${this.state.countUsers}` + '  '}</p>
                     </div>
                 </section>
 
+                <h3>Find user by ID:</h3>
+                <TextField
+                    id="text-field-controlled"
+                    value={this.state.searchID}
+                    onChange={this.handleChangeSearchID}
+                />
+                <RaisedButton
+                    className="button"
+                    label="Find User"
+                    onClick={this.handleFindUserByID.bind(this)}
+                >
+                </RaisedButton>
                 <Table selectable={false}>
-                    <TableHeader adjustForCheckbox={false}>
+                    <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                         <TableRow>
                             <TableHeaderColumn>ID</TableHeaderColumn>
                             <TableHeaderColumn>Display Name</TableHeaderColumn>
-                            <TableHeaderColumn>E-mail</TableHeaderColumn>
-                            <TableHeaderColumn>User Name</TableHeaderColumn>
                             <TableHeaderColumn>Balance</TableHeaderColumn>
-                            <TableHeaderColumn>Update balance</TableHeaderColumn>
-                            <TableHeaderColumn>Block</TableHeaderColumn>
+                            <TableHeaderColumn>Created at</TableHeaderColumn>
+                            <TableHeaderColumn>Is admin<br />(set only color in chat)</TableHeaderColumn>
+                            <TableHeaderColumn>Is moderator</TableHeaderColumn>
+                            <TableHeaderColumn>Blocked</TableHeaderColumn>
+                            <TableHeaderColumn>Muted</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody
@@ -425,7 +323,6 @@ export default class Users extends React.Component {
                 <div
                     id="linePages"
                     style={{
-                        // display: this.state.pagesVisible ? 'flex' : 'none',
                         display: 'flex',
                         justifyContent: 'space-around',
                         alignItems: 'center',
@@ -446,24 +343,6 @@ export default class Users extends React.Component {
                         style={{cursor: 'pointer'}}
                         onTouchTap={::this.nextListPages}/>
                 </div>
-                <UpdateBalanceModal
-                    open={this.state.modalOptions.open}
-                    user={this.state.modalOptions.user}
-                    onSubmit={this.state.modalOptions.onSubmit}
-                    onClose={this.state.modalOptions.onClose}
-                />
-                <BlockUserModal
-                    open={this.state.modalBlockOptions.open}
-                    user={this.state.modalBlockOptions.user}
-                    onSubmit={this.state.modalBlockOptions.onSubmit}
-                    onClose={this.state.modalBlockOptions.onClose}
-                />
-                <UnblockUserModal
-                    open={this.state.modalUnblockOptions.open}
-                    user={this.state.modalUnblockOptions.user}
-                    onSubmit={this.state.modalUnblockOptions.onSubmit}
-                    onClose={this.state.modalUnblockOptions.onClose}
-                />
             </div>
         )
     }

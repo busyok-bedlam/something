@@ -2,14 +2,15 @@ import di   from '../di';
 import Base from './Base';
 
 const db = di.get('db');
-const UserModel = db.models.users;
+const UsersModel = db.models.users;
 const config = di.get('config');
+import request from "request-promise";
 
 
 export default class User extends Base {
 
     async countUsers(ctx) {
-        const amountUsers = await UserModel.find({}).count();
+        const amountUsers = await UsersModel.find({}).count();
 
         ctx.body = {amountUsers};
     }
@@ -27,7 +28,7 @@ export default class User extends Base {
             options.createdAt = {$gte: config.adminConfig.GAMES_SELECT_TYPES[usersSelectType].getValue()}
         }
 
-        const users = await UserModel
+        const users = await UsersModel
             .find(options)
             .sort({createdAt: -1})
             .skip((page) * config.adminConfig.USERS_PER_PAGE)
@@ -37,74 +38,81 @@ export default class User extends Base {
     }
 
     async getUsersByID(ctx) {
-        //const pattern = new RegExp(ctx.query.id);
-
-        const users = await UserModel
-            .find({_id: ctx.query.id});
-
-        ctx.body = {users};
+        const users = await UsersModel
+            .find({_id: ctx.request.body.id}, function (err, results) {
+                console.log(results.length)
+                if (err || !results.length) {
+                    ctx.body = {error: "User not found! Check ID"};
+                } else {
+                    ctx.body = {users};
+                }
+            });
     }
 
     async getUsersByName(ctx) {
         const pattern = new RegExp(ctx.query.name, 'i');
 
-        const users = await UserModel
+        const users = await UsersModel
             .find({$or: [{firstName: {$regex: pattern}}, {lastName: {$regex: pattern}}]})
 
         ctx.body = {users};
     }
 
 
-
     async updateBalance(ctx) {
         const {userID, balance} = ctx.request.body;
         const newBalance = parseInt(balance);
         if (newBalance) {
-            await UserModel.findByIdAndUpdate(userID, {balance: newBalance});
+            await UsersModel.findByIdAndUpdate(userID, {balance: newBalance});
             ctx.body = {balance: newBalance, userID};
         } else {
             throw new Error('Invalid balance format');
         }
     }
 
-    async blockUser(ctx) {
-        const {blockTimeID, userID} = ctx.request.body;
-        if(!config.adminConfig.USER_BLOCK_TIME[blockTimeID]){
-            throw new Error('Invalid block time id');
-        }
-        const user = await UserModel.findByIdAndUpdate(
-            userID,
-            {
-                blockedTime: config.adminConfig.USER_BLOCK_TIME[blockTimeID].getValue(),
-                isBlocked: true,
+    async updateUser(ctx) {
+        let {id, page, state, period, type} = ctx.request.body;
+        let set = {};
+        set[type] = state;
+        set[type + "ToDate"] = period;
+        await UsersModel.findByIdAndUpdate(
+            {_id: id},
+            {$set: set}
+        );
+        const users = await UsersModel
+            .find()
+            .sort({createdAt: -1})
+            .skip((page) * config.adminConfig.USERS_PER_PAGE)
+            .limit(config.adminConfig.USERS_PER_PAGE);
+        const options = {
+            method: 'POST',
+            uri: 'http://localhost:3004/user-update',
+            body: {
+                id, state
             },
-            {
-                new: true,
-            });
-
-        return ctx.body = {
-            userID: user._id,
-            blockedTime: user.blockedTime,
+            json: true
         };
+        request(options).then(res => console.log(res)).catch(err => console.error(err))
 
+
+        ctx.body = {users};
     }
 
-    async unblockUser(ctx) {
-        const {userID} = ctx.request.body;
 
-        const user = await UserModel.findByIdAndUpdate(
-            userID,
-            {
-                blockedTime: null,
-                isBlocked: false,
-            },
-            {
-                new: true,
-            });
+    async updateUserCredentials(ctx) {
+        let {id, page, role, state} = ctx.request.body;
+        let set = {};
+        set[role] = state;
+        await UsersModel.findByIdAndUpdate(
+            {_id: id},
+            {$set: set}
+        );
+        const users = await UsersModel
+            .find()
+            .sort({createdAt: -1})
+            .skip((page) * config.adminConfig.USERS_PER_PAGE)
+            .limit(config.adminConfig.USERS_PER_PAGE);
 
-        return ctx.body = {
-            userID: user._id,
-        };
-
+        ctx.body = {users};
     }
 }

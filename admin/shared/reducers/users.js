@@ -35,26 +35,10 @@ export default function users(state = initialState, action) {
             });
             return {...state};
         }
-        case BLOCK_USER:{
-            const {userID, blockedTime} = action.payload;
-            state.usersList.forEach(user=>{
-                if(user._id === userID){
-                    user.isBlocked = true;
-                    user.blockedTime = blockedTime;
-                }
-            });
-            return {...state};
-        }
 
-        case UNBLOCK_USER:{
-            const {userID} = action.payload;
-            state.usersList.forEach(user=>{
-                if(user._id === userID){
-                    user.isBlocked = false;
-                }
-            });
+        case BLOCK_USER:
             return {...state};
-        }
+
         default:
             return state;
     }

@@ -1,5 +1,6 @@
 import di from '../di';
 import Clients from './Clients';
+import WSServer from './WSServer';
 
 const config = di.get('config');
 const db = di.get('db');
@@ -19,8 +20,8 @@ export default class ChatRouter {
         tur: 0
     };
 
-    static async onClientMessage(id, payload, sendResponse, isAuth = false) {
-        try {
+    static async onClientMessage(id, payload, sendResponse, isAuth = false, isBlocked , isAdmin = false, isModerator = false) {
+    try {
             const {type, data} = payload;
             switch (type) {
                 case config.wsMessageType.WS_CHAT_MESSAGE: {
@@ -28,12 +29,27 @@ export default class ChatRouter {
                         if (!isAuth) {
                             throw new Error("Not auth user");
                         }
+                        console.log("isblocked" + isBlocked)
+                        if (isBlocked) {
+                            console.error("Blocked");
+                            return sendResponse(
+                                id,
+                                {
+                                    type: config.wsMessageType.WS_ERROR,
+                                    payload: {
+                                        message: `Error: You are muted!`
+                                    }
+                                }
+                            )
+                        }
                         const user = await UsersModel.findById(id);
                         const room = Clients.allClients[id].room;
                         const message = {
                             text: data.message,
                             displayName: user.displayName,
+                            id: user._id,
                             level: user.level,
+                            muted: user.muted,
                             isAdmin: user.isAdmin,
                             isModerator: user.isModerator,
                             avatar: user.avatar,
@@ -53,6 +69,46 @@ export default class ChatRouter {
                             }
                         )
                     }
+                }
+
+                case config.wsMessageType.WS_CHAT_USER_BLOCK: {
+                    if(!isAdmin && !isModerator) return;
+                    let date;
+                    if (data.hours === 'forever') {
+                        date = new Date(2018, 0, 0);
+                    } else {
+                        if(data.hours === 'unmute') {
+                            date = new Date(0);
+                        } else {
+                            date = new Date(Date.now() + 60 * 60 * parseInt(data.hours) * 1000);
+                        }
+                    }
+                    const wsInstance = Clients.getClient(data.id);
+
+                    await UsersModel.findOneAndUpdate({_id: data.id}, { $set: {muted: data.state, mutedToDate: date}}, {new: true}, function(err, doc){
+                        if(err){
+                            console.log("Something wrong when updating data!");
+                        }
+                    });
+                    if(wsInstance){
+                        wsInstance.ws.removeListener('message', wsInstance.onMessage);
+                        const incoming = (newData) => {
+                            const newPayload = JSON.parse(newData);
+                            console.log(payload);
+                            console.log(newPayload);
+                            WSServer.__clientOnMessageCallBack && WSServer.__clientOnMessageCallBack(data.id, newPayload, WSServer.send, true /* is auth user*/, data.state, wsInstance.isAdmin, wsInstance.isModerator)
+                        };
+                        wsInstance.onMessage = incoming;
+                        wsInstance.ws.on('message', incoming);
+                    }
+                    WSServer.sendToAll({
+                        type: config.wsMessageType.WS_CHAT_USER_BLOCK,
+                        payload: {
+                            id: data.id,
+                            muted: data.state
+                        }
+                    });
+                    break
                 }
 
                 case config.wsMessageType.WS_CHAT_CHANGE_ROOM: {

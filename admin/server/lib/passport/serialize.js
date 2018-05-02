@@ -1,5 +1,5 @@
 import passport from 'koa-passport';
-import AdminModel from '../../../../server/models/Admin';
+import AdminModel from '../../../../db/models/Admin';
 
 
 passport.serializeUser((user, done) => {

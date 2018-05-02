@@ -202,10 +202,6 @@ textarea {
   animation: .4s zoomRoulette;
 }
 
-.zoomLoader {
-  animation: 1s zoomLoader infinite;
-}
-
 @keyframes zoomRoulette {
   0% {
     transform:  scale(0) !important;
@@ -214,20 +210,5 @@ textarea {
   100% {
     transform: scale(1) !important;
     opacity: 1;
-  }
-}
-
-@keyframes zoomLoader {
-  0% {
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 0.8;
   }
 }

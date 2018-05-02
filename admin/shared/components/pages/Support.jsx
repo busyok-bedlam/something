@@ -16,9 +16,9 @@ import Previous from 'material-ui/svg-icons/av/replay-10';
 import Right from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Left from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import api from "../../api";
-import gameConfig from '../../../../config/crash';
 import adminConfig from '../../../../config/admin';
 import SupportInfoModal from './Support/SupportInfoModal.jsx';
+import config from "./../../../../config/admin";
 
 
 export default class Support extends React.Component {
@@ -46,7 +46,7 @@ export default class Support extends React.Component {
             await supportsActions.load(this.props.params.page || 0);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     }
 
@@ -59,7 +59,7 @@ export default class Support extends React.Component {
             browserHistory.push(`/support`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     }
 
@@ -77,7 +77,7 @@ export default class Support extends React.Component {
                         this.setState({modalOptions:{open: false}})
                     } catch (error){
                         console.error(error);
-                        alert(error.message || error.toString());
+                        console.error(error.message || error.toString());
                     }
                 },
                 onClose: ()=>{
@@ -88,7 +88,6 @@ export default class Support extends React.Component {
     };
 
     async handleSelectType(event, index, value) {
-
         try {
             const {supportsActions, supports} = this.props;
             supports.options.supportsSelectType = value;
@@ -96,7 +95,7 @@ export default class Support extends React.Component {
             await supportsActions.load(0, supports.options)
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     }
 
@@ -109,21 +108,21 @@ export default class Support extends React.Component {
             browserHistory.push(`/support/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     };
 
     async nextListPages() {
         try {
             const {supportsActions, supports} = this.props;
-            // const pages = parseInt(this.state.countUsers / 10) * 10;
-            // if (users.page > pages) return;
+            let countPage = Math.ceil(this.state.countSupports/config.SUPPORTS_PER_PAGE);
+            if (supports.page + 10 >= countPage) return;
             const page = +supports.page + 10;
             await supportsActions.load(page, supports.options);
             browserHistory.push(`/support/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     };
 
@@ -136,7 +135,7 @@ export default class Support extends React.Component {
             browserHistory.push(`/support/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
 
     };
@@ -144,32 +143,27 @@ export default class Support extends React.Component {
     async nextPage() {
         try {
             const {supportsActions, supports} = this.props;
-            // if (supports.page === +supports.startPage + 9) {
-            //     return;
-            // }
+            let countPage = Math.ceil(this.state.countSupports/config.SUPPORTS_PER_PAGE);
+            if (supports.page + 1 >= countPage) return;
             const page = +supports.page + 1;
             await supportsActions.load(page, supports.options);
             browserHistory.push(`/support/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     };
 
     async previousPage() {
         try {
             const {supportsActions, supports} = this.props;
-            if (+supports.page === +0) {
-                return;
-            }
-
+            if (+supports.page === +0) return;
             const page = +supports.page - 1;
             await supportsActions.load(page, supports.options);
-
             browserHistory.push(`/support/${page}`);
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
+            console.error(error.message || error.toString());
         }
     };
 
@@ -177,7 +171,7 @@ export default class Support extends React.Component {
         const selectTypes = [];
         for (let key in adminConfig.SUPPORTS_SELECT_TYPES) {
             selectTypes.push(
-                <MenuItem value={key}
+                <MenuItem value={key} key={key}
                           primaryText={adminConfig.SUPPORTS_SELECT_TYPES[key].title}/>
             );
         }
@@ -189,17 +183,15 @@ export default class Support extends React.Component {
         const {page, supportsList} = this.props.supports;
         let supports = [];
         let pages = [];
+        let countPage = Math.ceil(this.state.countSupports/config.SUPPORTS_PER_PAGE);
 
 
         supportsList.map((supportReq, idx) => {
-            const centerStyle = {textAlign: 'center'};
-
             supports.push(
                 <TableRow key={`user-${idx}`}>
                     <TableRowColumn>{supportReq._id}</TableRowColumn>
                     <TableRowColumn>{new Date(supportReq.createdAt).toLocaleString()}</TableRowColumn>
-                    <TableRowColumn>{supportReq.user ? supportReq.user._id : '---'}</TableRowColumn>
-                    <TableRowColumn>{supportReq.caption}</TableRowColumn>
+                    <TableRowColumn><a href={supportReq.steamLink}>{supportReq.userID}</a></TableRowColumn>
                     <TableRowColumn>{supportReq.status}</TableRowColumn>
                     <TableRowColumn>
                         <RaisedButton
@@ -212,14 +204,13 @@ export default class Support extends React.Component {
                 </TableRow>
             );
         });
-
-        for (let i = (page < 5) ? 0 : page - 5; i < ((page < 5) ? 10 : parseInt(page) + 5); i++) {
+        for (let i = (page < 5) ? 0 : page - 5; i < ((page < 5) ? ((countPage < 10) ? countPage : 10) : parseInt(page) + 5); i++) {
             pages.push(
                 <p
                     key={`page-${i}`}
                     style={{
                         cursor: 'pointer',
-                        border: i == page ? '1px solid black' : '',
+                        border: i === page ? '1px solid black' : '',
                         borderRadius: '3px',
                         padding: '3px'
                     }}
@@ -229,18 +220,16 @@ export default class Support extends React.Component {
                 </p>
             )
         }
-
-
         return (
             <div>
                 <section className="search-panel">
                     <div className="top-users">
                         <p className="users-text">{`The number of support requests - ${this.state.countSupports}. `}</p>
-                        <RaisedButton
-                            label="All support requests (clear)"
-                            primary={true}
-                            onTouchTap={::this.clear}
-                        />
+                        {/*<RaisedButton*/}
+                            {/*label="All support requests (clear)"*/}
+                            {/*primary={true}*/}
+                            {/*onTouchTap={::this.clear}*/}
+                        {/*/>*/}
                     </div>
                     <div className="top-users">
                         <SelectField
@@ -249,41 +238,15 @@ export default class Support extends React.Component {
                             onChange={::this.handleSelectType}>
                             {this.__renderSelectType()}
                         </SelectField>
-                        {/*<TextField*/}
-                        {/*id="searchID"*/}
-                        {/*hintText="Enter ID"*/}
-                        {/*className="margin"*/}
-                        {/*/>*/}
-
-                        {/*<RaisedButton*/}
-                        {/*className="margin"*/}
-                        {/*label="Search by ID"*/}
-                        {/*primary={true}*/}
-                        {/*onTouchTap={::this.searchByID}*/}
-                        {/*/>*/}
-                        {/*<TextField*/}
-                        {/*className="margin"*/}
-                        {/*name="userName"*/}
-                        {/*id="searchName"*/}
-                        {/*hintText="Enter user name (part)"*/}
-                        {/*onChange={::this.handleInputs}*/}
-                        {/*/>*/}
-                        {/*<RaisedButton*/}
-                        {/*className="margin"*/}
-                        {/*label="Search by user name"*/}
-                        {/*primary={true}*/}
-                        {/*onTouchTap={::this.searchByName}*/}
-                        {/*/>*/}
                     </div>
                 </section>
 
                 <Table selectable={false}>
-                    <TableHeader adjustForCheckbox={false}>
+                    <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                         <TableRow>
                             <TableHeaderColumn>ID</TableHeaderColumn>
                             <TableHeaderColumn>Created at</TableHeaderColumn>
                             <TableHeaderColumn>Owner</TableHeaderColumn>
-                            <TableHeaderColumn>Caption</TableHeaderColumn>
                             <TableHeaderColumn>Status</TableHeaderColumn>
                             <TableHeaderColumn>Details</TableHeaderColumn>
                         </TableRow>
@@ -299,7 +262,6 @@ export default class Support extends React.Component {
                 <div
                     id="linePages"
                     style={{
-                        // display: this.state.pagesVisible ? 'flex' : 'none',
                         display: 'flex',
                         justifyContent: 'space-around',
                         alignItems: 'center',

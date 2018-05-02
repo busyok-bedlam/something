@@ -2,8 +2,8 @@ import config from '../../config';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-export function renderFullHTML({componentHTML, initialState, title, csrfToken,}) {
-    const staticUrl = `${isDev ? `http://localhost:${config.WEBPACK_PORT}` : ''}/static/build`;
+export function renderFullHTML({componentHTML, initialState, title, csrfToken, port}) {
+    const staticUrl = `${isDev ? `http://localhost:${port || config.WEBPACK_PORT}` : ''}/static/build`;
 
     return `
         <!DOCTYPE html>
@@ -21,7 +21,7 @@ export function renderFullHTML({componentHTML, initialState, title, csrfToken,})
         <body>
             <div id="root">${componentHTML}</div>
             <div id="mainLoader" style="fill:#fff;height:64px;width:64px;" class="loader" data-reactid="2">
-                <img class="zoomLoader" src="static/images/logo.png" alt='Blaze'/>
+                <img class="zoomLoader" src="/static/images/logo.png" alt='Blaze'/>
             </div>            
             <script type="application/javascript" id="bootstrap">
                 window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};

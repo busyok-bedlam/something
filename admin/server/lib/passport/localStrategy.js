@@ -1,5 +1,5 @@
 import LocalStrategy from 'passport-local';
-import AdminModel from '../../../../server/models/Admin';
+import AdminModel from '../../../../db/models/Admin';
 
 
 export default new LocalStrategy({

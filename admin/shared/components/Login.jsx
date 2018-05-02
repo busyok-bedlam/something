@@ -4,7 +4,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {browserHistory} from 'react-router';
 import api from "../api/index";
 
-
 export  default class Login extends React.Component {
 
     constructor(props) {
@@ -37,25 +36,6 @@ export  default class Login extends React.Component {
     }
 
     async signUp() {
-        try {
-            const {adminActions} = this.props;
-            const {userName, password} = this.state;
-            const res = await api.admin.signUp({userName, password});
-            if (res && res.dataUser) {
-                adminActions.successLoginUser(res.dataUser);
-                location.href = '/'
-            } else {
-                throw new Error('SignIn error. No user data');
-            }
-        } catch (error) {
-            console.error(error);
-            alert(error.message || error.toString());
-        }
-
-        const data = {
-            login: this.state.login,
-            password: this.state.password,
-        };
     }
 
     handleInput(e) {
@@ -68,19 +48,20 @@ export  default class Login extends React.Component {
         const message = this.state.message;
         return (
             <div className="login-page">
-                <label>{message}</label> <br />
+                <label>{message}</label>
+                <img src="static/images/logo-dark.png" alt="CSGOBlaze"/>
                 <TextField
                     name="userName"
+                    className="textfield"
                     floatingLabelText="Login"
                     onChange={::this.handleInput}
-                /><br />
-                <br />
+                />
                 <TextField
                     name="password"
                     onChange={::this.handleInput}
                     floatingLabelText="Password"
+                    className="textfield"
                     type="password"/>
-                <br />
                 <RaisedButton
                     label="Sign In"
                     primary={true}

@@ -65,7 +65,7 @@ class Chat extends Component {
         if (messages.length > 0) {
             messages.forEach((message, key) => {
                 list.push(
-                    <ChatMessage key={key} message={message} user={user}/>
+                    <ChatMessage key={key} message={message} user={user} chatActions={this.props.chatActions}/>
                 )
             });
         }
@@ -74,13 +74,17 @@ class Chat extends Component {
 
     handleChatMessage = (e) => {
         e.preventDefault();
-        let message = this.textarea.value;
-        if (!message || /^\s*$/.test(message)) {
-            this.textarea.value = '';
-        } else {
-            this.textarea.value = '';
-            this.props.chatActions.sendMessage(message);
-            this.textarea.focus();
+        try {
+            let message = this.textarea.value;
+            if (!message || /^\s*$/.test(message)) {
+                this.textarea.value = '';
+            } else {
+                this.textarea.value = '';
+                this.props.chatActions.sendMessage(message);
+                this.textarea.focus();
+            }
+        } catch (err) {
+            console.log(err)
         }
     };
 

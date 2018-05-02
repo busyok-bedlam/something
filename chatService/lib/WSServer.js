@@ -3,6 +3,41 @@ import Clients       from './Clients';
 import cookie        from "cookie";
 import cookieParser  from "cookie-parser";
 import wsMessageType from '../../config/wsMessageType.json';
+import di            from './../di';
+import express       from 'express';
+import http          from 'http'
+import parser        from 'body-parser';
+const config = di.get('config');;
+const UsersModel = di.get('db').models.users;
+
+const app = express();
+
+// app.use(function (req, res) {
+//     res.send({ msg: "hello" });
+// });
+
+app.use(parser.json());
+app.use("/user-update", function (req, res) {
+    const wsInstance = Clients.getClient(req.body.id);
+    if(wsInstance){
+        wsInstance.ws.removeListener('message', wsInstance.onMessage);
+        const incoming = (data) => {
+            const payload = JSON.parse(data);
+            WSServer.__clientOnMessageCallBack && WSServer.__clientOnMessageCallBack(req.body.id, payload, WSServer.send, true /* is auth user*/, req.body.state, wsInstance.isAdmin, wsInstance.isModerator)
+        };
+        wsInstance.onMessage = incoming;
+        wsInstance.ws.on('message', incoming);
+    }
+    WSServer.sendToAll({
+        type: config.wsMessageType.WS_CHAT_USER_BLOCK,
+        payload: {
+            id: req.body.id,
+            muted: req.body.state
+        }
+    });
+});
+
+const server = http.createServer(app);
 
 export default class WSServer {
     static instance = null;
@@ -14,8 +49,9 @@ export default class WSServer {
         WSServer.sessionStore = sessionStore;
         WSServer.broadcastPeriod = broadcastPeriod;
         WSServer.instance = new WebSocket.Server({
+            server,
             // host: config.HOST,
-            port,
+            // port,
 
             verifyClient(info, cb) {
                 if (isOnlyOrigin) {
@@ -24,6 +60,10 @@ export default class WSServer {
                     cb(true);
                 }
             }
+        });
+
+        server.listen(port, function listening() {
+            console.log('EXPRESS server on %d', server.address().port);
         });
 
         WSServer.instance.on('connection', WSServer.__onConnection || (() => null));
@@ -89,6 +129,8 @@ export default class WSServer {
         if (dataSession.passport) {
             const userID = dataSession.passport.user;
             const client = Clients.getClient(userID);
+            const user = await UsersModel.findById(userID);
+            console.log('IS MUTED: ' + user.muted);
             if(client){
                 return ws.send({
                     type: wsMessageType.WS_ERROR,
@@ -97,17 +139,19 @@ export default class WSServer {
                     }
                 })
             }
-            Clients.addAuthClient(userID, {ws, room: 'eng'});
+
+            const incoming= (data) => {
+                const payload = JSON.parse(data);
+                WSServer.__clientOnMessageCallBack && WSServer.__clientOnMessageCallBack(userID, payload, WSServer.send, true /* is auth user*/, user.muted, user.isAdmin, user.isModerator)
+            };
+            Clients.addAuthClient(userID, {ws, room: 'eng', onMessage: incoming, isAdmin: user.isAdmin, isModerator: user.isModerator});
             ws.on('close', () => {
                 WSServer.__clientOnCloseCallBack && WSServer.__clientOnCloseCallBack(userID);
                 Clients.removeClient(userID);
             });
-            ws.on('message', function incoming(data) {
-                const payload = JSON.parse(data);
-                WSServer.__clientOnMessageCallBack && WSServer.__clientOnMessageCallBack(userID, payload, WSServer.send, true /* is auth user*/)
-            });
+            ws.on('message', incoming);
 
-            WSServer.__clientOnConnectionCallBack && WSServer.__clientOnConnectionCallBack(userID, WSServer.send, true /*is auth user*/);
+            WSServer.__clientOnConnectionCallBack && WSServer.__clientOnConnectionCallBack(userID, WSServer.send, true /*is auth user*/, user.muted, user.isAdmin, user.isModerator);
         } else {
             const client = Clients.getClient(sid);
             if (client){

@@ -60,9 +60,10 @@ app.use(async (ctx) => {
                 const html = await utils.renderFullHTML({
                     componentHTML,
                     initialState,
-                    title: "Panos",
+                    title: "CSGOBlaze",
                     csrfToken: ctx.csrf,
                     isAdmin: true,
+                    port: 3009,
                 });
 
                 ctx.body = html;

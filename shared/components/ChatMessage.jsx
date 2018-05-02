@@ -26,17 +26,19 @@ class ChatMessage extends Component {
         })
     }
 
-    handleMuteUser = (e) => {
+    handleMuteUser(e) {
         e.stopPropagation();
-        console.log(e.target.id);
-        this.setState({
-            showDropDown: false
-        })
-    };
+        if (this.props.user.isAdmin || this.props.user.isModerator) {
+            this.props.chatActions.blockUser({id: this.props.message.id, hours: e.target.id, state: !this.props.message.muted});
+            this.setState({
+                showDropDown: false
+            })
+        }
+    }
 
     render() {
         const {message, key, user} = this.props;
-        let {showDropDown} = this. state;
+        let {showDropDown} = this.state;
 
         return (
             (user.isAdmin || user.isModerator)
@@ -47,11 +49,17 @@ class ChatMessage extends Component {
                        key={key}>
                     <User level={message.level || ''} name={message.displayName} image={message.avatar}
                           isModerator={message.isModerator} isAdmin={message.isAdmin}/>
-                    <ul className="chat__dropdown">
-                        <li id="1" onClick={this.handleMuteUser}>Mute for 1 hours</li>
-                        <li id="24" onClick={this.handleMuteUser}>Mute for 1 day</li>
-                        <li id="forever" onClick={this.handleMuteUser}>Mute for permanent</li>
-                    </ul>
+                    {
+                        (!message.muted)
+                            ? <ul className="chat__dropdown">
+                                <li id="1" onClick={this.handleMuteUser.bind(this)}>Mute for 1 hours</li>
+                                <li id="24" onClick={this.handleMuteUser.bind(this)}>Mute for 1 day</li>
+                                <li id="forever" onClick={this.handleMuteUser.bind(this)}>Mute for permanent</li>
+                            </ul>
+                            : <ul className="chat__dropdown">
+                                <li id="unmute" onClick={this.handleMuteUser.bind(this)}>Unmute</li>
+                            </ul>
+                    }
                     <span className="message">{message.text}</span>
                 </div>
                 : <div className="chat__message" key={key}>

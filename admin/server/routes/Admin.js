@@ -3,7 +3,7 @@ import di   from '../di';
 import Base from './Base';
 
 const db = di.get('db');
-const AdminModel = db.models.admins;
+const AdminModel = db.models.admin;
 const passport = di.get('passport');
 
 export default class Admin extends Base {
@@ -25,8 +25,10 @@ export default class Admin extends Base {
     async signUp(ctx, next) {
         const reqBody = Object.assign({}, ctx.request.body);
         delete reqBody._csrf;
+        console.log(reqBody);
 
         const newUser = await new AdminModel(reqBody).save();
+        console.log(newUser);
 
         if (newUser) {
             ctx.status = 201;

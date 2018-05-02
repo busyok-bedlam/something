@@ -1,14 +1,12 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton  from 'material-ui/RaisedButton';
 import SelectField  from 'material-ui/SelectField';
 import MenuItem  from 'material-ui/MenuItem';
 import commonConfig from '../../../../../config/commonConfig';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField  from 'material-ui/TextField';
 
 export default class SupportInfoModal extends React.Component {
-
 
     state = {
         value: undefined,
@@ -33,7 +31,7 @@ export default class SupportInfoModal extends React.Component {
         const selectTypes = [];
         for (let key in commonConfig.SUPPORT_STATUS) {
             selectTypes.push(
-                <MenuItem value={key}
+                <MenuItem value={key} key={key}
                           primaryText={commonConfig.SUPPORT_STATUS[key]}/>
             );
         }
@@ -53,8 +51,8 @@ export default class SupportInfoModal extends React.Component {
                 primary={true}
                 onClick={::this.handleClose}
             />,
-            <FlatButton
-                label="Submit"
+            <RaisedButton
+                label="Save"
                 primary={true}
                 disabled={this.state.disabled}
                 onClick={::this.handleSubmit}
@@ -68,39 +66,18 @@ export default class SupportInfoModal extends React.Component {
                     actions={actions}
                     modal={true}
                     open={open}>
-                    <h3>User:</h3>
-                    {supportRequest.user ?
-                        <div>
-                            <h3>User name: {supportRequest.user.userName}</h3>
-                            <h3>User   id: {supportRequest.user._id}</h3><br/>
-                            <h3>{`Current balance: ${supportRequest.user.balance}`}</h3>
-                            <hr/>
-                        </div>
-                        : <h3>---</h3>
-                    }
-
-                    <h3>{new Date(supportRequest.createdAt).toLocaleString()}</h3>
-                    <h3>Caption: {supportRequest.caption}</h3>
-                    <br/>
-                    <p>{supportRequest.text}</p>
+                    <h4>Owner: </h4><p>{supportRequest.userID}</p>
+                    <h4>Email: </h4><p><a href={"mailto:" + supportRequest.email}>{supportRequest.email}</a></p>
+                    <h4>Steam link: </h4><p><a href={supportRequest.steamLink}>{supportRequest.userID}</a></p>
+                    <h4>Created at: </h4><p>{new Date(supportRequest.createdAt).toLocaleString()}</p>
                     <hr/>
-
+                    <h4>Support Request: </h4><p>{supportRequest.text}</p>
                     <SelectField
                         floatingLabelText="Change status"
-                        value={this.state.value}
+                        value={this.state.value || supportRequest.status}
                         onChange={::this.handleValue}>
                         {this.__renderSelectType()}
                     </SelectField>
-
-                    {/*<TextField*/}
-                        {/*type="number"*/}
-                        {/*value={this.state.value}*/}
-                        {/*className="margin"*/}
-                        {/*name="value"*/}
-                        {/*id="newBalance"*/}
-                        {/*hintText="Enter new balance"*/}
-                        {/*onChange={::this.handleInput}*/}
-                    {/*/>*/}
                 </Dialog>
             </div>
         );

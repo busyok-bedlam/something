@@ -8,7 +8,6 @@ import api from "../api";
 import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
-
 export default class Header extends React.Component {
 
     constructor(props) {
@@ -34,7 +33,6 @@ export default class Header extends React.Component {
             }
         } catch (error) {
             console.error(error);
-            alert(error.message || error.toString());
             browserHistory.push('/');
         }
     };
@@ -65,8 +63,8 @@ export default class Header extends React.Component {
                             <NavigationMenu />
                         </IconButton>
                     }
-                    title="Panos247 admin"
-                    children={[<ToastContainer/>,]}/>
+                    title="CSGOBlaze admin panel"
+                    children={[<ToastContainer key='toast-container'/>,]}/>
 
                 <Snackbar
                     open={this.state.openModal}
