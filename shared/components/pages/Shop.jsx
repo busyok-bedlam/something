@@ -3,8 +3,16 @@ import Scrollbar          from './../common/Scrollbar.jsx';
 import ShopItem           from './ShopItem.jsx';
 import Cart               from './Cart.jsx';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 export default class Shop extends Component {
+    constructor() {
+        super();
+        this.state = {
+            selectedGame: 'csgo',
+        }
+    }
 
     static propTypes = {
         inventory: PropTypes.array.isRequired,
@@ -46,9 +54,14 @@ export default class Shop extends Component {
         return list;
     }
 
+    handleChangeGame = (selectedOption) => {
+        this.setState({selectedGame: selectedOption.value});
+    };
+
     render() {
         const {params, loadMarketplaceInventory, selectedItems, createWithdrawOffer, deselectItem, handleSort} = this.props;
         const {search, price} = params;
+        let {selectedGame} = this.state;
 
         return (
             <div className='container'>
@@ -64,6 +77,19 @@ export default class Shop extends Component {
                             <i className='icon-search'/>
                         </div>
                         <div>
+                            <Select
+                                name="form-field-name"
+                                value={selectedGame}
+                                onChange={this.handleChangeGame}
+                                searchable={false}
+                                clearable={false}
+                                className='select'
+                                optionClassName='select__options'
+                                options={[
+                                    {value: 'csgo', label: <div className='select__option'>CSGO</div>},
+                                    {value: 'pubg', label: <div className='select__option'>PUBG</div>},
+                                ]}
+                            />
                             <button
                                 className="button button-price"
                                 onClick={()=>handleSort({price: price === -1 ? 1 : -1})}>

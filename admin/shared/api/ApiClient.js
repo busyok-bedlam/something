@@ -1,5 +1,7 @@
 import queryString from 'query-string';
 import fetch       from 'isomorphic-fetch';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class ApiClient {
     constructor(prefix = '/api') {
@@ -73,7 +75,8 @@ export default class ApiClient {
         if (!res.error) {
             return res;
         } else {
-            throw new Error(res.message || res.toString());
+            toast(res.message || res.error || res.toString());
+            throw new Error(res.message || res.error || res.toString());
         }
     }
 }

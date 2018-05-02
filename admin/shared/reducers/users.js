@@ -12,6 +12,7 @@ const initialState = {
     options: {},
     selectedFilter: null,
     selectedSort: null,
+    error: ''
 };
 
 export default function users(state = initialState, action) {

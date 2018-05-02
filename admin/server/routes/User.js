@@ -40,11 +40,10 @@ export default class User extends Base {
     async getUsersByID(ctx) {
         const users = await UsersModel
             .find({_id: ctx.request.body.id}, function (err, results) {
-                console.log(results.length)
                 if (err || !results.length) {
                     ctx.body = {error: "User not found! Check ID"};
                 } else {
-                    ctx.body = {users};
+                    ctx.body = {users: results};
                 }
             });
     }

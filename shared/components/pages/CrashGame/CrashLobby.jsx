@@ -39,6 +39,13 @@ export default class CrashLobby extends Component {
         || parseInt(value) > crashConfig.CRASH_MAX_BET
         || parseInt(value) < crashConfig.CRASH_MIN_BET;
 
+    componentWillReceiveProps(nextProps) {
+        let {bet, user} = nextProps;
+        this.setState({
+            disabledButton: this.validateBet(bet) || user.balance < bet,
+        })
+    }
+
     submitBet(e) {
         e.preventDefault();
         this.props.cbHandleNewBet(this.props.bet);
@@ -76,7 +83,7 @@ export default class CrashLobby extends Component {
                     </div>
                     <BetButtons bet={bet}
                                 minBet={parseInt(CRASH_MIN_BET)}
-                                allInBet={300}
+                                allInBet={user.balance}
                                 handleInputValue={this.handleInputValue.bind(this)}
                     />
                 </div>

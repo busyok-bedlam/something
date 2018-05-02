@@ -14,12 +14,18 @@ export function load(page, options = {}) {
                 payload: {
                     page,
                     options,
-                    usersList: res.users,
+                    usersList: res.users
                 },
             })
-        } else {
-            throw new Error('Error in loading users data: ' + res.toString());
         }
+        return dispatch({
+            type: UPDATE_USERS_STATE,
+            payload: {
+                page,
+                options,
+                error: res.error || ''
+            },
+        })
     }
 }
 

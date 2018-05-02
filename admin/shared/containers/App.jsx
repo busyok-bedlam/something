@@ -4,13 +4,16 @@ import Header from './Header.jsx';
 import DrawerMenu from '../components/common/DrawerMenu.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 injectTapEventPlugin();
 import '../assets/styles/style.css';
 
-class App extends Component {    async componentDidMount() {
-    document.getElementById('mainLoader').style.display = 'none';
-}
+class App extends Component {
+    componentDidMount() {
+        document.getElementById('mainLoader').style.display = 'none';
+    }
 
     render() {
         return (
@@ -19,6 +22,7 @@ class App extends Component {    async componentDidMount() {
                     <Header />
                     <DrawerMenu/>
                     {this.props.children}
+                    <ToastContainer />
                 </div>
             </MuiThemeProvider>
         )

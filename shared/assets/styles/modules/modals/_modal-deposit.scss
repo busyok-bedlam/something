@@ -56,6 +56,9 @@
       text-transform: uppercase;
       font-weight: 300;
       transition: .2s ease font-family;
+      + h4 {
+        padding-top: 15px;
+      }
     }
     h4 {
       font-size: 1.8rem;
@@ -114,6 +117,9 @@
   &__buttons {
     min-width: 100%;
     flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   &__button {
     width: calc(33.33% - 13.33px);
@@ -135,6 +141,9 @@
     }
     &-gift {
       background-image: url("./static/images/giftcard.png");
+    }
+    &-g2a {
+      background-image: url("./static/images/g2a.png");
     }
   }
 }

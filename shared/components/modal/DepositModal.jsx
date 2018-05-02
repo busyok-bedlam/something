@@ -53,17 +53,20 @@ class DepositModal extends Component {
                                     </div>
                                 </div>
                                 <div className='modal-deposit__block'>
-                                    <div className="modal-deposit__content modal-deposit__content-disabled">
-                                        <div className="disabled">
-                                            <img src="static/images/logo.png" alt='Blaze'/>
-                                            <div>Coming soon</div>
-                                        </div>
+                                    <div className="modal-deposit__content">
+                                    {/*<div className="modal-deposit__content modal-deposit__content-disabled">*/}
+                                        {/*<div className="disabled">*/}
+                                            {/*<img src="static/images/logo.png" alt='Blaze'/>*/}
+                                            {/*<div>Coming soon</div>*/}
+                                        {/*</div>*/}
                                         <h3>DEPOSIT WITH PAYMENT SYSTEMS</h3>
-                                        <img src="static/images/logo.png" alt='Blaze'/>
+                                        {/*<img src="static/images/logo.png" alt='Blaze'/>*/}
+                                        <h4>Exchange your skins for coins. </h4>
                                         <div className='modal-deposit__buttons'>
-                                            <button className="modal-deposit__button modal-deposit__button-paypal"/>
+                                            {/*<button className="modal-deposit__button modal-deposit__button-paypal"/>*/}
                                             <button className="modal-deposit__button modal-deposit__button-bitcoin"/>
-                                            <button className="modal-deposit__button modal-deposit__button-gift"/>
+                                            <button className="modal-deposit__button modal-deposit__button-g2a"/>
+                                            {/*<button className="modal-deposit__button modal-deposit__button-gift"/>*/}
                                         </div>
                                         <NavLink to='/deposit' className='button'>Deposit now</NavLink>
                                     </div>

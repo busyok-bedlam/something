@@ -29,7 +29,6 @@ export default class ChatRouter {
                         if (!isAuth) {
                             throw new Error("Not auth user");
                         }
-                        console.log("isblocked" + isBlocked)
                         if (isBlocked) {
                             console.error("Blocked");
                             return sendResponse(
@@ -242,5 +241,4 @@ export default class ChatRouter {
             }
         }
     }
-
 }

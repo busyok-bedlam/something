@@ -57,13 +57,11 @@
     align-items: center;
     justify-content: space-between;
     white-space: nowrap;
+    margin-left: 2rem;
     &:hover,
     &:focus {
       background-color: darken($navBg, 15);
     }
-  }
-  .button + .button {
-    margin-left: 2rem;
   }
   .button-price {
     max-width: 100px;
@@ -90,5 +88,22 @@
         transform: rotate(-360deg);
       }
     }
+  }
+  .select {
+    display: inline-block;
+    width: 150px;
+    height: 5.7rem;
+    line-height: 5.7rem;
+    vertical-align: middle;
+    background-color: $navBg;
+  }
+  .Select-value-label .select__option {
+    height: 5.7rem;
+    line-height: 5.7rem;
+    text-align: left;
+  }
+  .Select-option {
+    padding: 0 10px;
+    text-align: left;
   }
 }

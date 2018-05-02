@@ -30,7 +30,8 @@ export default class Users extends React.Component {
             periodBlocked: [],
             periodMuted: [],
             value: 0,
-            searchID: null
+            searchID: null,
+            disabledSearchButton: true
         };
     }
 
@@ -119,7 +120,9 @@ export default class Users extends React.Component {
     };
 
     handleBlockUser(id, st, idx, type) {
-        let period = this.state.periodBlocked[idx] ? this.state.periodBlocked[idx] : '1 day';
+        let period;
+        if(type == "blocked") period = this.state.periodBlocked[idx] ? this.state.periodBlocked[idx] : '1 day';
+        if(type == "muted") period = this.state.periodMuted[idx] ? this.state.periodMuted[idx] : '1 hour';
         let blokedDate;
         switch (period) {
             case '1 hour':
@@ -170,6 +173,7 @@ export default class Users extends React.Component {
     handleChangeSearchID = (event) => {
         this.setState({
             searchID: event.target.value,
+            disabledSearchButton: !(event.target.value.length >= 17)
         });
     };
 
@@ -179,7 +183,7 @@ export default class Users extends React.Component {
             // if (users.page + 1 >= countPage) return;
             await usersActions.findUserByID({id: this.state.searchID});
         } catch (error) {
-            console.dir(error);
+            console.log(error);
             console.error(error.message || error.toString());
         }
     };
@@ -189,6 +193,7 @@ export default class Users extends React.Component {
         let users = [];
         let pages = [];
         let countPage = Math.ceil(this.state.countUsers/config.USERS_PER_PAGE);
+        let {disabledSearchButton} = this.state;
 
         usersList.map((user, idx) => {
             let dateBlocked = new Date(user.blockedToDate);
@@ -296,6 +301,7 @@ export default class Users extends React.Component {
                 <RaisedButton
                     className="button"
                     label="Find User"
+                    disabled={disabledSearchButton}
                     onClick={this.handleFindUserByID.bind(this)}
                 >
                 </RaisedButton>

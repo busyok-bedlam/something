@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
+import config from '../../config/crash.js';
 import * as userActions from '../actions/userActions';
 import * as crashActions from '../actions/crashActions';
 import Crash from "../components/pages/Crash.jsx";
@@ -18,7 +19,7 @@ class CrashPage extends Component {
     };
 
     state = {
-        bet: 0,
+        bet: config.CRASH_MIN_BET,
         isInventoryLoading: false,
     };
 

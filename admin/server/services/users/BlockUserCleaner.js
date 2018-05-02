@@ -12,13 +12,20 @@ export default class BlockUserCleaner {
         console.log('Cleaner Interval user block');
         const date = new Date();
         const startDate = new Date(2018, 0, 0);
-
         await UsersModel.update(
             {
-                blocked: true,
-                blockedToDate: {$gt : startDate, $lte: date},
+                isBlocked: true,
+                blockedTime: {$lte: date},
             },
             {$set: {blocked: false, blockedToDate: 0}},
+            {"multi": true}
+        );
+        await UsersModel.update(
+            {
+                muted: true,
+                mutedToDate: {$gt : startDate, $lte: date},
+            },
+            {$set: {muted: false, mutedToDate: 0}},
             {"multi": true}
         );
     }
