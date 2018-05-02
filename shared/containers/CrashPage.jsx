@@ -33,7 +33,6 @@ class CrashPage extends Component {
 
     cbHandleNewBet(bet) {
         const {crashActions, user} = this.props;
-        console.log(user);
 
         if (user.blocked) {
             toast('You are blocked');
