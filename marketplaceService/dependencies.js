@@ -6,6 +6,7 @@ import {
 } from "simple-ioc-container/src/constants";
 import mainConfig      from '../config';
 import chatConfig      from '../config/chat';
+import commonConfig      from '../config/commonConfig';
 import wsMessageType   from '../config/wsMessageType.json';
 import db              from '../db';
 import SteamApiIO      from './lib/SteamApiIO';
@@ -16,6 +17,7 @@ const config = Object.assign(
     mainConfig,
     {wsMessageType},
     {chatConfig},
+    commonConfig,
 );
 
 di

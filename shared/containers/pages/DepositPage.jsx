@@ -54,12 +54,25 @@ class DepositPage extends Component {
         }
     }
 
+    async selectGame(e) {
+        try {
+            const {marketplaceActions, marketplace} = this.props;
+            await marketplaceActions.loadUserInventory({...marketplace.params, selectedGame: e.value});
+        } catch (error){
+            toast(error.message || error.toString());
+        }
+    }
+
     async createDepositOffer(){
         try {
             LoadingScreen.open();
             const {marketplaceActions, marketplace, user} = this.props;
             const {selectedItems} = marketplace;
-            await marketplaceActions.createDepositOffer(Object.keys(selectedItems));
+            const items = [];
+            for(let key in selectedItems){
+                items.push({assetID: key, gameID: selectedItems[key].gameID})
+            }
+            await marketplaceActions.createDepositOffer(items);
             location.href = `https://steamcommunity.com/profiles/${user.id}/tradeoffers`;
         } catch (error){
             console.error(error);
@@ -81,6 +94,7 @@ class DepositPage extends Component {
                     loadUserInventory={::this.loadUserInventory}
                     selectItem={::this.selectItem}
                     deselectItem={::this.deselectItem}
+                    selectGame={::this.selectGame}
                     createDepositOffer={::this.createDepositOffer}
                     handleSearch={::this.handleSearch}
                     handleSort={::this.handleSort}

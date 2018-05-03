@@ -21,14 +21,14 @@ const OFFER_STATUS = {
     "InEscrow": 11,          // The trade has been placed on h
 };
 
-const sentOfferChanged = async (bot, offer, oldState) =>{
+const sentOfferChanged = async (bot, offer, oldState) => {
     try {
-        switch (offer.state){
+        switch (offer.state) {
             case OFFER_STATUS.Accepted: {
-                if(offer.itemsToGive.length === 0) {
-                    await runService(['bot','HandleAcceptDepositOffer'], {offer});
+                if (offer.itemsToGive.length === 0) {
+                    await runService(['bot', 'HandleAcceptDepositOffer'], {offer});
                 } else if (offer.itemsToReceive.length === 0) {
-                    await runService(['bot','HandleAcceptWithdrawOffer'],{offer});
+                    await runService(['bot', 'HandleAcceptWithdrawOffer'], {offer});
                 }
                 return;
             }
@@ -37,15 +37,15 @@ const sentOfferChanged = async (bot, offer, oldState) =>{
             case OFFER_STATUS.Expired:
             case OFFER_STATUS.Declined:
             case OFFER_STATUS.Canceled: {
-                if(offer.itemsToGive.length === 0) {
-                    await runService(['bot','HandleCancelDepositOffer'],{offer});
+                if (offer.itemsToGive.length === 0) {
+                    await runService(['bot', 'HandleCancelDepositOffer'], {offer});
                 } else if (offer.itemsToReceive.length === 0) {
-                    await runService(['bot','HandleCancelWithdrawOffer'],{offer});
+                    await runService(['bot', 'HandleCancelWithdrawOffer'], {offer});
                 }
                 return;
             }
         }
-    } catch (error){
+    } catch (error) {
         console.error(error);
         console.log(bot);
         console.log(offer);
@@ -53,40 +53,39 @@ const sentOfferChanged = async (bot, offer, oldState) =>{
 }
 
 
-        // this.botManager.on('newOffer', this.newOffer.bind(this)); //for accepting all offers from users(must be commented or protected from users)
-        botManager.on('sentOfferChanged', sentOfferChanged);
-       botManager.on('loggedIn', (bot) => console.log('Bot logged in'));
-        botManager.infoDebug('Starting Bot Manager');
-       botManager.on('sessionExpired', (botAccount) => {
-            console.log('ON SESSION EXPIRED');
-            botAccount.Auth.loginAccount();
-        });
+// this.botManager.on('newOffer', this.newOffer.bind(this)); //for accepting all offers from users(must be commented or protected from users)
+botManager.on('sentOfferChanged', sentOfferChanged);
+botManager.on('loggedIn', (bot) => console.log('Bot logged in'));
+botManager.infoDebug('Starting Bot Manager');
+botManager.on('sessionExpired', (botAccount) => {
+
+    console.log('ON SESSION EXPIRED');
+    botAccount.Auth.loginAccount();
+
+});
 
 
+//for accepting all offers from users(must be commented or protected from users)
 
-
-
-    //for accepting all offers from users(must be commented or protected from users)
-
-    // async newOffer(bot, offer){
-    //   console.log('NEW OFFER');
-    //   offer.accept((err, status)=>{
-    //     if(!err){
-    //       this.__confirmOutstandingTrades(bot);
-    //     } else {
-    //       console.error('Error in accepting:');
-    //       console.error(err);
-    //     }
-    //   })
-    // }
-    //
-    // __confirmOutstandingTrades(bot){
-    //   return new Promise((resolve, reject)=>{
-    //     bot.Trade.confirmOutstandingTrades((confirmations)=>{
-    //       resolve(confirmations);
-    //     });
-    //   })
-    // }
+// async newOffer(bot, offer){
+//   console.log('NEW OFFER');
+//   offer.accept((err, status)=>{
+//     if(!err){
+//       this.__confirmOutstandingTrades(bot);
+//     } else {
+//       console.error('Error in accepting:');
+//       console.error(err);
+//     }
+//   })
+// }
+//
+// __confirmOutstandingTrades(bot){
+//   return new Promise((resolve, reject)=>{
+//     bot.Trade.confirmOutstandingTrades((confirmations)=>{
+//       resolve(confirmations);
+//     });
+//   })
+// }
 
 
 export default botManager;

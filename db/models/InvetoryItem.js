@@ -7,6 +7,7 @@ db.model('InventoryItem', new db.Schema({
     name: String,
     price: Number,
     botID: String,
+    gameID: Number,
     data: {type: db.Schema.Types.ObjectId, ref: 'SkinData'},
     tradableFrom: {
         type: Date,

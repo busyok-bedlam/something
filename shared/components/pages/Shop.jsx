@@ -22,6 +22,7 @@ export default class Shop extends Component {
         createWithdrawOffer: PropTypes.func.isRequired,
         handleSearch: PropTypes.func.isRequired,
         handleSort: PropTypes.func.isRequired,
+        selectGame: PropTypes.func.isRequired,
         params: PropTypes.object.isRequired,
     };
 
@@ -52,22 +53,23 @@ export default class Shop extends Component {
         return list;
     }
 
-    handleChangeGame = (selectedOption) => {
-        this.setState({selectedGame: selectedOption.value});
-    };
-
     render() {
-        const {params, loadMarketplaceInventory, selectedItems, createWithdrawOffer, deselectItem, handleSort} = this.props;
-        const {search, price} = params;
-        let {selectedGame} = this.state;
+        const {params, loadMarketplaceInventory, selectedItems, createWithdrawOffer, deselectItem, handleSort, selectGame} = this.props;
+        const {search, price, selectedGame} = params;
 
         return (
             <div className='container'>
                 <div className="shop">
-                    <ShopHeader price={price} placeholder={search} loadMarketplaceInventory={loadMarketplaceInventory}
-                                handleSort={handleSort} selectedGame={selectedGame}
-                                handleChangeGame={this.handleChangeGame} onFieldKeyUp={::this.onFieldKeyUp}/>
-                    <div className="shop__container fix-scroll-margin" style={{height: 'calc(100vh - 30rem)'}}>
+                    <ShopHeader
+                        price={price}
+                        placeholder={search}
+                        loadMarketplaceInventory={loadMarketplaceInventory}
+                        handleSort={handleSort}
+                        selectedGame={selectedGame}
+                        handleChangeGame={selectGame}
+                        onFieldKeyUp={::this.onFieldKeyUp}/>
+                    <div className="shop__container fix-scroll-margin"
+                         style={{height: 'calc(100vh - 30rem)'}}>
                         <Scrollbar>
                             {this.renderInventory()}
                         </Scrollbar>

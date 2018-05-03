@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import commonConfig from '../../../config/commonConfig';
 
 export default class Shop extends Component {
     static propTypes = {
@@ -9,10 +10,18 @@ export default class Shop extends Component {
         handleSort: PropTypes.func.isRequired,
         loadMarketplaceInventory: PropTypes.func.isRequired,
         onFieldKeyUp: PropTypes.func.isRequired,
-        selectedGame: PropTypes.string.isRequired,
+        selectedGame: PropTypes.number.isRequired,
         placeholder: PropTypes.string,
         price: PropTypes.number.isRequired,
     };
+
+    gameOptions(){
+        const options = [{value: 0, label: <div className='select__option'>ALL</div>},];
+        for(let key in commonConfig.MARKETPLACE_GAMES){
+            options.push({value: key, label: <div className='select__option'>{commonConfig.MARKETPLACE_GAMES[key].label}</div>});
+        }
+        return options;
+    }
 
     render() {
         const {handleChangeGame, placeholder, onFieldKeyUp, handleSort, price, loadMarketplaceInventory, selectedGame} = this.props;
@@ -31,16 +40,13 @@ export default class Shop extends Component {
                 <div>
                     <Select
                         name="form-field-name"
-                        value={selectedGame}
+                        value={selectedGame || 0}
                         onChange={handleChangeGame}
                         searchable={false}
                         clearable={false}
                         className='select'
                         optionClassName='select__options'
-                        options={[
-                            {value: 'csgo', label: <div className='select__option'>CSGO</div>},
-                            {value: 'pubg', label: <div className='select__option'>PUBG</div>},
-                        ]}
+                        options={this.gameOptions()}
                     />
                     <button
                         className="button button-price"

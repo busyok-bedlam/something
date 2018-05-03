@@ -51,10 +51,10 @@ export default class CreateDepositOffer {
             }
             const {offer, bot} = await this.__createOffer(user.tradeURL);
 
-            offer.addTheirItems(ids.map(assetid => {
+            offer.addTheirItems(ids.map(id => {
                 return {
-                    assetid,
-                    appid: 730,
+                    assetid: id.assetID,
+                    appid: id.gameID,
                     contextid: 2,
                 }
             }));

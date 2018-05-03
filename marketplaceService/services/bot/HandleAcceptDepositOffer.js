@@ -34,7 +34,7 @@ export default class HandleAcceptDepositOffer {
     async exec({offer}) {
         const userSteamID = offer.partner.getSteamID64();
         const offerID = offer.id;
-        const trade = TradeModel.findOneAndUpdate({
+        const trade = await TradeModel.findOneAndUpdate({
             offerID,
             status: TRADE_STATUS.SENT
         }, {status: TRADE_STATUS.ACCEPTED}, {new: true});
@@ -61,11 +61,10 @@ export default class HandleAcceptDepositOffer {
 
         //Saving
         itemsToReceive.forEach(async (item, i) => {
-            console.log('isssssss');
-            console.log(item);
             price += itemsData[item.market_hash_name].price;
             try {
-                await UserItemsCacheModel.findOneAndRemove({assetID: item.assetid});
+                console.log('BRRRRRRRRRR: '+trade.bot);
+                await UserItemsCacheModel.findOneAndRemove({assetID: item.assetid, gameID: item.appid});
                 const inventoryItem = {
                     assetID: items && items[i] ? items[i].assetid : items[i].assetid,
                     botID: trade.bot,
@@ -73,6 +72,8 @@ export default class HandleAcceptDepositOffer {
                     status: !items || !items[i] ? ITEM_STATUS.DEPOSIT_WITH_ERROR : ITEM_STATUS.FREE,
                     data: itemsData[item.market_hash_name],
                     price: itemsData[item.market_hash_name].price,
+                    gameID: item.appid,
+                    tradableFrom: item.appid == 730 ? new Date(new Date().setDate(new Date().getDate() + 7)): new Date(),
                 };
                 await new InventoryItemModel(inventoryItem).save();
             } catch (error) {

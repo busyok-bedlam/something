@@ -9,7 +9,8 @@ let initialState = {
     selectedItems: {},
     params: {
         search: '',
-        price: -1
+        price: -1,
+        selectedGame: 0,
     }
 };
 

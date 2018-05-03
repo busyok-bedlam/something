@@ -8,8 +8,10 @@ const SteamApiIO = di.get('SteamApiIO');
 const ITEMS_PER_PAGE = 60;
 
 export default class LoadInventory {
-    async exec({userID, params}){
-        if(!params) { params = {}}
+    async exec({userID, params}) {
+        if (!params) {
+            params = {}
+        }
 
         let user = await UserModel.findOneAndUpdate(
             {
@@ -39,8 +41,9 @@ export default class LoadInventory {
 
             await UserItemsCacheModel.find({user: userID}).remove();
 
-            const userItems = await SteamApiIO.getUserInventory(userID);
+            const userItems = await this.getUserInventory(userID);
             const itemsNames = [];
+
             for (let key in userItems) {
                 itemsNames.push(userItems[key].market_hash_name);
             }
@@ -55,17 +58,22 @@ export default class LoadInventory {
                     userItems[key].name = data.name;
                     userItems[key].user = userID;
                     userItems[key].assetID = key;
+                    userItems[key].gameID = userItems[key].appid;
                     await new UserItemsCacheModel(userItems[key]).save();
                 }
             }
 
         }
 
+        const options = {
+            user: userID,
+            name: new RegExp(params.search || '', "i"),
+        };
+        if(parseInt(params.selectedGame)){
+            options.gameID = parseInt(params.selectedGame);
+        }
         const inventory = await UserItemsCacheModel.find(
-            {
-                user: userID,
-                name: new RegExp(params.search || '', "i"),
-            },
+            options,
             '',
             {
                 skip: (parseInt(params.page) || 0) * ITEMS_PER_PAGE,
@@ -81,6 +89,7 @@ export default class LoadInventory {
                 search: params.search,
                 page: (parseInt(params.page) || 0),
                 price: (parseInt(params.price) || 1),
+                selectedGame: parseInt(params.selectedGame) || 0
             }
         };
     }
@@ -101,5 +110,14 @@ export default class LoadInventory {
             }
         });
         return result;
+    }
+
+    async getUserInventory(userID) {
+        let itemsAll = {};
+        for (let key in config.MARKETPLACE_GAMES) {
+            const items = await SteamApiIO.getUserInventory(userID, key);
+            itemsAll = {...itemsAll, ...items}
+        }
+        return itemsAll;
     }
 }

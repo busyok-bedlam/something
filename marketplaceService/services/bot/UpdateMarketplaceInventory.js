@@ -13,14 +13,15 @@ const ITEM_STATUS = {
 import botManager from '../../lib/BotManager';
 
 export default class LoadInventory {
-    async exec(){
+    async exec() {
         const bots = botManager.getAccounts();
         const botIDs = [];
 
         for (let i = 0; i < bots.length; i++) {
             const bot = bots[i];
+            console.log('bot.username: '+bot.username);
             const botObj = await this.__findBot(bot.username);
-            const items = await this.__getBotInventory(botObj);
+            const items = await this.__getBotInventoryAll(botObj);
             botIDs.push(bot.SteamID.getSteamID64());
             const assetIDs = [];
 
@@ -31,6 +32,7 @@ export default class LoadInventory {
                     assetID: item.assetid,
                     status: {$nin: [ITEM_STATUS.SOLD, ITEM_STATUS.DEPOSIT_WITH_ERROR]},
                 });
+
                 if (!savedItem) {
                     const itemData = await SkinDataModel.findOne({market_hash_name: item.market_hash_name});
                     if (!itemData || !item.tradable) {
@@ -45,13 +47,21 @@ export default class LoadInventory {
                         data: itemData._id,
                         price: itemData.price,
                         tradableFrom: new Date(),
+                        gameID: itemData.gameID,
                     };
                     await new InventoryItemModel(inventoryItem).save();
                 }
             }
-            await InventoryItemModel.remove({assetID: {$nin: assetIDs}, status: ITEM_STATUS.FREE, botID: bot.SteamID.getSteamID64()})
+            await InventoryItemModel.remove({
+                assetID: {$nin: assetIDs},
+                status: ITEM_STATUS.FREE,
+                botID: bot.SteamID.getSteamID64()
+            })
         }
-        await InventoryItemModel.remove({botID: {$nin: botIDs}, status: ITEM_STATUS.FREE})
+        await InventoryItemModel.remove({
+            botID: {$nin: botIDs},
+            status: ITEM_STATUS.FREE
+        })
     }
 
     async getSkinsData(names) {
@@ -84,9 +94,20 @@ export default class LoadInventory {
         })
     }
 
-    __getBotInventory(bot) {
+    async __getBotInventoryAll(bot) {
+        let inventory = [];
+        for (let key in config.MARKETPLACE_GAMES) {
+            const items = await this.__getBotInventory(bot, key);
+            if (items) {
+                inventory = inventory.concat(items);
+            }
+        }
+        return inventory;
+    }
+
+    __getBotInventory(bot, key = 730) {
         return new Promise(resolve => {
-            bot.getInventory(730, 2, true, (error, items) => {
+            bot.getInventory(key, 2, true, (error, items) => {
                 if (!error) {
                     resolve(items);
                 } else {

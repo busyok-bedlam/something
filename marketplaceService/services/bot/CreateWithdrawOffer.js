@@ -120,7 +120,7 @@ export default class CreateDepositOffer {
                         itemsIDs.push(item._id);
                         return {
                             assetid: item.assetID,
-                            appid: 730,
+                            appid: item.gameID,
                             contextid: 2,
                         }
                     }));
@@ -280,12 +280,13 @@ export default class CreateDepositOffer {
             }
             const loggedIn = await this.__loggedIn(bot);
             if (!loggedIn) {
-                let timeoutID = setTimeout(() => reject('Bot not auth'), 10000);
-                bot.on('loggedIn', () => {
-                    clearTimeout(timeoutID);
-                    resolve(bot)
-                });
-                bot.Auth.loginAccount();
+
+                    let timeoutID = setTimeout(() => reject('Bot not auth'), 10000);
+                    bot.on('loggedIn', () => {
+                        clearTimeout(timeoutID);
+                        resolve(bot)
+                    });
+                    bot.Auth.loginAccount();
             } else {
                 resolve(bot);
             }

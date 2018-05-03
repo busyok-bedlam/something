@@ -5,7 +5,7 @@ db.model('trades', db.Schema({
     user: String,
     userName: String,
     bot: String,
-    items: [String],
+    items: [{assetID: String, gameID: Number}],
     type: String,
     price: Number,
     status: String,

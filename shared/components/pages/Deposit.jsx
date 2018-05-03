@@ -19,23 +19,20 @@ export default class Deposit extends Component {
         loadUserInventory: PropTpes.func.isRequired,
         selectItem: PropTpes.func.isRequired,
         deselectItem: PropTpes.func.isRequired,
+        selectGame: PropTpes.func.isRequired,
         createDepositOffer: PropTpes.func.isRequired,
         handleSearch: PropTpes.func.isRequired,
         handleSort: PropTpes.func.isRequired,
         params: PropTpes.object.isRequired,
     };
 
-    onFieldKeyUp(e){
-        if(e.keyCode === 13){
+    onFieldKeyUp(e) {
+        if (e.keyCode === 13) {
             const {handleSearch} = this.props;
             handleSearch(e.target.value);
             e.target.value = '';
         }
     }
-
-    handleChangeGame = (selectedOption) => {
-        this.setState({selectedGame: selectedOption.value});
-    };
 
     renderInventory() {
         const {inventory, selectedItems, selectItem, deselectItem} = this.props;
@@ -49,7 +46,7 @@ export default class Deposit extends Component {
                     name={item.name}
                     price={item.price * 1000}
                     selected={selected}
-                    onClick={selected ? ()=>deselectItem(item) : ()=>selectItem(item)}
+                    onClick={selected ? () => deselectItem(item) : () => selectItem(item)}
                 />
             )
         });
@@ -57,15 +54,20 @@ export default class Deposit extends Component {
     }
 
     render() {
-        const {params, loadUserInventory, selectedItems, deselectItem, createDepositOffer, handleSort} = this.props;
-        const {search, price} = params;
-        let {selectedGame} = this.state;
+        const {params, loadUserInventory, selectedItems, deselectItem, createDepositOffer, handleSort, selectGame} = this.props;
+        const {search, price, selectedGame} = params;
+
         return (
             <div className='container'>
                 <div className="shop">
-                    <ShopHeader price={price} placeholder={search} loadMarketplaceInventory={loadUserInventory}
-                                handleSort={handleSort} selectedGame={selectedGame}
-                                handleChangeGame={this.handleChangeGame} onFieldKeyUp={::this.onFieldKeyUp}/>
+                    <ShopHeader
+                        price={price}
+                        placeholder={search}
+                        loadMarketplaceInventory={loadUserInventory}
+                        handleSort={handleSort}
+                        selectedGame={selectedGame}
+                        handleChangeGame={selectGame}
+                        onFieldKeyUp={::this.onFieldKeyUp}/>
                     <div className="shop__container fix-scroll-margin"
                          style={{height: 'calc(100vh - 30rem)'}}>
                         <Scrollbar>

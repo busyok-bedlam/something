@@ -68,6 +68,15 @@ class ShopPage extends Component {
         }
     }
 
+    async selectGame(e) {
+        try {
+            const {marketplaceActions, marketplace} = this.props;
+            await marketplaceActions.loadMarketplaceInventory({...marketplace.params, selectedGame: e.value});
+        } catch (error){
+            toast(error.message || error.toString());
+        }
+    }
+
     render() {
         const {marketplace} = this.props;
         const {inventory, params, selectedItems} = marketplace;
@@ -80,6 +89,7 @@ class ShopPage extends Component {
                     loadMarketplaceInventory={::this.loadMarketplaceInventory}
                     selectItem={::this.selectItem}
                     deselectItem={::this.deselectItem}
+                    selectGame={::this.selectGame}
                     createWithdrawOffer={::this.createWithdrawOffer}
                     handleSearch={::this.handleSearch}
                     handleSort={::this.handleSort}

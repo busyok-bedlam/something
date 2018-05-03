@@ -9,5 +9,6 @@ db.model('SkinData', db.Schema({
     market_name: String,    //'MAG-7 | Heat (Factory New)',
     type: String,           //'Restricted Shotgun',
     price: Number,
+    gameID: Number,
 }));
 

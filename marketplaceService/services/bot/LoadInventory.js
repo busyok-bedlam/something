@@ -15,15 +15,20 @@ export default class LoadInventory {
                 onlineBots.push(bot.SteamID.getSteamID64());
             }
         });
+
         const options = {
             status: 'FREE',
-            name: new RegExp(params.search || '', "i"),
-            botID: {$in: onlineBots},
+            // name: new RegExp(params.search || '', "i"),
+            // botID: {$in: onlineBots},
         };
 
         // if (tradable === 'true') {
         //     options.tradableFrom = {$lt: new Date()}
         // }
+
+        if(parseInt(params.selectedGame)){
+            options.gameID = parseInt(params.selectedGame);
+        }
 
         const inventory = await InventoryItemModel.find(
             options,
@@ -43,6 +48,7 @@ export default class LoadInventory {
                 page: (parseInt(params.page) || 0),
                 search: params.search || '',
                 price: parseInt(params.price || 1),
+                selectedGame: parseInt(params.selectedGame) || 0
             }
         };
     }
