@@ -27,7 +27,7 @@ export default class BetResults {
                 for (let i = 0; i < bets.length; i++) {
                     bets[i].profit = -bets[i].amount;
                     bets[i].result = "lose";
-                    bets[i].status = crashConfig.STATUS.FREE;
+                    bets[i].status = crashConfig.STATUS.FINISHED;
                     bets[i].save();
                     let user = await users.findOne({_id: bets[i].userID,});
                     user.crashStatus = crashConfig.STATUS.FREE;
