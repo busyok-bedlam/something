@@ -207,7 +207,7 @@ export default class User extends Base {
             {
                 $match: {
                     "createdAt": {$gte: lastWeek},
-                    "isWinning": true,
+                    "result": 'won',
                     "userID": {$exists: true}
                 }
             },
@@ -225,7 +225,7 @@ export default class User extends Base {
                     "displayName": "$user.displayName",
                     "level": "$user.level",
                     "avatarFull": "$user.avatarFull",
-                    "wins": "$user.rouletteGameProfit.wins"
+                    "wins": "$user.crashGameProfit.wins"
                 }
             },
             {$sort: {amount: -1}},

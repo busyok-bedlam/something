@@ -64,7 +64,7 @@ export default class CashOut {
                 crashID: game._id,});
         bet.status = crashConfig.STATUS.FINISHED;
         bet.cashOut = currentValue;
-        bet.isWinning = true;
+        bet.result = 'won';
         let cashOutAmount = currentValue * bet.amount - bet.amount;
         bet.profit = Math.floor(cashOutAmount);
         bet.save();

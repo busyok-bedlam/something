@@ -17,7 +17,8 @@ export default class TopPlayers extends Component {
         gamesRoulette: 0,
         topRoulette: [],
         topCrash: [],
-        gamesCrash: 5
+        allGames: [],
+        gamesCrash: 0
     };
 
     handleChangeGame = (e, userObject, gameName) => {
@@ -48,13 +49,43 @@ export default class TopPlayers extends Component {
             period: this.state.periodForInfo,
         })
             .then(res => {
+                let allGames = [];
+                let allData = res.topCrash.concat(res.topRoulette);
+                allData.forEach(el => {
+                    let isExist = false;
+                    let index = 0;
+                    allGames.forEach((resEl, i) => {
+                        if (resEl._id === el._id) {
+                            isExist = true;
+                            index = i;
+                        }
+                    });
+                    if (isExist) {
+                        allGames[index].amount += el.amount;
+                        allGames[index].wins += el.wins;
+                    } else {
+                        allGames.push({
+                            _id: el._id,
+                            avatarFull: el.avatarFull,
+                            displayName: el.displayName,
+                            level: el.level,
+                            wins: el.wins,
+                            amount: el.amount
+                        })
+
+                    }
+                });
+                allGames.sort(function(a,b) {return (a.amount > b.amount) ? -1 : ((b.amount > a.amount) ? 1 : 0);} );
                 this.setState({
                     uniquePlayers: res.uniquePlayers,
                     topPlayers: res.topPlayers,
                     topRoulette: res.topRoulette,
                     gamesRoulette: res.gamesRoulette,
-                    topCrash: res.topCrash
+                    gamesCrash: res.gamesCrash,
+                    topCrash: res.topCrash,
+                    allGames
                 });
+
             })
             .catch(err => console.error(err))
     };
@@ -63,53 +94,23 @@ export default class TopPlayers extends Component {
         await this.__fetchData()
     }
 
+    renderTopItem = arrayItems => {
+        let resultArray = [];
+        if (arrayItems && arrayItems.length > 0) {
+            resultArray = arrayItems.map((el, key) =>
+                (<div className="top-players__item" key={key}>
+                    <div className='place'>{key + 1}</div>
+                    <User level={el.level} name={el.displayName} image={el.avatarFull}/>
+                    <div>{el.wins}</div>
+                    <div><i className='icon-poker-piece'/> {el.amount}</div>
+                </div>)
+            );
+        }
+        return resultArray
+    }
+
     render() {
-        let {selectedGame, periodForInfo, uniquePlayers, topPlayers, topRoulette, topCrash, gamesRoulette, gamesCrash} = this.state;
-
-        let rouletteGames = topRoulette.map((el, key) =>
-            <div className="top-players__item" key={key}>
-                <div className='place'>{key + 1}</div>
-                <User level={el.level} name={el.displayName} image={el.avatarFull}/>
-                <div>{el.wins}</div>
-                <div><i className='icon-poker-piece'/> {el.amount}</div>
-            </div>
-        );
-
-        let crashGames = topCrash.map((el, key) =>
-            <div className="top-players__item" key={key}>
-                <div className='place'>{key + 1}</div>
-                <User level={el.level} name={el.displayName} image={el.avatarFull}/>
-                <div>{el.wins}</div>
-                <div><i className='icon-poker-piece'/> {el.amount}</div>
-            </div>
-        );
-
-        // let allGames = topRoulette.map((el, key) => {
-            // let sumEl;
-            // for(let i = 0; i < topRoulette.length; i++) {
-            //     console.log(topCrash.length);
-            //     if(i > topCrash.length) {
-            //         sumEl = sumEl = Object.assign({}, topRoulette[i]);
-            //         console.log('sum el return')
-            //     }
-            //     else {
-            //         if(topCrash[i]._id === el._id) {
-            //             console.log('sum el summed')
-            //             sumEl = Object.assign({}, topCrash[i]);
-            //         }
-            //         console.log(topCrash[i])
-            //     }
-            // }
-            // console.log(sumEl)
-        //         return (
-        //             <div className="top-players__item" key={key}>
-        //                 <div className='place'>{key + 1}</div>
-        //                 <User level={sumEl.level} name={sumEl.displayName} image={sumEl.avatarFull}/>
-        //                 <div>{sumEl.wins}</div>
-        //                 <div><i className='icon-poker-piece'/> {sumEl.amount}</div>
-        //             </div>)
-        //     }
-        // );
+        let {selectedGame, periodForInfo, uniquePlayers, topPlayers, topRoulette, topCrash, gamesRoulette, gamesCrash, allGames} = this.state;
 
         return (
             <div className="top-players page-container">
@@ -173,8 +174,7 @@ export default class TopPlayers extends Component {
                     <div>
                         {(selectedGame === "roulette") && <h3>{(topRoulette.length) ? topRoulette[0].amount : 0}</h3>}
                         {(selectedGame === "crash") && <h3>{(topCrash.length) ? topCrash[0].amount : 0}</h3>}
-                        {(selectedGame === "all") &&
-                        <h3>{((topRoulette.length && topRoulette[0].amount) || 0) + (topCrash.length && topCrash[0].amount || 0)}</h3>}
+                        {(selectedGame === "all") && <h3>{(allGames.length) ? allGames[0].amount : 0}</h3>}
                         <span>max profit</span></div>
                     <div>
                         {(selectedGame === "roulette") && <h3>{gamesRoulette}</h3>}
@@ -194,10 +194,10 @@ export default class TopPlayers extends Component {
                 <div>
                     {
                         (selectedGame === "roulette")
-                            ? rouletteGames
+                            ? this.renderTopItem(topRoulette)
                             : (selectedGame === "crash")
-                                ? crashGames
-                                : 'all'
+                                ? this.renderTopItem(topCrash)
+                                : this.renderTopItem(allGames)
                     }
                 </div>
             </div>
