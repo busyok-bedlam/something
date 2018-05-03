@@ -61,3 +61,8 @@ di
         type: CONTAINER_TYPE_VALUE,
         value: []
     })
+    .register({
+        key: 'redisClient',
+        type: CONTAINER_TYPE_VALUE,
+        value: require('./lib/redis').default
+    });

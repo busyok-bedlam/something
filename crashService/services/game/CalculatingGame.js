@@ -9,6 +9,7 @@ import crypto from 'crypto';
 const db = di.get('db');
 const crash_games = db.model('crash_games');
 const config = di.get('config');
+const redisClient = di.get('redisClient');
 const crashConfig = config.crashConfig;
 const wsMessageType = config.wsMessageType;
 
@@ -86,6 +87,7 @@ export default class CalculatingGame {
             WSServer.sendToAll(data);
             await runService(['bets', 'BetResults']);
             // GameRouter.resultGameHistory(value);
+            redisClient.set('CrashTotal', 0);
             console.log(value);
         } else {
             let endTime = Math.sqrt(2 * (value - 1) / 0.03) * 1000;
@@ -105,6 +107,7 @@ export default class CalculatingGame {
                     await runService(['bets', 'BetResults']);
                     console.log(value);
                     setTimeout(resolve, 2000);
+                    redisClient.set('CrashTotal', 0);
                     // GameRouter.resultGameHistory(value);
                 }, endTime)
             });

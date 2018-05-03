@@ -9,7 +9,9 @@ import commonConfig    from '../config/commonConfig';
 import botsConfig       from '../config/bots';
 import db              from '../db';
 import passport        from './lib/passport';
+import redis           from 'redis';
 
+const redisClient = redis.createClient();
 const config = {
     ...mainConfig,
     commonConfig,
@@ -32,6 +34,14 @@ di
         key: "db",
         type: CONTAINER_TYPE_VALUE,
         value: db,
+    })
+    .register({
+        key: "redisClient",
+        type: CONTAINER_TYPE_VALUE,
+        value: redisClient,
+        onRegister() {
+            require(__dirname + "/lib/commonWS");
+        }
     })
     .register({
         key: "services",
