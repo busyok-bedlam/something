@@ -3,8 +3,15 @@ import Scrollbar          from './../common/Scrollbar.jsx';
 import ShopItem           from './ShopItem.jsx';
 import Cart               from './CartDeposit.jsx';
 import PropTpes from 'prop-types';
+import ShopHeader         from './ShopHeader.jsx';
 
 export default class Deposit extends Component {
+    constructor() {
+        super();
+        this.state = {
+            selectedGame: 'csgo',
+        }
+    }
 
     static propTypes = {
         inventory: PropTpes.array.isRequired,
@@ -25,6 +32,10 @@ export default class Deposit extends Component {
             e.target.value = '';
         }
     }
+
+    handleChangeGame = (selectedOption) => {
+        this.setState({selectedGame: selectedOption.value});
+    };
 
     renderInventory() {
         const {inventory, selectedItems, selectItem, deselectItem} = this.props;
@@ -48,34 +59,13 @@ export default class Deposit extends Component {
     render() {
         const {params, loadUserInventory, selectedItems, deselectItem, createDepositOffer, handleSort} = this.props;
         const {search, price} = params;
-
+        let {selectedGame} = this.state;
         return (
             <div className='container'>
                 <div className="shop">
-                    <div className="shop__header">
-                        <div className="shop__input">
-                            <input
-                                type="text"
-                                placeholder={search || 'Search'}
-                                name='search'
-                                onKeyUp={::this.onFieldKeyUp}
-                            />
-                            <i className='icon-search'/>
-                        </div>
-                        <div>
-                            <button className="button button-price"
-                                    onClick={()=>handleSort({price: price === -1 ? 1 : -1})}>
-                                <span>Price</span>
-                                <i className={(price === 1) ? 'arrow-icon' : 'arrow-icon arrow-icon-active'}/>
-                            </button>
-                            <button onClick={loadUserInventory}
-                                    className="button button-refresh">
-                                <span><i
-                                    className='icon-refresh'/>Refresh</span>
-                                <span className='items'>(15 added)</span>
-                            </button>
-                        </div>
-                    </div>
+                    <ShopHeader price={price} placeholder={search} loadMarketplaceInventory={loadUserInventory}
+                                handleSort={handleSort} selectedGame={selectedGame}
+                                handleChangeGame={this.handleChangeGame} onFieldKeyUp={::this.onFieldKeyUp}/>
                     <div className="shop__container fix-scroll-margin"
                          style={{height: 'calc(100vh - 30rem)'}}>
                         <Scrollbar>

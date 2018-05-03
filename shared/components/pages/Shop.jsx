@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import Scrollbar          from './../common/Scrollbar.jsx';
 import ShopItem           from './ShopItem.jsx';
 import Cart               from './Cart.jsx';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+import PropTypes          from 'prop-types';
+import ShopHeader           from './ShopHeader.jsx';
 
 export default class Shop extends Component {
     constructor() {
@@ -26,9 +25,8 @@ export default class Shop extends Component {
         params: PropTypes.object.isRequired,
     };
 
-    onFieldKeyUp(e){
-        console.log('keyye')
-        if(e.keyCode === 13){
+    onFieldKeyUp(e) {
+        if (e.keyCode === 13) {
             const {handleSearch} = this.props;
             handleSearch(e.target.value);
             e.target.value = '';
@@ -47,7 +45,7 @@ export default class Shop extends Component {
                     name={item.name}
                     price={item.data.price * 1000}
                     selected={selected}
-                    onClick={selected ? ()=>deselectItem(item) : ()=>selectItem(item)}
+                    onClick={selected ? () => deselectItem(item) : () => selectItem(item)}
                 />
             )
         });
@@ -66,42 +64,9 @@ export default class Shop extends Component {
         return (
             <div className='container'>
                 <div className="shop">
-                    <div className="shop__header">
-                        <div className="shop__input">
-                            <input
-                                type="text"
-                                placeholder={search || 'Search'}
-                                name='search'
-                                onKeyUp={::this.onFieldKeyUp}
-                            />
-                            <i className='icon-search'/>
-                        </div>
-                        <div>
-                            <Select
-                                name="form-field-name"
-                                value={selectedGame}
-                                onChange={this.handleChangeGame}
-                                searchable={false}
-                                clearable={false}
-                                className='select'
-                                optionClassName='select__options'
-                                options={[
-                                    {value: 'csgo', label: <div className='select__option'>CSGO</div>},
-                                    {value: 'pubg', label: <div className='select__option'>PUBG</div>},
-                                ]}
-                            />
-                            <button
-                                className="button button-price"
-                                onClick={()=>handleSort({price: price === -1 ? 1 : -1})}>
-                                <span>Price</span>
-                                <i className={(price === 1) ? 'arrow-icon' : 'arrow-icon arrow-icon-active'}/>
-                            </button>
-                            <button onClick={loadMarketplaceInventory} className="button button-refresh">
-                                <span><i className='icon-refresh'/>Refresh</span>
-                                <span className='items'>(15 added)</span>
-                            </button>
-                        </div>
-                    </div>
+                    <ShopHeader price={price} placeholder={search} loadMarketplaceInventory={loadMarketplaceInventory}
+                                handleSort={handleSort} selectedGame={selectedGame}
+                                handleChangeGame={this.handleChangeGame} onFieldKeyUp={::this.onFieldKeyUp}/>
                     <div className="shop__container fix-scroll-margin" style={{height: 'calc(100vh - 30rem)'}}>
                         <Scrollbar>
                             {this.renderInventory()}
