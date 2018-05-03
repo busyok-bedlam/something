@@ -66,7 +66,7 @@ export default class CashOut {
         bet.cashOut = currentValue;
         bet.isWinning = true;
         let cashOutAmount = currentValue * bet.amount - bet.amount;
-        bet.profit = cashOutAmount.toFixed(2);
+        bet.profit = Math.floor(cashOutAmount);
         bet.save();
         return bet;
 
