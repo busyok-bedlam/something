@@ -7,7 +7,7 @@ const betSchema = new db.Schema({
     amount: {type: Number, required: true},
     cashOut: {type: Number, default: 0, min: 0, required: false},
     status: {type: String, default: crashConfig.STATUS.IN_GAME},
-    result: {type: String, required: false},
+    isWinning: {type: Boolean, default: false},
     createdAt: { type: Date, default: Date.now()},
     profit: {type: Number, default: 0, required: false},
 });
