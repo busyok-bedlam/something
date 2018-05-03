@@ -65,6 +65,52 @@ export default class TopPlayers extends Component {
 
     render() {
         let {selectedGame, periodForInfo, uniquePlayers, topPlayers, topRoulette, topCrash, gamesRoulette, gamesCrash} = this.state;
+
+        let rouletteGames = topRoulette.map((el, key) =>
+            <div className="top-players__item" key={key}>
+                <div className='place'>{key + 1}</div>
+                <User level={el.level} name={el.displayName} image={el.avatarFull}/>
+                <div>{el.wins}</div>
+                <div><i className='icon-poker-piece'/> {el.amount}</div>
+            </div>
+        );
+
+        let crashGames = topCrash.map((el, key) =>
+            <div className="top-players__item" key={key}>
+                <div className='place'>{key + 1}</div>
+                <User level={el.level} name={el.displayName} image={el.avatarFull}/>
+                <div>{el.wins}</div>
+                <div><i className='icon-poker-piece'/> {el.amount}</div>
+            </div>
+        );
+
+        // let allGames = topRoulette.map((el, key) => {
+            // let sumEl;
+            // for(let i = 0; i < topRoulette.length; i++) {
+            //     console.log(topCrash.length);
+            //     if(i > topCrash.length) {
+            //         sumEl = sumEl = Object.assign({}, topRoulette[i]);
+            //         console.log('sum el return')
+            //     }
+            //     else {
+            //         if(topCrash[i]._id === el._id) {
+            //             console.log('sum el summed')
+            //             sumEl = Object.assign({}, topCrash[i]);
+            //         }
+            //         console.log(topCrash[i])
+            //     }
+            // }
+            // console.log(sumEl)
+        //         return (
+        //             <div className="top-players__item" key={key}>
+        //                 <div className='place'>{key + 1}</div>
+        //                 <User level={sumEl.level} name={sumEl.displayName} image={sumEl.avatarFull}/>
+        //                 <div>{sumEl.wins}</div>
+        //                 <div><i className='icon-poker-piece'/> {sumEl.amount}</div>
+        //             </div>)
+        //     }
+        // );
+
         return (
             <div className="top-players page-container">
                 <h2 className="page-header">Top players</h2>
@@ -147,14 +193,11 @@ export default class TopPlayers extends Component {
                 </div>
                 <div>
                     {
-                        topRoulette.map((el, key) =>
-                            <div className="top-players__item" key={key}>
-                                <div className='place'>{key + 1}</div>
-                                <User level={el.level} name={el.displayName} image={el.avatarFull}/>
-                                <div>{el.wins}</div>
-                                <div><i className='icon-poker-piece'/> {el.amount}</div>
-                            </div>
-                        )
+                        (selectedGame === "roulette")
+                            ? rouletteGames
+                            : (selectedGame === "crash")
+                                ? crashGames
+                                : 'all'
                     }
                 </div>
             </div>

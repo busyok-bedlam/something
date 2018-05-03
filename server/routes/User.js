@@ -9,6 +9,8 @@ const UserModel = db.models.users;
 const SupportModel = db.models.support;
 const RouletteBetsModel = db.model('roulette_bets');
 const RouletteGamesModel = db.model('roulette_games');
+const CrashGamesModel = db.model('crash_games');
+const CrashBetsModel = db.model('crash_bets');
 
 export default class User extends Base {
 
@@ -129,7 +131,7 @@ export default class User extends Base {
         let lastWeek = new Date();
         lastWeek.setDate(lastWeek.getDate() - period);
         // Count games in period
-        let queryGames = [
+        let queryRouletteGames = [
             {$limit: parseInt(period)},
             {
                 $group: {
@@ -141,7 +143,7 @@ export default class User extends Base {
         ];
 
         // Users with high level >= 99
-        let queryTopPlayers = [
+        let queryHighLevelPlayers = [
             {
                 $match: {
                     "level": {$gte: 99}
@@ -163,7 +165,7 @@ export default class User extends Base {
         ];
 
         // Top players Roulette
-        let queryRoulete = [
+        let queryTopPlayers = [
             {$lookup: {from: 'users', localField: 'userID', foreignField: '_id', as: 'user'}},
             {
                 $unwind: "$user"
@@ -195,15 +197,51 @@ export default class User extends Base {
             {$sort: {amount: -1}},
             {$limit: 10}
         ];
-        const topRoulette = await RouletteBetsModel.aggregate(queryRoulete);
+
+        // Top players Crash
+        let queryTopCrash = [
+            {$lookup: {from: 'users', localField: 'userID', foreignField: '_id', as: 'user'}},
+            {
+                $unwind: "$user"
+            },
+            {
+                $match: {
+                    "createdAt": {$gte: lastWeek},
+                    "isWinning": true,
+                    "userID": {$exists: true}
+                }
+            },
+            {
+                $group: {
+                    _id: "$userID",
+                    amount: {$sum: "$profit"},
+                    user: {$first: '$user'}
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    amount: 1,
+                    "displayName": "$user.displayName",
+                    "level": "$user.level",
+                    "avatarFull": "$user.avatarFull",
+                    "wins": "$user.rouletteGameProfit.wins"
+                }
+            },
+            {$sort: {amount: -1}},
+            {$limit: 10}
+        ];
+        const topRoulette = await RouletteBetsModel.aggregate(queryTopPlayers);
+        const gamesRoulette = await RouletteGamesModel.aggregate(queryRouletteGames);
         const uniquePlayers = await UserModel.aggregate(queryNewPlayers);
-        const topPlayers = await UserModel.aggregate(queryTopPlayers);
-        const gamesRoulette = await RouletteGamesModel.aggregate(queryGames);
-        const topCrash = [];
+        const topPlayers = await UserModel.aggregate(queryHighLevelPlayers);
+        const topCrash = await CrashBetsModel.aggregate(queryTopCrash);
+        const gamesCrash = await CrashGamesModel.find({}).count();
         ctx.body = {
             uniquePlayers: (uniquePlayers.length) ? uniquePlayers[0].count : 0,
             topPlayers: (topPlayers.length) ? topPlayers[0].count : 0,
             gamesRoulette: (gamesRoulette.length) ? gamesRoulette[0].count : 0,
+            gamesCrash,
             topRoulette,
             topCrash
         };
