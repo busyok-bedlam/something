@@ -21,16 +21,19 @@ export default class Header extends Component {
 
         this.totalInc = {
             roulette: undefined,
+            crash: undefined,
         };
 
         this.total = {
             roulette: 0,
+            crash: 0,
         };
 
         this.state = {
             totalToShow: {
 
                 roulette: 0,
+                crash: 0,
 
 
             },
@@ -101,6 +104,7 @@ export default class Header extends Component {
 
         let totals = {
             roulette: this.props.totalRoulette,
+            crash: this.props.totalCrash,
         };
         for (let i in totals) {
             let total = totals[i];
@@ -191,7 +195,7 @@ export default class Header extends Component {
                             </NavLink>
                             <NavLink to='/crash' className='button-game'>
                                 Crash
-                                <div className="link-chip">0</div>
+                                <div className="link-chip">{this.state.totalToShow['crash']}</div>
                             </NavLink>
                         </nav>
                         <nav className="header__bottom-right">

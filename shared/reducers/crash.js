@@ -1,22 +1,14 @@
-// import {
-//     SELECT_ITEM,
-//     SELECT_ALL_ITEMS,
-//     DESELECT_ITEM,
-//     DESELECT_ALL_ITEMS,
-//     // UPGRADE_SELECTED_ITEMS,
-//     CHANGE_AUTO_CASHOUT,
-//     SELECT_SKIN,
-//     DROP_SKIN,
-// } from '../actions/gameActions';
 import {
     WS_CURRENT_CRASH_GAME,
     WS_CRASH_BETS,
     WS_CRASH_ERROR,
 } from '../../config/wsMessageType';
+import wsMessageType from '../../config/wsMessageType.json';
 import {toast} from 'react-toastify';
 
 let initialState = {
     currentCrashGame: {},
+    total: 0,
     // selectedItems: {},
     // autoCashOut: 1.00,
     // selectedSkin: {},
@@ -41,6 +33,10 @@ export default function crash(state = initialState, action) {
 
         case WS_CRASH_BETS: {
             return {...state, playersBet: action.payload};
+        }
+
+        case wsMessageType.UPDATE_TOTALS: {
+            return {...state, total: action.CrashTotal}
         }
 
         default:

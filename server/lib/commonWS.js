@@ -50,33 +50,6 @@ class CommonSocket {
     }
 
     __broadcast() {
-        // const doublePromise = new Promise((resolve, reject) => {
-        //     redisClient.get('doubleGameTotal', (err, reply) => {
-        //         if (err) {
-        //             reject(err);
-        //         }
-        //         resolve(reply);
-        //     });
-        // });
-        //
-        // const multiPromise = new Promise((resolve, reject) => {
-        //     redisClient.get('multiGameTotal', (err, reply) => {
-        //         if (err) {
-        //             reject(err);
-        //         }
-        //         resolve(reply);
-        //     });
-        // });
-        //
-        // const graphicPromise = new Promise((resolve, reject) => {
-        //     redisClient.get('graphicGameTotal', (err, reply) => {
-        //         if (err) {
-        //             reject(err);
-        //         }
-        //         resolve(reply);
-        //     });
-        // });
-
         const roulettePromise = new Promise((resolve, reject) => {
             redisClient.get('RouletteTotal', (err, reply) => {
                 if (err) {

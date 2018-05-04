@@ -114,11 +114,15 @@ export default function roulette(state = initialState, action) {
             };
         }
 
-        case wsMessageType.WS_TOTALS_ROULETTE: {
-            console.log(+action.payload.rouletteGameTotal);
-            console.log(action.payload.rouletteGameTotal);
+        // case wsMessageType.WS_TOTALS_ROULETTE: {
+        //     console.log(+action.payload.rouletteGameTotal);
+        //     console.log(action.payload.rouletteGameTotal);
+        //
+        //     return {...state, total: action.payload.rouletteGameTotal}
+        // }
 
-            return {...state, total: action.payload.rouletteGameTotal}
+        case wsMessageType.UPDATE_TOTALS: {
+            return {...state, total: action.RouletteTotal}
         }
 
         case wsMessageType.WS_ROULETTE_CLOSE: {
