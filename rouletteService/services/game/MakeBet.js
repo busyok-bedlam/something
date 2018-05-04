@@ -6,6 +6,7 @@ const players = di.get('players');
 const currentGame = di.get('currentGame');
 const {rouletteConfig} = di.get('config');
 const {wsMessageType} = di.get('config');
+const redisClient = di.get('redisClient');
 const UserModel = db.models.users;
 const RouletteBetsModel = db.models.roulette_bets;
 const config = di.get('config');
@@ -131,6 +132,8 @@ export default class MakeBet {
         for (let color in players.total) {
             currentGame.rouletteGameTotal += (+players.total[color]);
         }
+
+        redisClient.set('RouletteTotal', currentGame.rouletteGameTotal);
 
 
         WSServer.sendToAll({

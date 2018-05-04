@@ -29,6 +29,11 @@ di
         value: db,
     })
     .register({
+        key: 'redisClient',
+        type: CONTAINER_TYPE_VALUE,
+        value: require('./lib/redis').default
+    })
+    .register({
         key: 'sessionStore',
         type: 'value',
         value: mongoStore

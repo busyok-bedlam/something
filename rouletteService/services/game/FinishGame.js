@@ -9,6 +9,7 @@ const RouletteBetsModel = db.model('roulette_bets');
 const currentGame = di.get('currentGame');
 const players = di.get('players');
 const lastGames = di.get('lastGames');
+const redisClient = di.get('redisClient');
 
 import wsMessageType from '../../../config/wsMessageType.json';
 
@@ -183,6 +184,7 @@ export default class FinishGame {
 
         if (winColorLength > 10) {lastGames.pop()}
 
+        redisClient.set('RouletteTotal', 0);
 
         WSServer.sendToAll({
             type: ROULETTE_REWARDS,

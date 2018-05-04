@@ -6,14 +6,25 @@ import * as userActions     from '../actions/userActions';
 import HeaderComponent      from '../components/common/Header.jsx';
 import {LoadingScreen}      from '../lib/LoadingScreen';
 import {toast}              from 'react-toastify';
+import CommonSocket from "../lib/commonWS";
 
 class Header extends React.Component {
 
     static propTypes = {
         user: PropTypes.object.isRequired,
         userActions: PropTypes.object.isRequired,
-        roulette: PropTypes.object.isRequired
+        roulette: PropTypes.object.isRequired,
+        crash: PropTypes.object.isRequired
     };
+
+    componentDidMount() {
+        this.socket = CommonSocket.start();
+    }
+
+    componentWillUnmount() {
+        CommonSocket.start()
+            .then(instance => instance.close());
+    }
 
     async cbHandleLogout(){
         try {
@@ -30,10 +41,11 @@ class Header extends React.Component {
     }
 
     render() {
-        const {user, roulette} = this.props;
+        const {user, roulette, crash} = this.props;
         return (
             <HeaderComponent
                 totalRoulette={roulette.total}
+                totalCrash={crash.total}
                 isAuth={user.isAuth}
                 displayName={user.displayName}
                 avatar={user.avatarFull}
