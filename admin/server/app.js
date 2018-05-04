@@ -80,4 +80,5 @@ const PORT = process.env['PORT_ADMIN'] || config['HTTP_PORT_ADMIN'];
 app.listen(PORT, () => {
     console.info('Koa ADMIN server listening on port ' + PORT);
     runService(['users', 'BlockUserCleaner']);
+    runService(['users', 'TopPlayersUpdate']);
 });
