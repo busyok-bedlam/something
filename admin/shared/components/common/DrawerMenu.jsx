@@ -60,6 +60,10 @@ class DrawerMenu extends React.Component {
                     onClick={this.changeMenu.bind(this, '/support')}
                     primaryText="Support"
                     key="Support"/>
+                <MenuItem
+                    onClick={this.changeMenu.bind(this, '/items')}
+                    primaryText="Items"
+                    key="Items"/>
                 {/*<MenuItem*/}
                     {/*onClick={this.changeMenu.bind(this, '/faqs')}*/}
                     {/*primaryText="FAQ"*/}

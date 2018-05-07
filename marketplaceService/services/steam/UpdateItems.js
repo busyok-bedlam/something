@@ -8,6 +8,7 @@ SteamApiIO.setKey('4bd8e38ac4c67172ffcd96e92ceafaf7');
 
 export default class UpdateItems {
     async exec() {
+        console.log('Update items service');
         for (const key in config.MARKETPLACE_GAMES) {
             await this.updateSkinsData(key);
             await this.updateSkinsPrices(key);

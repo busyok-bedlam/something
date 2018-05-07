@@ -4,7 +4,7 @@ import Faqs from './Faqs';
 import Admin from './Admin';
 import Bots from './Bots';
 // import Item from './Item';
-// import Marketplace from './Marketplace';
+import Marketplace from './Marketplace';
 
 export default {
     user: new User(),
@@ -15,5 +15,5 @@ export default {
     // file: new File(),
     admin: new Admin(),
     // item: new Item(),
-    // marketplace: new Marketplace(),
+    marketplace: new Marketplace(),
 };

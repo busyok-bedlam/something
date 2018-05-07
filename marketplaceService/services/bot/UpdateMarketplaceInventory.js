@@ -14,6 +14,7 @@ import botManager from '../../lib/BotManager';
 
 export default class LoadInventory {
     async exec() {
+        console.log('UpdateMarketplaceInventory');
         const bots = botManager.getAccounts();
         const botIDs = [];
 

@@ -59,6 +59,8 @@ router.post('faqs/delete', ::routes.faqs.deleteFaq);
 // router.post('marketplace/orders/disputed/move-to-completed', routes.marketplace.moveToCompleted.bind(routes.marketplace));
 // router.post('marketplace/orders/disputed/move-to-failed', routes.marketplace.moveToFailed.bind(routes.marketplace));
 // router.post('marketplace/orders/admin-select', routes.marketplace.addToAdminOrders.bind(routes.marketplace));
+router.get('marketplace/updateItems', ::routes.marketplace.updateItems);
+router.get('marketplace/updateInventory', ::routes.marketplace.updateInventory);
 
 // router.get('user/view-image', routes.file.handleImages.bind(routes.file));
 // router.delete('user/delete-image', routes.file.deleteImage.bind(routes.file));

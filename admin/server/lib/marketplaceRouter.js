@@ -1,22 +1,20 @@
 import request from 'request-promise';
-import {
-    MARKETPLACE_HTTP_PORT,
-    MARKETPLACE_HTTP_HOST,
-} from '../../../config/index';
+// import {
+//     HTTP_PORT_MARKETPLACE,
+//     MARKETPLACE_HOST,
+// } from '../../../config/index';
+import config from '../../../config/index';
 
 export default class marketplaceRouter {
     constructor() {
-        this.path = MARKETPLACE_HTTP_HOST + ':' + MARKETPLACE_HTTP_PORT + '/api/marketplace/exec';
+        this.path = config.MARKETPLACE_HOST + ':' + config.HTTP_PORT_MARKETPLACE + '/api/exec';
     }
 
-    async exec(type = '', service = '', params = {}) {
+    async exec(service, params = {}) {
 
         const body = {
-            data: {
-                type,
-                service,
-                params
-            }
+            service,
+            params
         };
 
         const options = {
@@ -25,6 +23,8 @@ export default class marketplaceRouter {
             uri: this.path,
             json: true,
         };
+
+        console.log(options);
 
         const result = await request(options);
 

@@ -10,6 +10,7 @@ import SupportPage from './containers/SupportPage.jsx';
 import FaqsPage from './containers/FaqsPage.jsx';
 import UserPage from './components/pages/Users/User.jsx';
 import Banners from './components/pages/Banners.jsx';
+import Items from './components/pages/Items.jsx';
 import {Route} from 'react-router'
 
 
@@ -25,5 +26,6 @@ export default (
         <Route path="/support(/:page)" components={SupportPage}/>
         <Route path="/faqs(/:page)" components={FaqsPage}/>
         <Route path="/banner" components={Banners}/>
+        <Route path="/items" components={Items}/>
     </Route>
 );
