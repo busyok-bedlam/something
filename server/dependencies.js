@@ -7,6 +7,7 @@ import {
 import mainConfig      from '../config';
 import commonConfig    from '../config/commonConfig';
 import botsConfig       from '../config/bots';
+import paymentConfig   from '../config/payment'
 import db              from '../db';
 import passport        from './lib/passport';
 import redis           from 'redis';
@@ -16,6 +17,7 @@ const config = {
     ...mainConfig,
     commonConfig,
     botsConfig,
+    paymentConfig,
 };
 
 

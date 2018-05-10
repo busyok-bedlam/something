@@ -12,6 +12,7 @@ const router = new Router({
 router.get('auth/steam', ::routes.user.authSteam);
 router.get('auth/steam/return', passport.authenticate('steam', {successRedirect: '/', failureRedirect: '/'}));
 router.get('marketplace/marketplace-inventory', ::routes.marketplace.loadMarketplaceInventory);
+router.post('payment/coinpayments', ::routes.payment.coinpaymentsNotify);
 
 router.use(isAuthRoutes.isAuth);
 router.post('user/tradeurl', ::routes.user.setupTradeURL);
@@ -29,5 +30,8 @@ router.get('user', ::routes.user.info);
 router.post('user/logout', ::routes.user.logout);
 
 router.post('payment/create', ::routes.payment.createPayment);
+
+router.get('payment/paypal/return', ::routes.payment.PayPalReturn);
+router.get('payment/paypal/cancel', ::routes.payment.PayPalCancel);
 
 export default router;

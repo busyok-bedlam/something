@@ -1,24 +1,19 @@
-// import Payssion     from './Payssion';
 import Coinpayments from './Coinpayments';
 import PayPal       from './PayPal';
 
 export default class Payments{
     static method = {
-        // PAYSSION_CARD: 'PAYSSION_CARD',
-        // PAYSSION_ANOTHER: 'PAYSSION_ANOTHER',
         COINPAYMENTS:'COINPAYMENTS',
         PAYPAL: 'PAYPAL',
     };
 
     static methodReturn = {
-        // PAYSSION: 'PAYSSION',
         COINPAYMENTS: 'COINPAYMENTS',
         PAYPAL: 'PAYPAL',
     };
 
     static methodCancel = {
         COINPAYMENTS: 'COINPAYMENTS',
-        // PAYSSION: 'PAYSSION',
         PAYPAL: 'PAYPAL',
     };
 
@@ -28,21 +23,17 @@ export default class Payments{
     };
 
     static __instances = {
-        // [Payments.method.PAYSSION_CARD]: Payssion,
-        // [Payments.method.PAYSSION_ANOTHER]: Payssion,
         [Payments.method.COINPAYMENTS]: Coinpayments,
         [Payments.method.PAYPAL]: PayPal,
     };
 
     static __instancesReturn = {
-        // [Payments.methodReturn.PAYSSION]: Payssion,
         [Payments.methodReturn.COINPAYMENTS]: Coinpayments,
         [Payments.methodReturn.PAYPAL]: PayPal,
     };
 
     static __instancesCancel = {
         [Payments.methodCancel.COINPAYMENTS]: Coinpayments,
-        // [Payments.methodCancel.PAYSSION]: Payssion,
         [Payments.methodCancel.PAYPAL]: PayPal,
     };
 

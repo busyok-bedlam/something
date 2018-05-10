@@ -8,6 +8,8 @@ const userSchema = new db.Schema({
     profileUrl: {type: String},
     tradeURL: String,
     crashStatus: {type: String, default: "FREE"},
+    paymentType: {type: String},
+    paymentStatus: {type: String, default: "FREE"},
     isAdmin: {
         type: Boolean,
         default: false

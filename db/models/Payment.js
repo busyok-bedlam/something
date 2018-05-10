@@ -1,11 +1,11 @@
 import db from "mongoose";
 
 const PaymentSchema = new db.Schema({
-    buyer: {type: String, required: true},
+    userID: {type: String, required: true},
     status: {type: String, required: true},
     amount: {type: Number, min: 0, required: true},
     type: {type: String, required: true},
-    key: {type: String, default: ''},
+    paymentID: {type: String, default: ''},
 
     createdAt: {type: Date, default: new Date},
     canceledAt: {type: Date},

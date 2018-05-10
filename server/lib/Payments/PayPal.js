@@ -1,8 +1,9 @@
 import paypal from 'paypal-rest-sdk';
 import di from '../../di';
 
-const paypalConfig = di.get('config').paypal;
+// const paypalConfig = di.get('config').paypal;
 const configMain = di.get('config');
+const paypalConfig = configMain.paymentConfig.paypal;
 const config = {
     "mode": paypalConfig.mode,
     "client_id": paypalConfig.client_id,
@@ -28,18 +29,18 @@ export default class PayPal {
                 "sender_batch_id": sender_batch_id,
                 "email_subject": "You have a payment"
             },
-            "items": [
-                {
-                    "recipient_type": "EMAIL",
-                    "amount": {
-                        "value": 0,
-                        "currency": "USD"
-                    },
-                    "receiver": "playersbid-buyer@gmail.com",
-                    "note": "PlayersBid Payout",
-                    "sender_item_id": "item_3"
-                }
-            ]
+            // "items": [
+            //     {
+            //         "recipient_type": "EMAIL",
+            //         "amount": {
+            //             "value": 0,
+            //             "currency": "USD"
+            //         },
+            //         "receiver": "playersbid-buyer@gmail.com",
+            //         "note": "PlayersBid Payout",
+            //         "sender_item_id": "item_3"
+            //     }
+            // ]
         };
     }
 
