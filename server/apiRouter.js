@@ -28,4 +28,6 @@ router.get('user/trade-history', ::routes.user.loadTradeHistory);
 router.get('user', ::routes.user.info);
 router.post('user/logout', ::routes.user.logout);
 
+router.post('payment/create', ::routes.payment.createPayment);
+
 export default router;

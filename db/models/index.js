@@ -11,4 +11,5 @@ import './RouletteBet';
 import './RouletteGame';
 import './CrashGame';
 import './CrashBet';
-import './Support'
+import './Support';
+import './Payment';

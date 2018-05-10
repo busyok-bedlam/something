@@ -41,6 +41,10 @@ export default class UserAPI extends Base {
     getTopUser(query) {
         return this.apiClient.get('user/get-top-user', query)
     }
+
+    createPayment(data) {
+        return this.apiClient.post('payment/create', data)
+    }
 }
 
 

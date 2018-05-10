@@ -66,6 +66,20 @@
       font-weight: 300;
       transition: .2s ease font-family;
     }
+    input {
+      width: 50%;
+      min-height: 30px;
+      height: 4.5rem;
+      padding: 0 15px;
+      font-size: 18px;
+      font-family: $robotoC;
+      border: 1px solid #575c63;
+      background-color: $navBg;
+      &:hover,
+      &:focus {
+        border-color: $main;
+      }
+    }
     .price {
       color: $contentText;
       font-weight: 300;

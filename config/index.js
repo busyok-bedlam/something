@@ -35,4 +35,9 @@ export default {
         useMongoClient: true,
         keepAlive: 1
     },
+    PAYMENTS : {
+        MIN: 1,
+        MAX: 1000,
+        COINS_FOR_$: 1000
+    },
 }

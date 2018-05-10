@@ -118,3 +118,13 @@ export function loadTradeHistory(type) {
         })
     }
 }
+
+export function createPayment(data) {
+    return async dispatch => {
+        await api.user.createPayment({data});
+        // return dispatch({
+        //     type: UPDATE_USER_DATA,
+        //     payload: {trades}
+        // })
+    }
+}
