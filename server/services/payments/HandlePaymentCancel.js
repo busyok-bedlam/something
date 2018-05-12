@@ -10,6 +10,7 @@ const {PAYMENT_STATUS, PAYMENT_TYPE} = di.get('config').paymentConfig;
 
 export default class HandlePaymentCancel {
     async exec({method, body}) {
+        console.log('Canceled');
         try {
             const {paymentID} = await Payments.handlePaymentCancel(method, body);
             if(!paymentID){
@@ -38,6 +39,7 @@ export default class HandlePaymentCancel {
                     {
                         $set: {
                             paymentStatus: PAYMENT_STATUS.FREE,
+                            paymentURL: '',
                         }
                     });
 

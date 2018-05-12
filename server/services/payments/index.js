@@ -3,6 +3,8 @@
 // import Update from './Update';
 // import CheckInProcessPayment from './CheckInProcessPayment';
 import CreatePayment from './CreatePayment';
+import HandlePaymentCancel from './HandlePaymentCancel';
+import HandlePaymentReturn from './HandlePaymentReturn';
 // import CancelCreatedPayment from './CancelCreatedPayment';
 // import LoadCreatedPayment from './LoadCreatedPayment';
 // import HandlePaymentReturn from './HandlePaymentReturn';
@@ -11,4 +13,6 @@ import CreatePayment from './CreatePayment';
 
 export default {
     CreatePayment,
+    HandlePaymentCancel,
+    HandlePaymentReturn,
 }

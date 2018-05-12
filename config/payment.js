@@ -3,8 +3,8 @@ export default
 {
     "paypal": {
         "mode": "sandbox",
-        "client_id": "AaDQR5ydEpdvfo7aDDAzq-N6yWUujZajHj1DyX5Qz8ebHSUY8O1J5zuyP9OPfQauxxJE_If0RiJTM_ts",
-        "client_secret": "EEt6AdEydjikjQ-k9XZ3KT8BgqGb6WhyUcwmSIfwrP1UdB_VcjMQ4zgyslkxE2XMlRR0uzPeqz5tf_6L"
+        "client_id": "ASdGYyPBYQqFim99Bcraws4L8qJaODxpo9iyGkKMh9_RfdXpUjb9jym4PL8_K-12HCGYKRjHGx1uCqAR",
+        "client_secret": "EDiSVto9-8mH2ANYRUzL0qhVGajRQxyOb0A57yWsfzPaSUjLnc07b7n20r0d2VAiHUaOwHg8iMqHLLry"
     },
     "PAYMENT_TYPE": {
         "BUYING": "BUYING",

@@ -40,4 +40,7 @@ export default {
         MAX: 1000,
         COINS_FOR_$: 1000
     },
+    PAYPAL_URL_RETURN: isDev ? "http://localhost:3000/api/payment/paypal/return" : "http://d.playersbid.com/api/payment/paypal/return",
+    PAYPAL_URL_CANCEL: isDev ? "http://localhost:3000/api/payment/paypal/cancel" : "http://d.playersbid.com/api/payment/paypal/cancel",
+
 }

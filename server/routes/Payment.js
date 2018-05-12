@@ -25,16 +25,16 @@ export default class Payment extends Base {
         try {
             const {body} = ctx.request;
             switch (body.status) {
-                case '0': {
-                    if(isDev){
-                        this.runService(['payments', 'HandlePaymentReturn'], {
-                            method: 'COINPAYMENTS',
-                            body
-                        });
-
-                    }
-                    break;
-                }
+                // case '0': {
+                //     if(isDev){
+                //         this.runService(['payments', 'HandlePaymentCancel'], {
+                //             method: 'COINPAYMENTS',
+                //             body
+                //         });
+                //
+                //     }
+                //     break;
+                // }
                 case '1': {
                     this.runService(['payments', 'HandlePaymentReturn'], {
                         method: 'COINPAYMENTS',
@@ -42,7 +42,9 @@ export default class Payment extends Base {
                     });
                     break;
                 }
-                case '-1': {
+                case '-1':
+                case '-2':
+                case '-3': {
                     this.runService(['payments', 'HandlePaymentCancel'], {
                         method: 'COINPAYMENTS',
                         body

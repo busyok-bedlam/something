@@ -13,3 +13,4 @@ import './CrashGame';
 import './CrashBet';
 import './Support';
 import './Payment';
+import './Rates';

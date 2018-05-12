@@ -9,7 +9,7 @@ const config = {
     "client_id": paypalConfig.client_id,
     "client_secret": paypalConfig.client_secret,
 };
-const {PAYMENT_STATUS, PAYMENT_TYPE} = di.get('config');
+const {PAYMENT_STATUS, PAYMENT_TYPE} = di.get('config').paymentConfig;
 const db = di.get('db');
 const PaymentsModel = db.models.payments;
 paypal.configure(config);
@@ -29,18 +29,18 @@ export default class PayPal {
                 "sender_batch_id": sender_batch_id,
                 "email_subject": "You have a payment"
             },
-            // "items": [
-            //     {
-            //         "recipient_type": "EMAIL",
-            //         "amount": {
-            //             "value": 0,
-            //             "currency": "USD"
-            //         },
-            //         "receiver": "playersbid-buyer@gmail.com",
-            //         "note": "PlayersBid Payout",
-            //         "sender_item_id": "item_3"
-            //     }
-            // ]
+            "items": [
+                {
+                    "recipient_type": "EMAIL",
+                    "amount": {
+                        "value": 0,
+                        "currency": "USD"
+                    },
+                    "receiver": "playersbid-buyer@gmail.com",
+                    "note": "PlayersBid Payout",
+                    "sender_item_id": "item_3"
+                }
+            ]
         };
     }
 
@@ -74,7 +74,9 @@ export default class PayPal {
         if (!customRoutes) {
             this.__payment.redirect_urls = {
                 "return_url": configMain['PAYPAL_URL_RETURN'],
+                // "return_url": 'https://google.com',
                 "cancel_url": configMain['PAYPAL_URL_CANCEL'],
+                // "cancel_url": 'https://google.com',
             };
         } else {
             this.__payment.redirect_urls = {
@@ -185,7 +187,7 @@ export default class PayPal {
             throw new Error('No userID in paypal cancel');
         }
         const payment = await PaymentsModel.findOne({
-            buyer: userID,
+            userID: userID,
             status: PAYMENT_STATUS.IN_PROCESS,
             type: PAYMENT_TYPE.BUYING,
         });
@@ -193,7 +195,7 @@ export default class PayPal {
             throw new Error('Payment not found');
         }
 
-        return {paymentID: payment.key};
+        return {paymentID: payment.paymentID};
 
     }
 }

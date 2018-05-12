@@ -36,7 +36,8 @@ export default class HandlePaymentReturn {
                     },
                     {
                         paymentStatus: PAYMENT_STATUS.FREE,
-                        $inc: { balance: paymentOffer.amount},
+                        paymentURL: '',
+                        $inc: { balance: paymentOffer.amount*1000},
                     });
 
                 return {status: true};

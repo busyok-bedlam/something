@@ -56,14 +56,38 @@ export default class CreatePayment {
             paymentOffer.method = method;
             paymentOffer.status = PAYMENT_STATUS.IN_PROCESS;
             await paymentOffer.save();
+            user.paymentStatus = PAYMENT_STATUS.IN_PROCESS;
+            user.paymentURL = url;
+            await user.save();
 
             return {status: true, redirectURL: url};
         } catch (error) {
             //TODO remove console.error
             console.error(error);
 
+            this.__clearUserPaymentData(userID);
             throw new Error('Error in creating payment. All data will be cleared')
 
         }
+    }
+
+    async __clearUserPaymentData(userID) {
+        await UserModel.findByIdAndUpdate(
+            userID,
+            {
+                $set: {
+                    paymentStatus: PAYMENT_STATUS.FREE,
+                    paymentURL: '',
+                }
+            }
+        );
+
+        await PaymentsModel.findOneAndUpdate(
+            {userID: userID},
+            {
+                status: PAYMENT_STATUS.CANCELED,
+                canceledAt: new Date(),
+            }
+        );
     }
 }
