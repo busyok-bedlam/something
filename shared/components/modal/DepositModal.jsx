@@ -87,36 +87,43 @@ class DepositModal extends Component {
                                     </div>
                                 </div>
                                 <div className='modal-deposit__block'>
-                                    <div className="modal-deposit__content">
-                                    {/*<div className="modal-deposit__content modal-deposit__content-disabled">*/}
-                                        {/*<div className="disabled">*/}
+                                    { user.paymentStatus === 'FREE' ?
+                                        <div className="modal-deposit__content">
+                                            {/*<div className="modal-deposit__content modal-deposit__content-disabled">*/}
+                                            {/*<div className="disabled">*/}
                                             {/*<img src="static/images/logo.png" alt='Blaze'/>*/}
                                             {/*<div>Coming soon</div>*/}
-                                        {/*</div>*/}
-                                        <h3>DEPOSIT WITH PAYMENT SYSTEMS</h3>
-                                        {/*<img src="static/images/logo.png" alt='Blaze'/>*/}
-                                        <h4>Exchange your money for coins. </h4>
-                                        <input type="number"
-                                               value={this.state.paymentAmount}
-                                               name='paymentAmount'
-                                               min={MIN}
-                                               max={MAX}
-                                               onChange={this.handleChange}
-                                        />
-                                        <div className='modal-deposit__buttons'>
-                                            <button className="modal-deposit__button modal-deposit__button-paypal"
-                                                    // method="paypal"
-                                                    onClick={this.createPayment.bind(this, 'PAYPAL')}
+                                            {/*</div>*/}
+                                            <h3>DEPOSIT WITH PAYMENT SYSTEMS</h3>
+                                            {/*<img src="static/images/logo.png" alt='Blaze'/>*/}
+                                            <h4>Exchange your money for coins. </h4>
+                                            <input type="number"
+                                            value={this.state.paymentAmount}
+                                            name='paymentAmount'
+                                            min={MIN}
+                                            max={MAX}
+                                            onChange={this.handleChange}
                                             />
-                                            <button className="modal-deposit__button modal-deposit__button-bitcoin"
-                                                    // method="bitcoin"
-                                                    onClick={this.createPayment.bind(this, 'COINPAYMENTS')}
-                                            />
-                                            {/*<button className="modal-deposit__button modal-deposit__button-g2a"/>*/}
-                                            {/*<button className="modal-deposit__button modal-deposit__button-gift"/>*/}
+                                            <div className='modal-deposit__buttons'>
+                                                <button className="modal-deposit__button modal-deposit__button-paypal"
+                                                // method="paypal"
+                                                onClick={this.createPayment.bind(this, 'PAYPAL')}
+                                                />
+                                                <button className="modal-deposit__button modal-deposit__button-bitcoin"
+                                                // method="bitcoin"
+                                                onClick={this.createPayment.bind(this, 'COINPAYMENTS')}
+                                                />
+                                                {/*<button className="modal-deposit__button modal-deposit__button-g2a"/>*/}
+                                                {/*<button className="modal-deposit__button modal-deposit__button-gift"/>*/}
+                                            </div>
+                                            <NavLink to='/deposit' className='button'>Deposit now</NavLink>
                                         </div>
-                                        <NavLink to='/deposit' className='button'>Deposit now</NavLink>
-                                    </div>
+                                        :
+                                        <div className="modal-deposit__content">
+                                            <h3>DEPOSIT WITH PAYMENT SYSTEMS</h3>
+                                            <a href={user.paymentURL}>You have unfinished payment</a>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </Scrollbar>

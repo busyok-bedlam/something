@@ -18,6 +18,8 @@ let initialState = {
     inventory: [],
     trades: [],
     crashStatus: 'FREE',
+    paymentStatus: 'FREE',
+    paymentURL: '',
 };
 
 

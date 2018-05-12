@@ -63,7 +63,9 @@ userSchema.methods.getPublicFields = function () {
         profileUrl: this.profileUrl,
         rouletteGameProfit: this.rouletteGameProfit,
         crashGameProfit: this.crashGameProfit,
-        crashStatus: this.crashStatus
+        crashStatus: this.crashStatus,
+        paymentURL: this.paymentURL,
+        paymentStatus: this.paymentStatus,
     }
 };
 
