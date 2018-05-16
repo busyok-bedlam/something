@@ -1,4 +1,4 @@
-// import './Admin';
+import './Admin';
 import './User';
 import './Bot';
 import './InvetoryItem';

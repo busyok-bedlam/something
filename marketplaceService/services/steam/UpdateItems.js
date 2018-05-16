@@ -4,7 +4,7 @@ const SkinDataModel = db.models.SkinData;
 const config = di.get('config');
 console.log(config);
 const SteamApiIO = di.get('SteamApiIO');
-SteamApiIO.setKey('4bd8e38ac4c67172ffcd96e92ceafaf7');
+SteamApiIO.setKey('684e5b56805590f0e8f927038e194afd');
 
 export default class UpdateItems {
     async exec() {

@@ -8,7 +8,7 @@ const router = new Router({
 
 
 router.post('admin/signin', ::routes.admin.signIn);
-// router.post('admin/signup', ::routes.admin.signUp);
+router.post('admin/signup', ::routes.admin.signUp);
 
 
 router.use(isAuthRoutes.isAuth);

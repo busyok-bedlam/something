@@ -6,7 +6,7 @@ const config = {
 
 export default class SteamApiIO {
   //TODO make key is settable value
-  static _apiKey = 'e99163599e25b4422680198fd7573a52';
+  static _apiKey = '684e5b56805590f0e8f927038e194afd';
 
   static _request(url = '') {
     if (!SteamApiIO._apiKey) {

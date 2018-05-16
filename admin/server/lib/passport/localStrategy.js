@@ -6,10 +6,11 @@ export default new LocalStrategy({
         usernameField: 'userName',
         passwordField: 'password',
     },
-    (userName, password, done) => {
+    (login, password, done) => {
         AdminModel
-            .findOne({$or: [{userName}, {email: userName}]})
+            .findOne({$or: [{login}, {email: login}]})
             .then(user => {
+                console.log(user);
                 if (!user) {
                     return done(new Error('userName'));
                 } else if (!user.checkPassword(password)) {
