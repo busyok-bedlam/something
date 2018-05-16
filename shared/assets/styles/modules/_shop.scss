@@ -58,6 +58,7 @@
     justify-content: space-between;
     white-space: nowrap;
     margin-left: 2rem;
+    overflow: hidden;
     &:hover,
     &:focus {
       background-color: darken($navBg, 15);
@@ -91,7 +92,8 @@
   }
   .select {
     display: inline-block;
-    width: 150px;
+    width: 100%;
+    max-width: 150px;
     height: 5.7rem;
     line-height: 5.7rem;
     vertical-align: middle;

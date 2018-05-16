@@ -7,6 +7,15 @@
         transform: none;
       }
     }
+    &__footer {
+      padding: 10px 0;
+      display: block;
+      .button {
+        max-width: 100%;
+        height: 4rem;
+        line-height: 4rem;
+      }
+    }
   }
 }
 
@@ -14,15 +23,6 @@
   .cart {
     &__goods {
       height: calc(100vh - 45.3rem) !important;
-    }
-    &__footer {
-      display: block;
-      .button {
-        height: 4rem;
-        line-height: 4rem;
-        max-width: 100%;
-        margin-top: 1rem;
-      }
     }
     .weapon__item {
       margin-right: 0;

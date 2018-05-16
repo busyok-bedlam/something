@@ -152,19 +152,19 @@ export default class Header extends Component {
                     <div className="container">
                         <div className="header__top-left">
                             <span>{time}</span>
-                            <Select
-                                name="form-field-name"
-                                value={selectedOption}
-                                onChange={this.handleChange}
-                                searchable={false}
-                                clearable={false}
-                                className='select'
-                                optionClassName='select__options'
-                                options={[
-                                    {value: 'eng', label: <div className='select__option'><img src='./static/images/united-kingdom.svg' />ENG</div>},
-                                    {value: 'tur', label: <div className='select__option'><img src='./static/images/turkey.svg' />TUR</div>},
-                                ]}
-                            />
+                            {/*<Select*/}
+                                {/*name="form-field-name"*/}
+                                {/*value={selectedOption}*/}
+                                {/*onChange={this.handleChange}*/}
+                                {/*searchable={false}*/}
+                                {/*clearable={false}*/}
+                                {/*className='select'*/}
+                                {/*optionClassName='select__options'*/}
+                                {/*options={[*/}
+                                    {/*{value: 'eng', label: <div className='select__option'><img src='./static/images/united-kingdom.svg' />ENG</div>},*/}
+                                    {/*{value: 'tur', label: <div className='select__option'><img src='./static/images/turkey.svg' />TUR</div>},*/}
+                                {/*]}*/}
+                            {/*/>*/}
                         </div>
                         {
                             (isAuth) ?
