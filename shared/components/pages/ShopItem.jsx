@@ -27,7 +27,8 @@ export default class ShopItem extends Component {
                         {price.toFixed()}
                     </div>
                 </div>
-                <div className="weapon__count">x2</div>
+                {/*todo x2 count*/}
+                {/*<div className="weapon__count"></div>*/}
             </div>
         );
     }

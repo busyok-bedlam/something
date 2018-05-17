@@ -17,7 +17,7 @@ export default class Shop extends Component {
 
     gameOptions(){
         const options = [{value: 0, label: <div className='select__option'>ALL</div>},];
-        for(let key in commonConfig.MARKETPLACE_GAMES){
+        for (let key in commonConfig.MARKETPLACE_GAMES){
             options.push({value: key, label: <div className='select__option'>{commonConfig.MARKETPLACE_GAMES[key].label}</div>});
         }
         return options;
@@ -56,6 +56,7 @@ export default class Shop extends Component {
                     </button>
                     <button onClick={loadMarketplaceInventory} className="button button-refresh">
                         <span><i className='icon-refresh'/>Refresh</span>
+                        {/*todo 15 added ? */}
                         <span className='items'>(15 added)</span>
                     </button>
                 </div>

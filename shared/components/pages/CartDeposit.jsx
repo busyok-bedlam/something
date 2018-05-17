@@ -45,18 +45,18 @@ export default class CartDeposit extends Component {
     render() {
         let {cartShowed} = this.state;
         const {list, total} = this.renderItems();
-        const {createDepositOffer} = this.props;
+        const {createDepositOffer, balance} = this.props;
         return (
             <aside className={(!cartShowed) ? "cart" : " cart cart-open"}>
                 <div className="game__header">
-                    <div className='balance'>Balance: <i className='icon-poker-piece'/><span>1123</span></div>
+                    <div className='balance'>Balance: <i className='icon-poker-piece'/><span>{balance}</span></div>
                 </div>
                 <div className="cart__header" onClick={::this.toggleCart}>
                     <h2>
                         <i className='icon-cart'/>
                         Your cart
                     </h2>
-                    <div className="count">15 skins</div>
+                    <div className="count">{list.length} skins</div>
                 </div>
                 <div className="cart__goods fix-scroll-margin" style={{height: 'calc(100vh - 43.3rem)'}}>
                     <Scrollbar>

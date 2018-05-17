@@ -83,11 +83,11 @@ class DepositModal extends Component {
                                             For every <span>1 cent</span> you will receive <span>1 coin</span>.
                                             You can send up to <span>10 items</span> at a time.
                                         </div>
-                                        <NavLink to='/deposit' className='button'>Deposit now</NavLink>
+                                        <NavLink onClick={::this.handleClose} to='/deposit' className='button'>Deposit now</NavLink>
                                     </div>
                                 </div>
                                 <div className='modal-deposit__block'>
-                                    { user.paymentStatus === 'FREE' ?
+                                    {user.paymentStatus === 'FREE' ?
                                         <div className="modal-deposit__content">
                                             {/*<div className="modal-deposit__content modal-deposit__content-disabled">*/}
                                             {/*<div className="disabled">*/}

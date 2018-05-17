@@ -9,12 +9,12 @@ export default class GameHash extends Component {
     };
 
     render() {
-        let {_id, hash} = this.props;
+        let {gameID, hash} = this.props;
         // console.log(hash);
         return (
             <div className="game__hash">
                 <div className="left">
-                    <b>{`# ${_id}`}</b>
+                    <b>{`# ${gameID}`}</b>
                     <a onClick={() => ModalController.openModal('FairGameModal')}>Fair game</a>
                 </div>
                 <div className="right">

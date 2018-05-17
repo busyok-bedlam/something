@@ -54,7 +54,7 @@ export default class Shop extends Component {
     }
 
     render() {
-        const {params, loadMarketplaceInventory, selectedItems, createWithdrawOffer, deselectItem, handleSort, selectGame} = this.props;
+        const {params, loadMarketplaceInventory, selectedItems, createWithdrawOffer, deselectItem, handleSort, selectGame, balance} = this.props;
         const {search, price, selectedGame} = params;
 
         return (
@@ -76,6 +76,7 @@ export default class Shop extends Component {
                     </div>
                 </div>
                 <Cart
+                    balance={balance}
                     createWithdrawOffer={createWithdrawOffer}
                     selectedItems={selectedItems}
                     deselectItem={deselectItem}
