@@ -54,7 +54,7 @@ export default class Deposit extends Component {
     }
 
     render() {
-        const {params, loadUserInventory, selectedItems, deselectItem, createDepositOffer, handleSort, selectGame} = this.props;
+        const {params, loadUserInventory, selectedItems, deselectItem, createDepositOffer, handleSort, selectGame, balance} = this.props;
         const {search, price, selectedGame} = params;
 
         return (
@@ -76,6 +76,7 @@ export default class Deposit extends Component {
                     </div>
                 </div>
                 <Cart
+                    balance={balance}
                     createDepositOffer={createDepositOffer}
                     selectedItems={selectedItems}
                     deselectItem={deselectItem}

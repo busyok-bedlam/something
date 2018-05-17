@@ -78,11 +78,12 @@ class ShopPage extends Component {
     }
 
     render() {
-        const {marketplace} = this.props;
+        const {marketplace, user} = this.props;
         const {inventory, params, selectedItems} = marketplace;
 
         return (
                 <Shop
+                    balance={user.balance}
                     inventory={inventory}
                     selectedItems={selectedItems}
                     params={params}

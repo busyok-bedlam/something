@@ -83,12 +83,13 @@ class DepositPage extends Component {
     }
 
     render() {
-        const {marketplace} = this.props;
+        const {marketplace, user} = this.props;
         const {inventory, params, selectedItems} = marketplace;
 
         return (
                 <Deposit
                     inventory={inventory}
+                    balance={user.balance}
                     selectedItems={selectedItems}
                     params={params}
                     loadUserInventory={::this.loadUserInventory}
