@@ -58,6 +58,10 @@
   &__wrapper {
     padding: 2rem 0;
     background-color: $contentBg;
+    .fix-scroll-margin > div > div:first-child {
+      display: flex;
+      flex-direction: column-reverse;
+    }
   }
   &__message {
     padding-left:2rem;

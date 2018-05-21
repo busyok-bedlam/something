@@ -163,27 +163,27 @@ export default class TopPlayers extends Component {
                             className={periodForInfo === 30
                                 ? "header__bottom-right-link active"
                                 : "header__bottom-right-link"}>
-                            30 Day
+                            30 Day(s)
                         </button>
                     </div>
                 </div>
                 <div className="top-players__total">
                     <div>
                         <h3>{topPlayers}</h3>
-                        <span>players in top</span></div>
+                        <span>Players in top</span></div>
                     <div>
                         {(selectedGame === "roulette") && <h3>{(topRoulette.length) ? topRoulette[0].amount : 0}</h3>}
                         {(selectedGame === "crash") && <h3>{(topCrash.length) ? topCrash[0].amount : 0}</h3>}
                         {(selectedGame === "all") && <h3>{(allGames.length) ? allGames[0].amount : 0}</h3>}
-                        <span>max profit</span></div>
+                        <span>Max profit</span></div>
                     <div>
                         {(selectedGame === "roulette") && <h3>{gamesRoulette}</h3>}
                         {(selectedGame === "crash") && <h3>{gamesCrash}</h3>}
                         {(selectedGame === "all") && <h3>{gamesRoulette + gamesCrash}</h3>}
-                        <span>games</span></div>
+                        <span>Games</span></div>
                     <div>
                         <h3>{uniquePlayers}</h3>
-                        <span>unique players</span></div>
+                        <span>Unique players</span></div>
                 </div>
                 <div className="top-players__header">
                     <div className='place'>Place</div>

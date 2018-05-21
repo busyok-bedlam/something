@@ -96,14 +96,16 @@ class DepositModal extends Component {
                                             {/*</div>*/}
                                             <h3>DEPOSIT WITH PAYMENT SYSTEMS</h3>
                                             {/*<img src="static/images/logo.png" alt='Blaze'/>*/}
-                                            <h4>Exchange your money for coins. </h4>
-                                            <input type="number"
-                                            value={this.state.paymentAmount}
-                                            name='paymentAmount'
-                                            min={MIN}
-                                            max={MAX}
-                                            onChange={this.handleChange}
-                                            />
+                                            <h4>Exchange currency for coins</h4>
+                                            <div className="modal-deposit__input">
+                                                <input type="number"
+                                                       value={this.state.paymentAmount}
+                                                       name='paymentAmount'
+                                                       min={MIN}
+                                                       max={MAX}
+                                                       onChange={this.handleChange}
+                                                />
+                                            </div>
                                             <div className='modal-deposit__buttons'>
                                                 <button className="modal-deposit__button modal-deposit__button-paypal"
                                                 // method="paypal"

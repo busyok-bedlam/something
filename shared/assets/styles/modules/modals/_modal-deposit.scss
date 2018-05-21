@@ -66,20 +66,6 @@
       font-weight: 300;
       transition: .2s ease font-family;
     }
-    input {
-      width: 50%;
-      min-height: 30px;
-      height: 4.5rem;
-      padding: 0 15px;
-      font-size: 18px;
-      font-family: $robotoC;
-      border: 1px solid #575c63;
-      background-color: $navBg;
-      &:hover,
-      &:focus {
-        border-color: $main;
-      }
-    }
     .price {
       color: $contentText;
       font-weight: 300;
@@ -126,6 +112,33 @@
           max-height: 85px;
         }
       }
+    }
+  }
+  &__input {
+    width: 50%;
+    position: relative;
+    background-color: $navBg;
+    input {
+      width: 100%;
+      min-height: 30px;
+      height: 4.5rem;
+      padding: 0 15px;
+      font-size: 18px;
+      font-family: $robotoC;
+      border: 1px solid #575c63;
+      background-color: transparent;
+      &:hover,
+      &:focus {
+        border-color: $main;
+      }
+    }
+    &:after {
+      content: '$';
+      position: absolute;
+      color: #fff;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
   &__buttons {
