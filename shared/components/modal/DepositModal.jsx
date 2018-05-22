@@ -32,6 +32,8 @@ class DepositModal extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props.user)
+        this.props.userActions.info();
         let close = document.createElement('div');
         close.classList.add("modal__close");
         close.addEventListener('click', ::this.handleClose);
@@ -89,13 +91,7 @@ class DepositModal extends Component {
                                 <div className='modal-deposit__block'>
                                     {user.paymentStatus === 'FREE' ?
                                         <div className="modal-deposit__content">
-                                            {/*<div className="modal-deposit__content modal-deposit__content-disabled">*/}
-                                            {/*<div className="disabled">*/}
-                                            {/*<img src="static/images/logo.png" alt='Blaze'/>*/}
-                                            {/*<div>Coming soon</div>*/}
-                                            {/*</div>*/}
                                             <h3>DEPOSIT WITH PAYMENT SYSTEMS</h3>
-                                            {/*<img src="static/images/logo.png" alt='Blaze'/>*/}
                                             <h4>Exchange currency for coins</h4>
                                             <div className="modal-deposit__input">
                                                 <input type="number"
@@ -118,11 +114,12 @@ class DepositModal extends Component {
                                                 {/*<button className="modal-deposit__button modal-deposit__button-g2a"/>*/}
                                                 {/*<button className="modal-deposit__button modal-deposit__button-gift"/>*/}
                                             </div>
-                                            <NavLink to='/deposit' className='button'>Deposit now</NavLink>
                                         </div>
                                         :
                                         <div className="modal-deposit__content">
                                             <h3>DEPOSIT WITH PAYMENT SYSTEMS</h3>
+                                            {user.paymentMethod === "PAYPAL" && <img src="static/images/paypal.png" alt=""/>}
+                                            {user.paymentMethod === "COINPAYMENTS" && <img src="static/images/bitcoin.png" alt=""/>}
                                             <a href={user.paymentURL}>You have unfinished payment</a>
                                         </div>
                                     }

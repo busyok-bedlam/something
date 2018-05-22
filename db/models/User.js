@@ -11,6 +11,7 @@ const userSchema = new db.Schema({
     paymentType: {type: String},
     paymentURL: {type: String},
     paymentStatus: {type: String, default: "FREE"},
+    paymentMethod: {type: String, default: ''},
     isAdmin: {
         type: Boolean,
         default: false
@@ -66,6 +67,7 @@ userSchema.methods.getPublicFields = function () {
         crashStatus: this.crashStatus,
         paymentURL: this.paymentURL,
         paymentStatus: this.paymentStatus,
+        paymentMethod: this.paymentMethod,
     }
 };
 

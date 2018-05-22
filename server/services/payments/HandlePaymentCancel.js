@@ -40,6 +40,7 @@ export default class HandlePaymentCancel {
                         $set: {
                             paymentStatus: PAYMENT_STATUS.FREE,
                             paymentURL: '',
+                            paymentMethod: ''
                         }
                     });
 

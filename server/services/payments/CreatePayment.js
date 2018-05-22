@@ -10,7 +10,7 @@ const {USER_STATUS} = di.get('config').commonConfig;
 export default class CreatePayment {
     async exec({method, amount, userID}) {
         console.log('CreatePayment');
-
+        console.log(method);
         try {
 
             let paymentOffer = new PaymentsModel({
@@ -30,6 +30,7 @@ export default class CreatePayment {
                 {
                     paymentStatus: PAYMENT_STATUS.CREATED,
                     paymentType: PAYMENT_TYPE.BUYING,
+                    paymentMethod: method
                 }
             );
 
@@ -78,6 +79,7 @@ export default class CreatePayment {
                 $set: {
                     paymentStatus: PAYMENT_STATUS.FREE,
                     paymentURL: '',
+                    paymentMethod: ''
                 }
             }
         );
