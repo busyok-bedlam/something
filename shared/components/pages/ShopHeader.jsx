@@ -57,7 +57,7 @@ export default class Shop extends Component {
                     <button onClick={loadMarketplaceInventory} className="button button-refresh">
                         <span><i className='icon-refresh'/>Refresh</span>
                         {/*todo 15 added ? */}
-                        <span className='items'>(15 added)</span>
+                        {/*<span className='items'>(15 added)</span>*/}
                     </button>
                 </div>
             </div>
