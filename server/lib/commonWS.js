@@ -71,7 +71,7 @@ class CommonSocket {
         Promise
             .all([roulettePromise, crashPromise])
             .then(totals => {
-                // console.log(totals);
+                console.log(totals);
                 const data = JSON.stringify({
                     type: UPDATE_TOTALS,
                     RouletteTotal: totals[0],

@@ -29,6 +29,7 @@ export default class RouletteRouter {
 
     static async onClientConnection(id, sendResponse, isAuth) {
         RouletteRouter.__sendToInit(id, sendResponse);
+        console.log('connect');
     }
 
     static async onClientMessage(id, payload, sendResponse, isAuth = false) {

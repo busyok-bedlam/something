@@ -77,7 +77,7 @@ export default class RouletteLobby extends Component {
         let {ROULETTE_IN_GAME, ROULETTE_REWARDS} = roulette;
         let {userBets} = nextProps.roulette;
 
-        if(nextProps.roulette.status === ROULETTE_IN_GAME || nextProps.roulette.status === ROULETTE_REWARDS) {
+        if (nextProps.roulette.status === ROULETTE_IN_GAME || nextProps.roulette.status === ROULETTE_REWARDS) {
             this.setState({
                 disabledButton: true
             });

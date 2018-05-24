@@ -135,28 +135,27 @@ export default class MakeBet {
 
         redisClient.set('RouletteTotal', currentGame.rouletteGameTotal);
 
-
-        WSServer.sendToAll({
-            type: WS_TOTALS_ROULETTE,
+        WSServer.send(user.id, {
+            type: wsMessageType.WS_NEW_BET,
             payload: {
-                rouletteGameTotal: currentGame.rouletteGameTotal
+                userBet: data
             }
         });
 
-        WSServer.sendToAll({
+        // WSServer.sendToAll({
+        //     type: WS_TOTALS_ROULETTE,
+        //     payload: {
+        //         rouletteGameTotal: currentGame.rouletteGameTotal
+        //     }
+        // });
+
+        await WSServer.sendToAll({
             type: wsMessageType.WS_ROULETTE_PLAYERS,
             payload: {
                 players: players,
                 counter: currentGame.counter
             }
         });
-
-        WSServer.send(user.id ,{
-            type: wsMessageType.WS_NEW_BET,
-            payload: {
-                userBet: data
-            }
-        })
 
     }
 

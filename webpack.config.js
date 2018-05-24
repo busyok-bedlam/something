@@ -90,7 +90,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin(),
+        // new webpack.optimize.UglifyJsPlugin({sourceMap: false}),
         new webpack.DefinePlugin({
             'process.env': {
                 BROWSER: JSON.stringify(true),

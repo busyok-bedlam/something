@@ -39,9 +39,6 @@ let initialState = {
 };
 
 export default function roulette(state = initialState, action) {
-    // console.log(state.userBets);
-    // console.log(state);
-    // console.log(action.type);
 
     switch (action.type) {
 
@@ -96,6 +93,9 @@ export default function roulette(state = initialState, action) {
         }
 
         case wsMessageType.WS_ROULETTE_PLAYERS: {
+
+            console.log('players');
+
             return {
                 ...state,
                 players: action.payload.players,
@@ -104,6 +104,8 @@ export default function roulette(state = initialState, action) {
         }
 
         case wsMessageType.WS_NEW_BET: {
+
+            console.log('newbet');
 
             const {color, value} = action.payload.userBet;
             const currentAmount = state.userBets[color];
