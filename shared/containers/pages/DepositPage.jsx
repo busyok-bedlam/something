@@ -36,7 +36,8 @@ class DepositPage extends Component {
         marketplaceActions.deselectItem(item.assetID)
     }
 
-    async handleSearch(search){
+    async handleSearch(search) {
+        console.log(search);
         try {
             const {marketplaceActions, marketplace} = this.props;
             await marketplaceActions.loadUserInventory({search});

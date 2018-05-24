@@ -6,7 +6,8 @@ const ITEMS_PER_PAGE = 60;
 import botManager from '../../lib/BotManager';
 
 export default class LoadInventory {
-    async exec({params}){
+    async exec({params}) {
+
         if(!params) {params = {}}
         const bots = botManager.getAccounts();
         const onlineBots = [];
@@ -18,17 +19,19 @@ export default class LoadInventory {
 
         const options = {
             status: 'FREE',
-            // name: new RegExp(params.search || '', "i"),
-            // botID: {$in: onlineBots},
+            name: new RegExp(params.search || '', "i"),
+            botID: {$in: onlineBots},
         };
 
         // if (tradable === 'true') {
         //     options.tradableFrom = {$lt: new Date()}
         // }
 
-        if(parseInt(params.selectedGame)){
+        if (parseInt(params.selectedGame)){
             options.gameID = parseInt(params.selectedGame);
         }
+
+        console.log(options);
 
         const inventory = await InventoryItemModel.find(
             options,

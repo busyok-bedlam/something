@@ -32,7 +32,6 @@ class DepositModal extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.user)
         this.props.userActions.info();
         let close = document.createElement('div');
         close.classList.add("modal__close");
@@ -49,7 +48,7 @@ class DepositModal extends Component {
         let value = e.target.value;
         console.log(this.validateBet(value));
         this.setState({
-            paymentAmount: this.validateBet(value) ? 1 : value,
+            paymentAmount: this.validateBet(value) ? '' : value,
         });
     };
 
@@ -97,8 +96,8 @@ class DepositModal extends Component {
                                                 <input type="number"
                                                        value={this.state.paymentAmount}
                                                        name='paymentAmount'
-                                                       min={MIN}
-                                                       max={MAX}
+                                                       // min={MIN}
+                                                       // max={MAX}
                                                        onChange={this.handleChange}
                                                 />
                                             </div>

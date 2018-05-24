@@ -51,6 +51,7 @@ class ShopPage extends Component {
     }
 
     async handleSearch(search){
+        console.log(search);
         try {
             const {marketplaceActions} = this.props;
             await marketplaceActions.loadMarketplaceInventory({search});

@@ -69,7 +69,7 @@ export default class LoadInventory {
             user: userID,
             name: new RegExp(params.search || '', "i"),
         };
-        if(parseInt(params.selectedGame)){
+        if (parseInt(params.selectedGame)){
             options.gameID = parseInt(params.selectedGame);
         }
         const inventory = await UserItemsCacheModel.find(

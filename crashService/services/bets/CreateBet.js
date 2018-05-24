@@ -14,8 +14,6 @@ const wsMessageType = config.wsMessageType;
 export default class CreateBet {
 
     async exec(betData) {
-        console.log('create BBBEEEETTTTT');
-        console.log(betData);
         const {amount, userID} = betData;
         try {
             // const game = await crash_games.findOneAndUpdate(
