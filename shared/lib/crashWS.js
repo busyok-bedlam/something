@@ -21,7 +21,8 @@ export default class Socket {
                 } else {
 
                     Socket.instance = new WebSocket(
-                        `ws://${config.HOST}:${config.HTTP_PORT_CRASH}`,
+                        // `ws://${config.HOST}:${config.HTTP_PORT_CRASH}`,
+                        `${config.WS_CRASH_HOST}`,
                         'echo-protocol',
                     );
                     Socket.instance.onopen = event => {

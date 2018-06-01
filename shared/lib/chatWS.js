@@ -21,7 +21,8 @@ export default class Socket {
                 } else {
 
                     Socket.instance = new WebSocket(
-                        `ws://${config.HOST}:${config.HTTP_PORT_CHAT}`,
+                        // `wss://${config.HOST}:${config.HTTP_PORT_CHAT}`,
+                        `${config.WS_CHAT_HOST}`,
                         'echo-protocol',
                     );
                     Socket.instance.onopen = event => {
