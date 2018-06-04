@@ -20,7 +20,8 @@ export default class Socket {
                 } else {
 
                     Socket.instance = new WebSocket(
-                        `ws://${config.HOST}:${config.HTTP_PORT_WS}`,
+                        `${config.WS_COMMON_HOST}`,
+                        // `wss://${config.HOST}:${config.HTTP_PORT_WS}`,
                         'echo-protocol',
                     );
                     Socket.instance.onopen = event => {

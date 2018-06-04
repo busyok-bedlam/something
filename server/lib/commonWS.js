@@ -4,7 +4,8 @@ import di from '../di';
 const {
     HOST,
     WS_HOST,
-    HTTP_PORT_WS
+    HTTP_PORT_WS,
+    WS_COMMON_HOST
 } = di.get('config');
 
 const UPDATE_TOTALS = 'UPDATE_TOTALS';
@@ -24,11 +25,12 @@ class CommonSocket {
             // };
 
             commonSocket = new WS.Server({
-                    host: HOST, //HOST
-                    port: 9991, //HTTP_PORT_WS
+                    // host: HOST, //HOST
+                    port: HTTP_PORT_WS,
                     clientTracking: true
                 }
             );
+
 
             this.__onConnection();
 
